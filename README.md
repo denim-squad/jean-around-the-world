@@ -54,3 +54,10 @@ Based on time restraints, we are unlikely to implement functionalities which rec
         * Retrieve, sanitize, format for API calls/database storage
 * ##### Link to the place
     * API-dependent
+
+***
+
+#### Prototype Sketches
+
+
+![alt text](https://github.com/denim-squad/jean-around-the-world/blob/master/PrototypeSketches.JPG?raw=true)
