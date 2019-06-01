@@ -18,6 +18,7 @@
   "homepage": "https://github.com/denim-squad/jean-around-the-world#readme",
   "dependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3"
   }
 }
