@@ -1,8 +1,13 @@
-import React from "react";
+import React from 'react';
+import MapContainer from './components/mapContainer';
+import Navbar from '../../shared_components/navbar/navbar';
 
 class HomePage extends React.Component {
     render() {
-        return <div> Home Page </div>
+        return <div>
+            <Navbar isHomePage />
+            {/* <MapContainer /> */}
+        </div>
     }
 }
 
