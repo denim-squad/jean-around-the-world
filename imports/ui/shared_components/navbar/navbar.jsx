@@ -3,6 +3,7 @@ import './navbar.css'
 
 class Navbar extends React.Component {
     render() {
+        // { this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}
         return <div className="navbar-container">
             <div className="navbar-buttons-container">
                 { 
@@ -11,36 +12,36 @@ class Navbar extends React.Component {
                         { this.props.username }
                     </div> :
                     <div>
-                        <em> Please Sign In! </em>
+                        {/* spacing */}
                     </div>
                 }
                 {/* TODO: onClick -> open login component (redux?) */}
                 <div className="navbar-login-button">
-                    Login
+                    LOG IN
                 </div>
                 <div className="navbar-signup-button">
-                    Sign Up
+                    SIGN UP
                 </div>
                 <div className="navbar-about-button">
-                    About Us
+                    ABOUT US
+                    <div>
+                        {/* spacing  */}
+                    </div>
                 </div>
             </div>
-            <div className="navbar-title">
-                {/* <img src="todo"></img> */}
-                <h1 className="title-text">
-                    Jean Around the World
-                </h1>
-                { 
-                    this.props.isHomePage &&
-                    <div className="title-description-container">
-                        <h4 className="title-description-text">
-                            Unravel the Travel
-                        </h4>
-                        <h5 className="title-description-text">
-                            Here is a description of the project and more interesting stuff
-                        </h5>
-                    </div>
-                }
+            <div className="title-container">
+                <div>
+                    {/* spacing */}
+                </div>
+                <div className="logo-container">
+                   {/* TODO: logo */}
+                </div>
+                <p>
+                    JEAN AROUND THE WORLD
+                </p>
+                <div>
+                    {/* spacing */}
+                </div>
             </div>
         </div>
     }
