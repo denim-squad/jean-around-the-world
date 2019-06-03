@@ -8,10 +8,10 @@ import ProfilePage from './profile/profile.page';
 function RoutingPage() {
   return (
     <BrowserRouter>
-    {/* TODO: enable once pages finished
+    {/* TODO: enable once pages finished? */}
       <Route path="/about" component={AboutPage} />
-      <Route path="/preferences" component={PreferencesPage} />
-      <Route path="/profile" component={ProfilePage} /> */}
+      {/* <Route path="/preferences" component={PreferencesPage} /> */}
+      {/* <Route path="/profile" component={ProfilePage} /> */}
       <Route exact path="/" component={HomePage} />
     </BrowserRouter>
   );

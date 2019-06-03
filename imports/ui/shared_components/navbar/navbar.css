@@ -1,6 +1,13 @@
 .navbar-container {
     display: grid;
     grid-template-rows: 30.7% 69.3%;
+    height: 100%;
+}
+
+.homepage-navbar-container {
+    display: grid;
+    grid-template-rows: 20.7% 43.7% 35.6%;
+    height: 100%;
 }
 
 .navbar-buttons-container {
@@ -40,12 +47,14 @@
     height: 100%;
     display: grid;
     grid-template-columns: 7.6% 6.5% 29.6% 56.3%;
-    align-items: center;
-    font-family: 'Cute Font', cursive;
     font-style: normal;
     font-weight: normal;
     line-height: 64px;
     color: #000000;
+}
+
+.title {
+    font-family: 'Cute Font', cursive;
 }
 
 @media only screen and (min-width: 1400px) {
@@ -70,3 +79,39 @@ TODO: logo
 .logo-container {
 
 } */
+
+.title-description-container {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: right;
+    letter-spacing: 0.01em;
+    color: #000000;
+    display: grid;
+    grid-template-columns: 44.8% 42.1% 13.1%;
+    height: 85%;
+    align-items: flex-end;
+}
+
+.description-title {
+    font-weight: bold;
+}
+
+.map-query-container {
+    display: grid;
+    grid-template-columns: 12.5% 5.3% 21.9% 6.9% 26.4% 8.2%;
+    grid-column-gap: 1.5%;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #000000;
+}
+
+.address-field {
+    width: 100%;
+}

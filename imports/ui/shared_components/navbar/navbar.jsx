@@ -1,10 +1,10 @@
 import React from 'react';
 import './navbar.css'
+import MapQuery from './mapQuery';
 
 class Navbar extends React.Component {
     render() {
-        // { this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}
-        return <div className="navbar-container">
+        return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
             <div className="navbar-buttons-container">
                 { 
                     this.props.isSignedIn ?
@@ -36,13 +36,35 @@ class Navbar extends React.Component {
                 <div className="logo-container">
                    {/* TODO: logo */}
                 </div>
-                <p>
+                <p className="title">
                     JEAN AROUND THE WORLD
                 </p>
                 <div>
-                    {/* spacing */}
+                    {
+                        this.props.isHomePage &&
+                        <div className="title-description-container">
+                            <div>
+                                {/* spacing */}
+                            </div>
+                            <div className="title-description-text-container">
+                                <div className="description-title">
+                                    UNRAVEL THE TRAVEL
+                                </div>
+                                <div className="description">
+                                    Here is a description of the project and more interesting stuff.
+                                </div>
+                            </div>
+                            <div>
+                                {/* spacing */}
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
+            {
+                this.props.isHomePage &&
+                <MapQuery />
+            }
         </div>
     }
 }
