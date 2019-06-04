@@ -91,6 +91,9 @@
     .navbar-buttons-container {
         font-size: 20px;
     }
+    .query-label-text {
+        font-size: 20px;
+    }
 }
 
 @media only screen and (max-width: 1399px) {
@@ -99,6 +102,9 @@
     }
     .navbar-buttons-container {
         font-size: 16px;
+    }
+    .query-label-text {
+        font-size: 14px;
     }
 }
 /* 
@@ -133,7 +139,6 @@ TODO: logo
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
     line-height: 24px;
     letter-spacing: 0.01em;
     color: #000000;

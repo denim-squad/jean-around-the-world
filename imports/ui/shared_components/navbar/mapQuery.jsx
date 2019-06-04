@@ -12,11 +12,11 @@ class MapQuery extends React.Component {
         <div>
             {/* spacing */}
         </div>
-        <div>
+        <div className="query-label-text">
             RADIUS
         </div>
         <Slider value={value} />
-        <div> 
+        <div className="query-label-text"> 
             LOCATION
         </div>
         <div>
