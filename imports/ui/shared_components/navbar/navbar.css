@@ -26,21 +26,48 @@
 }
 
 .navbar-profile-button {
+    display: table;
+    height: 100%;
     cursor: pointer;
 }
 
 .navbar-login-button {
+    display: table;
+    height: 100%;
     cursor: pointer;
+}
+
+.navbar-login-text {
+    display: table-cell; 
+    vertical-align: middle;
 }
 
 .navbar-signup-button {
+    display: table;
+    height: 100%;
     cursor: pointer;
 }
 
-.navbar-about-button {
-    cursor: pointer;
+.navbar-signup-text {
+    display: table-cell; 
+    vertical-align: middle;
+}
+
+.navbar-about-container {
+    height: 100%;
     display: grid;
     grid-template-columns: 83.3% 16.7%;
+}
+
+.navbar-about-button {
+    display: table;
+    height: 100%;
+    cursor: pointer;
+}
+
+.navbar-about-text {
+    display: table-cell; 
+    vertical-align: middle;
 }
 
 .title-container {

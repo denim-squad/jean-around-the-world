@@ -17,13 +17,21 @@ class Navbar extends React.Component {
                 }
                 {/* TODO: onClick -> open login component (redux?) */}
                 <div className="navbar-login-button">
-                    LOG IN
+                    <div className="navbar-login-text">
+                        LOG IN
+                    </div>
                 </div>
                 <div className="navbar-signup-button">
-                    SIGN UP
+                    <div className="navbar-signup-text">
+                        SIGN UP
+                    </div>
                 </div>
-                <div className="navbar-about-button">
-                    ABOUT US
+                <div className="navbar-about-container">
+                    <div className="navbar-about-button">
+                        <div className="navbar-about-text">
+                            ABOUT US
+                        </div>
+                    </div>
                     <div>
                         {/* spacing  */}
                     </div>
