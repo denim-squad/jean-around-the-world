@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory({forceRefresh: true});
 
 const StyledSlider = withStyles({
     thumb: {
@@ -77,6 +80,14 @@ class MapQuery extends React.Component {
         this.setState({ value });
     };
 
+    goToPreferencesPage = async () => {
+        // this.loadingSpinner.current.style.display = 'block';
+        await setTimeout(() => {
+            // this.loadingSpinner.current.style.display = 'none';
+            history.push('/preferences');
+        }, 2800);
+    }
+
     render() {
         const { value } = this.state;
         return <div className="map-query-container"> 
@@ -106,7 +117,8 @@ class MapQuery extends React.Component {
             disabled={this.props.isLocationEmpty}
             variant="contained"
             size="small"
-            color="primary">
+            color="primary"
+            onClick={this.goToPreferencesPage}>
             START
         </BootstrapButton>
     </div>
