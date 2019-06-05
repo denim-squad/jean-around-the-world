@@ -7,3 +7,9 @@
     display: grid;
     grid-template-rows: 21.7% 79.3%;
 }
+
+.preferences-background {
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 50% 70%;
+}
