@@ -1,0 +1,24 @@
+.preferences-page-container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-rows: 21.7% 79.3%;
+}
+
+.preferences-background {
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 50% 70%;
+}
+
+.preferences-modal-container {
+    height: 70%;
+    width: 83.7%;
+    margin: 7.4% auto;
+    background-color: #EBEBEB;
+    opacity: 0.80;
+    border-radius: 9px;
+}
