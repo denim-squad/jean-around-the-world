@@ -147,3 +147,15 @@ TODO: logo
 .address-field {
     width: 100%;
 }
+
+.MuiInputBase-input {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.MuiFilledInput-input {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.slider {
+    touch-action: none; //Fixes console log errors
+}
