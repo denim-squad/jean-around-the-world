@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from '../../shared_components/navbar/navbar';
 import './preferences.page.css';
+import CustomizePreferences from './components/customize'
 
 const images = [
     "/grand_canyon.svg",
@@ -28,6 +29,9 @@ class PreferencesPage extends React.Component {
         return <div className="preferences-page-container">
             <Navbar />
             <div className="preferences-background" style={{ backgroundImage: this.state.imgPath }}>
+                <CustomizePreferences />
+                {/* <Blacklist />
+                <Refine /> */}
             </div>
         </div>
     }

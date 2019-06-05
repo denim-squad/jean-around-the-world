@@ -13,3 +13,12 @@
     background-repeat: no-repeat;
     background-position: 50% 70%;
 }
+
+.preferences-modal-container {
+    height: 70%;
+    width: 83.7%;
+    margin: 7.4% auto;
+    background-color: #EBEBEB;
+    opacity: 0.80;
+    border-radius: 9px;
+}
