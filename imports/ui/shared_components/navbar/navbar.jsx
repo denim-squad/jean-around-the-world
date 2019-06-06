@@ -5,38 +5,75 @@ import MapQuery from './mapQuery';
 class Navbar extends React.Component {
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
-            <div className="navbar-buttons-container">
-                { 
-                    this.props.isSignedIn ?
-                    <div className="navbar-profile-button">
-                        { this.props.username }
-                    </div> :
-                    <div>
-                        {/* spacing */}
-                    </div>
-                }
-                {/* TODO: onClick -> open login component (redux?) */}
-                <div className="navbar-login-button">
-                    <div className="navbar-login-text">
-                        LOG IN
-                    </div>
-                </div>
-                <div className="navbar-signup-button">
-                    <div className="navbar-signup-text">
-                        SIGN UP
-                    </div>
-                </div>
-                <div className="navbar-about-container">
-                    <div className="navbar-about-button">
-                        <div className="navbar-about-text">
-                            ABOUT US
+            { 
+                !this.props.isSignedIn ?
+                <div className="navbar-buttons-container">
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            {this.props.username}
                         </div>
                     </div>
                     <div>
                         {/* spacing  */}
                     </div>
+                    <div>
+                        {/* spacing  */}
+                    </div>
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            HOME
+                        </div>
+                    </div>
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            ABOUT US
+                        </div>
+                    </div>
+                    <div className="navbar-last-container">
+                        <div className="navbar-button">
+                            <div className="navbar-text">
+                                LOG OUT
+                            </div>
+                        </div>
+                        <div>
+                            {/* spacing  */}
+                        </div>
+                    </div>
+                </div> :
+                <div className="navbar-buttons-container">
+                    <div>
+                        {/* spacing  */}
+                    </div>
+                    <div>
+                        {/* spacing */}
+                    </div>
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            HOME
+                        </div>
+                    </div>
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            ABOUT US
+                        </div>
+                    </div>
+                    <div className="navbar-button">
+                        <div className="navbar-text">
+                            SIGN UP
+                        </div>
+                    </div>
+                    <div className="navbar-last-container">
+                        <div className="navbar-button">
+                            <div className="navbar-text">
+                                LOG IN
+                            </div>
+                        </div>
+                        <div>
+                            {/* spacing  */}
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
             <div className="title-container">
                 <div>
                     {/* spacing */}
