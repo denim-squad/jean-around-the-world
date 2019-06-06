@@ -1,8 +1,20 @@
 import React from 'react';
 import './navbar.css'
 import MapQuery from './mapQuery';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory({forceRefresh: true});
 
 class Navbar extends React.Component {
+
+    goToHomePage = async () => {
+        // this.loadingSpinner.current.style.display = 'block';
+        await setTimeout(() => {
+            // this.loadingSpinner.current.style.display = 'none';
+            history.push('/');
+        }, 1400);
+    }
+
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
             { 
@@ -19,7 +31,7 @@ class Navbar extends React.Component {
                     <div>
                         {/* spacing  */}
                     </div>
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToHomePage}>
                         <div className="navbar-text">
                             HOME
                         </div>
@@ -47,7 +59,7 @@ class Navbar extends React.Component {
                     <div>
                         {/* spacing */}
                     </div>
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToHomePage}>
                         <div className="navbar-text">
                             HOME
                         </div>
