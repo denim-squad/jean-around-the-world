@@ -29,21 +29,24 @@ class PreferencesPage extends React.Component {
             imgPath: "url(" + images[~~(Math.random() *10)] + ")",
             currentStep: CUSTOMIZE_STEP
         };
+        this.previousStep = this.previousStep.bind(this);
+        this.nextStep = this.nextStep.bind(this);
     }
 
-    previousStep = () => {
-        if (prevState.currentStep > CUSTOMIZE_STEP) {
-            this.setState((prevState) => {
-                {prevState.imgPath, prevState.currentStep - 1}
+    previousStep() {
+        if (this.state.currentStep > CUSTOMIZE_STEP) {
+            this.setState({
+                imgPath: this.state.imgPath, 
+                currentStep: this.state.currentStep - 1
             });
-
         }
     }
 
-    nextStep = () => {
-        if (prevState.currentStep < REFINE_STEP) {
-            this.setState((prevState) => {
-                {prevState.imgPath, prevState.currentStep + 1}
+    nextStep() {
+        if (this.state.currentStep < REFINE_STEP) {
+            this.setState({
+                imgPath:this.state.imgPath, 
+                currentStep: this.state.currentStep + 1
             });
         }
     }
@@ -54,12 +57,16 @@ class PreferencesPage extends React.Component {
             <div className="preferences-background" style={{ backgroundImage: this.state.imgPath }}>
                 <div className="preferences-modal-container">
                     <div className="preferences-row">
-                        <div>
-                            <StepText />
-                            <StepIcon />
-                            <ContinueButtons />
+                        <div className="preferences-col-left">
+                            <StepIcon currentStep={this.state.currentStep} />
+                            <StepText currentStep={this.state.currentStep}/>
+                            <ContinueButtons 
+                                nextStep={this.nextStep} 
+                                previousStep={this.previousStep}
+                                currentStep={this.state.currentStep}
+                                />
                         </div>
-                        <StepBox />
+                        <StepBox currentStep={this.state.currentStep} />
                     </div>
                 </div>
             </div>
