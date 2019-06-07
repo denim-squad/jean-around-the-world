@@ -15,10 +15,25 @@
 }
 
 .preferences-modal-container {
-    height: 70%;
+    position: absolute;
+    height: 55.7%;
     width: 83.7%;
-    margin: 7.4% auto;
+    top: 32.8%;
+    left: 7.4%;
+    right: 7.4%;
+    bottom: 7.4%;
     background-color: #EBEBEB;
     opacity: 0.80;
     border-radius: 9px;
+}
+
+.preferences-row {
+    display: grid;
+    grid-template-columns: 42.8% 50%;
+    grid-column-gap: 7.2%;
+    padding: 3.6% 4.6%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
 }
