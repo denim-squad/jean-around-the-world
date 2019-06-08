@@ -159,3 +159,33 @@
 .add-button {
     height: 76%;
 }
+
+.refine-container {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 2% 6% 26% 10% 17%;
+    grid-row-gap: 7%;
+}
+
+.slider {
+    touch-action: none; //Fixes console log errors
+}
+
+.refine-slider-container {
+    display: grid;
+    grid-template-columns: 5% 80% 5%;
+    grid-column-gap: 2.5%;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.slider-div {
+    top: 50%;
+}

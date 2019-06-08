@@ -8,10 +8,23 @@ import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked'
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
+import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 
 class StepBox extends React.Component {
 
+    constructor() {
+        super();
+        this.state = {
+            value: 50,
+        };
+    }
+
+    changeRadius = (event, value) => {
+        this.setState({ value });
+    };
+
     renderCurrentStep = () => {
+        const { value } = this.state;
         switch (this.props.currentStep) {
             case CUSTOMIZE_STEP:
                 return <div className="customize-container">
@@ -130,7 +143,38 @@ class StepBox extends React.Component {
                     </div>
                 </div>;
             case REFINE_STEP:
-                return <div />;
+                return <div className="refine-container">
+                    <div>
+                        {/* spacing */}
+                    </div>
+                    <div className="stepbox-title">
+                        <strong>
+                            Minimum Rating out of 5:
+                        </strong>
+                    </div>
+                    <div />
+                    <div className="stepbox-title">
+                        <strong>
+                            Budget Range:
+                        </strong>
+                    </div>
+                    <div className="refine-slider-container">
+                        <div>
+                            $
+                        </div>
+                        <div className="slider-div">
+                            <StyledSlider 
+                                value={value} 
+                                onChange={this.changeRadius} 
+                                aria-labelledby="budget slider"
+                                className="slider"
+                            />
+                        </div>
+                        <div>
+                            $$$$
+                        </div>
+                    </div>
+                </div>;
             default:
                 return "FOLLOW @hailinzhang_ ON INSTAGRAM";
         }
