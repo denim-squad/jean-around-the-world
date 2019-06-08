@@ -18,7 +18,7 @@ class Navbar extends React.Component {
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
             { 
-                !this.props.isSignedIn ?
+                this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
                     <div className="navbar-button">
                         <div className="navbar-text">
