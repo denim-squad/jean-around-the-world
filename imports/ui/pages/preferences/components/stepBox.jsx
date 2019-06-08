@@ -1,22 +1,13 @@
 import React from 'react';
 import '../preferences.page.css';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../preferences.page';
-import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import { withStyles } from '@material-ui/core/styles';
-
-const CssCheckbox =  withStyles({
-    root: {
-        color: '#009688 !important',
-        '&:hover': {
-          backgroundColor: '#8BCFC9 !important',
-        },
-    },
-})(Checkbox);
-
+import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
+import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
+import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 
 class StepBox extends React.Component {
 
@@ -110,7 +101,34 @@ class StepBox extends React.Component {
                     </FormGroup>
                 </div>;
             case BLACKLIST_STEP:
-                return <div />;
+                return <div className="blacklist-container">
+                    <div className="stepbox-title">
+                        <strong>
+                            Enter a location to blacklist
+                        </strong>
+                    </div>
+                    <div className="blacklist-add-container">
+                        <CssTextField
+                            placeholder="John Sastrillo's House"
+                            margin="none"/>
+                        <BootstrapButton
+                            className="add-button"
+                            disabled={this.props.isLocationEmpty}
+                            variant="contained"
+                            size="small"
+                            color="primary">
+                                ADD
+                        </BootstrapButton>
+                    </div>
+                    <div>
+                        {/* spacing */}
+                    </div>
+                    <div className="stepbox-title">
+                        <strong>
+                            Blacklist:
+                        </strong>
+                    </div>
+                </div>;
             case REFINE_STEP:
                 return <div />;
             default:

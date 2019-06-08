@@ -125,6 +125,7 @@
     color: #000000;
 }
 
+/* Checkbox label styling */
 .MuiFormControlLabel-label {
     font-family: 'Rubik', sans-serif !important;
     font-style: normal !important;
@@ -133,4 +134,28 @@
     line-height: 24px !important;
     letter-spacing: 0 !important;
     color: #000000;
+}
+
+.customize-buttons {
+    cursor: pointer;
+}
+
+.blacklist-container {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 6% 17% 1% 6% 40%;
+    grid-row-gap: 6%;
+}
+
+.blacklist-add-container {
+    display: grid;
+    grid-template-columns: 75% 18%;
+    grid-column-gap: 7%;
+}
+
+.add-button {
+    height: 76%;
 }
