@@ -12,13 +12,180 @@
     background-size: auto;
     background-repeat: no-repeat;
     background-position: 50% 70%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .preferences-modal-container {
-    height: 70%;
+    position: absolute;
+    height: 55.7%;
     width: 83.7%;
-    margin: 7.4% auto;
-    background-color: #EBEBEB;
-    opacity: 0.80;
+    top: 32.8%;
+    left: 7.4%;
+    right: 7.4%;
+    bottom: 7.4%;
+    background-color: rgba(235, 235, 235, 0.8);
     border-radius: 9px;
+}
+
+.preferences-row {
+    display: grid;
+    grid-template-columns: 42.8% 50%;
+    grid-column-gap: 7.2%;
+    padding: 3.6% 4.6% 2.8% 4.6%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+}
+
+.preferences-col-left {
+    display: grid;
+    grid-template-rows: 18.6% 43.8% 17.2%;
+    grid-row-gap: 10.2%;
+}
+
+.step-text-container {
+    display: grid;
+    grid-template-rows: 28.8% 55.9%;
+    grid-row-gap: 15.3%;
+}
+
+.step-text-title {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 33px;
+    color: #000000;
+}
+
+.step-text-description {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+}
+
+.nav-buttons-container {
+    display: grid;
+    grid-template-columns: 32.3% 32.2%;
+    grid-column-gap: 35.4%;
+}
+
+.back-button {
+    background: url("/navButtons-back.svg") no-repeat;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background: url("/navButtons-back-hover.svg") no-repeat;
+}
+
+.next-button {
+    background: url("/navButtons-next.svg") no-repeat;
+    cursor: pointer;
+}
+
+.next-button:hover {
+    background: url("/navButtons-next-hover.svg") no-repeat;
+}
+
+.stepbox-container {
+    background-color: #FFFFFF;
+    border-radius: 9px;
+}
+
+.stepbox-padding {
+    padding: 7%;
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+}
+
+.customize-container {
+    display: grid;
+    grid-template-rows: 11% 88%;
+    grid-row-gap: 3%;
+    height: 100%;
+}
+
+.stepbox-title {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+/* Checkbox label styling */
+.MuiFormControlLabel-label {
+    font-family: 'Rubik', sans-serif !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    letter-spacing: 0 !important;
+    color: #000000;
+}
+
+.customize-buttons {
+    cursor: pointer;
+}
+
+.blacklist-container {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 6% 17% 1% 6% 40%;
+    grid-row-gap: 6%;
+}
+
+.blacklist-add-container {
+    display: grid;
+    grid-template-columns: 75% 18%;
+    grid-column-gap: 7%;
+}
+
+.add-button {
+    height: 76%;
+}
+
+.refine-container {
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 2% 6% 26% 10% 17%;
+    grid-row-gap: 7%;
+}
+
+.slider {
+    touch-action: none; //Fixes console log errors
+}
+
+.refine-slider-container {
+    display: grid;
+    grid-template-columns: 5% 80% 5%;
+    grid-column-gap: 2.5%;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+}
+
+.slider-div {
+    top: 50%;
 }

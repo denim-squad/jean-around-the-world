@@ -18,6 +18,7 @@
   "homepage": "https://github.com/denim-squad/jean-around-the-world#readme",
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
+    "@material-ui/icons": "^4.0.1",
     "@material-ui/lab": "^4.0.0-alpha.14",
     "google-maps-react": "^2.0.2",
     "react": "^16.8.6",

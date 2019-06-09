@@ -12,7 +12,7 @@
 
 .navbar-buttons-container {
     display: grid;
-    grid-template-columns: 68% 10% 10% 12%;
+    grid-template-columns: 12% 46% 10% 10% 10% 12%;
     color: #FFFFFF;
     background-color: #47C8FF;
     width: 100%;
@@ -25,49 +25,21 @@
     letter-spacing: 0.01em;
 }
 
-.navbar-profile-button {
+.navbar-button {
     display: table;
     height: 100%;
     cursor: pointer;
 }
 
-.navbar-login-button {
-    display: table;
-    height: 100%;
-    cursor: pointer;
-}
-
-.navbar-login-text {
+.navbar-text {
     display: table-cell; 
     vertical-align: middle;
 }
 
-.navbar-signup-button {
-    display: table;
-    height: 100%;
-    cursor: pointer;
-}
-
-.navbar-signup-text {
-    display: table-cell; 
-    vertical-align: middle;
-}
-
-.navbar-about-container {
+.navbar-last-container {
     height: 100%;
     display: grid;
     grid-template-columns: 83.3% 16.7%;
-}
-
-.navbar-about-button {
-    display: table;
-    height: 100%;
-    cursor: pointer;
-}
-
-.navbar-about-text {
-    display: table-cell; 
-    vertical-align: middle;
 }
 
 .title-container {
