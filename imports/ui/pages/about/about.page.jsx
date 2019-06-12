@@ -1,12 +1,13 @@
 import React from 'react';
 import Navbar from '../../shared_components/navbar/navbar';
-import './about.page.css';
+import AboutPageTextContainer from './aboutPageTextContainer';
+import './aboutPage'
 
 class AboutPage extends React.Component {
     render() {
         return <div className="about-page-container">
             <Navbar />
-            <div />
+            <AboutPageTextContainer />
         </div>
     }
 }
