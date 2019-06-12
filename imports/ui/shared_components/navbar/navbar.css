@@ -129,5 +129,5 @@ TODO: logo
 }
 
 .slider {
-    touch-action: none; //Fixes console log errors
+    touch-action: none; /* Fixes console log errors */
 }

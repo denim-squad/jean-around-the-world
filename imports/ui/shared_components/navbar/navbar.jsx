@@ -15,6 +15,14 @@ class Navbar extends React.Component {
         }, 1400);
     }
 
+    goToAboutPage = async () => {
+        // this.loadingSpinner.current.style.display = 'block';
+        await setTimeout(() => {
+            // this.loadingSpinner.current.style.display = 'none';
+            history.push('/about');
+        }, 1400);
+    }
+
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
             { 
@@ -36,7 +44,7 @@ class Navbar extends React.Component {
                             HOME
                         </div>
                     </div>
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToAboutPage}>
                         <div className="navbar-text">
                             ABOUT US
                         </div>
@@ -64,7 +72,7 @@ class Navbar extends React.Component {
                             HOME
                         </div>
                     </div>
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToAboutPage}>
                         <div className="navbar-text">
                             ABOUT US
                         </div>
