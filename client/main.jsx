@@ -11,7 +11,7 @@ import './main.css';
 Meteor.startup(() => {
   ReactDOM.render(
     <Provider store={createStore(reducers)}>
-    <RoutingPage />
+      <RoutingPage />
     </Provider>,
     document.getElementById("react-target")
   );

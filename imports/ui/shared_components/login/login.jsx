@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { hideModal } from '../../.././redux/actions';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
@@ -27,27 +27,30 @@ const styles = theme => ({
   },
 });
 
-const DialogTitle = withStyles(styles)(props => {
+const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
       <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="Close" className={classes.closeButton} onClick={onClose}>
+      {onClose && (
+        <IconButton
+          aria-label="Close"
+          className={classes.closeButton}
+          onClick={onClose}>
           <CloseIcon />
         </IconButton>
-      ) : null}
+      )}
     </MuiDialogTitle>
   );
 });
 
-const DialogContent = withStyles(theme => ({
+const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles(theme => ({
+const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(1),
@@ -64,8 +67,15 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <Dialog open={this.props.showModal} onClose={this.handleClose} aria-labelledby="customized-dialog-title">
-          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>Log in to your Account</DialogTitle>
+        <Dialog
+          open={this.props.isModalShown}
+          onClose={this.handleClose}
+          aria-labelledby="customized-dialog-title">
+          <DialogTitle
+            id="customized-dialog-title"
+            onClose={this.handleClose}>
+              Log in to your Account
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               Enter your details below.
@@ -86,7 +96,11 @@ class Login extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <BootstrapButton onClick={this.handleClose} variant="contained" size="small" color="primary">
+            <BootstrapButton
+              onClick={this.handleClose}
+              variant="contained"
+              size="small"
+              color="primary">
               Log In
             </BootstrapButton>
           </DialogActions>
@@ -98,7 +112,7 @@ class Login extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    showModal: state.login.showModal
+    isModalShown: state.login.isModalShown
   };
 }
 

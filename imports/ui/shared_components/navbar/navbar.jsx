@@ -19,6 +19,7 @@ class Navbar extends React.Component {
     }
 
     openModal = (event) => {
+      // prevent automatic page refresh
       event.preventDefault();
       this.props.showModal();
     }
