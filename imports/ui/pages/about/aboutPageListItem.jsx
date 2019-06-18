@@ -14,10 +14,9 @@ const pictures = { //TODO real pictures, this was for fun
 
 class AboutPageListItem extends React.Component {
     render() {
-        console.log(this.props);
         const name = this.props.info.name;
         return (
-            <ListItem>
+            <ListItem className="about-page-list-item">
                 <ListItemAvatar>
                     { pictures[name] }
                 </ListItemAvatar>
@@ -30,7 +29,7 @@ class AboutPageListItem extends React.Component {
                                 variant="body2"
                                 color="textPrimary"
                             >
-                                TODO
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae vehicula metus. Vestibulum ornare ante at urna egestas bibendum. Maecenas rhoncus eros non nisi suscipit dapibus. Suspendisse tincidunt ex metus, vel mollis eros dapibus sed. Cras ipsum neque, mattis sed nibh eu, lobortis rhoncus lorem. Donec non nunc nec tellus finibus ornare. Vivamus laoreet, nulla vel ullamcorper pretium, est nisl tincidunt quam, pellentesque sollicitudin purus elit dictum arcu. Quisque velit est, lobortis ut quam vitae, ultricies mollis eros. Ut mattis id nisl vel bibendum. Donec elementum, nulla a malesuada placerat, felis enim interdum nulla, sit amet tincidunt justo leo quis diam. Proin ut dolor ut quam tempor blandit id at sapien.
                             </Typography>
                         </React.Fragment>
                     }
