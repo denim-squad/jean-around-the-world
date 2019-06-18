@@ -1,4 +1,4 @@
-export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 1;
+export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 2;
 
 
 export function showModal() {
