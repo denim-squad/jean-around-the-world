@@ -57,7 +57,7 @@ export class MapContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return { 
-        radius: state.mapActions.radius,
+        radius: state.radius.radius,
   };
 }
  

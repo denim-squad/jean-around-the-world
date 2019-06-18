@@ -4,20 +4,15 @@ import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { CssTextField } from '../MUI/textfield/cssTextfield';
 import { StyledSlider } from '../MUI/slider/styledSlider';
+import { connect } from 'react-redux';
+import { setRadius } from '../../../redux/actions/index';
 
 const history = createBrowserHistory({forceRefresh: true});
 
 class MapQuery extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            value: 50,
-        };
-    }
-
     changeRadius = (event, value) => {
-        this.setState({ value });
+        this.props.setRadius(value);
     };
 
     goToPreferencesPage = async () => {
@@ -29,7 +24,6 @@ class MapQuery extends React.Component {
     }
 
     render() {
-        const { value } = this.state;
         return <div className="map-query-container">
         <div>
             {/* spacing */}
@@ -38,7 +32,9 @@ class MapQuery extends React.Component {
             RADIUS
         </div>
         <StyledSlider 
-            value={value}
+            value={this.props.radius}
+            min={1000}
+            max={80000}
             onChange={this.changeRadius}
             aria-labelledby="radius slider"
             className="slider"
@@ -65,4 +61,10 @@ class MapQuery extends React.Component {
     }
 }
 
-export default MapQuery;
+const mapStateToProps = (state) => {
+	return { 
+        radius: state.radius.radius,
+  };
+}
+
+export default connect(mapStateToProps, { setRadius })(MapQuery);

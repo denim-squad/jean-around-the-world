@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import { SHOW_MODAL, HIDE_MODAL } from '../actions/index';
+import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS } from '../actions/index';
 
 const initialState = {
-  isModalShown: false
-  // todo
+  isModalShown: false,
+  radius: 1000,
 }
 
 function loginReducer(state = initialState, action) {
@@ -17,6 +17,16 @@ function loginReducer(state = initialState, action) {
   }
 }
 
+function radiusReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_RADIUS:
+      return { ...state, radius: action.radius };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  login: loginReducer
+  login: loginReducer,
+  radius: radiusReducer,
 });

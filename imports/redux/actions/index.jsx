@@ -1,4 +1,4 @@
-export const SHOW_MODAL = 0, HIDE_MODAL = 1;
+export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 1;
 
 
 export function showModal() {
@@ -10,5 +10,12 @@ export function showModal() {
 export function hideModal() {
   return {
     type: HIDE_MODAL
+  };
+}
+
+export function setRadius(radius) {
+  return {
+    type: SET_RADIUS,
+    radius
   };
 }
