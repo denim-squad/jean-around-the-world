@@ -1,5 +1,6 @@
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
+import { connect } from 'react-redux';
 
 const mapStyles = {
   width: '100%',
@@ -26,6 +27,10 @@ export class MapContainer extends React.Component {
     }
 
     render() {
+      const markerCoords = {
+        lat: this.state.activeMarker.lat,
+        lng: this.state.activeMarker.lng
+      };
       return <Map
         google = {this.props.google}
         zoom = {16}
@@ -34,16 +39,29 @@ export class MapContainer extends React.Component {
           lat: 49.263749,
           lng: -123.247480
         }}
-        onClick={this.setMarkerLocation}
-    >
-      <Marker
-        position={{ lat: this.state.activeMarker.lat, lng: this.state.activeMarker.lng }}
-      />
+        onClick={this.setMarkerLocation}>
+          <Marker
+            position={{ lat: markerCoords.lat, lng: markerCoords.lng }}
+          /> 
+          <Circle
+            radius={this.props.radius}
+            center={markerCoords}
+            strokeColor='transparent'
+            onClick={this.setMarkerLocation}
+            fillColor='#FFB26B'
+            fillOpacity={0.4}
+          />
     </Map>
     }
 }
+
+const mapStateToProps = (state) => {
+	return { 
+        radius: state.mapActions.radius,
+  };
+}
  
-export default GoogleApiWrapper({
+export default connect(mapStateToProps)(GoogleApiWrapper({
   apiKey: ('') // paste API key here each time, DO NOT COMMIT.
-})(MapContainer)
+})(MapContainer))
 
