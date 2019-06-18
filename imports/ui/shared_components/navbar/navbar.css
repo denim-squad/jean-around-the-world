@@ -32,7 +32,7 @@
 }
 
 .navbar-text {
-    display: table-cell; 
+    display: table-cell;
     vertical-align: middle;
 }
 
@@ -93,7 +93,7 @@
         font-size: 14px;
     }
 }
-/* 
+/*
 TODO: logo
 .logo-container {
 
@@ -112,7 +112,7 @@ TODO: logo
 }
 
 .description-title {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .map-query-container {
@@ -132,14 +132,19 @@ TODO: logo
     width: 100%;
 }
 
-.MuiInputBase-input {
-    font-family: 'Rubik', sans-serif !important;
-}
-
-.MuiFilledInput-input {
+.MuiInputBase-input, .MuiFilledInput-input {
     font-family: 'Rubik', sans-serif !important;
 }
 
 .slider {
     touch-action: none; //Fixes console log errors
+}
+
+.MuiTypography-h6 {
+    font-family: 'Rubik', sans-serif !important;
+    font-weight: 500;
+}
+
+.MuiTypography-body1, .MuiInputLabel-formControl {
+    font-family: 'Rubik', sans-serif !important;
 }
