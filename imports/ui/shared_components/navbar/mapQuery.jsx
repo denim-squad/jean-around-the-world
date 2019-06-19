@@ -63,7 +63,7 @@ class MapQuery extends React.Component {
 
 const mapStateToProps = (state) => {
 	return { 
-        radius: state.radius.radius,
+        radius: state.map.radius,
   };
 }
 

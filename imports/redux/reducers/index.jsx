@@ -4,6 +4,10 @@ import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS } from '../actions/index';
 const initialState = {
   isModalShown: false,
   radius: 1000,
+  initialCenter: {
+    lat: 49.263749,
+    lng: -123.247480
+  },
 }
 
 function loginReducer(state = initialState, action) {
@@ -17,7 +21,7 @@ function loginReducer(state = initialState, action) {
   }
 }
 
-function radiusReducer(state = initialState, action) {
+function mapReducer(state = initialState, action) {
   switch (action.type) {
     case SET_RADIUS:
       return { ...state, radius: action.radius };
@@ -28,5 +32,5 @@ function radiusReducer(state = initialState, action) {
 
 export default combineReducers({
   login: loginReducer,
-  radius: radiusReducer,
+  map: mapReducer,
 });
