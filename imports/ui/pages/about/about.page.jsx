@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../shared_components/navbar/navbar';
 import AboutPageTextContainer from './aboutPageTextContainer';
-import './aboutPage'
+import './about.page.css'
 
 class AboutPage extends React.Component {
   render() {
