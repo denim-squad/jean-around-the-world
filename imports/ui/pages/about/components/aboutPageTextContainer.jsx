@@ -1,5 +1,5 @@
 import React from 'react';
-import './about.page.css';
+import '../about.page.css';
 import { Container, List } from '@material-ui/core';
 import AboutPageListItem from './aboutPageListItem';
 
