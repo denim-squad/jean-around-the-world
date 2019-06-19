@@ -5,11 +5,30 @@ import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { CssTextField } from '../MUI/textfield/cssTextfield';
 import { StyledSlider } from '../MUI/slider/styledSlider';
 import { connect } from 'react-redux';
-import { setRadius } from '../../../redux/actions/index';
+import { setRadius, setMapCenter } from '../../../redux/actions/index';
+import Geocode from 'react-geocode';
 
 const history = createBrowserHistory({forceRefresh: true});
 
 class MapQuery extends React.Component {
+
+    constructor() {
+        super();
+        Geocode.setApiKey(''); // SET API KEY HERE. DO NOT COMMIT
+    }
+
+    handleSearch = (event) => {
+        const query = event.target.value;
+        Geocode.fromAddress(query).then(
+          response => {
+            const { lat, lng } = response.results[0].geometry.location;
+            this.props.setMapCenter({lat, lng});
+          },
+          error => {
+            console.error(error);
+          }
+        );
+    }
 
     changeRadius = (event, value) => {
         this.props.setRadius(value);
@@ -47,6 +66,11 @@ class MapQuery extends React.Component {
                 className="address-field"
                 placeholder="1111 East Mall, V6T 1T7"
                 margin="none"
+                onKeyPress={(event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        this.handleSearch(event);
+                }}}
             />
         </div>
         <BootstrapButton
@@ -67,4 +91,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { setRadius })(MapQuery);
+export default connect(mapStateToProps, { setRadius, setMapCenter })(MapQuery);

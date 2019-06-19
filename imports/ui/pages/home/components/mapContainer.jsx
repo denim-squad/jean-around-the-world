@@ -35,7 +35,11 @@ export class MapContainer extends React.Component {
         google = {this.props.google}
         zoom = {16}
         style = {mapStyles}
-        initialCenter = {this.props.initialCenter}
+        initialCenter = {{
+          lat: 49.263749,
+          lng: -123.247480
+        }}
+        center = {this.props.initialCenter}
         onClick={this.setMarkerLocation}>
           <Marker
             position={{ lat: markerCoords.lat, lng: markerCoords.lng }}
@@ -53,9 +57,10 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.map.initialCenter);
 	return { 
-        radius: state.map.radius,
-        initialCenter: state.map.initialCenter
+      radius: state.map.radius,
+      initialCenter: state.map.initialCenter
   };
 }
  

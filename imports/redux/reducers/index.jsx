@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS } from '../actions/index';
+import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER } from '../actions/index';
 
 const initialState = {
   isModalShown: false,
@@ -25,6 +25,8 @@ function mapReducer(state = initialState, action) {
   switch (action.type) {
     case SET_RADIUS:
       return { ...state, radius: action.radius };
+    case SET_CENTER:
+      return { ...state, initialCenter: action.coords };
     default:
       return state;
   }
