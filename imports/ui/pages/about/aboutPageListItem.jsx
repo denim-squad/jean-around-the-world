@@ -8,7 +8,7 @@ import {
 
 
 class AboutPageListItem extends React.Component {
-
+    
     render() {
         const { name, linkedIn, github, picturePath } = this.props.info;
 
@@ -53,7 +53,7 @@ class AboutPageListItem extends React.Component {
                     </IconButton>
                 </ListItemSecondaryAction>
             </ListItem>
-        );
+        )
     }
 }
 

@@ -5,12 +5,10 @@ import './aboutPage'
 
 class AboutPage extends React.Component {
     render() {
-        return (
-            <div>
-                <Navbar />
-                <AboutPageTextContainer />
-            </div>
-        );
+        return <div className="about-page-container">
+            <Navbar />
+            <AboutPageTextContainer />
+        </div>
     }
 }
 
