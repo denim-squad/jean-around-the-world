@@ -79,20 +79,24 @@
 
 .back-button {
     background: url("/navButtons-back.svg") no-repeat;
+    background-size: contain;
     cursor: pointer;
 }
 
 .back-button:hover {
     background: url("/navButtons-back-hover.svg") no-repeat;
+    background-size: contain;
 }
 
 .next-button {
     background: url("/navButtons-next.svg") no-repeat;
+    background-size: contain;
     cursor: pointer;
 }
 
 .next-button:hover {
     background: url("/navButtons-next-hover.svg") no-repeat;
+    background-size: contain;
 }
 
 .stepbox-container {
@@ -187,5 +191,9 @@
 }
 
 .slider-div {
-    top: 50%;
+    padding-top: 5%;
+}
+
+img {
+    max-width: 100%;
 }

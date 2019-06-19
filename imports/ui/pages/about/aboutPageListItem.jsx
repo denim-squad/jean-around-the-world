@@ -1,5 +1,5 @@
 import React from 'react';
-import './aboutPage';
+import './about.page.css';
 import {
   ListItem, ListItemText, ListItemSecondaryAction, IconButton,
   ListItemAvatar, Avatar, SvgIcon, Typography, withStyles
