@@ -30,7 +30,7 @@ class MapQuery extends React.Component {
 
     render() {
         const { value } = this.state;
-        return <div className="map-query-container">
+        return <div className="map-query-container"> 
         <div>
             {/* spacing */}
         </div>
@@ -38,12 +38,12 @@ class MapQuery extends React.Component {
             RADIUS
         </div>
         <StyledSlider 
-            value={value}
-            onChange={this.changeRadius}
+            value={value} 
+            onChange={this.changeRadius} 
             aria-labelledby="radius slider"
             className="slider"
         />
-        <div className="query-label-text">
+        <div className="query-label-text"> 
             LOCATION
         </div>
         <div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './about.page.css';
+import './aboutPage';
 import { Container, List } from '@material-ui/core';
 import AboutPageListItem from './aboutPageListItem';
 
@@ -28,28 +28,28 @@ const hailinInfo = {
   name: "HAILIN",
   github: "https://github.com/hailin-zhang",
   linkedIn: "https://www.linkedin.com/in/hai-lin-zhang/",
-  picturePath: "/hailin-profile.svg"
+  picturePath: "/hailin-profile.jpg"
 };
 
 const jessicaInfo = {
   name: "JESSICA",
   github: "https://github.com/jvssicawu",
   linkedIn: "https://www.linkedin.com/in/jvssicawu/",
-  picturePath: "/jessica-profile.svg"
+  picturePath: "/jessica-profile.jpg"
 };
 
 const johnInfo = {
   name: "JOHN",
   github: "https://github.com/js1998",
   linkedIn: "https://www.linkedin.com/in/john-sastrillo-3996a3155/",
-  picturePath: "/john-profile.svg"
+  picturePath: "/john-profile.jpg"
 };
 
 const wesleyInfo = {
   name: "WESLEY",
   github: "https://github.com/pwesferguson",
   linkedIn: "https://www.linkedin.com/in/wesley-ferguson-6a682214a/",
-  picturePath: "/wesley-profile.svg"
+  picturePath: "/wesley-profile.jpg"
 };
 
 export default AboutPageTextContainer;

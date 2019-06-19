@@ -9,28 +9,22 @@ import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrap
 import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
-import Rating from 'material-ui-rating';
 
 class StepBox extends React.Component {
 
     constructor() {
         super();
         this.state = {
-            budgetValue: 50,
-            ratingValue: 5,
+            value: 50,
         };
     }
 
-    changeBudget = (event, budgetValue) => {
-        this.setState({ ...this.state, budgetValue });
+    changeRadius = (event, value) => {
+        this.setState({ value });
     };
 
-    rating = (event, ratingValue) => {
-        this.setState({ ...this.state, budgetValue });
-    }; 
-
     renderCurrentStep = () => {
-        const { budgetValue, ratingValue } = this.state;
+        const { value } = this.state;
         switch (this.props.currentStep) {
             case CUSTOMIZE_STEP:
                 return <div className="customize-container">
@@ -158,11 +152,6 @@ class StepBox extends React.Component {
                             Minimum Rating out of 5:
                         </strong>
                     </div>
-                    <Rating
-                        value={ratingValue}
-                        max={5}
-                        onChange={this.changerating}
-                    />
                     <div />
                     <div className="stepbox-title">
                         <strong>
@@ -175,8 +164,8 @@ class StepBox extends React.Component {
                         </div>
                         <div className="slider-div">
                             <StyledSlider 
-                                value={budgetValue} 
-                                onChange={this.changeBudget} 
+                                value={value} 
+                                onChange={this.changeRadius} 
                                 aria-labelledby="budget slider"
                                 className="slider"
                             />

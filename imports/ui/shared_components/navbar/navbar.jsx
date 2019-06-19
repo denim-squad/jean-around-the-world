@@ -1,9 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './navbar.css'
 import MapQuery from './mapQuery';
-import Login from '../login/login';
-import { showModal } from '../../.././redux/actions'
 import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory({forceRefresh: true});
@@ -24,17 +21,11 @@ class Navbar extends React.Component {
             // this.loadingSpinner.current.style.display = 'none';
             history.push('/about');
         }, 1400);
-      }
-      
-    openModal = (event) => {
-      // prevent automatic page refresh
-      event.preventDefault();
-      this.props.showModal();
     }
 
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
-            {
+            { 
                 this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
                     <div className="navbar-button">
@@ -93,7 +84,7 @@ class Navbar extends React.Component {
                     </div>
                     <div className="navbar-last-container">
                         <div className="navbar-button">
-                            <div className="navbar-text" onClick={this.openModal}>
+                            <div className="navbar-text">
                                 LOG IN
                             </div>
                         </div>
@@ -139,17 +130,8 @@ class Navbar extends React.Component {
                 this.props.isHomePage &&
                 <MapQuery />
             }
-            {
-                <Login/>
-            }
         </div>
     }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    login: state.login
-  };
-}
-
-export default connect(mapStateToProps, { showModal })(Navbar);
+export default Navbar;
