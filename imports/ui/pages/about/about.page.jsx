@@ -4,14 +4,14 @@ import AboutPageTextContainer from './aboutPageTextContainer';
 import './aboutPage'
 
 class AboutPage extends React.Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <AboutPageTextContainer />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Navbar />
+                <AboutPageTextContainer />
+            </div>
+        );
+    }
 }
 
 export default AboutPage;
