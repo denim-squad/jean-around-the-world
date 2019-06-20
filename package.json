@@ -28,7 +28,7 @@
     "react-dom": "^16.8.6",
     "react-geocode": "^0.1.2",
     "react-redux": "^7.0.3",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "^5.0.1",
     "redux": "^4.0.1"
   }
 }

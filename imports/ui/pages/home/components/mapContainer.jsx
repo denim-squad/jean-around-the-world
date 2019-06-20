@@ -8,6 +8,24 @@ const mapStyles = {
 };
 
 export class MapContainer extends React.Component {
+
+    constructor() {
+      super();
+      this.state = {
+        activeMarker: {},
+      };
+    }
+
+    setMarkerLocation = (e, map, coord) => {
+      const { latLng } = coord;
+      this.setState({
+        activeMarker: {
+          lat: latLng.lat(), 
+          lng: latLng.lng()
+        }
+      });
+    }
+
     render() {
       const markerCoords = {
         lat: this.state.activeMarker.lat,

@@ -58,7 +58,7 @@ class MapQuery extends React.Component {
             aria-labelledby="radius slider"
             className="slider"
         />
-        <div className="query-label-text"> 
+        <div className="query-label-text">
             LOCATION
         </div>
         <div>
