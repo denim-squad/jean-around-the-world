@@ -4,28 +4,10 @@ import { connect } from 'react-redux';
 
 const mapStyles = {
   width: '100%',
-  height: '100%'
+  height: '100%'l
 };
 
 export class MapContainer extends React.Component {
-
-    constructor() {
-      super();
-      this.state = {
-        activeMarker: {},
-      };
-    }
-
-    setMarkerLocation = (e, map, coord) => {
-      const { latLng } = coord;
-      this.setState({
-        activeMarker: {
-          lat: latLng.lat(), 
-          lng: latLng.lng()
-        }
-      });
-    }
-
     render() {
       const markerCoords = {
         lat: this.state.activeMarker.lat,
@@ -52,7 +34,7 @@ export class MapContainer extends React.Component {
             fillColor='#FFB26B'
             fillOpacity={0.4}
           />
-    </Map>
+    </Map>   
     }
 }
 
