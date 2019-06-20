@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER } from '../actions/index';
+import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER , LOGIN_USER, LOGOUT_USER} from '../actions/index';
 
 const initialState = {
   isModalShown: false,
@@ -8,6 +8,10 @@ const initialState = {
     lat: 49.263749,
     lng: -123.247480
   },
+  username: 0,
+  preferences: [],
+  blacklist: [],
+  userInfo: {}
 }
 
 function loginReducer(state = initialState, action) {
@@ -16,6 +20,10 @@ function loginReducer(state = initialState, action) {
       return { ...state, isModalShown: true };
     case HIDE_MODAL:
       return { ...state, isModalShown: false };
+    case LOGIN_USER:
+      return { ...state, isSignedIn: true, username: action.username};
+    case LOGOUT_USER:
+      return { ...state, isSignedIn: false, username: ""};
     default:
       return state;
   }
