@@ -4,6 +4,9 @@ import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { CssTextField } from '../MUI/textfield/cssTextfield';
 import { StyledSlider } from '../MUI/slider/styledSlider';
+import { connect } from 'react-redux';
+import { setRadius, setMapCenter } from '../../../redux/actions/index';
+import Geocode from 'react-geocode';
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -11,13 +14,24 @@ class MapQuery extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-            value: 50,
-        };
+        Geocode.setApiKey(''); // SET API KEY HERE. DO NOT COMMIT
+    }
+
+    handleSearch = (event) => {
+        const query = event.target.value;
+        Geocode.fromAddress(query).then(
+          response => {
+            const { lat, lng } = response.results[0].geometry.location;
+            this.props.setMapCenter({lat, lng});
+          },
+          error => {
+            console.error(error);
+          }
+        );
     }
 
     changeRadius = (event, value) => {
-        this.setState({ value });
+        this.props.setRadius(value);
     };
 
     goToPreferencesPage = async () => {
@@ -29,8 +43,7 @@ class MapQuery extends React.Component {
     }
 
     render() {
-        const { value } = this.state;
-        return <div className="map-query-container"> 
+        return <div className="map-query-container">
         <div>
             {/* spacing */}
         </div>
@@ -38,8 +51,10 @@ class MapQuery extends React.Component {
             RADIUS
         </div>
         <StyledSlider 
-            value={value} 
-            onChange={this.changeRadius} 
+            value={this.props.radius}
+            min={1000}
+            max={80000}
+            onChange={this.changeRadius}
             aria-labelledby="radius slider"
             className="slider"
         />
@@ -51,6 +66,11 @@ class MapQuery extends React.Component {
                 className="address-field"
                 placeholder="1111 East Mall, V6T 1T7"
                 margin="none"
+                onKeyPress={(event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        this.handleSearch(event);
+                }}}
             />
         </div>
         <BootstrapButton
@@ -65,4 +85,10 @@ class MapQuery extends React.Component {
     }
 }
 
-export default MapQuery;
+const mapStateToProps = (state) => {
+	return { 
+        radius: state.map.radius,
+  };
+}
+
+export default connect(mapStateToProps, { setRadius, setMapCenter })(MapQuery);
