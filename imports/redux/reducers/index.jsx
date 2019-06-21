@@ -59,17 +59,16 @@ function modalReducer(state = initialState, action) {
 function loginReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      for(let userInfo of userInfos){
-        if(userInfo.email === action.email){
+      for (let userInfo of userInfos) {
+        if (userInfo.email === action.email) {
           return { ...state,
             isSignedIn: true,
             username: `${userInfo.firstName} ${userInfo.lastName}`
           }
-        } else {
-          alert("Invalid login info. Try Again.");
-          return state;
         }
       }
+      alert("Invalid login info. Try Again.");
+      break;
     case LOGOUT_USER:
       return { ...state, isSignedIn: false, username: ""};
     default:
