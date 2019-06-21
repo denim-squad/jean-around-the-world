@@ -33,6 +33,8 @@ const initialState = {
     lng: -123.247480
   },
   isSignedIn: false,
+  blacklist: [],
+  favourites: []
 }
 
 function loginReducer(state = initialState, action) {
@@ -44,7 +46,6 @@ function loginReducer(state = initialState, action) {
     case LOGIN_USER:
       for(let userInfo of userInfos){
         if(userInfo.email === action.email){
-          console.log("email in info");
           return { ...state, isSignedIn: true, username: `${userInfo.firstName} ${userInfo.lastName}`}
           break;
         }
@@ -58,16 +59,33 @@ function loginReducer(state = initialState, action) {
 
 function preferencesReducer(state = initialState, action){
   switch (action.type) {
-    case GET_PREFERENCES:
-      return []; //stub
+    case LOGIN_USER:
+    for(let userInfo of userInfos){
+      if(userInfo.email === action.email){
+        return { ...state, blacklist: userInfo.preferences.blacklist, favourites: userInfo.preferences.favourites}
+        break;
+      }
+    }
     case ADD_BLACKLIST:
-      return []; //stub
+      let updatedBlacklist = state.blacklist.slice();
+      updatedBlacklist.push(action.blacklist);
+      return { ...state, blacklist: updatedBlacklist}
     case ADD_FAVOURITES:
-      return []; //stub
+      let updatedFavourites = state.favourites.slice();
+      updatedFavourites.push(action.favourite);
+      return { ...state, favourites: newFavourites}
     case REMOVE_BLACKLIST:
-      return []; //stub
+      let updatedBlacklist = array.filter(function(value, index, array){
+        return action.blacklistToRemove != value;
+      })
+      return { ...state, blacklist: updatedBlacklist}
     case REMOVE_FAVOURITES:
-      return []; //stub
+      let updatedFavourites = array.filter(function(value, index, array){
+        return action.favouriteToRemove != value;
+      })
+      return { ...state, favourites: updatedFavourites}
+    case LOGOUT_USER:
+      return { ...state, blacklist: [], favourites: []}
     default:
       return state;
   }

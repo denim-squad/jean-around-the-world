@@ -6,9 +6,15 @@ class BlacklistContainer extends React.Component {
 
     render() {
         return <div className="preference">
-          {for(this.props)}
+          {for()}
         </div>
     }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    blacklist: state.preferences.blacklist
+  };
 }
 
 export default BlacklistContainer;
