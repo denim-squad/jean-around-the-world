@@ -50,7 +50,7 @@ class MapQuery extends React.Component {
         <div className="query-label-text">
             RADIUS
         </div>
-        <StyledSlider 
+        <StyledSlider
             value={this.props.radius}
             min={1000}
             max={80000}
@@ -86,7 +86,7 @@ class MapQuery extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return { 
+	return {
         radius: state.map.radius,
   };
 }

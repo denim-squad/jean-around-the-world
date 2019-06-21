@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER } from '../actions/index';
+import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER , LOGIN_USER, LOGOUT_USER} from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 
 const initialState = {
@@ -10,6 +10,10 @@ const initialState = {
     lat: 49.263749,
     lng: -123.247480
   },
+  username: "",
+  preferences: [],
+  blacklist: [],
+  userInfo: {}
 }
 
 function modalReducer(state = initialState, action) {
@@ -21,6 +25,17 @@ function modalReducer(state = initialState, action) {
       };
     case HIDE_MODAL:
       return { ...state, isModalShown: false };
+    default:
+      return state;
+  }
+}
+
+function loginReducer(state=initialState, action) {
+  switch (action.type) {
+    case LOGIN_USER:
+      return { ...state, isSignedIn: true, username: action.username};
+    case LOGOUT_USER:
+      return { ...state, isSignedIn: false, username: ""};
     default:
       return state;
   }
@@ -39,5 +54,6 @@ function mapReducer(state = initialState, action) {
 
 export default combineReducers({
   modal: modalReducer,
+  login: loginReducer,
   map: mapReducer,
 });

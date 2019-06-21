@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { hideModal } from '../../.././redux/actions';
+import { hideModal, loginUser } from '../../.././redux/actions';
 
 const styles = (theme) => ({
   root: {
@@ -59,9 +59,24 @@ const DialogActions = withStyles((theme) => ({
 
 
 class Login extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {email: ""};
+  }
 
   handleClose = () => {
     this.props.hideModal();
+  }
+
+  loginUser = () => {
+    this.props.loginUser(this.state.email);
+    this.props.hideModal();
+  }
+
+  inputEmailChange = (e) => {
+    this.setState({
+      email: e.target.value
+    })
   }
 
   render() {
@@ -81,6 +96,7 @@ class Login extends React.Component {
               Enter your details below.
             </DialogContentText>
             <TextField
+              onChange={this.inputEmailChange}
               margin="dense"
               id="email"
               label="Email Address"
@@ -97,7 +113,7 @@ class Login extends React.Component {
           </DialogContent>
           <DialogActions>
             <BootstrapButton
-              onClick={this.handleClose}
+              onClick={this.loginUser}
               variant="contained"
               size="small"
               color="primary">
@@ -116,4 +132,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { hideModal })(Login);
+export default connect(mapStateToProps, { hideModal, loginUser })(Login);

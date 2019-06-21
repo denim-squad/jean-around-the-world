@@ -4,7 +4,7 @@ import './navbar.css'
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
-import { showModal } from '../../.././redux/actions'
+import { showModal, logoutUser } from '../../.././redux/actions'
 import { createBrowserHistory } from 'history';
 export const LOGIN = 0, SIGNUP = 1;
 
@@ -30,6 +30,11 @@ class Navbar extends React.Component {
 
     openModal = (kind) => () => {
       this.props.showModal(kind);
+    }
+
+    logout = () => {
+      event.preventDefault();
+      this.props.logoutUser();
     }
 
     render() {
@@ -59,7 +64,7 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                     <div className="navbar-last-container">
-                        <div className="navbar-button">
+                        <div className="navbar-button" onClick={this.logout}>
                             <div className="navbar-text">
                                 LOG OUT
                             </div>
@@ -148,8 +153,10 @@ class Navbar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    modal: state.modal
+    modal: state.modal,
+    isSignedIn: state.login.isSignedIn,
+    username: state.login.username
   };
 }
 
-export default connect(mapStateToProps, { showModal })(Navbar);
+export default connect(mapStateToProps, { showModal, logoutUser })(Navbar);
