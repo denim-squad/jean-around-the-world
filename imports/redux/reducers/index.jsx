@@ -5,8 +5,8 @@ import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER , LOGIN_USER, LOGOUT_USE
 let userInfos = [
   { email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
     preferences: {
-      blacklist: ["Wendys", "Tacofino"],
-      favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD"]
+      blacklist: ["Wendys"],
+      favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]
     }},
   { email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
     preferences: {
@@ -33,8 +33,8 @@ const initialState = {
     lng: -123.247480
   },
   isSignedIn: false,
-  blacklist: ["Wendys", "Tacofino"],
-  favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Yah Yeet"]
+  blacklist: [],
+  favourites: []
 }
 
 function loginReducer(state = initialState, action) {
@@ -46,12 +46,12 @@ function loginReducer(state = initialState, action) {
     case LOGIN_USER:
       for(let userInfo of userInfos){
         if(userInfo.email === action.email){
-          return { ...state, isSignedIn: true, username: `${userInfo.firstName} ${userInfo.lastName}`}
+          return { ...state, email: action.email, isSignedIn: true, username: `${userInfo.firstName} ${userInfo.lastName}`}
           break;
         }
       }
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, username: ""};
+      return { ...state, isSignedIn: false, username: "", email: ""};
     default:
       return state;
   }

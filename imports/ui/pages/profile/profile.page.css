@@ -27,14 +27,44 @@
   background: #EEEEEE;
 }
 
+.profile-info{
+  position: absolute;
+  width: 860px;
+  height: 175px;
+  left: 325px;
+  top: 35px;
+  background: #C4C4C4;
+  border-radius: 3px;
+
+}
+
+.profile-text{
+  margin: 5px;
+  font-size: 30px;
+}
+
+.blacklist-text{
+  position: absolute;
+  left: 50px;
+  top: 220px;
+  font-size: 22px;
+}
+
 .blacklist-container {
   position: absolute;
   width: 1150px;
   height: 225px;
   left: 50px;
-  top: 215px;
+  top: 250px;
   background: #C4C4C4;
   border-radius: 3px;
+}
+
+.favourites-text{
+  position: absolute;
+  left: 50px;
+  top: 495px;
+  font-size: 22px;
 }
 
 .favourites-container {
