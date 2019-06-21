@@ -10,9 +10,9 @@
 
 .profile {
   position: absolute;
-  width: 848px;
-  height: 563px;
-  left: 71px;
+  width: 1250px;
+  height: 800px;
+  left: 90px;
   top: 285px;
   background: #EBEBEB;
   border-radius: 10px;
@@ -20,29 +20,29 @@
 
 .previous-travels {
   position: absolute;
-  width: 357px;
-  height: 563px;
-  left: 1006px;
+  width: 450px;
+  height: 800px;
+  left: 1500px;
   top: 285px;
   background: #EEEEEE;
 }
 
 .blacklist-container {
   position: absolute;
-  width: 768px;
-  height: 125px;
-  left: 30px;
-  top: 175px;
+  width: 1150px;
+  height: 225px;
+  left: 50px;
+  top: 215px;
   background: #C4C4C4;
   border-radius: 3px;
 }
 
 .favourites-container {
   position: absolute;
-  width: 768px;
-  height: 125px;
-  left: 30px;
-  top: 375px;
+  width: 1150px;
+  height: 225px;
+  left: 50px;
+  top: 525px;
   background: #C4C4C4;
   border-radius: 3px;
 }

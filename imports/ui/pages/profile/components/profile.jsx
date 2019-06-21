@@ -8,9 +8,11 @@ class Profile extends React.Component {
         return(
         <div className="profile">
           <div className="blacklist-container">
+          Blacklist:
             <BlacklistContainer />
           </div>
           <div className="favourites-container">
+          Favourites:
             <FavouritesContainer />
           </div>
 

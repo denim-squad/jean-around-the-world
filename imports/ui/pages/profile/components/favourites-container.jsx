@@ -1,13 +1,25 @@
 import React from 'react';
 import '../profile.page.css';
+import PreferenceButton from '../../../shared_components/preferences/preference-button'
 import { connect } from 'react-redux';
-import {  } from '../../.././redux/actions';
 
 class FavouritesContainer extends React.Component {
-    render() {
-        return <div className="preference">
 
-        </div>
+    getFavourites = () => {
+      return Array.from(this.props.favourites).map((value, index) => {
+                 return (
+                 <div className="preference-container" key={index}>
+                   <PreferenceButton name={value}/>
+                 </div>);
+            }
+          )
+    }
+
+    render() {
+        return (<div className="preference">
+          {this.getFavourites()}
+          </div>
+        )
     }
 }
 
@@ -17,4 +29,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, {})FavouritesContainer;
+export default connect(mapStateToProps)(FavouritesContainer);

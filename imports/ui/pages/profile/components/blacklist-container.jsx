@@ -1,12 +1,25 @@
 import React from 'react';
 import '../profile.page.css';
+import PreferenceButton from '../../../shared_components/preferences/preference-button'
+import { connect } from 'react-redux';
 
 class BlacklistContainer extends React.Component {
 
+    getBlacklist = () => {
+      return Array.from(this.props.blacklist).map((value, index) => {
+                 console.log(value);
+                 return(
+                  <div className="preference-container" key={index}>
+                    <PreferenceButton name={value}/>
+                  </div>
+                )
+            }
+        )
+    }
 
     render() {
         return <div className="preference">
-          {for()}
+          {this.getBlacklist()}
         </div>
     }
 }
@@ -17,4 +30,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default BlacklistContainer;
+export default connect(mapStateToProps)(BlacklistContainer);

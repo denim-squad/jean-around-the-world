@@ -5,8 +5,8 @@ import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER , LOGIN_USER, LOGOUT_USE
 let userInfos = [
   { email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
     preferences: {
-      blacklist: [],
-      favourites: []
+      blacklist: ["Wendys", "Tacofino"],
+      favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD"]
     }},
   { email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
     preferences: {
@@ -33,8 +33,8 @@ const initialState = {
     lng: -123.247480
   },
   isSignedIn: false,
-  blacklist: [],
-  favourites: []
+  blacklist: ["Wendys", "Tacofino"],
+  favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Yah Yeet"]
 }
 
 function loginReducer(state = initialState, action) {
@@ -67,13 +67,13 @@ function preferencesReducer(state = initialState, action){
       }
     }
     case ADD_BLACKLIST:
-      let updatedBlacklist = state.blacklist.slice();
-      updatedBlacklist.push(action.blacklist);
-      return { ...state, blacklist: updatedBlacklist}
+      let addedBlacklist = state.blacklist.slice();
+      addedBlacklist.push(action.blacklist);
+      return { ...state, blacklist: addedBlacklist}
     case ADD_FAVOURITES:
-      let updatedFavourites = state.favourites.slice();
-      updatedFavourites.push(action.favourite);
-      return { ...state, favourites: newFavourites}
+      let addedFavourites = state.favourites.slice();
+      addedFavourites.push(action.favourite);
+      return { ...state, favourites: addedFavourites}
     case REMOVE_BLACKLIST:
       let updatedBlacklist = array.filter(function(value, index, array){
         return action.blacklistToRemove != value;
