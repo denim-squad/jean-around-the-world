@@ -5,10 +5,11 @@ import './profile.page.css';
 
 class ProfilePage extends React.Component {
     render() {
-        return <div className="profile-page-container">
-            <Navbar isHomePage />
+        return (
+          <div className="profile-page-container">
+            <Navbar />
             <ProfileContainer />
-        </div>
+        </div>);
     }
 }
 

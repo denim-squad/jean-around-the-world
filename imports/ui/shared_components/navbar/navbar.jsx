@@ -26,6 +26,13 @@ class Navbar extends React.Component {
         }, 1400);
       }
 
+    goToProfilePage = async () => {
+      await setTimeout(() => {
+          // this.loadingSpinner.current.style.display = 'none';
+          history.push('/profile');
+      }, 1400);
+    }
+
     openModal = (event) => {
       // prevent automatic page refresh
       event.preventDefault();
@@ -91,14 +98,14 @@ class Navbar extends React.Component {
                             ABOUT US
                         </div>
                     </div>
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToProfilePage}>
                         <div className="navbar-text">
                             SIGN UP
                         </div>
                     </div>
                     <div className="navbar-last-container">
-                        <div className="navbar-button">
-                            <div className="navbar-text" onClick={this.openModal}>
+                        <div className="navbar-button" onClick={this.openModal}>
+                            <div className="navbar-text">
                                 LOG IN
                             </div>
                         </div>
