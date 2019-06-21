@@ -58,7 +58,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-class Login extends React.Component {
+class Signup extends React.Component {
 
   handleClose = () => {
     this.props.hideModal();
@@ -70,16 +70,32 @@ class Login extends React.Component {
         <Dialog
           open={this.props.isModalShown}
           onClose={this.handleClose}
-          aria-labelledby="customized-dialog-title">
+          aria-labelledby="customized-dialog-title"
+          fullWidth={true}
+          maxWidth = {'xs'}>
           <DialogTitle
             id="customized-dialog-title"
             onClose={this.handleClose}>
-              Log in to your Account
+            New here? Sign up now!
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter your details below.
+              Create your free account below.
             </DialogContentText>
+            <TextField
+              margin="dense"
+              id="firstname"
+              label="First Name"
+              type="firstname"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="lastname"
+              label="Last Name"
+              type="lastname"
+              fullWidth
+            />
             <TextField
               margin="dense"
               id="email"
@@ -101,7 +117,7 @@ class Login extends React.Component {
               variant="contained"
               size="small"
               color="primary">
-              Log In
+              Sign Up
             </BootstrapButton>
           </DialogActions>
         </Dialog>
@@ -116,4 +132,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { hideModal })(Login);
+export default connect(mapStateToProps, { hideModal })(Signup);

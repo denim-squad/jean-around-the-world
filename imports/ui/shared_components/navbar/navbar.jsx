@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import './navbar.css'
 import MapQuery from './mapQuery';
 import Login from '../login/login';
+import Signup from '../signup/signup';
 import { showModal } from '../../.././redux/actions'
 import { createBrowserHistory } from 'history';
+export const LOGIN = 0, SIGNUP = 1;
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -25,11 +27,9 @@ class Navbar extends React.Component {
             history.push('/about');
         }, 1400);
       }
-      
-    openModal = (event) => {
-      // prevent automatic page refresh
-      event.preventDefault();
-      this.props.showModal();
+
+    openModal = (kind) => () => {
+      this.props.showModal(kind);
     }
 
     render() {
@@ -87,13 +87,13 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                     <div className="navbar-button">
-                        <div className="navbar-text">
+                        <div className="navbar-text" onClick={this.openModal(SIGNUP)}>
                             SIGN UP
                         </div>
                     </div>
                     <div className="navbar-last-container">
                         <div className="navbar-button">
-                            <div className="navbar-text" onClick={this.openModal}>
+                            <div className="navbar-text" onClick={this.openModal(LOGIN)}>
                                 LOG IN
                             </div>
                         </div>
@@ -140,7 +140,7 @@ class Navbar extends React.Component {
                 <MapQuery />
             }
             {
-                <Login/>
+                (this.props.modal.modalKind === LOGIN) ? <Login/> : <Signup/>
             }
         </div>
     }
@@ -148,7 +148,7 @@ class Navbar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login
+    modal: state.modal
   };
 }
 

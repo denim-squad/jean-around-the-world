@@ -1,8 +1,9 @@
 export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 2, SET_CENTER = 3;
 
-export function showModal() {
+export function showModal(kind) {
   return {
-    type: SHOW_MODAL
+    type: SHOW_MODAL,
+    kind
   };
 }
 
@@ -25,4 +26,3 @@ export function setMapCenter(coords) {
     coords
   };
 }
-        

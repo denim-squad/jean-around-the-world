@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { SHOW_MODAL, HIDE_MODAL, SET_RADIUS, SET_CENTER } from '../actions/index';
+import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 
 const initialState = {
   isModalShown: false,
+  modalKind: LOGIN,
   radius: 1000,
   initialCenter: {
     lat: 49.263749,
@@ -10,10 +12,13 @@ const initialState = {
   },
 }
 
-function loginReducer(state = initialState, action) {
+function modalReducer(state = initialState, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return { ...state, isModalShown: true };
+      return { ...state,
+        isModalShown: true,
+        modalKind: action.kind
+      };
     case HIDE_MODAL:
       return { ...state, isModalShown: false };
     default:
@@ -33,6 +38,6 @@ function mapReducer(state = initialState, action) {
 }
 
 export default combineReducers({
-  login: loginReducer,
+  modal: modalReducer,
   map: mapReducer,
 });
