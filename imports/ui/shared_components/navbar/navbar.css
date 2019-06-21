@@ -151,3 +151,15 @@ TODO: logo
 .MuiTypography-body1, .MuiInputLabel-formControl {
     font-family: 'Rubik', sans-serif !important;
 }
+
+#no-account-yet {
+  margin-top: 20px;
+  color: red;
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+}
+
+#no-account-yet a {
+  color: red;
+}

@@ -27,10 +27,10 @@ export function setMapCenter(coords) {
   };
 }
 
-export function loginUser(username) {
+export function loginUser(email) {
   return {
     type: LOGIN_USER,
-    username
+    email
   };
 }
 

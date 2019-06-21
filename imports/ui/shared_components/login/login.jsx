@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { hideModal, loginUser } from '../../.././redux/actions';
+import { showModal, hideModal, loginUser } from '../../.././redux/actions';
+export const SIGNUP = 1;
 
 const styles = (theme) => ({
   root: {
@@ -110,6 +111,11 @@ class Login extends React.Component {
               type="password"
               fullWidth
             />
+            <DialogContentText id="no-account-yet">
+              <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>
+              Don't have an account yet? Register now!
+              </a>
+            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <BootstrapButton
@@ -132,4 +138,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { hideModal, loginUser })(Login);
+export default connect(mapStateToProps, { showModal, hideModal, loginUser })(Login);
