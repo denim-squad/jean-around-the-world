@@ -1,4 +1,5 @@
-export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 2, SET_CENTER = 3, LOGIN_USER = 4, LOGOUT_USER = 5;
+export const SHOW_MODAL = 0, HIDE_MODAL = 1, SET_RADIUS = 2, SET_CENTER = 3, LOGIN_USER = 4, LOGOUT_USER = 5,
+  ADD_BLACKLIST = 6, ADD_FAVOURITES = 7, REMOVE_BLACKLIST = 8, REMOVE_FAVOURITES = 9;
 
 export function showModal(kind) {
   return {
@@ -38,4 +39,32 @@ export function logoutUser() {
   return {
     type: LOGOUT_USER
   };
+}
+
+export function addBlacklist(blacklist) {
+  return {
+    type: ADD_BLACKLIST,
+    blacklist
+  }
+}
+
+export function addFavourites(favourite) {
+  return {
+    type: ADD_FAVOURITES,
+    favourite
+  }
+}
+
+export function removeBlacklist(blacklistToRemove){
+  return {
+    type: REMOVE_BLACKLIST,
+    blacklist
+  }
+}
+
+export function removeFavourites(favouriteToRemove){
+  return {
+    type: REMOVE_FAVOURITES,
+    favouriteToRemove
+  }
 }
