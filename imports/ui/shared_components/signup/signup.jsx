@@ -12,8 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { showModal, hideModal, loginUser } from '../../.././redux/actions';
-import { SIGNUP } from '../../.././redux/actions';
+import { hideModal } from '../../.././redux/actions';
 
 const styles = (theme) => ({
   root: {
@@ -59,28 +58,10 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-class Login extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
-  }
+class Signup extends React.Component {
 
   handleClose = () => {
     this.props.hideModal();
-  }
-
-  loginUser = () => {
-    this.props.loginUser(this.state.email, this.state.password);
-    this.props.hideModal();
-  }
-
-  inputEmailChange = (e) => {
-    this.setState({
-      email: e.target.value
-    })
   }
 
   render() {
@@ -88,43 +69,54 @@ class Login extends React.Component {
         <Dialog
           open={this.props.isModalShown}
           onClose={this.handleClose}
-          aria-labelledby="customized-dialog-title">
+          aria-labelledby="customized-dialog-title"
+          fullWidth={true}
+          maxWidth = {'xs'}>
           <DialogTitle
             id="customized-dialog-title"
             onClose={this.handleClose}>
-              Log in to your Account
+            New here? Sign up now!
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Enter your details below.
+              Create your free account below.
             </DialogContentText>
             <TextField
-              onChange={this.inputEmailChange}
               margin="dense"
+              id="firstname"
+              label="First Name"
+              type="firstname"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="lastname"
+              label="Last Name"
+              type="lastname"
+              fullWidth
+            />
+            <TextField
+              margin="dense"
+              id="email"
               label="Email Address"
               type="email"
               fullWidth
             />
             <TextField
-              // TODO: handle password input
               margin="dense"
+              id="password"
               label="Password"
               type="password"
               fullWidth
             />
-            <DialogContentText id="link-to-signup">
-              <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>
-                Don't have an account yet? Register now!
-              </a>
-            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <BootstrapButton
-              onClick={this.loginUser}
+              onClick={this.handleClose}
               variant="contained"
               size="small"
               color="primary">
-              Log In
+              Sign Up
             </BootstrapButton>
           </DialogActions>
         </Dialog>
@@ -138,4 +130,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { showModal, hideModal, loginUser })(Login);
+export default connect(mapStateToProps, { hideModal })(Signup);

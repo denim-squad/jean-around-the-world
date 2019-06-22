@@ -20,7 +20,7 @@ export class MapContainer extends React.Component {
       const { latLng } = coord;
       this.setState({
         activeMarker: {
-          lat: latLng.lat(), 
+          lat: latLng.lat(),
           lng: latLng.lng()
         }
       });
@@ -43,7 +43,7 @@ export class MapContainer extends React.Component {
         onClick={this.setMarkerLocation}>
           <Marker
             position={{ lat: markerCoords.lat, lng: markerCoords.lng }}
-          /> 
+          />
           <Circle
             radius={this.props.radius}
             center={markerCoords}
@@ -52,18 +52,17 @@ export class MapContainer extends React.Component {
             fillColor='#FFB26B'
             fillOpacity={0.4}
           />
-    </Map>   
+    </Map>
     }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.map.initialCenter);
-	return { 
+	return {
       radius: state.map.radius,
       initialCenter: state.map.initialCenter
   };
 }
- 
+
 export default connect(mapStateToProps)(GoogleApiWrapper({
   apiKey: ('') // paste API key here each time, DO NOT COMMIT.
 })(MapContainer));
