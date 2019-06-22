@@ -13,7 +13,7 @@ import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { showModal, hideModal, loginUser } from '../../.././redux/actions';
-export const SIGNUP = 1;
+import { SIGNUP } from '../../.././redux/actions';
 
 const styles = (theme) => ({
   root: {
@@ -62,7 +62,10 @@ const DialogActions = withStyles((theme) => ({
 class Login extends React.Component {
   constructor(props){
     super(props);
-    this.state = {email: ""};
+    this.state = {
+      email: "",
+      password: ""
+    };
   }
 
   handleClose = () => {
@@ -70,7 +73,7 @@ class Login extends React.Component {
   }
 
   loginUser = () => {
-    this.props.loginUser(this.state.email);
+    this.props.loginUser(this.state.email, this.state.password);
     this.props.hideModal();
   }
 
@@ -105,6 +108,7 @@ class Login extends React.Component {
               fullWidth
             />
             <TextField
+              // TODO: handle password input
               margin="dense"
               id="password"
               label="Password"

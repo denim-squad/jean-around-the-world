@@ -5,11 +5,11 @@ import '../profile.page.css';
 
 class ProfileContainer extends React.Component {
     render() {
-        return (
+        return
           <div className="profile-container">
-          <Profile />
-          <PreviousTravels />
-        </div>)
+            <Profile />
+            <PreviousTravels />
+          </div>
     }
 }
 

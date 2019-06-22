@@ -6,7 +6,7 @@ import '../profile.page.css';
 
 class Profile extends React.Component {
     render() {
-        return(
+        return (
         <div className="profile">
           <div className="profile-info">
             <div className="profile-text">
@@ -26,7 +26,7 @@ class Profile extends React.Component {
             <FavouritesContainer />
           </div>
         </div>
-      )
+      );
     }
 }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './navbar.css'
+import './navbar.css';
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
-import { showModal, logoutUser } from '../../.././redux/actions'
+import { showModal, logoutUser } from '../../.././redux/actions';
 import { createBrowserHistory } from 'history';
-export const LOGIN = 0, SIGNUP = 1;
+import { LOGIN, SIGNUP } from '../../.././redux/actions';
 
 const history = createBrowserHistory({forceRefresh: true});
 
