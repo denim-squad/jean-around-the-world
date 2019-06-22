@@ -1,0 +1,18 @@
+.about-page-text-container {
+    font-family: 'Rubik', sans-serif;
+}
+
+.about-page-project-description {
+    max-width: 90%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.about-page-list-item {
+    max-width: 88%;
+    margin-top: 2%;
+    margin-right: 5%;
+    margin-left: 4%;
+}
+

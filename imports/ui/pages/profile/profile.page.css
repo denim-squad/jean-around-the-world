@@ -1,0 +1,78 @@
+.profile-page-container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-rows: 32.8% 67.2%;
+}
+
+.profile {
+  position: absolute;
+  width: 1250px;
+  height: 800px;
+  left: 90px;
+  top: 285px;
+  background: #EBEBEB;
+  border-radius: 10px;
+}
+
+.previous-travels {
+  position: absolute;
+  width: 450px;
+  height: 800px;
+  left: 1500px;
+  top: 285px;
+  background: #EEEEEE;
+}
+
+.profile-info{
+  position: absolute;
+  width: 860px;
+  height: 175px;
+  left: 325px;
+  top: 35px;
+  background: #C4C4C4;
+  border-radius: 3px;
+
+}
+
+.profile-text{
+  margin: 5px;
+  font-size: 30px;
+}
+
+.blacklist-text{
+  position: absolute;
+  left: 50px;
+  top: 220px;
+  font-size: 22px;
+}
+
+.profile-blacklist-container {
+  position: absolute;
+  width: 1150px;
+  height: 225px;
+  left: 50px;
+  top: 250px;
+  background: #C4C4C4;
+  border-radius: 3px;
+}
+
+.favourites-text{
+  position: absolute;
+  left: 50px;
+  top: 495px;
+  font-size: 22px;
+}
+
+.profile-favourites-container {
+  position: absolute;
+  width: 1150px;
+  height: 225px;
+  left: 50px;
+  top: 525px;
+  background: #C4C4C4;
+  border-radius: 3px;
+}

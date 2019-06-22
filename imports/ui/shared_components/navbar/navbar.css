@@ -1,0 +1,165 @@
+.navbar-container {
+    display: grid;
+    grid-template-rows: 30.7% 69.3%;
+    height: 100%;
+}
+
+.homepage-navbar-container {
+    display: grid;
+    grid-template-rows: 20.7% 43.7% 35.6%;
+    height: 100%;
+}
+
+.navbar-buttons-container {
+    display: grid;
+    grid-template-columns: 12% 46% 10% 10% 10% 12%;
+    color: #FFFFFF;
+    background-color: #47C8FF;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.navbar-button {
+    display: table;
+    height: 100%;
+    cursor: pointer;
+}
+
+.navbar-text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.navbar-last-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 83.3% 16.7%;
+}
+
+.title-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 7.6% 6.5% 29.6% 56.3%;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 64px;
+    color: #000000;
+}
+
+.title {
+    font-family: 'Cute Font', cursive;
+}
+
+@media only screen and (min-width: 1400px) {
+    .title-container {
+        font-size: 51.3px;
+    }
+    .navbar-buttons-container {
+        font-size: 20px;
+    }
+    .query-label-text {
+        font-size: 20px;
+    }
+    .title-description-container {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .MuiButton-label {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 1399px) {
+    .title-container {
+        font-size: 37.5px;
+    }
+    .navbar-buttons-container {
+        font-size: 16px;
+    }
+    .query-label-text {
+        font-size: 14px;
+    }
+    .title-description-container {
+        font-size: 15px;
+        line-height: 18px;
+    }
+    .MuiButton-label {
+        font-size: 14px;
+    }
+}
+/*
+TODO: logo
+.logo-container {
+
+} */
+
+.title-description-container {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    text-align: right;
+    letter-spacing: 0.01em;
+    color: #000000;
+    display: grid;
+    grid-template-columns: 44.8% 42.1% 13.1%;
+    height: 85%;
+    align-items: flex-end;
+}
+
+.description-title {
+    font-weight: 500;
+}
+
+.map-query-container {
+    display: grid;
+    grid-template-columns: 12.5% 5.3% 21.9% 6.9% 26.4% 8.2%;
+    grid-column-gap: 1.5%;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #000000;
+}
+
+.address-field {
+    width: 100%;
+}
+
+.MuiInputBase-input, .MuiFilledInput-input {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.slider {
+    touch-action: none; //Fixes console log errors
+}
+
+.MuiTypography-h6 {
+    font-family: 'Rubik', sans-serif !important;
+    font-weight: 500;
+}
+
+.slider {
+    touch-action: none; /* Fixes console log errors */
+}
+.MuiTypography-body1, .MuiInputLabel-formControl {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+#link-to-signup {
+  margin-top: 20px;
+  color: red;
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+}
+
+#link-to-signup a {
+  color: red;
+}
