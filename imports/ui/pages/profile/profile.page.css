@@ -50,7 +50,7 @@
   font-size: 22px;
 }
 
-.blacklist-container {
+.profile-blacklist-container {
   position: absolute;
   width: 1150px;
   height: 225px;
@@ -67,7 +67,7 @@
   font-size: 22px;
 }
 
-.favourites-container {
+.profile-favourites-container {
   position: absolute;
   width: 1150px;
   height: 225px;

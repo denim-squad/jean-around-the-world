@@ -16,13 +16,13 @@ class Profile extends React.Component {
           <div className="blacklist-text">
             Blacklist:
           </div>
-          <div className="blacklist-container">
+          <div className="profile-blacklist-container">
             <BlacklistContainer />
           </div>
           <div className="favourites-text">
             Favourites:
           </div>
-          <div className="favourites-container">
+          <div className="profile-favourites-container">
             <FavouritesContainer />
           </div>
         </div>
@@ -32,7 +32,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.login.email
+    email: state.user.email
   };
 }
 

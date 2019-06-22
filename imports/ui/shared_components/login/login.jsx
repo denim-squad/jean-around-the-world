@@ -102,7 +102,6 @@ class Login extends React.Component {
             <TextField
               onChange={this.inputEmailChange}
               margin="dense"
-              id="email"
               label="Email Address"
               type="email"
               fullWidth
@@ -110,7 +109,6 @@ class Login extends React.Component {
             <TextField
               // TODO: handle password input
               margin="dense"
-              id="password"
               label="Password"
               type="password"
               fullWidth

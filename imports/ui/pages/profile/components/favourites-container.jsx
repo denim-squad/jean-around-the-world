@@ -7,26 +7,25 @@ class FavouritesContainer extends React.Component {
 
     getFavourites = () => {
       return Array.from(this.props.favourites).map((value, index) => {
-          return (
-            <div className="favourites-container" key={index}>
-              <PreferenceButton name={value}/>
-            </div>
+          return(
+            <PreferenceButton key={index} name={value}/>
           );
         }
       )
     }
 
     render() {
-        return
+        return(
           <div className="favourites">
-            {this.getFavourites}
+            {this.getFavourites()}
           </div>
+        );
     }
 }
 
 const mapStateToProps = (state) => {
   return {
-    favourites: state.preferences.favourites
+    favourites: state.user.favourites
   };
 }
 

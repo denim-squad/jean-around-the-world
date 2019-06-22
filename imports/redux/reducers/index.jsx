@@ -41,21 +41,28 @@ const userInfos = [
   },
 ]
 
-const initialState = {
-  isModalShown: false,
-  modalKind: LOGIN,
+const initialMapState = {
   radius: 1000,
   initialCenter: {
     lat: 49.263749,
     lng: -123.247480
-  },
+  }
+}
+
+const initialModalState = {
+  isModalShown: false,
+  modalKind: LOGIN
+}
+
+const initialUserState = {
   isSignedIn: false,
   blacklist: [],
   favourites: [],
-  username: ""
+  fullName: "",
+  email: ""
 }
 
-function modalReducer(state = initialState, action) {
+function modalReducer(state = initialModalState, action) {
   switch (action.type) {
     case SHOW_MODAL:
       return { ...state,
@@ -69,37 +76,32 @@ function modalReducer(state = initialState, action) {
   }
 }
 
-function loginReducer(state = initialState, action) {
+function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      for (let userInfo of userInfos) {
-        if (userInfo.email === action.email) {
-          return { ...state,
-            email: action.email,
-            isSignedIn: true,
-            username: `${userInfo.firstName} ${userInfo.lastName}`
-          };
-          break;
-        }
+      let userInfo = userInfos.find((info) => {
+        return info.email === action.email;
+      });
+      if(userInfo){
+        return { ...state,
+          email: action.email,
+          isSignedIn: true,
+          fullName: `${userInfo.firstName} ${userInfo.lastName}`,
+          blacklist: userInfo.preferences.blacklist,
+          favourites: userInfo.preferences.favourites
+        };
       }
       alert("Invalid login info. Try Again.");
-      break;
+      break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, username: "", email: "" };
-    default:
-      return state;
-  }
-}
-
-function preferencesReducer(state = initialState, action){
-  switch (action.type) {
+      return { ...state, isSignedIn: false, fullName: "", email: "", blacklist: [], favourites: [] };
     case ADD_BLACKLIST:
       let addedBlacklist = state.blacklist.slice();
       addedBlacklist.push(action.blacklist);
       return { ...state, blacklist: addedBlacklist };
     case REMOVE_BLACKLIST:
-      let updatedBlacklist = array.filter(function(value, index, array){
-        return action.blacklistToRemove != value;
+      let updatedBlacklist = Array.filter((value, index, array) => {
+        return action.blacklistToRemove !== value;
       })
       return { ...state, blacklist: updatedBlacklist };
     case ADD_FAVOURITES:
@@ -107,8 +109,8 @@ function preferencesReducer(state = initialState, action){
       addedFavourites.push(action.favourite);
       return { ...state, favourites: addedFavourites };
     case REMOVE_FAVOURITES:
-      let updatedFavourites = array.filter(function(value, index, array){
-        return action.favouriteToRemove != value;
+      let updatedFavourites = Array.filter((value, index, array) => {
+        return action.favouriteToRemove !== value;
       })
       return { ...state, favourites: updatedFavourites };
     default:
@@ -116,7 +118,7 @@ function preferencesReducer(state = initialState, action){
   }
 }
 
-function mapReducer(state = initialState, action) {
+function mapReducer(state = initialMapState, action) {
   switch (action.type) {
     case SET_RADIUS:
       return { ...state, radius: action.radius };
@@ -129,7 +131,6 @@ function mapReducer(state = initialState, action) {
 
 export default combineReducers({
   modal: modalReducer,
-  login: loginReducer,
+  user: userReducer,
   map: mapReducer,
-  preferences: preferencesReducer
 });

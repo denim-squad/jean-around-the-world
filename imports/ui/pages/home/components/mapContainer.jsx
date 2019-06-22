@@ -57,7 +57,6 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.map.initialCenter);
 	return {
       radius: state.map.radius,
       initialCenter: state.map.initialCenter

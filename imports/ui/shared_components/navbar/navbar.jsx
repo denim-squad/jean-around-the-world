@@ -44,7 +44,7 @@ class Navbar extends React.Component {
                 <div className="navbar-buttons-container">
                     <div className="navbar-button">
                         <div className="navbar-text">
-                            {this.props.username}
+                            {this.props.fullName}
                         </div>
                     </div>
                     <div>
@@ -154,8 +154,8 @@ class Navbar extends React.Component {
 const mapStateToProps = (state) => {
   return {
     modal: state.modal,
-    isSignedIn: state.login.isSignedIn,
-    username: state.login.username
+    isSignedIn: state.user.isSignedIn,
+    fullName: state.user.fullName
   };
 }
 
