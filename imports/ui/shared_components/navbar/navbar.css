@@ -152,7 +152,7 @@ TODO: logo
     font-family: 'Rubik', sans-serif !important;
 }
 
-#no-account-yet {
+#link-to-signup {
   margin-top: 20px;
   color: red;
   text-decoration: underline;
@@ -160,6 +160,6 @@ TODO: logo
   text-align: center;
 }
 
-#no-account-yet a {
+#link-to-signup a {
   color: red;
 }

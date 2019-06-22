@@ -66,7 +66,6 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div>
         <Dialog
           open={this.props.isModalShown}
           onClose={this.handleClose}
@@ -121,7 +120,6 @@ class Signup extends React.Component {
             </BootstrapButton>
           </DialogActions>
         </Dialog>
-      </div>
     );
   }
 }

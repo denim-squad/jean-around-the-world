@@ -85,7 +85,6 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
         <Dialog
           open={this.props.isModalShown}
           onClose={this.handleClose}
@@ -113,9 +112,9 @@ class Login extends React.Component {
               type="password"
               fullWidth
             />
-            <DialogContentText id="no-account-yet">
+            <DialogContentText id="link-to-signup">
               <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>
-              Don't have an account yet? Register now!
+                Don't have an account yet? Register now!
               </a>
             </DialogContentText>
           </DialogContent>
@@ -129,7 +128,6 @@ class Login extends React.Component {
             </BootstrapButton>
           </DialogActions>
         </Dialog>
-      </div>
     );
   }
 }
