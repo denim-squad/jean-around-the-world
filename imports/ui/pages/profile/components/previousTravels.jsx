@@ -3,7 +3,7 @@ import '../profile.page.css';
 
 class PreviousTravels extends React.Component {
     render() {
-        return(
+        return (
           <div className="previous-travels">
             <br/>
           </div>
