@@ -6,8 +6,10 @@ export const StyledSlider = withStyles({
     thumb: {
       height: 24,
       width: 24,
+      marginTop: -8,
+      marginLeft: -12,
       backgroundColor: '#fff',
-      border: '5px solid #7D9FAE',
+      border: '4px solid #7D9FAE',
       '&$focused, &:hover': {
         boxShadow: `0px 0px 0px ${8}px ${fade('#54afd7', 0.16)}`,
       },
@@ -24,6 +26,10 @@ export const StyledSlider = withStyles({
     },
     trackAfter: {
       backgroundColor: '#d0d7dc',
+    },
+    rail: {
+      height: 8,
+      borderRadius: 4,
     },
     focused: {},
     activated: {},
