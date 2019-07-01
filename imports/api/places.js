@@ -1,7 +1,7 @@
 const googleMapsClient = require('@google/maps').createClient({
-    key: 'your API key here',
-    Promise: Promise
-  });
+  key: 'your API key here',
+  Promise: Promise
+});
 
 /**
  * Makes a nearby places request.
@@ -17,11 +17,11 @@ const googleMapsClient = require('@google/maps').createClient({
  * @param {string} type https://developers.google.com/places/supported_types
  */
 export async function getNearbyPlaces(mapState, price, type) {
-    return googleMapsClient.placesNearby({
-        location: mapState.center,
-        radius: mapState.radius,
-        minPrice: price,
-        maxPrice: price,
-        type
-    }).asPromise()
+  return googleMapsClient.placesNearby({
+    location: mapState.center,
+    radius: mapState.radius,
+    minPrice: price,
+    maxPrice: price,
+    type
+  }).asPromise()
 }

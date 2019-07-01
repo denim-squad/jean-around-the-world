@@ -1,10 +1,19 @@
-export const SHOW_MODAL = 0, HIDE_MODAL = 1;
-export const SET_RADIUS = 2, SET_CENTER = 3;
-export const LOGIN_USER = 4, LOGOUT_USER = 5;
-export const ADD_BLACKLIST = 6, REMOVE_BLACKLIST = 7;
-export const ADD_FAVOURITES = 8, REMOVE_FAVOURITES = 9;
-export const LOGIN = 10, SIGNUP = 11;
-export const REQUEST_LOCATIONS = 12, RECEIVE_LOCATIONS = 13;
+export const 
+SHOW_MODAL = 0, 
+HIDE_MODAL = 1,
+SET_RADIUS = 2, 
+SET_CENTER = 3,
+LOGIN_USER = 4, 
+LOGOUT_USER = 5
+ADD_BLACKLIST = 6, 
+REMOVE_BLACKLIST = 7,
+ADD_FAVOURITES = 8, 
+REMOVE_FAVOURITES = 9,
+LOGIN = 10,
+SIGNUP = 11,
+REQUEST_LOCATIONS = 12, 
+RECEIVE_LOCATIONS_SUCCESS = 13,
+RECEIVE_LOCATIONS_FAILURE = 14;
 
 export function showModal(kind) {
   return {
@@ -79,6 +88,10 @@ export function requestLocations() {
   //todo
 }
 
-export function receiveLocations() {
+export function receiveLocationsSuccess(locations) {
+  //todo
+}
+
+export function receiveLocationsFailure(error) {
   //todo
 }

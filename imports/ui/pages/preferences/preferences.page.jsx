@@ -45,9 +45,13 @@ class PreferencesPage extends React.Component {
     nextStep() {
         if (this.state.currentStep < REFINE_STEP) {
             this.setState({
-                imgPath:this.state.imgPath, 
+                imgPath: this.state.imgPath, 
                 currentStep: this.state.currentStep + 1
             });
+        } else {
+          // todo set state based on parameters chosen,
+          // dispatch trip creation process,
+          // change to finished trip view with spinner while waiting
         }
     }
   

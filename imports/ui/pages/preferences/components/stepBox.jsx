@@ -39,6 +39,8 @@ class StepBox extends React.Component {
                             What would you like to be included in your trip?
                         </strong>
                     </div>
+                    {/* todo allow clicking to choose how many of each type of venue
+                        e.g. 3 restaurants, 1 hotel, 4 attractions */}
                     <FormGroup>
                         <FormControlLabel
                             className="customize-buttons"
@@ -155,6 +157,7 @@ class StepBox extends React.Component {
                     </div>
                     <div className="stepbox-title">
                         <strong>
+                          {/* todo discuss whether min rating of 5 should be allowed */}
                             Minimum Rating out of 5:
                         </strong>
                     </div>
@@ -174,6 +177,7 @@ class StepBox extends React.Component {
                             $
                         </div>
                         <div className="slider-div">
+                          {/* todo make this slider discrete from 0 to 4 inclusive */}
                             <StyledSlider 
                                 value={budgetValue} 
                                 onChange={this.changeBudget} 
