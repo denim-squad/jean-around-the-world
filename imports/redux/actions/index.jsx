@@ -4,6 +4,7 @@ export const LOGIN_USER = 4, LOGOUT_USER = 5;
 export const ADD_BLACKLIST = 6, REMOVE_BLACKLIST = 7;
 export const ADD_FAVOURITES = 8, REMOVE_FAVOURITES = 9;
 export const LOGIN = 10, SIGNUP = 11;
+export const REQUEST_LOCATIONS = 12, RECEIVE_LOCATIONS = 13;
 
 export function showModal(kind) {
   return {
@@ -72,4 +73,12 @@ export function removeFavourites(favouriteToRemove){
     type: REMOVE_FAVOURITES,
     favouriteToRemove
   };
+}
+
+export function requestLocations() {
+  //todo
+}
+
+export function receiveLocations() {
+  //todo
 }
