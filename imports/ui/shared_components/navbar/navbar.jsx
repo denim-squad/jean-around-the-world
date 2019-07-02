@@ -1,7 +1,12 @@
 import React from 'react';
-import './navbar.css'
+import { connect } from 'react-redux';
+import './navbar.css';
 import MapQuery from './mapQuery';
+import Login from '../login/login';
+import Signup from '../signup/signup';
+import { showModal, logoutUser } from '../../.././redux/actions';
 import { createBrowserHistory } from 'history';
+import { LOGIN, SIGNUP } from '../../.././redux/actions';
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -21,16 +26,25 @@ class Navbar extends React.Component {
             // this.loadingSpinner.current.style.display = 'none';
             history.push('/about');
         }, 1400);
+      }
+
+    openModal = (kind) => () => {
+      this.props.showModal(kind);
+    }
+
+    logout = () => {
+      event.preventDefault();
+      this.props.logoutUser();
     }
 
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
-            { 
+            {
                 this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
                     <div className="navbar-button">
                         <div className="navbar-text">
-                            {this.props.username}
+                            {this.props.fullName}
                         </div>
                     </div>
                     <div>
@@ -50,7 +64,7 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                     <div className="navbar-last-container">
-                        <div className="navbar-button">
+                        <div className="navbar-button" onClick={this.logout}>
                             <div className="navbar-text">
                                 LOG OUT
                             </div>
@@ -78,13 +92,13 @@ class Navbar extends React.Component {
                         </div>
                     </div>
                     <div className="navbar-button">
-                        <div className="navbar-text">
+                        <div className="navbar-text" onClick={this.openModal(SIGNUP)}>
                             SIGN UP
                         </div>
                     </div>
                     <div className="navbar-last-container">
                         <div className="navbar-button">
-                            <div className="navbar-text">
+                            <div className="navbar-text" onClick={this.openModal(LOGIN)}>
                                 LOG IN
                             </div>
                         </div>
@@ -130,8 +144,19 @@ class Navbar extends React.Component {
                 this.props.isHomePage &&
                 <MapQuery />
             }
+            {
+                (this.props.modal.modalKind === LOGIN) ? <Login/> : <Signup/>
+            }
         </div>
     }
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    modal: state.modal,
+    isSignedIn: state.user.isSignedIn,
+    fullName: state.user.fullName
+  };
+}
+
+export default connect(mapStateToProps, { showModal, logoutUser })(Navbar);

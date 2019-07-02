@@ -32,7 +32,7 @@
 }
 
 .navbar-text {
-    display: table-cell; 
+    display: table-cell;
     vertical-align: middle;
 }
 
@@ -66,11 +66,18 @@
     .query-label-text {
         font-size: 20px;
     }
+    .title-description-container {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .MuiButton-label {
+        font-size: 20px;
+    }
 }
 
 @media only screen and (max-width: 1399px) {
     .title-container {
-        font-size: 37px;
+        font-size: 37.5px;
     }
     .navbar-buttons-container {
         font-size: 16px;
@@ -78,8 +85,15 @@
     .query-label-text {
         font-size: 14px;
     }
+    .title-description-container {
+        font-size: 15px;
+        line-height: 18px;
+    }
+    .MuiButton-label {
+        font-size: 14px;
+    }
 }
-/* 
+/*
 TODO: logo
 .logo-container {
 
@@ -88,8 +102,6 @@ TODO: logo
 .title-description-container {
     font-family: 'Rubik', sans-serif;
     font-style: normal;
-    font-size: 20px;
-    line-height: 24px;
     text-align: right;
     letter-spacing: 0.01em;
     color: #000000;
@@ -100,7 +112,7 @@ TODO: logo
 }
 
 .description-title {
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .map-query-container {
@@ -120,14 +132,34 @@ TODO: logo
     width: 100%;
 }
 
-.MuiInputBase-input {
-    font-family: 'Rubik', sans-serif !important;
-}
-
-.MuiFilledInput-input {
+.MuiInputBase-input, .MuiFilledInput-input {
     font-family: 'Rubik', sans-serif !important;
 }
 
 .slider {
+    touch-action: none; //Fixes console log errors
+}
+
+.MuiTypography-h6 {
+    font-family: 'Rubik', sans-serif !important;
+    font-weight: 500;
+}
+
+.slider {
     touch-action: none; /* Fixes console log errors */
+}
+.MuiTypography-body1, .MuiInputLabel-formControl {
+    font-family: 'Rubik', sans-serif !important;
+}
+
+#link-to-signup {
+  margin-top: 20px;
+  color: red;
+  text-decoration: underline;
+  font-size: 12px;
+  text-align: center;
+}
+
+#link-to-signup a {
+  color: red;
 }
