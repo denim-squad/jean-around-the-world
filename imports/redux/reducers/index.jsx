@@ -3,37 +3,45 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SET_RADIUS,
-  SET_CENTER ,
+  SET_CENTER,
   LOGIN_USER,
   LOGOUT_USER,
   GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
-  REMOVE_FAVOURITES } from '../actions/index';
+  REMOVE_FAVOURITES,
+  REQUEST_LOCATIONS_START,
+  RECEIVE_LOCATIONS_SUCCESS,
+  RECEIVE_LOCATIONS_FAILURE
+} from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 
 // TODO: remove this later
 const userInfos = [
-  { email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
+  {
+    email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
     preferences: {
       blacklist: ["Wendys"],
       favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]
     }
   },
-  { email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
+  {
+    email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
     preferences: {
       blacklist: [],
       favourites: []
     }
   },
-  { email: "jessica.wu@gmail.com", firstName: "Jessica", lastName: "Wu",
+  {
+    email: "jessica.wu@gmail.com", firstName: "Jessica", lastName: "Wu",
     preferences: {
       blacklist: [],
       favourites: []
     }
   },
-  { email: "wesley.ferguson@gmail.com", firstName: "Wesley", lastName: "Ferguson",
+  {
+    email: "wesley.ferguson@gmail.com", firstName: "Wesley", lastName: "Ferguson",
     preferences: {
       blacklist: [],
       favourites: []
@@ -62,10 +70,19 @@ const initialUserState = {
   email: ""
 }
 
+const initialPlaceSearchState = {
+  isFetchingPlaces: false,
+  places: [],
+  price: 4,
+  typesAndQuantities: [],
+  error: null
+}
+
 function modalReducer(state = initialModalState, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return { ...state,
+      return {
+        ...state,
         isModalShown: true,
         modalKind: action.kind
       };
@@ -82,8 +99,9 @@ function userReducer(state = initialUserState, action) {
       let userInfo = userInfos.find((info) => {
         return info.email === action.email;
       });
-      if(userInfo){
-        return { ...state,
+      if (userInfo) {
+        return {
+          ...state,
           email: action.email,
           isSignedIn: true,
           fullName: `${userInfo.firstName} ${userInfo.lastName}`,
@@ -129,8 +147,30 @@ function mapReducer(state = initialMapState, action) {
   }
 }
 
+function placeSearchReducer(state = initialPlaceSearchState, action) {
+  switch (action.type) {
+    case REQUEST_LOCATIONS_START:
+      return { ...state, isFetchingPlaces: action.isFetchingPlaces };
+    case RECEIVE_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        isFetchingPlaces: action.isFetchingPlaces,
+        places: action.places
+      };
+    case RECEIVE_LOCATIONS_FAILURE:
+      return {
+        ...state,
+        isFetchingPlaces: action.isFetchingPlaces,
+        error: action.error
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   modal: modalReducer,
   user: userReducer,
   map: mapReducer,
+  placeSearch: placeSearchReducer
 });

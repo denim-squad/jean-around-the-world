@@ -1,4 +1,5 @@
-const googleMapsClient = require('@google/maps').createClient({
+import { createClient } from '@google/maps';
+const googleMapsClient = createClient({
   key: 'your API key here',
   Promise: Promise
 });
@@ -9,17 +10,16 @@ const googleMapsClient = require('@google/maps').createClient({
  * note that Google only supports searching for one type at a time,
  * so if multiple types are needed, we'll need to do multiple calls
  * 
- * @param {object} mapState 
- * @param {LatLng} mapState.center 
- * @param {number} mapState.radius 0 < radius <= 50000
- * @param {number} price 0 <= price <= 4; google supports a min/max price but
+ * @param {LatLng} location 
+ * @param {number} radius 0 < radius <= 50000
+ * @param {number} price 0 <= price <= 4; Google supports a min/max price lvl but
  * since our current behaviour is to only select one, setting both to the same
  * @param {string} type https://developers.google.com/places/supported_types
  */
-export async function getNearbyPlaces(mapState, price, type) {
+export async function getNearbyPlaces(location, radius, price, type) {
   return googleMapsClient.placesNearby({
-    location: mapState.center,
-    radius: mapState.radius,
+    location,
+    radius,
     minPrice: price,
     maxPrice: price,
     type

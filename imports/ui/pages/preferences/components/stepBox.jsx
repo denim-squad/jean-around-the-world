@@ -39,8 +39,11 @@ class StepBox extends React.Component {
                             What would you like to be included in your trip?
                         </strong>
                     </div>
-                    {/* todo allow clicking to choose how many of each type of venue
-                        e.g. 3 restaurants, 1 hotel, 4 attractions */}
+                    {/* todos 
+                        - allow clicking to choose how many of each type of venue
+                          e.g. 3 restaurants, 1 hotel, 4 attractions 
+                        - change global state based on what is selected
+                    */}
                     <FormGroup>
                         <FormControlLabel
                             className="customize-buttons"

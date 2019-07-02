@@ -1,19 +1,21 @@
-export const 
-SHOW_MODAL = 0, 
-HIDE_MODAL = 1,
-SET_RADIUS = 2, 
-SET_CENTER = 3,
-LOGIN_USER = 4, 
-LOGOUT_USER = 5
-ADD_BLACKLIST = 6, 
-REMOVE_BLACKLIST = 7,
-ADD_FAVOURITES = 8, 
-REMOVE_FAVOURITES = 9,
-LOGIN = 10,
-SIGNUP = 11,
-REQUEST_LOCATIONS = 12, 
-RECEIVE_LOCATIONS_SUCCESS = 13,
-RECEIVE_LOCATIONS_FAILURE = 14;
+import getNearbyPlaces from '../../api/places';
+
+export const
+  SHOW_MODAL = 0,
+  HIDE_MODAL = 1,
+  SET_RADIUS = 2,
+  SET_CENTER = 3,
+  LOGIN_USER = 4,
+  LOGOUT_USER = 5,
+  ADD_BLACKLIST = 6,
+  REMOVE_BLACKLIST = 7,
+  ADD_FAVOURITES = 8,
+  REMOVE_FAVOURITES = 9,
+  LOGIN = 10,
+  SIGNUP = 11,
+  REQUEST_LOCATIONS_START = 12,
+  RECEIVE_LOCATIONS_SUCCESS = 13,
+  RECEIVE_LOCATIONS_FAILURE = 14;
 
 export function showModal(kind) {
   return {
@@ -70,28 +72,77 @@ export function addFavourites(favourite) {
   };
 }
 
-export function removeBlacklist(blacklistToRemove){
+export function removeBlacklist(blacklistToRemove) {
   return {
     type: REMOVE_BLACKLIST,
     blacklist
   };
 }
 
-export function removeFavourites(favouriteToRemove){
+export function removeFavourites(favouriteToRemove) {
   return {
     type: REMOVE_FAVOURITES,
     favouriteToRemove
   };
 }
 
-export function requestLocations() {
-  //todo
+function requestLocationsStart() {
+  return {
+    type: REQUEST_LOCATIONS_START,
+    isFetchingPlaces: true
+  }
 }
 
-export function receiveLocationsSuccess(locations) {
-  //todo
+
+function receiveLocationsSuccess(locations) {
+  return {
+    type: RECEIVE_LOCATIONS_SUCCESS,
+    isFetchingPlaces: false,
+    locations
+  }
 }
 
-export function receiveLocationsFailure(error) {
-  //todo
+function receiveLocationsFailure(error) {
+  return {
+    type: RECEIVE_LOCATIONS_FAILURE,
+    isFetchingPlaces: false,
+    error
+  }
+}
+
+// uses redux-thunk
+export function getPlaces() {
+  return (dispatch, getState) => {
+    dispatch(requestLocationsStart());
+    const { location, radius, price, typesAndQuantities, blacklist } = getState();
+
+    const listOfPlaces = [];
+    Promise.all(
+      typesAndQuantities.map(({ type, quantity }) => {
+        return getNearbyPlaces(location, radius, price, type)
+          .then((response) => {
+            const results = response.json.results;
+            // todo extract and change logic to something smarter if needed
+            for (let i = 0; i < quantity; i++) {
+              let isBlacklisted = false;
+              for (const blacklistedName of blacklist) {
+                if (results[i].contains(blacklistedName)) {
+                  isBlacklisted = true;
+                  break;
+                }
+              }
+              isBlacklisted ?
+                quantity++ // need to get another item
+                : listOfPlaces.push(results[i]);
+            }
+          })
+      })
+    )
+      .then(() => {
+        dispatch(receiveLocationsSuccess(listOfPlaces));
+      })
+      .catch((error) => {
+        dispatch(receiveLocationsFailure(error));
+      })
+  }
 }
