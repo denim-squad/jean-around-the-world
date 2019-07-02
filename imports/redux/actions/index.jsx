@@ -126,7 +126,7 @@ export function getPlaces() {
             for (let i = 0; i < quantity; i++) {
               let isBlacklisted = false;
               for (const blacklistedName of blacklist) {
-                if (results[i].contains(blacklistedName)) {
+                if (results[i].name.contains(blacklistedName)) {
                   isBlacklisted = true;
                   break;
                 }
