@@ -62,25 +62,13 @@ const DialogActions = withStyles((theme) => ({
 class Login extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
-  }
-
-  handleClose = () => {
-    this.props.hideModal();
+    this.email = React.createRef();
+    this.password = React.createRef();
   }
 
   loginUser = () => {
-    this.props.loginUser(this.state.email, this.state.password);
+    this.props.loginUser(this.email.value, this.password.value);
     this.props.hideModal();
-  }
-
-  inputEmailChange = (e) => {
-    this.setState({
-      email: e.target.value
-    })
   }
 
   render() {
@@ -99,18 +87,20 @@ class Login extends React.Component {
               Enter your details below.
             </DialogContentText>
             <TextField
-              onChange={this.inputEmailChange}
+              inputRef = {(input) => (this.email = input)}
               margin="dense"
               label="Email Address"
               type="email"
               fullWidth
+              required={true}
             />
             <TextField
-              // TODO: handle password input
+              inputRef = {(input) => (this.password = input)}
               margin="dense"
               label="Password"
               type="password"
               fullWidth
+              required={true}
             />
             <DialogContentText id="link-to-signup">
               <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>

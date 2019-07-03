@@ -15,25 +15,25 @@ import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 
 // TODO: remove this later
 const userInfos = [
-  { email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
+  { email: "john.sastrillo@gmail.com", password: "john.sastrillo", firstName: "John", lastName: "Sastrillo",
     preferences: {
       blacklist: ["Wendys"],
       favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]
     }
   },
-  { email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
+  { email: "hailin.zhang@gmail.com", password: "hailin.zhang", firstName: "Hailin", lastName: "Zhang",
     preferences: {
       blacklist: [],
       favourites: []
     }
   },
-  { email: "jessica.wu@gmail.com", firstName: "Jessica", lastName: "Wu",
+  { email: "jessica.wu@gmail.com", password: "jessica.wu", firstName: "Jessica", lastName: "Wu",
     preferences: {
       blacklist: [],
       favourites: []
     }
   },
-  { email: "wesley.ferguson@gmail.com", firstName: "Wesley", lastName: "Ferguson",
+  { email: "wesley.ferguson@gmail.com", password: "wesley.ferguson", firstName: "Wesley", lastName: "Ferguson",
     preferences: {
       blacklist: [],
       favourites: []
@@ -80,7 +80,7 @@ function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
       let userInfo = userInfos.find((info) => {
-        return info.email === action.email;
+        return (info.email === action.email) && (info.password === action.password);
       });
       if(userInfo){
         return { ...state,
