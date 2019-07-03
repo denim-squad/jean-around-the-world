@@ -75,11 +75,11 @@ class Login extends React.Component {
     return (
         <Dialog
           open={this.props.isModalShown}
-          onClose={this.handleClose}
+          onClose={this.props.hideModal}
           aria-labelledby="customized-dialog-title">
           <DialogTitle
             id="customized-dialog-title"
-            onClose={this.handleClose}>
+            onClose={this.props.hideModal}>
               Log in to your Account
           </DialogTitle>
           <DialogContent>
