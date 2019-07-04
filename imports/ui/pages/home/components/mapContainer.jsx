@@ -64,5 +64,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(GoogleApiWrapper({
-  apiKey: ('') // paste API key here each time, DO NOT COMMIT.
+  apiKey: ("") // paste API key here each time, DO NOT COMMIT.
 })(MapContainer));

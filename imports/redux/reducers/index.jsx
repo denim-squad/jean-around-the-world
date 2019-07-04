@@ -12,33 +12,14 @@ import {
   REMOVE_BLACKLIST,
   REMOVE_FAVOURITES } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
+import { UserInfo } from '../../../lib/userInfoCollection';
 
 // TODO: remove this later
 const userInfos = [
-  { email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
-    preferences: {
-      blacklist: ["Wendys"],
-      favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]
-    }
-  },
-  { email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  },
-  { email: "jessica.wu@gmail.com", firstName: "Jessica", lastName: "Wu",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  },
-  { email: "wesley.ferguson@gmail.com", firstName: "Wesley", lastName: "Ferguson",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  },
+  { email: "john.sastrillo@gmail.com", password: "", firstName: "John", lastName: "Sastrillo", preferences: { blacklist: ["Wendys"],favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]}},
+  { email: "hailin.zhang@gmail.com", password: "", firstName: "Hailin", lastName: "Zhang", preferences: {blacklist: [], favourites: []}},
+  { email: "jessica.wu@gmail.com", password: "", firstName: "Jessica", lastName: "Wu", preferences: {blacklist: [],favourites: []}},
+  { email: "wesley.ferguson@gmail.com", password: "", firstName: "Wesley", lastName: "Ferguson",preferences: {blacklist: [],favourites: []}},
 ]
 
 const initialMapState = {
@@ -75,13 +56,11 @@ function modalReducer(state = initialModalState, action) {
       return state;
   }
 }
-
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userInfo = userInfos.find((info) => {
-        return info.email === action.email;
-      });
+      let userQuery = UserInfo.find({email: action.email}).fetch();
+      let userInfo = userQuery[0];
       if(userInfo){
         return { ...state,
           email: action.email,
