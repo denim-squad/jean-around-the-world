@@ -1,6 +1,7 @@
 import { createClient } from '@google/maps';
+
 const googleMapsClient = createClient({
-  key: 'your API key here',
+  key: 'AIzaSyBmXuDIMyxEAqz5BWgwRbSoZFSgWfokemg', //TODO REMOVE BEFORE COMMIT PLZZZZZ 
   Promise: Promise
 });
 
@@ -16,12 +17,12 @@ const googleMapsClient = createClient({
  * since our current behaviour is to only select one, setting both to the same
  * @param {string} type https://developers.google.com/places/supported_types
  */
-export async function getNearbyPlaces(location, radius, price, type) {
+export default async function getNearbyPlaces(location, radius, price, type) {
   return googleMapsClient.placesNearby({
     location,
     radius,
-    minPrice: price,
-    maxPrice: price,
+    minprice: price,
+    minprice: price,
     type
   }).asPromise()
 }
