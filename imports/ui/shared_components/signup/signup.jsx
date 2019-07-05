@@ -67,10 +67,13 @@ class Signup extends React.Component {
     this.password = React.createRef();
   }
 
-  signupUser = () => {
+  signupUser = async () => {
     if (this.firstName.value && this.lastName.value
       && this.email.value && this.password.value) {
-        this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
+        // add loadingSpinner: "Signing you up, welcome..."
+        await setTimeout(() => {
+          this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
+        }, 1400);
         this.props.hideModal();
       }
     else {
