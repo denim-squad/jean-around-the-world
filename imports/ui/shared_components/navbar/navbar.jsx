@@ -9,6 +9,7 @@ import { createBrowserHistory } from 'history';
 import { LOGIN, SIGNUP } from '../../.././redux/actions';
 
 const history = createBrowserHistory({forceRefresh: true});
+const logo = "/logo.svg";
 
 class Navbar extends React.Component {
 
@@ -113,7 +114,11 @@ class Navbar extends React.Component {
                     {/* spacing */}
                 </div>
                 <div className="logo-container">
-                   {/* TODO: logo */}
+                   {/* TODO: logo */
+                        <div className="logo">
+                            <img src={logo}></img>
+                        </div>
+                   }
                 </div>
                 <p className="title">
                     JEAN AROUND THE WORLD
