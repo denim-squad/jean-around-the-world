@@ -6,6 +6,7 @@ import {
   SET_CENTER ,
   LOGIN_USER,
   LOGOUT_USER,
+  SIGNUP_USER,
   GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
@@ -74,6 +75,33 @@ function userReducer(state = initialUserState, action) {
       break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
       return { ...state, isSignedIn: false, fullName: "", email: "", blacklist: [], favourites: [] };
+    case SIGNUP_USER:
+      let query = UserInfo.find({email: action.email}).fetch();
+      let userExists = query[0];
+      if (userExists) {
+        alert("An account with this email already exists. Proceed to login to continue.");
+        break;
+      }
+      else {
+        UserInfo.insert({
+          email: action.email,
+          firstName: action.firstName,
+          lastName: action.lastName,
+          password: action.password,
+          preferences: {blacklist: [], favourites: []}
+        }, function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+        return { ...state,
+          email: action.email,
+          isSignedIn: true,
+          fullName: action.firstName + " " + action.lastName,
+          blacklist: [],
+          favourites: []
+        }
+      }
     case ADD_BLACKLIST:
       let addedBlacklist = state.blacklist.slice();
       addedBlacklist.push(action.blacklist);

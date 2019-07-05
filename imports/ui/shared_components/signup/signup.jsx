@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { hideModal } from '../../.././redux/actions';
+import { hideModal, signupUser } from '../../.././redux/actions';
 
 const styles = (theme) => ({
   root: {
@@ -59,22 +59,36 @@ const DialogActions = withStyles((theme) => ({
 
 
 class Signup extends React.Component {
+  constructor(props){
+    super(props);
+    this.firstName = React.createRef();
+    this.lastName = React.createRef();
+    this.email = React.createRef();
+    this.password = React.createRef();
+  }
 
-  handleClose = () => {
-    this.props.hideModal();
+  signupUser = () => {
+    if (this.firstName.value && this.lastName.value
+      && this.email.value && this.password.value) {
+        this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
+        this.props.hideModal();
+      }
+    else {
+      alert("Please fill in the missing fields to proceed");
+    }
   }
 
   render() {
     return (
         <Dialog
           open={this.props.isModalShown}
-          onClose={this.handleClose}
+          onClose={this.props.hideModal}
           aria-labelledby="customized-dialog-title"
           fullWidth={true}
           maxWidth = {'xs'}>
           <DialogTitle
             id="customized-dialog-title"
-            onClose={this.handleClose}>
+            onClose={this.props.hideModal}>
             New here? Sign up now!
           </DialogTitle>
           <DialogContent>
@@ -82,37 +96,45 @@ class Signup extends React.Component {
               Create your free account below.
             </DialogContentText>
             <TextField
+              inputRef = {(input) => (this.firstName = input)}
               margin="dense"
               id="firstname"
               label="First Name"
               type="firstname"
               fullWidth
+              required={true}
             />
             <TextField
+              inputRef = {(input) => (this.lastName = input)}
               margin="dense"
               id="lastname"
               label="Last Name"
               type="lastname"
               fullWidth
+              required={true}
             />
             <TextField
+              inputRef = {(input) => (this.email = input)}
               margin="dense"
               id="email"
               label="Email Address"
               type="email"
               fullWidth
+              required={true}
             />
             <TextField
+              inputRef = {(input) => (this.password = input)}
               margin="dense"
               id="password"
               label="Password"
               type="password"
               fullWidth
+              required={true}
             />
           </DialogContent>
           <DialogActions>
             <BootstrapButton
-              onClick={this.handleClose}
+              onClick={this.signupUser}
               variant="contained"
               size="small"
               color="primary">
@@ -130,4 +152,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { hideModal })(Signup);
+export default connect(mapStateToProps, { hideModal, signupUser })(Signup);

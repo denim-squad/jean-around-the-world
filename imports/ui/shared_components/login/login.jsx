@@ -67,8 +67,17 @@ class Login extends React.Component {
   }
 
   loginUser = () => {
-    this.props.loginUser(this.email.value, this.password.value);
-    this.props.hideModal();
+    if (this.email.value && this.password.value) {
+      this.props.loginUser(this.email.value, this.password.value);
+      this.props.hideModal();
+    }
+    else if (!this.email.value && !this.password.value) {
+      alert("Enter your email and password to proceed.");
+    }
+    else
+      (!this.email.value) ?
+        alert("Enter your email to proceed.") :
+        alert("Enter your password to proceed.");
   }
 
   render() {
