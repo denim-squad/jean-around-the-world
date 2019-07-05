@@ -12,7 +12,10 @@ export class MapContainer extends React.Component {
     constructor() {
       super();
       this.state = {
-        activeMarker: {},
+        activeMarker: {
+          lat: 49.263749,
+          lng: -123.247480
+        },
       };
     }
 
@@ -33,7 +36,7 @@ export class MapContainer extends React.Component {
       };
       return <Map
         google = {this.props.google}
-        zoom = {16}
+        zoom = {14}
         style = {mapStyles}
         initialCenter = {{
           lat: 49.263749,

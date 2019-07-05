@@ -7,6 +7,7 @@ import Signup from '../signup/signup';
 import { showModal, logoutUser } from '../../.././redux/actions';
 import { createBrowserHistory } from 'history';
 import { LOGIN, SIGNUP } from '../../.././redux/actions';
+import StyledAvatar, { SvgIcon } from '@material-ui/core';
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -109,11 +110,9 @@ class Navbar extends React.Component {
                 </div>
             }
             <div className="title-container">
-                <div>
-                    {/* spacing */}
-                </div>
                 <div className="logo-container">
-                   {/* TODO: logo */}
+                    <img src={"/logo.svg"}>
+                    </img>
                 </div>
                 <p className="title">
                     JEAN AROUND THE WORLD
