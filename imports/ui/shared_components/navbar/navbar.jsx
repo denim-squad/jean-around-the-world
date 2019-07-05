@@ -7,7 +7,6 @@ import Signup from '../signup/signup';
 import { showModal, logoutUser } from '../../.././redux/actions';
 import { createBrowserHistory } from 'history';
 import { LOGIN, SIGNUP } from '../../.././redux/actions';
-import StyledAvatar, { SvgIcon } from '@material-ui/core';
 
 const history = createBrowserHistory({forceRefresh: true});
 
