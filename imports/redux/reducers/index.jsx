@@ -16,6 +16,7 @@ import {
   RECEIVE_LOCATIONS_FAILURE
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
+import { UserInfo } from '../../../lib/userInfoCollection';
 
 // TODO: remove this later
 const userInfos = [
@@ -46,7 +47,7 @@ const userInfos = [
       blacklist: [],
       favourites: []
     }
-  },
+  }
 ]
 
 const initialMapState = {
@@ -92,16 +93,13 @@ function modalReducer(state = initialModalState, action) {
       return state;
   }
 }
-
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userInfo = userInfos.find((info) => {
-        return info.email === action.email;
-      });
-      if (userInfo) {
-        return {
-          ...state,
+      let userQuery = UserInfo.find({email: action.email}).fetch();
+      let userInfo = userQuery[0];
+      if(userInfo){
+        return { ...state,
           email: action.email,
           isSignedIn: true,
           fullName: `${userInfo.firstName} ${userInfo.lastName}`,
