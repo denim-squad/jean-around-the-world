@@ -59,7 +59,7 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({email: action.email}).fetch();
+      let userQuery = UserInfo.find({email: action.email, password: action.password}).fetch();
       let userInfo = userQuery[0];
       if(userInfo){
         return { ...state,
