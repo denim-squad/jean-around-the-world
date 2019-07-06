@@ -4,6 +4,7 @@ export const LOGIN_USER = 4, LOGOUT_USER = 5;
 export const ADD_BLACKLIST = 6, REMOVE_BLACKLIST = 7;
 export const ADD_FAVOURITES = 8, REMOVE_FAVOURITES = 9;
 export const LOGIN = 10, SIGNUP = 11;
+export const SIGNUP_USER = 12;
 
 export function showModal(kind) {
   return {
@@ -43,6 +44,16 @@ export function loginUser(email, password) {
 export function logoutUser() {
   return {
     type: LOGOUT_USER
+  };
+}
+
+export function signupUser(firstName, lastName, email, password) {
+  return {
+    type: SIGNUP_USER,
+    firstName,
+    lastName,
+    email,
+    password
   };
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import BlacklistContainer from './blacklist-container'
 import FavouritesContainer from './favourites-container'
+import { addBlacklist, addFavourites } from '../../../../redux/actions';
 import { connect } from 'react-redux';
 import '../profile.page.css';
 
@@ -36,4 +37,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, {addBlacklist, addFavourites})(Profile);
