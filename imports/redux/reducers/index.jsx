@@ -6,6 +6,7 @@ import {
   SET_CENTER ,
   LOGIN_USER,
   LOGOUT_USER,
+  SIGNUP_USER,
   GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
@@ -52,7 +53,7 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({email:action.email}).fetch();
+      let userQuery = UserInfo.find({email: action.email, password: action.password}).fetch();
       let userInfo = userQuery[0];
       if(userInfo){
         return { ...state,
@@ -67,7 +68,34 @@ function userReducer(state = initialUserState, action) {
       alert("Invalid login info. Try Again.");
       break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, fullName: "", email: "", userId: "", blacklist: [], favourites: [] };
+      return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
+    case SIGNUP_USER:
+      let query = UserInfo.find({email: action.email}).fetch();
+      let userExists = query[0];
+      if (userExists) {
+        alert("An account with this email already exists. Proceed to login to continue.");
+        break;
+      }
+      else {
+        UserInfo.insert({
+          email: action.email,
+          firstName: action.firstName,
+          lastName: action.lastName,
+          password: action.password,
+          preferences: {blacklist: [], favourites: []}
+        }, function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+        return { ...state,
+          email: action.email,
+          isSignedIn: true,
+          fullName: action.firstName + " " + action.lastName,
+          blacklist: [],
+          favourites: []
+        }
+      }
     case ADD_BLACKLIST:
       let matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.blacklist": action.blacklist } })
       if (matchedUsers === 0) {

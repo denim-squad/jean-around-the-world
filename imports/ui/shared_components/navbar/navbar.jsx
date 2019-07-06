@@ -109,11 +109,9 @@ class Navbar extends React.Component {
                 </div>
             }
             <div className="title-container">
-                <div>
-                    {/* spacing */}
-                </div>
                 <div className="logo-container">
-                   {/* TODO: logo */}
+                    <img src={"/logo.svg"}>
+                    </img>
                 </div>
                 <p className="title">
                     JEAN AROUND THE WORLD
