@@ -13,9 +13,10 @@ export const
   REMOVE_FAVOURITES = 9,
   LOGIN = 10,
   SIGNUP = 11,
-  REQUEST_LOCATIONS_START = 12,
-  RECEIVE_LOCATIONS_SUCCESS = 13,
-  RECEIVE_LOCATIONS_FAILURE = 14;
+  SIGNUP_USER = 12,
+  REQUEST_LOCATIONS_START = 13,
+  RECEIVE_LOCATIONS_SUCCESS = 14,
+  RECEIVE_LOCATIONS_FAILURE = 15;
 
 export function showModal(kind) {
   return {
@@ -55,6 +56,16 @@ export function loginUser(email, password) {
 export function logoutUser() {
   return {
     type: LOGOUT_USER
+  };
+}
+
+export function signupUser(firstName, lastName, email, password) {
+  return {
+    type: SIGNUP_USER,
+    firstName,
+    lastName,
+    email,
+    password
   };
 }
 
