@@ -14,14 +14,6 @@ import {
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
 
-// TODO: remove this later
-const userInfos = [
-  { email: "john.sastrillo@gmail.com", password: "", firstName: "John", lastName: "Sastrillo", preferences: { blacklist: ["Wendys"],favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]}},
-  { email: "hailin.zhang@gmail.com", password: "", firstName: "Hailin", lastName: "Zhang", preferences: {blacklist: [], favourites: []}},
-  { email: "jessica.wu@gmail.com", password: "", firstName: "Jessica", lastName: "Wu", preferences: {blacklist: [],favourites: []}},
-  { email: "wesley.ferguson@gmail.com", password: "", firstName: "Wesley", lastName: "Ferguson",preferences: {blacklist: [],favourites: []}},
-]
-
 const initialMapState = {
   radius: 1000,
   initialCenter: {
@@ -40,7 +32,8 @@ const initialUserState = {
   blacklist: [],
   favourites: [],
   fullName: "",
-  email: ""
+  email: "",
+  userId: ""
 }
 
 function modalReducer(state = initialModalState, action) {
@@ -59,10 +52,12 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({email: action.email}).fetch();
+      let userQuery = UserInfo.find({email:action.email}).fetch();
       let userInfo = userQuery[0];
+      console.log(userInfo._id); //TODO: remove this later
       if(userInfo){
         return { ...state,
+          userId: userInfo._id,
           email: action.email,
           isSignedIn: true,
           fullName: `${userInfo.firstName} ${userInfo.lastName}`,
@@ -73,21 +68,31 @@ function userReducer(state = initialUserState, action) {
       alert("Invalid login info. Try Again.");
       break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, fullName: "", email: "", blacklist: [], favourites: [] };
+      return { ...state, isSignedIn: false, fullName: "", email: "", userId: "", blacklist: [], favourites: [] };
     case ADD_BLACKLIST:
-      let addedBlacklist = state.blacklist.slice();
-      addedBlacklist.push(action.blacklist);
-      return { ...state, blacklist: addedBlacklist };
+      let matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.blacklist": action.blacklist } })
+      if(matchedUsers === 0){
+        console.log("UserId Does Not Exist in Database")
+      }
+      let updatedInfo = UserInfo.find({_id: state.userId}).fetch();
+      let info = updatedInfo[0];
+      return { ...state, blacklist: info.preferences.blacklist };
     case REMOVE_BLACKLIST:
+      //TODO: change this to use MongoToDelete
       let updatedBlacklist = Array.filter((value, index, array) => {
         return action.blacklistToRemove !== value;
       })
       return { ...state, blacklist: updatedBlacklist };
     case ADD_FAVOURITES:
-      let addedFavourites = state.favourites.slice();
-      addedFavourites.push(action.favourite);
-      return { ...state, favourites: addedFavourites };
+      matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.favourites": action.favourite } })
+      if(matchedUsers === 0){
+        console.log("UserId Does Not Exist in Database")
+      }
+      updatedInfo = UserInfo.find({userId:state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, favourites: info.preferences.favourites };
     case REMOVE_FAVOURITES:
+      //TODO: change this to use MongoToDelete
       let updatedFavourites = Array.filter((value, index, array) => {
         return action.favouriteToRemove !== value;
       })
