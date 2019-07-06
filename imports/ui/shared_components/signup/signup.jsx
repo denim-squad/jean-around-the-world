@@ -17,7 +17,9 @@ import { hideModal, signupUser } from '../../.././redux/actions';
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(5),
   },
   closeButton: {
     position: 'absolute',
@@ -46,14 +48,17 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(1),
+    padding: theme.spacing(4),
+    justifyContent: 'center'
   },
 }))(MuiDialogActions);
 
