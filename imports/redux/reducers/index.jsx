@@ -88,10 +88,11 @@ function userReducer(state = initialUserState, action) {
             console.log(err);
           }
         });
-        return { ...state,
+        return {
+          ...state,
           email: action.email,
           isSignedIn: true,
-          fullName: action.firstName + " " + action.lastName,
+          fullName: `${action.firstName} ${action.lastName}`,
           blacklist: [],
           favourites: []
         }

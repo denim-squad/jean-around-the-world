@@ -78,8 +78,9 @@ class Signup extends React.Component {
         // add loadingSpinner: "Signing you up, welcome..."
         await setTimeout(() => {
           this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
+          this.props.hideModal();
         }, 1400);
-        this.props.hideModal();
+
       }
     else {
       alert("Please fill in the missing fields to proceed");
