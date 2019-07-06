@@ -54,7 +54,6 @@ function userReducer(state = initialUserState, action) {
     case LOGIN_USER:
       let userQuery = UserInfo.find({email:action.email}).fetch();
       let userInfo = userQuery[0];
-      console.log(userInfo._id); //TODO: remove this later
       if(userInfo){
         return { ...state,
           userId: userInfo._id,
@@ -71,8 +70,9 @@ function userReducer(state = initialUserState, action) {
       return { ...state, isSignedIn: false, fullName: "", email: "", userId: "", blacklist: [], favourites: [] };
     case ADD_BLACKLIST:
       let matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.blacklist": action.blacklist } })
-      if(matchedUsers === 0){
-        console.log("UserId Does Not Exist in Database")
+      if (matchedUsers === 0) {
+        //TODO: create better error handling
+        console.log("Error Updating Blacklist for User")
       }
       let updatedInfo = UserInfo.find({_id: state.userId}).fetch();
       let info = updatedInfo[0];
@@ -85,8 +85,9 @@ function userReducer(state = initialUserState, action) {
       return { ...state, blacklist: updatedBlacklist };
     case ADD_FAVOURITES:
       matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.favourites": action.favourite } })
-      if(matchedUsers === 0){
-        console.log("UserId Does Not Exist in Database")
+      if (matchedUsers === 0) {
+        //TODO: create better error handling
+        console.log("Error Updating Favourites for User")
       }
       updatedInfo = UserInfo.find({userId:state.userId}).fetch();
       info = updatedInfo[0];
