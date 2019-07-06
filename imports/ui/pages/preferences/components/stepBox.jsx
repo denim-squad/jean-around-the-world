@@ -51,7 +51,7 @@ class StepBox extends React.Component {
                             }
                             label="Restaurants"
                         />
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -61,7 +61,7 @@ class StepBox extends React.Component {
                                 />
                             }
                             label="Bars"
-                        />
+                        /> */}
                         <FormControlLabel
                             className="customize-buttons"
                             control={
@@ -73,7 +73,7 @@ class StepBox extends React.Component {
                             }
                             label="Dessert"
                         />
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -83,7 +83,7 @@ class StepBox extends React.Component {
                                 />
                             }
                             label="Coffee"
-                        />
+                        /> */}
                         <FormControlLabel
                             className="customize-buttons"
                             control={
