@@ -14,9 +14,9 @@ export const
   LOGIN = 10,
   SIGNUP = 11,
   SIGNUP_USER = 12,
-  REQUEST_LOCATIONS_START = 13,
-  RECEIVE_LOCATIONS_SUCCESS = 14,
-  RECEIVE_LOCATIONS_FAILURE = 15;
+  REQUEST_PLACES_START = 13,
+  RECEIVE_PLACES_SUCCESS = 14,
+  RECEIVE_PLACES_FAILURE = 15;
 
 export function showModal(kind) {
   return {
@@ -97,25 +97,25 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
-function requestLocationsStart() {
+function requestPlacesStart() {
   return {
-    type: REQUEST_LOCATIONS_START,
+    type: REQUEST_PLACES_START,
     isFetchingPlaces: true
   }
 }
 
 
-function receiveLocationsSuccess(locations) {
+function receivePlacesSuccess(places) {
   return {
-    type: RECEIVE_LOCATIONS_SUCCESS,
+    type: RECEIVE_PLACES_SUCCESS,
     isFetchingPlaces: false,
-    locations
+    places
   }
 }
 
-function receiveLocationsFailure(error) {
+function receivePlacesFailure(error) {
   return {
-    type: RECEIVE_LOCATIONS_FAILURE,
+    type: RECEIVE_PLACES_FAILURE,
     isFetchingPlaces: false,
     error
   }
@@ -123,37 +123,36 @@ function receiveLocationsFailure(error) {
 
 // uses redux-thunk
 export function getPlaces() {
-  return (dispatch, getState) => {
-    dispatch(requestLocationsStart());
+  return async (dispatch, getState) => {
+    dispatch(requestPlacesStart());
     const { location, radius, price, typesAndQuantities, blacklist } = getState();
-
+    const promises = typesAndQuantities.map(({ type }) => {
+      return getNearbyPlaces(location, radius, price, type);
+    });
     const listOfPlaces = [];
-    Promise.all(
-      typesAndQuantities.map(({ type, quantity }) => {
-        return getNearbyPlaces(location, radius, price, type)
-          .then((response) => {
-            const results = response.json.results;
-            // todo extract and change logic to something smarter if needed
-            for (let i = 0; i < quantity; i++) {
-              let isBlacklisted = false;
-              for (const blacklistedName of blacklist) {
-                if (results[i].name.contains(blacklistedName)) {
-                  isBlacklisted = true;
-                  break;
-                }
-              }
-              isBlacklisted ?
-                quantity++ // need to get another item
-                : listOfPlaces.push(results[i]);
+    try {
+      promises.forEach(async (promise, i) => {
+        const response = await promise;
+        if (response.error) throw error;
+        const results = response.json.results;
+        const quantity = typesAndQuantities[i].quantity;
+
+        for (let i = 0; i < quantity; i++) {
+          let isBlacklisted = false;
+          for (const blacklistedName of blacklist) {
+            if (results[i].name.includes(blacklistedName)) {
+              isBlacklisted = true;
+              break;
             }
-          })
-      })
-    )
-      .then(() => {
-        dispatch(receiveLocationsSuccess(listOfPlaces));
-      })
-      .catch((error) => {
-        dispatch(receiveLocationsFailure(error));
-      })
+          }
+          isBlacklisted ?
+            quantity++ // need to get another item
+            : listOfPlaces.push(results[i]);
+        }
+      });
+      dispatch(receivePlacesSuccess(listOfPlaces));
+    } catch (error) {
+      dispatch(receivePlacesFailure(error));
+    }
   }
 }

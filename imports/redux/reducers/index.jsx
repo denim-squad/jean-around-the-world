@@ -12,9 +12,9 @@ import {
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
   REMOVE_FAVOURITES,
-  REQUEST_LOCATIONS_START,
-  RECEIVE_LOCATIONS_SUCCESS,
-  RECEIVE_LOCATIONS_FAILURE
+  REQUEST_PLACES_START,
+  RECEIVE_PLACES_SUCCESS,
+  RECEIVE_PLACES_FAILURE
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
@@ -158,15 +158,15 @@ function mapReducer(state = initialMapState, action) {
 
 function placeSearchReducer(state = initialPlaceSearchState, action) {
   switch (action.type) {
-    case REQUEST_LOCATIONS_START:
+    case REQUEST_PLACES_START:
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
-    case RECEIVE_LOCATIONS_SUCCESS:
+    case RECEIVE_PLACES_SUCCESS:
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
         places: action.places
       };
-    case RECEIVE_LOCATIONS_FAILURE:
+    case RECEIVE_PLACES_FAILURE:
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
