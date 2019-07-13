@@ -1,9 +1,12 @@
 import React from 'react';
 import '../preferences.page.css';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../preferences.page';
+import { addBlacklist } from '../../../../redux/actions/index';
+import { connect } from 'react-redux';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
+import PreferenceButton from '../../../shared_components/preferences/preference-button'
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
@@ -15,6 +18,7 @@ class StepBox extends React.Component {
 
     constructor() {
         super();
+        this.blacklistInput = React.createRef();
         this.state = {
             budgetValue: 50,
             ratingValue: 5,
@@ -27,7 +31,15 @@ class StepBox extends React.Component {
 
     rating = (event, ratingValue) => {
         this.setState({ ...this.state, budgetValue });
-    }; 
+    };
+
+    getBlacklist = () => {
+        return Array.from(this.props.blacklist).map((value, index) => {
+            return (
+              <PreferenceButton key={index} name={value}/>
+            );
+        }
+      )}
 
     renderCurrentStep = () => {
         const { budgetValue, ratingValue } = this.state;
@@ -51,7 +63,7 @@ class StepBox extends React.Component {
                             }
                             label="Restaurants"
                         />
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -61,7 +73,7 @@ class StepBox extends React.Component {
                                 />
                             }
                             label="Bars"
-                        />
+                        /> */}
                         <FormControlLabel
                             className="customize-buttons"
                             control={
@@ -73,7 +85,7 @@ class StepBox extends React.Component {
                             }
                             label="Dessert"
                         />
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -83,7 +95,7 @@ class StepBox extends React.Component {
                                 />
                             }
                             label="Coffee"
-                        />
+                        /> */}
                         <FormControlLabel
                             className="customize-buttons"
                             control={
@@ -129,9 +141,11 @@ class StepBox extends React.Component {
                     <div className="blacklist-add-container">
                         <CssTextField
                             placeholder="John Sastrillo's House"
-                            margin="none"/>
+                            margin="none"
+                            inputRef = {(input) => {this.blacklistInput = input}}/>
                         <BootstrapButton
                             className="add-button"
+                            onClick={() => {this.props.addBlacklist(this.blacklistInput.value)}}
                             disabled={this.props.isLocationEmpty}
                             variant="contained"
                             size="small"
@@ -146,6 +160,9 @@ class StepBox extends React.Component {
                         <strong>
                             Blacklist:
                         </strong>
+                    </div>
+                    <div className="blacklist-buttons-container">
+                      {this.getBlacklist()}
                     </div>
                 </div>;
             case REFINE_STEP:
@@ -174,9 +191,9 @@ class StepBox extends React.Component {
                             $
                         </div>
                         <div className="slider-div">
-                            <StyledSlider 
-                                value={budgetValue} 
-                                onChange={this.changeBudget} 
+                            <StyledSlider
+                                value={budgetValue}
+                                onChange={this.changeBudget}
                                 aria-labelledby="budget slider"
                                 className="slider"
                             />
@@ -203,4 +220,10 @@ class StepBox extends React.Component {
 
 }
 
-export default StepBox;
+const mapStateToProps = (state) => {
+  return {
+    blacklist: state.user.blacklist
+  };
+}
+
+export default connect(mapStateToProps, {addBlacklist})(StepBox);
