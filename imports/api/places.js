@@ -24,5 +24,5 @@ export default function getNearbyPlaces(location, radius, price, type) {
     minprice: price,
     maxprice: price,
     type
-  }).asPromise()
+  }).asPromise();
 }

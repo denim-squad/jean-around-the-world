@@ -7,6 +7,7 @@ import { StyledSlider } from '../MUI/slider/styledSlider';
 import { connect } from 'react-redux';
 import { setRadius, setMapCenter } from '../../../redux/actions/index';
 import Geocode from 'react-geocode';
+import { MIN_RADIUS, MAX_RADIUS } from '../../../constants'
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -52,8 +53,8 @@ class MapQuery extends React.Component {
         </div>
         <StyledSlider
             value={this.props.radius}
-            min={1000}
-            max={80000}
+            min={MIN_RADIUS}
+            max={MAX_RADIUS}
             onChange={this.changeRadius}
             aria-labelledby="radius slider"
             className="slider"

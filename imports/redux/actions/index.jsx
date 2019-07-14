@@ -97,6 +97,65 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
+// uses redux-thunk
+export function getPlaces() {
+  return async (dispatch, getState) => {
+    dispatch(requestPlacesStart());
+    
+    const { location, radius, price, typesAndQuantities, blacklist } = getState();
+    const placesPromises = [], quantities = [];
+
+    typesAndQuantities.forEach(({ type, quantity }) => {
+      placesPromises.push(getNearbyPlaces(location, radius, price, type));
+      quantities.push(quantity);
+    });
+
+    try {
+      const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
+      dispatch(receivePlacesSuccess(listOfPlaces));
+    } catch (error) {
+      dispatch(receivePlacesFailure(error));
+    }
+  }
+}
+
+/**
+ * Given an array of place API response promises from getNearbyPlaces,
+ * how many of each type, and the list of blacklisted places,
+ * returns an array of valid places with the correct number of each type.
+ * If any promise returns an error, immediately throws the error.
+ * @param {Array} places 
+ * @param {Array} quantities 
+ * @param {Array} blacklist 
+ */
+function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
+  const listOfPlaces = [];
+
+  places.forEach(async (promise, promiseIndex) => {
+    const response = await promise;
+    if (response.error) {
+      throw response.error;
+    }
+    const results = response.json.results;
+    const quantity = quantities[promiseIndex];
+    
+    for (let i = 0; i < quantity; i++) {
+      let isBlacklisted = false;
+      for (const blacklistedName of blacklist) {
+        if (results[i].name.includes(blacklistedName)) {
+          isBlacklisted = true;
+          break;
+        }
+      }
+      isBlacklisted ?
+        quantity++ // need to get another item
+        : listOfPlaces.push(results[i]);
+    }
+  });
+
+  return listOfPlaces;
+}
+
 function requestPlacesStart() {
   return {
     type: REQUEST_PLACES_START,
@@ -118,41 +177,5 @@ function receivePlacesFailure(error) {
     type: RECEIVE_PLACES_FAILURE,
     isFetchingPlaces: false,
     error
-  }
-}
-
-// uses redux-thunk
-export function getPlaces() {
-  return async (dispatch, getState) => {
-    dispatch(requestPlacesStart());
-    const { location, radius, price, typesAndQuantities, blacklist } = getState();
-    const promises = typesAndQuantities.map(({ type }) => {
-      return getNearbyPlaces(location, radius, price, type);
-    });
-    const listOfPlaces = [];
-    try {
-      promises.forEach(async (promise, i) => {
-        const response = await promise;
-        if (response.error) throw error;
-        const results = response.json.results;
-        const quantity = typesAndQuantities[i].quantity;
-
-        for (let i = 0; i < quantity; i++) {
-          let isBlacklisted = false;
-          for (const blacklistedName of blacklist) {
-            if (results[i].name.includes(blacklistedName)) {
-              isBlacklisted = true;
-              break;
-            }
-          }
-          isBlacklisted ?
-            quantity++ // need to get another item
-            : listOfPlaces.push(results[i]);
-        }
-      });
-      dispatch(receivePlacesSuccess(listOfPlaces));
-    } catch (error) {
-      dispatch(receivePlacesFailure(error));
-    }
   }
 }

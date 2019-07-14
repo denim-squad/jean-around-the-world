@@ -25,7 +25,7 @@ const initialMapState = {
     lat: 49.263749,
     lng: -123.247480
   }
-}
+};
 
 const initialModalState = {
   isModalShown: false,
@@ -46,7 +46,7 @@ const initialPlaceSearchState = {
   places: [],
   price: 4,
   typesAndQuantities: [],
-  error: null
+  error: undefined
 }
 
 function modalReducer(state = initialModalState, action) {
