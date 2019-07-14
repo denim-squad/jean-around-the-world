@@ -22,7 +22,7 @@ export default function getNearbyPlaces(location, radius, price, type) {
     location,
     radius,
     minprice: price,
-    minprice: price,
+    maxprice: price,
     type
   }).asPromise()
 }
