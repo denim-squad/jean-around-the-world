@@ -53,7 +53,7 @@ class MapQuery extends React.Component {
         <StyledSlider
             value={this.props.radius}
             min={1000}
-            max={80000}
+            max={50000}
             onChange={this.changeRadius}
             aria-labelledby="radius slider"
             className="slider"

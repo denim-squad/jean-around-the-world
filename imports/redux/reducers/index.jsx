@@ -46,7 +46,7 @@ const initialPlaceSearchState = {
   places: [],
   price: 4,
   typesAndQuantities: [],
-  error: null
+  error: undefined
 }
 
 function modalReducer(state = initialModalState, action) {
