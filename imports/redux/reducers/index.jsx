@@ -6,49 +6,18 @@ import {
   SET_CENTER,
   LOGIN_USER,
   LOGOUT_USER,
+  SIGNUP_USER,
   GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
   REMOVE_FAVOURITES,
-  REQUEST_LOCATIONS_START,
-  RECEIVE_LOCATIONS_SUCCESS,
-  RECEIVE_LOCATIONS_FAILURE
+  REQUEST_PLACES_START,
+  RECEIVE_PLACES_SUCCESS,
+  RECEIVE_PLACES_FAILURE
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
-
-// TODO: remove this later
-const userInfos = [
-  {
-    email: "john.sastrillo@gmail.com", firstName: "John", lastName: "Sastrillo",
-    preferences: {
-      blacklist: ["Wendys"],
-      favourites: ["McDonalds", "Marutama", "Coco", "Hailin's Room XD", "Tacofino"]
-    }
-  },
-  {
-    email: "hailin.zhang@gmail.com", firstName: "Hailin", lastName: "Zhang",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  },
-  {
-    email: "jessica.wu@gmail.com", firstName: "Jessica", lastName: "Wu",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  },
-  {
-    email: "wesley.ferguson@gmail.com", firstName: "Wesley", lastName: "Ferguson",
-    preferences: {
-      blacklist: [],
-      favourites: []
-    }
-  }
-]
 
 const initialMapState = {
   radius: 1000,
@@ -56,7 +25,7 @@ const initialMapState = {
     lat: 49.263749,
     lng: -123.247480
   }
-}
+};
 
 const initialModalState = {
   isModalShown: false,
@@ -68,7 +37,8 @@ const initialUserState = {
   blacklist: [],
   favourites: [],
   fullName: "",
-  email: ""
+  email: "",
+  userId: ""
 }
 
 const initialPlaceSearchState = {
@@ -96,10 +66,11 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({email: action.email}).fetch();
+      let userQuery = UserInfo.find({email: action.email, password: action.password}).fetch();
       let userInfo = userQuery[0];
       if(userInfo){
         return { ...state,
+          userId: userInfo._id,
           email: action.email,
           isSignedIn: true,
           fullName: `${userInfo.firstName} ${userInfo.lastName}`,
@@ -110,21 +81,61 @@ function userReducer(state = initialUserState, action) {
       alert("Invalid login info. Try Again.");
       break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, fullName: "", email: "", blacklist: [], favourites: [] };
+      return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
+    case SIGNUP_USER:
+      let query = UserInfo.find({email: action.email}).fetch();
+      let userExists = query[0];
+      if (userExists) {
+        alert("An account with this email already exists. Proceed to login to continue.");
+        break;
+      }
+      else {
+        UserInfo.insert({
+          email: action.email,
+          firstName: action.firstName,
+          lastName: action.lastName,
+          password: action.password,
+          preferences: {blacklist: [], favourites: []}
+        }, function(err) {
+          if (err) {
+            console.log(err);
+          }
+        });
+        return {
+          ...state,
+          email: action.email,
+          isSignedIn: true,
+          fullName: `${action.firstName} ${action.lastName}`,
+          blacklist: [],
+          favourites: []
+        }
+      }
     case ADD_BLACKLIST:
-      let addedBlacklist = state.blacklist.slice();
-      addedBlacklist.push(action.blacklist);
-      return { ...state, blacklist: addedBlacklist };
+      let matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.blacklist": action.blacklist } })
+      if (matchedUsers === 0) {
+        //TODO: create better error handling
+        console.log("Error Updating Blacklist for User")
+      }
+      let updatedInfo = UserInfo.find({_id: state.userId}).fetch();
+      let info = updatedInfo[0];
+      return { ...state, blacklist: info.preferences.blacklist };
     case REMOVE_BLACKLIST:
+      //TODO: change this to use MongoToDelete
       let updatedBlacklist = Array.filter((value, index, array) => {
         return action.blacklistToRemove !== value;
       })
       return { ...state, blacklist: updatedBlacklist };
     case ADD_FAVOURITES:
-      let addedFavourites = state.favourites.slice();
-      addedFavourites.push(action.favourite);
-      return { ...state, favourites: addedFavourites };
+      matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.favourites": action.favourite } })
+      if (matchedUsers === 0) {
+        //TODO: create better error handling
+        console.log("Error Updating Favourites for User")
+      }
+      updatedInfo = UserInfo.find({userId:state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, favourites: info.preferences.favourites };
     case REMOVE_FAVOURITES:
+      //TODO: change this to use MongoToDelete
       let updatedFavourites = Array.filter((value, index, array) => {
         return action.favouriteToRemove !== value;
       })
@@ -147,15 +158,15 @@ function mapReducer(state = initialMapState, action) {
 
 function placeSearchReducer(state = initialPlaceSearchState, action) {
   switch (action.type) {
-    case REQUEST_LOCATIONS_START:
+    case REQUEST_PLACES_START:
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
-    case RECEIVE_LOCATIONS_SUCCESS:
+    case RECEIVE_PLACES_SUCCESS:
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
         places: action.places
       };
-    case RECEIVE_LOCATIONS_FAILURE:
+    case RECEIVE_PLACES_FAILURE:
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
