@@ -13,7 +13,7 @@ import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 import Rating from 'material-ui-rating';
-import { DEFAULT_PRICE_LEVEL, DEFAULT_RATING, MAX_RATING, MIN_PRICE_LEVEL, MAX_PRICE_LEVEL } from '../../../../constants'
+import { DEFAULT_PRICE_RANGE, DEFAULT_RATING, MAX_RATING, MIN_PRICE_LEVEL, MAX_PRICE_LEVEL } from '../../../../constants'
 
 class StepBox extends React.Component {
 
@@ -21,7 +21,7 @@ class StepBox extends React.Component {
         super();
         this.blacklistInput = React.createRef();
         this.state = {
-            budgetValue: DEFAULT_PRICE_LEVEL,
+            budgetValue: DEFAULT_PRICE_RANGE,
             ratingValue: DEFAULT_RATING,
         };
     }
@@ -197,7 +197,6 @@ class StepBox extends React.Component {
                             Free
                         </div>
                         <div className="slider-div">
-                          {/* todo make range slider? */}
                             <StyledSlider
                                 value={budgetValue}
                                 onChange={this.changeBudget}
@@ -207,7 +206,6 @@ class StepBox extends React.Component {
                                 marks
                                 min={MIN_PRICE_LEVEL}
                                 max={MAX_PRICE_LEVEL}
-                                defaultValue={[MIN_PRICE_LEVEL, MAX_PRICE_LEVEL]}
                                 valueLabelDisplay="auto"
                             />
                         </div>
