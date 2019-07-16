@@ -30,8 +30,8 @@ class StepBox extends React.Component {
         this.setState({ ...this.state, budgetValue });
     };
 
-    rating = (event, ratingValue) => {
-        this.setState({ ...this.state, budgetValue });
+    changeRating = (ratingValue) => {
+        this.setState({ ...this.state, ratingValue });
     };
 
     getBlacklist = () => {
@@ -178,14 +178,13 @@ class StepBox extends React.Component {
                     </div>
                     <div className="stepbox-title">
                         <strong>
-                          {/* todo discuss whether min rating of 5 should be allowed, make range slider? */}
                             Minimum Rating out of 5:
                         </strong>
                     </div>
                     <Rating
                         value={ratingValue}
                         max={MAX_RATING}
-                        onChange={this.changerating}
+                        onChange={this.changeRating}
                     />
                     <div />
                     <div className="stepbox-title">
@@ -198,7 +197,7 @@ class StepBox extends React.Component {
                             Free
                         </div>
                         <div className="slider-div">
-                          {/* todo make this slider discrete from 0 to 4 inclusive, make range slider? */}
+                          {/* todo make range slider? */}
                             <StyledSlider
                                 value={budgetValue}
                                 onChange={this.changeBudget}
@@ -208,6 +207,7 @@ class StepBox extends React.Component {
                                 marks
                                 min={MIN_PRICE_LEVEL}
                                 max={MAX_PRICE_LEVEL}
+                                defaultValue={[MIN_PRICE_LEVEL, MAX_PRICE_LEVEL]}
                                 valueLabelDisplay="auto"
                             />
                         </div>
