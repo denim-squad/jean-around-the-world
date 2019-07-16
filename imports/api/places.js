@@ -13,16 +13,19 @@ const googleMapsClient = createClient({
  * 
  * @param {LatLng} location 
  * @param {number} radius 0 < radius <= 50000
- * @param {number} price 0 <= price <= 4; Google supports a min/max price lvl but
- * since our current behaviour is to only select one, setting both to the same
+ * @param {Object} priceRange 0 <= price <= 4;
+ * I'd prefer that these be camelCase but following the api convention for simplicity
+ * @param {number} priceRange.minprice
+ * @param {number} priceRange.maxprice
  * @param {string} type https://developers.google.com/places/supported_types
  */
-export default function getNearbyPlaces(location, radius, price, type) {
+export default function getNearbyPlaces(location, radius, priceRange, type) {
+  const { minprice, maxprice } = priceRange;
   return googleMapsClient.placesNearby({
     location,
     radius,
-    minprice: price,
-    maxprice: price,
+    minprice,
+    maxprice,
     type
   }).asPromise();
 }

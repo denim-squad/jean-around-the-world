@@ -18,9 +18,14 @@ import {
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
+import {
+  MIN_RADIUS,
+  MIN_PRICE_LEVEL,
+  MAX_PRICE_LEVEL
+} from '../../constants';
 
 const initialMapState = {
-  radius: 1000,
+  radius: MIN_RADIUS,
   initialCenter: {
     lat: 49.263749,
     lng: -123.247480
@@ -44,7 +49,7 @@ const initialUserState = {
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
   places: [],
-  price: 4,
+  priceRange: { minprice: MIN_PRICE_LEVEL, maxprice: MAX_PRICE_LEVEL},
   typesAndQuantities: [],
   error: undefined
 }

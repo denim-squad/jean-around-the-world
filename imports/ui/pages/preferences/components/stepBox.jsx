@@ -13,7 +13,12 @@ import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 import Rating from 'material-ui-rating';
-import { DEFAULT_PRICE_RANGE, DEFAULT_RATING, MAX_RATING, MIN_PRICE_LEVEL, MAX_PRICE_LEVEL } from '../../../../constants'
+import { 
+  DEFAULT_PRICE_RANGE, 
+  DEFAULT_RATING, 
+  MAX_RATING, 
+  MIN_PRICE_LEVEL, 
+  MAX_PRICE_LEVEL } from '../../../../constants'
 
 class StepBox extends React.Component {
 
