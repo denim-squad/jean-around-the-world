@@ -10,6 +10,7 @@ import PreferenceButton from '../../../shared_components/preferences/preference-
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
+import CustomizeTripButton from './customizeTripButton';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 import Rating from 'material-ui-rating';
@@ -85,6 +86,7 @@ class StepBox extends React.Component {
                             }
                             label="Bars"
                         /> */}
+                        <CustomizeTripButton label="Bars"/>
                         <FormControlLabel
                             className="customize-buttons"
                             control={

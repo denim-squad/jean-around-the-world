@@ -14,7 +14,11 @@ import {
   REMOVE_FAVOURITES,
   REQUEST_PLACES_START,
   RECEIVE_PLACES_SUCCESS,
-  RECEIVE_PLACES_FAILURE
+  RECEIVE_PLACES_FAILURE,
+  ADD_PLACE_TYPE,
+  INCREMENT_PLACE_TYPE_QUANTITY,
+  DECREMENT_PLACE_TYPE_QUANTITY,
+  REMOVE_PLACE_TYPE
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
@@ -49,8 +53,8 @@ const initialUserState = {
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
   places: [],
-  priceRange: { minprice: MIN_PRICE_LEVEL, maxprice: MAX_PRICE_LEVEL},
-  typesAndQuantities: [],
+  priceRange: { minprice: MIN_PRICE_LEVEL, maxprice: MAX_PRICE_LEVEL },
+  typesAndQuantities: new Map(),
   error: undefined
 }
 
@@ -71,10 +75,11 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({email: action.email, password: action.password}).fetch();
+      let userQuery = UserInfo.find({ email: action.email, password: action.password }).fetch();
       let userInfo = userQuery[0];
-      if(userInfo){
-        return { ...state,
+      if (userInfo) {
+        return {
+          ...state,
           userId: userInfo._id,
           email: action.email,
           isSignedIn: true,
@@ -88,7 +93,7 @@ function userReducer(state = initialUserState, action) {
     case LOGOUT_USER:
       return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
     case SIGNUP_USER:
-      let query = UserInfo.find({email: action.email}).fetch();
+      let query = UserInfo.find({ email: action.email }).fetch();
       let userExists = query[0];
       if (userExists) {
         alert("An account with this email already exists. Proceed to login to continue.");
@@ -100,8 +105,8 @@ function userReducer(state = initialUserState, action) {
           firstName: action.firstName,
           lastName: action.lastName,
           password: action.password,
-          preferences: {blacklist: [], favourites: []}
-        }, function(err) {
+          preferences: { blacklist: [], favourites: [] }
+        }, function (err) {
           if (err) {
             console.log(err);
           }
@@ -116,12 +121,12 @@ function userReducer(state = initialUserState, action) {
         }
       }
     case ADD_BLACKLIST:
-      let matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.blacklist": action.blacklist } })
+      let matchedUsers = UserInfo.update({ _id: state.userId }, { $push: { "preferences.blacklist": action.blacklist } })
       if (matchedUsers === 0) {
         //TODO: create better error handling
         console.log("Error Updating Blacklist for User")
       }
-      let updatedInfo = UserInfo.find({_id: state.userId}).fetch();
+      let updatedInfo = UserInfo.find({ _id: state.userId }).fetch();
       let info = updatedInfo[0];
       return { ...state, blacklist: info.preferences.blacklist };
     case REMOVE_BLACKLIST:
@@ -131,12 +136,12 @@ function userReducer(state = initialUserState, action) {
       })
       return { ...state, blacklist: updatedBlacklist };
     case ADD_FAVOURITES:
-      matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.favourites": action.favourite } })
+      matchedUsers = UserInfo.update({ _id: state.userId }, { $push: { "preferences.favourites": action.favourite } })
       if (matchedUsers === 0) {
         //TODO: create better error handling
         console.log("Error Updating Favourites for User")
       }
-      updatedInfo = UserInfo.find({userId:state.userId}).fetch();
+      updatedInfo = UserInfo.find({ userId: state.userId }).fetch();
       info = updatedInfo[0];
       return { ...state, favourites: info.preferences.favourites };
     case REMOVE_FAVOURITES:
@@ -176,6 +181,29 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
         error: action.error
+      };
+    case ADD_PLACE_TYPE:
+      // const typesAndQuantities = state.typesAndQuantities.set(action.placeType, action.quantity);
+      return {
+        ...state,
+        typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
+      };
+    case INCREMENT_PLACE_TYPE_QUANTITY:
+      const incrementedQuantity = state.typesAndQuantities.get(action.placeType) + 1;
+      return {
+        ...state,
+        typesAndQuantities: state.typesAndQuantities.set(action.placeType, incrementedQuantity)
+      };
+    case DECREMENT_PLACE_TYPE_QUANTITY:
+      const decrementedQuantity = state.typesAndQuantities.get(action.placeType) - 1;
+      return {
+        ...state,
+        typesAndQuantities: state.typesAndQuantities.set(action.placeType, decrementedQuantity)
+      };
+    case REMOVE_PLACE_TYPE:
+      return {
+        ...state,
+        typesAndQuantities: state.typesAndQuantities.remove(action.placeType)
       };
     default:
       return state;

@@ -16,7 +16,11 @@ export const
   SIGNUP_USER = 12,
   REQUEST_PLACES_START = 13,
   RECEIVE_PLACES_SUCCESS = 14,
-  RECEIVE_PLACES_FAILURE = 15;
+  RECEIVE_PLACES_FAILURE = 15,
+  ADD_PLACE_TYPE = 16,
+  INCREMENT_PLACE_TYPE_QUANTITY = 17,
+  DECREMENT_PLACE_TYPE_QUANTITY = 18,
+  REMOVE_PLACE_TYPE = 19;
 
 export function showModal(kind) {
   return {
@@ -177,5 +181,34 @@ function receivePlacesFailure(error) {
     type: RECEIVE_PLACES_FAILURE,
     isFetchingPlaces: false,
     error
+  }
+}
+
+export function addPlaceType(placeType, quantity) {
+  return {
+    type: addPlaceType,
+    placeType,
+    quantity
+  }
+}
+
+export function incrementPlaceTypeQuantity(placeType) {
+  return {
+    type: INCREMENT_PLACE_TYPE_QUANTITY,
+    placeType
+  }
+}
+
+export function decrementPlaceTypeQuantity(placeType) {
+  return {
+    type: DECREMENT_PLACE_TYPE_QUANTITY,
+    placeType
+  }
+}
+
+export function removePlaceType(placeType) {
+  return {
+    type: REMOVE_PLACE_TYPE,
+    placeType
   }
 }
