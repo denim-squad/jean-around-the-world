@@ -8,14 +8,19 @@
     grid-template-rows: 22.8% 15% 62.2%;
 }
 
-.results-buttons-container {
+.results-container {
     display: grid;
-    align-items: center;
-    grid-template-columns: 25% 10% 5% 20% 5% 10% 25%;
+    text-align: center;
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
     letter-spacing: 0.01em;
     color: #000000;
+    grid-template-rows: 40% 40% 20%;
+}
+
+.results-buttons-container {
+    display: grid;
+    grid-template-columns: 25% 10% 5% 20% 5% 10% 25%;
 }
