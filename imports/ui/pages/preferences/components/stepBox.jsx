@@ -8,34 +8,14 @@ import PreferenceButton from '../../../shared_components/preferences/preference-
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import CustomizeTripButton from './customizeTripButton';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
-import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
-import Rating from 'material-ui-rating';
-import {
-    DEFAULT_PRICE_RANGE,
-    DEFAULT_RATING,
-    MAX_RATING,
-    MIN_PRICE_LEVEL,
-    MAX_PRICE_LEVEL
-} from '../../../../constants'
+import RefineStepContainer from './refineStepContainer';
 
 class StepBox extends React.Component {
 
     constructor() {
         super();
         this.blacklistInput = React.createRef();
-        this.state = {
-            budgetValue: DEFAULT_PRICE_RANGE,
-            ratingValue: DEFAULT_RATING,
-        };
     }
-
-    changeBudget = (event, budgetValue) => {
-        this.setState({ ...this.state, budgetValue });
-    };
-
-    changeRating = (ratingValue) => {
-        this.setState({ ...this.state, ratingValue });
-    };
 
     getBlacklist = () => {
         return Array.from(this.props.blacklist).map((value, index) => {
@@ -47,7 +27,6 @@ class StepBox extends React.Component {
     }
 
     renderCurrentStep = () => {
-        const { budgetValue, ratingValue } = this.state;
         switch (this.props.currentStep) {
             case CUSTOMIZE_STEP:
                 return <div className="customize-container">
@@ -56,15 +35,10 @@ class StepBox extends React.Component {
                             What would you like to be included in your trip?
                         </strong>
                     </div>
-                    {/* todos 
-                        - allow clicking to choose how many of each type of venue
-                          e.g. 3 restaurants, 1 hotel, 4 attractions 
-                        - change global state based on what is selected
-                    */}
                     <FormGroup>
                         <CustomizeTripButton label="Coffee" />
-                        {/* <CustomizeTripButton label="Fast Food" /> */}
-                        {/* <CustomizeTripButton label="Bakeries" /> */}
+                        <CustomizeTripButton label="Fast Food" />
+                        <CustomizeTripButton label="Bakeries" />
                         <CustomizeTripButton label="Restaurants" />
                         <CustomizeTripButton label="Bars" />
                         {/* <CustomizeTripButton label="Nightclubs" /> */}
@@ -120,48 +94,7 @@ class StepBox extends React.Component {
                     </div>
                 </div>;
             case REFINE_STEP:
-                return <div className="refine-container">
-                    <div>
-                        {/* spacing */}
-                    </div>
-                    <div className="stepbox-title">
-                        <strong>
-                            Minimum Rating out of 5:
-                        </strong>
-                    </div>
-                    <Rating
-                        value={ratingValue}
-                        max={MAX_RATING}
-                        onChange={this.changeRating}
-                    />
-                    <div />
-                    <div className="stepbox-title">
-                        <strong>
-                            Budget Range:
-                        </strong>
-                    </div>
-                    <div className="refine-slider-container">
-                        <div>
-                            Free
-                        </div>
-                        <div className="slider-div">
-                            <StyledSlider
-                                value={budgetValue}
-                                onChange={this.changeBudget}
-                                aria-labelledby="budget slider"
-                                className="slider"
-                                step={1}
-                                marks
-                                min={MIN_PRICE_LEVEL}
-                                max={MAX_PRICE_LEVEL}
-                                valueLabelDisplay="auto"
-                            />
-                        </div>
-                        <div>
-                            $$$$
-                        </div>
-                    </div>
-                </div>;
+                return <RefineStepContainer/>
             default:
                 return "FOLLOW @hailinzhang_ ON INSTAGRAM";
         }
