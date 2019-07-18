@@ -16,9 +16,8 @@ import {
   RECEIVE_PLACES_SUCCESS,
   RECEIVE_PLACES_FAILURE,
   ADD_PLACE_TYPE,
-  INCREMENT_PLACE_TYPE_QUANTITY,
-  DECREMENT_PLACE_TYPE_QUANTITY,
-  REMOVE_PLACE_TYPE
+  REMOVE_PLACE_TYPE,
+  MODIFY_PLACE_TYPE_QUANTITY
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
@@ -183,27 +182,19 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error
       };
     case ADD_PLACE_TYPE:
-      // const typesAndQuantities = state.typesAndQuantities.set(action.placeType, action.quantity);
       return {
         ...state,
         typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
-      };
-    case INCREMENT_PLACE_TYPE_QUANTITY:
-      const incrementedQuantity = state.typesAndQuantities.get(action.placeType) + 1;
-      return {
-        ...state,
-        typesAndQuantities: state.typesAndQuantities.set(action.placeType, incrementedQuantity)
-      };
-    case DECREMENT_PLACE_TYPE_QUANTITY:
-      const decrementedQuantity = state.typesAndQuantities.get(action.placeType) - 1;
-      return {
-        ...state,
-        typesAndQuantities: state.typesAndQuantities.set(action.placeType, decrementedQuantity)
       };
     case REMOVE_PLACE_TYPE:
       return {
         ...state,
         typesAndQuantities: state.typesAndQuantities.remove(action.placeType)
+      };
+    case MODIFY_PLACE_TYPE_QUANTITY:
+      return {
+        ...state,
+        typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
       };
     default:
       return state;

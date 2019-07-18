@@ -1,27 +1,39 @@
 import React from 'react';
 import '../preferences.page.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextField from '@material-ui/core/TextField';
 import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
 import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
-import { TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-//todo
 class CustomizeTripButton extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isChecked: false,
+    this.state = { isChecked: false, isValid: true };
+    this.handleCheck = this.handleCheck.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
+  }
+
+  handleCheck = (event, checked) => {
+    console.log("checked:", checked);
+    this.setState({ isChecked: checked })
+    //todo dispatch
+    if (checked) {
+      
+    } else {
 
     }
   }
 
-  handleCheck = (event, checked) => {
-    this.state.isChecked = checked;
-    if (checked) {
-      this.props.dispatch()
+  handleQuantityChange = (event) => {
+    const quantity = event.target.value;
+    if (quantity < 1 || quantity > 20) {
+      this.setState({ isValid: false});
+    } else {
+      this.setState({ isValid: true});
+      // todo dispatch
     }
   }
 
@@ -40,18 +52,17 @@ class CustomizeTripButton extends React.Component {
         label={this.props.label}
       />
       <TextField
-        disabled={this.isChecked}
-        // id="filled-number"
-        // label="Number"
-        // value={values.age}
-        // onChange={handleChange('age')}
-        // type="number"
-        // className={classes.textField}
-        // InputLabelProps={{
-        //   shrink: true,
-        // }}
-        // margin="normal"
-        // variant="filled"
+      // todo try to make less ugly
+        disabled={!this.state.isChecked}
+        error={!this.state.isValid}
+        label="How many?"
+        onChange={this.handleQuantityChange}
+        type="number"
+        defaultValue={1}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        margin="normal"
       />
       </div>
     );

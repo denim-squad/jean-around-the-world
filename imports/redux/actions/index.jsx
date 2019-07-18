@@ -18,9 +18,8 @@ export const
   RECEIVE_PLACES_SUCCESS = 14,
   RECEIVE_PLACES_FAILURE = 15,
   ADD_PLACE_TYPE = 16,
-  INCREMENT_PLACE_TYPE_QUANTITY = 17,
-  DECREMENT_PLACE_TYPE_QUANTITY = 18,
-  REMOVE_PLACE_TYPE = 19;
+  REMOVE_PLACE_TYPE = 17,
+  MODIFY_PLACE_TYPE_QUANTITY = 18;
 
 export function showModal(kind) {
   return {
@@ -143,7 +142,7 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
     const results = response.json.results;
     const quantity = quantities[promiseIndex];
     
-    for (let i = 0; i < quantity; i++) {
+    for (let i = 0; i < quantity && i < results.length; i++) {
       let isBlacklisted = false;
       for (const blacklistedName of blacklist) {
         if (results[i].name.includes(blacklistedName)) {
@@ -192,23 +191,19 @@ export function addPlaceType(placeType, quantity) {
   }
 }
 
-export function incrementPlaceTypeQuantity(placeType) {
-  return {
-    type: INCREMENT_PLACE_TYPE_QUANTITY,
-    placeType
-  }
-}
-
-export function decrementPlaceTypeQuantity(placeType) {
-  return {
-    type: DECREMENT_PLACE_TYPE_QUANTITY,
-    placeType
-  }
-}
-
 export function removePlaceType(placeType) {
   return {
     type: REMOVE_PLACE_TYPE,
     placeType
   }
 }
+
+export function modifyPlaceTypeQuantity(placeType, quantity) {
+  return {
+    type: MODIFY_PLACE_TYPE_QUANTITY,
+    placeType,
+    quantity
+  }
+}
+
+

@@ -16,5 +16,7 @@ export const placeLabelToTypeDict = new Map([
   ['Restaurants', 'restaurant'],
   ['Hotels', 'lodging'],
   ['Parks', 'park'],
-  ['Fast Food', 'meal_takeaway']
+  ['Fast Food', 'meal_takeaway'],
+  ['Nightclubs', 'night_club'],
+  ['Bakeries', 'bakery']
 ]);

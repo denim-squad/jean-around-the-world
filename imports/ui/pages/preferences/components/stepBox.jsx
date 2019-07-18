@@ -14,12 +14,13 @@ import CustomizeTripButton from './customizeTripButton';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 import Rating from 'material-ui-rating';
-import { 
-  DEFAULT_PRICE_RANGE, 
-  DEFAULT_RATING, 
-  MAX_RATING, 
-  MIN_PRICE_LEVEL, 
-  MAX_PRICE_LEVEL } from '../../../../constants'
+import {
+    DEFAULT_PRICE_RANGE,
+    DEFAULT_RATING,
+    MAX_RATING,
+    MIN_PRICE_LEVEL,
+    MAX_PRICE_LEVEL
+} from '../../../../constants'
 
 class StepBox extends React.Component {
 
@@ -43,10 +44,11 @@ class StepBox extends React.Component {
     getBlacklist = () => {
         return Array.from(this.props.blacklist).map((value, index) => {
             return (
-              <PreferenceButton key={index} name={value}/>
+                <PreferenceButton key={index} name={value} />
             );
         }
-      )}
+        )
+    }
 
     renderCurrentStep = () => {
         const { budgetValue, ratingValue } = this.state;
@@ -64,74 +66,17 @@ class StepBox extends React.Component {
                         - change global state based on what is selected
                     */}
                     <FormGroup>
-                        <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isRestaurant}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Restaurants"
-                        />
+                        <CustomizeTripButton label="Coffee" />
+                        {/* <CustomizeTripButton label="Fast Food" /> */}
+                        {/* <CustomizeTripButton label="Bakeries" /> */}
+                        <CustomizeTripButton label="Restaurants" />
+                        <CustomizeTripButton label="Bars" />
+                        {/* <CustomizeTripButton label="Nightclubs" /> */}
+                        <CustomizeTripButton label="Parks" />
+                        <CustomizeTripButton label="Hotels" />
+                        {/* todo, this isn't a directly searchable type but may be a returned type
+                            (point_of_interest), so would need some additional work */}
                         {/* <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isBar}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Bars"
-                        /> */}
-                        <CustomizeTripButton label="Bars"/>
-                        <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isDessert}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Dessert"
-                        />
-                        {/* <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isCoffee}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Coffee"
-                        /> */}
-                        <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isHotel}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Hotels"
-                        />
-                        <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isPark}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Parks"
-                        />
-                        <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -141,7 +86,7 @@ class StepBox extends React.Component {
                                 />
                             }
                             label="Landmarks/Attractions"
-                        />
+                        /> */}
                     </FormGroup>
                 </div>;
             case BLACKLIST_STEP:
@@ -155,15 +100,15 @@ class StepBox extends React.Component {
                         <CssTextField
                             placeholder="John Sastrillo's House"
                             margin="none"
-                            inputRef = {(input) => {this.blacklistInput = input}}/>
+                            inputRef={(input) => { this.blacklistInput = input }} />
                         <BootstrapButton
                             className="add-button"
-                            onClick={() => {this.props.addBlacklist(this.blacklistInput.value)}}
+                            onClick={() => { this.props.addBlacklist(this.blacklistInput.value) }}
                             disabled={this.props.isLocationEmpty}
                             variant="contained"
                             size="small"
                             color="primary">
-                                ADD
+                            ADD
                         </BootstrapButton>
                     </div>
                     <div>
@@ -175,7 +120,7 @@ class StepBox extends React.Component {
                         </strong>
                     </div>
                     <div className="blacklist-buttons-container">
-                      {this.getBlacklist()}
+                        {this.getBlacklist()}
                     </div>
                 </div>;
             case REFINE_STEP:
@@ -233,15 +178,15 @@ class StepBox extends React.Component {
                     this.renderCurrentStep()
                 }
             </div>
-         </div>;
+        </div>;
     }
 
 }
 
 const mapStateToProps = (state) => {
-  return {
-    blacklist: state.user.blacklist
-  };
+    return {
+        blacklist: state.user.blacklist
+    };
 }
 
-export default connect(mapStateToProps, {addBlacklist})(StepBox);
+export default connect(mapStateToProps, { addBlacklist })(StepBox);
