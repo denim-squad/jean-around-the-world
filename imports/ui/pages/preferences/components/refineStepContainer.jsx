@@ -43,7 +43,6 @@ class RefineStepContainer extends React.Component {
           Free
         </div>
         <div className="slider-div">
-          {/* todo investigate console warnings coming from this component */}
           <StyledSlider
             value={budgetRange}
             onChange={updateBudget}
