@@ -15,15 +15,15 @@ export class ResultsMapContainer extends React.Component {
 
     render() {
       return <Map
-        google = {this.props.google}
-        zoom = {14}
-        style = {mapStyles}
-        initialCenter = {{
-          lat: 49.263749,
-          lng: -123.247480
-        }}
-        >
-    </Map>
+          google = {this.props.google}
+          zoom = {14}
+          style = {mapStyles}
+          initialCenter = {{
+            lat: 49.263749,
+            lng: -123.247480
+          }}
+          >
+        </Map>
     }
 }
 

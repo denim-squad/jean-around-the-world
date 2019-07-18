@@ -1,8 +1,20 @@
 import React from 'react';
 import '../results.page.css';
+import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 
+const history = createBrowserHistory({forceRefresh: true});
+
 class ResultsButtons extends React.Component {
+
+    goToHomePage = async () => {
+        // this.loadingSpinner.current.style.display = 'block';
+        await setTimeout(() => {
+            // this.loadingSpinner.current.style.display = 'none';
+            history.push('/');
+        }, 2800);
+    }
+
     render() {
         return <div className="results-container">
             WE FOUND JUST THE TRIP FOR YOU!
@@ -34,7 +46,8 @@ class ResultsButtons extends React.Component {
                    className="new-trip-button"
                    variant="contained"
                    size="small"
-                   color="primary">
+                   color="primary"
+                   onClick={this.goToHomePage}>
                    NEW TRIP
                </BootstrapButton>
                <div>

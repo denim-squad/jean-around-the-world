@@ -29,6 +29,14 @@
     background-color: #60D13E !important;
 }
 
+.save-trip-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #44B123 !important;
+}
+
 .new-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
     background-color: #FF5D47 !important;
+}
+
+.new-trip-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #D83F2A !important;
 }
