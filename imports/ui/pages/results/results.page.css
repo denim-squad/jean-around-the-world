@@ -24,3 +24,11 @@
     display: grid;
     grid-template-columns: 25% 10% 5% 20% 5% 10% 25%;
 }
+
+.save-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #60D13E !important;
+}
+
+.new-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #FF5D47 !important;
+}
