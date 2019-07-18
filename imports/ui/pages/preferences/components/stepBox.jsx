@@ -12,41 +12,41 @@ import RefineStepContainer from './refineStepContainer';
 
 class StepBox extends React.Component {
 
-    constructor() {
-        super();
-        this.blacklistInput = React.createRef();
-    }
+  constructor() {
+    super();
+    this.blacklistInput = React.createRef();
+  }
 
-    getBlacklist = () => {
-        return Array.from(this.props.blacklist).map((value, index) => {
-            return (
-                <PreferenceButton key={index} name={value} />
-            );
-        }
-        )
+  getBlacklist = () => {
+    return Array.from(this.props.blacklist).map((value, index) => {
+      return (
+        <PreferenceButton key={index} name={value} />
+      );
     }
+    )
+  }
 
-    renderCurrentStep = () => {
-        switch (this.props.currentStep) {
-            case CUSTOMIZE_STEP:
-                return <div className="customize-container">
-                    <div className="stepbox-title">
-                        <strong>
-                            What would you like to be included in your trip?
+  renderCurrentStep = () => {
+    switch (this.props.currentStep) {
+      case CUSTOMIZE_STEP:
+        return <div className="customize-container">
+          <div className="stepbox-title">
+            <strong>
+              What would you like to be included in your trip?
                         </strong>
-                    </div>
-                    <FormGroup>
-                        <CustomizeTripButton label="Coffee" />
-                        <CustomizeTripButton label="Fast Food" />
-                        <CustomizeTripButton label="Bakeries" />
-                        <CustomizeTripButton label="Restaurants" />
-                        <CustomizeTripButton label="Bars" />
-                        {/* <CustomizeTripButton label="Nightclubs" /> */}
-                        <CustomizeTripButton label="Parks" />
-                        <CustomizeTripButton label="Hotels" />
-                        {/* todo, this isn't a directly searchable type but may be a returned type
+          </div>
+          <FormGroup>
+            <CustomizeTripButton label="Coffee" />
+            <CustomizeTripButton label="Fast Food" />
+            <CustomizeTripButton label="Bakeries" />
+            <CustomizeTripButton label="Restaurants" />
+            <CustomizeTripButton label="Bars" />
+            {/* <CustomizeTripButton label="Nightclubs" /> */}
+            <CustomizeTripButton label="Parks" />
+            <CustomizeTripButton label="Hotels" />
+            {/* todo, this isn't a directly searchable type but may be a returned type
                             (point_of_interest), so would need some additional work */}
-                        {/* <FormControlLabel
+            {/* <FormControlLabel
                             className="customize-buttons"
                             control={
                                 <CssCheckbox
@@ -57,65 +57,65 @@ class StepBox extends React.Component {
                             }
                             label="Landmarks/Attractions"
                         /> */}
-                    </FormGroup>
-                </div>;
-            case BLACKLIST_STEP:
-                return <div className="blacklist-container">
-                    <div className="stepbox-title">
-                        <strong>
-                            Enter a location to blacklist
-                        </strong>
-                    </div>
-                    <div className="blacklist-add-container">
-                        <CssTextField
-                            placeholder="John Sastrillo's House"
-                            margin="none"
-                            inputRef={(input) => { this.blacklistInput = input }} />
-                        <BootstrapButton
-                            className="add-button"
-                            onClick={() => { this.props.addBlacklist(this.blacklistInput.value) }}
-                            disabled={this.props.isLocationEmpty}
-                            variant="contained"
-                            size="small"
-                            color="primary">
-                            ADD
-                        </BootstrapButton>
-                    </div>
-                    <div>
-                        {/* spacing */}
-                    </div>
-                    <div className="stepbox-title">
-                        <strong>
-                            Blacklist:
-                        </strong>
-                    </div>
-                    <div className="blacklist-buttons-container">
-                        {this.getBlacklist()}
-                    </div>
-                </div>;
-            case REFINE_STEP:
-                return <RefineStepContainer/>
-            default:
-                return "FOLLOW @hailinzhang_ ON INSTAGRAM";
-        }
-    }
-
-    render() {
-        return <div className="stepbox-container">
-            <div className="stepbox-padding">
-                {
-                    this.renderCurrentStep()
-                }
-            </div>
+          </FormGroup>
         </div>;
+      case BLACKLIST_STEP:
+        return <div className="blacklist-container">
+          <div className="stepbox-title">
+            <strong>
+              Enter a location to blacklist
+                        </strong>
+          </div>
+          <div className="blacklist-add-container">
+            <CssTextField
+              placeholder="John Sastrillo's House"
+              margin="none"
+              inputRef={(input) => { this.blacklistInput = input }} />
+            <BootstrapButton
+              className="add-button"
+              onClick={() => { this.props.addBlacklist(this.blacklistInput.value) }}
+              disabled={this.props.isLocationEmpty}
+              variant="contained"
+              size="small"
+              color="primary">
+              ADD
+                        </BootstrapButton>
+          </div>
+          <div>
+            {/* spacing */}
+          </div>
+          <div className="stepbox-title">
+            <strong>
+              Blacklist:
+                        </strong>
+          </div>
+          <div className="blacklist-buttons-container">
+            {this.getBlacklist()}
+          </div>
+        </div>;
+      case REFINE_STEP:
+        return <RefineStepContainer />
+      default:
+        return "FOLLOW @hailinzhang_ ON INSTAGRAM";
     }
+  }
+
+  render() {
+    return <div className="stepbox-container">
+      <div className="stepbox-padding">
+        {
+          this.renderCurrentStep()
+        }
+      </div>
+    </div>;
+  }
 
 }
 
 const mapStateToProps = (state) => {
-    return {
-        blacklist: state.user.blacklist
-    };
+  return {
+    blacklist: state.user.blacklist
+  };
 }
 
 export default connect(mapStateToProps, { addBlacklist })(StepBox);

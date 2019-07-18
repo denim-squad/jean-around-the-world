@@ -18,7 +18,9 @@ export const
   RECEIVE_PLACES_SUCCESS = 14,
   RECEIVE_PLACES_FAILURE = 15,
   SET_PLACE_TYPE_AND_QUANTITY = 16,
-  REMOVE_PLACE_TYPE = 17;
+  REMOVE_PLACE_TYPE = 17,
+  UPDATE_RATING = 18,
+  UPDATE_BUDGET = 19;
 
 export function showModal(kind) {
   return {
@@ -197,5 +199,18 @@ export function removePlaceType(placeType) {
   }
 }
 
+export function updateRating(rating) {
+  return {
+    type: UPDATE_RATING,
+    rating
+  }
+}
+
+export function updateBudget(budgetRange) {
+  return {
+    type: UPDATE_BUDGET,
+    budgetRange
+  }
+}
 
 

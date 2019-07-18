@@ -10,8 +10,8 @@ import { setPlaceTypeAndQuantity, removePlaceType } from '../../../../redux/acti
 import { placeLabelToTypeMap } from '../../../../constants'
 
 class CustomizeTripButton extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = { 
       isChecked: false, 
       isValid: true,

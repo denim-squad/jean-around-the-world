@@ -15,14 +15,16 @@ import {
   RECEIVE_PLACES_SUCCESS,
   RECEIVE_PLACES_FAILURE,
   SET_PLACE_TYPE_AND_QUANTITY,
-  REMOVE_PLACE_TYPE
+  REMOVE_PLACE_TYPE,
+  UPDATE_RATING,
+  UPDATE_BUDGET
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
 import {
   MIN_RADIUS,
-  MIN_PRICE_LEVEL,
-  MAX_PRICE_LEVEL,
+  DEFAULT_RATING,
+  DEFAULT_BUDGET_RANGE
 } from '../../constants';
 
 const initialMapState = {
@@ -49,9 +51,10 @@ const initialUserState = {
 
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
-  places: [],
-  priceRange: { minprice: MIN_PRICE_LEVEL, maxprice: MAX_PRICE_LEVEL },
   typesAndQuantities: new Map(),
+  minimumAcceptableRating: DEFAULT_RATING,
+  budgetRange: DEFAULT_BUDGET_RANGE,
+  places: [],
   error: undefined
 }
 
@@ -189,6 +192,16 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         ...state,
         typesAndQuantities: state.typesAndQuantities.delete(action.placeType)
       };
+    case UPDATE_RATING:
+      return {
+        ...state,
+        minimumAcceptableRating: action.rating
+      }
+    case UPDATE_BUDGET:
+      return {
+        ...state,
+        budgetRange: action.budgetRange
+      }
     default:
       return state;
   }
