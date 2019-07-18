@@ -37,7 +37,7 @@
     padding: 3.6% 4.6% 2.8% 4.6%;
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -109,13 +109,13 @@
     width: 100%;
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 .customize-container {
     display: grid;
-    grid-template-rows: 11% 88%;
+    grid-template-rows: 18% 81%;
     grid-row-gap: 3%;
     height: 100%;
 }
@@ -147,7 +147,7 @@
 .blacklist-container {
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 6% 17% 1% 6% 40%;
@@ -167,7 +167,7 @@
 .refine-container {
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 2% 6% 12% 10% 17%;
@@ -188,10 +188,6 @@
     font-size: 20px;
     line-height: 24px;
     color: #000000;
-}
-
-.slider-div {
-    padding-top: 5%;
 }
 
 img {
