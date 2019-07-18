@@ -6,75 +6,80 @@ import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox
 import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { connect } from 'react-redux';
+import { setPlaceTypeAndQuantity, removePlaceType } from '../../../../redux/actions'
+import { placeLabelToTypeMap } from '../../../../constants'
 
 class CustomizeTripButton extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = { isChecked: false, isValid: true };
+    this.state = { 
+      isChecked: false, 
+      isValid: true,
+      quantity: 1
+    };
     this.handleCheck = this.handleCheck.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   handleCheck = (event, checked) => {
-    console.log("checked:", checked);
     this.setState({ isChecked: checked })
-    //todo dispatch
     if (checked) {
-      
+      this.props.setPlaceTypeAndQuantity(this.state.quantity);
     } else {
-
+      this.props.removePlaceType();
     }
   }
 
   handleQuantityChange = (event) => {
     const quantity = event.target.value;
-    if (quantity < 1 || quantity > 20) {
-      this.setState({ isValid: false});
+    // by default, google returns max 20 results, with an option to get the next page of results
+    // currently capping at 20 for simplicity
+    if (quantity < 1 || quantity > 20) { 
+      this.setState({ isValid: false, quantity });
     } else {
-      this.setState({ isValid: true});
-      // todo dispatch
+      this.setState({ isValid: true, quantity });
+      this.props.setPlaceTypeAndQuantity(quantity);
     }
   }
 
   render() {
     return (
       <div>
-      <FormControlLabel
-        className="customize-buttons"
-        control={
-          <CssCheckbox
-            icon={<ToggleRadioButtonUnchecked />}
-            checkedIcon={<ToggleRadioButtonChecked />}
-            onChange={this.handleCheck}
-          />
-        }
-        label={this.props.label}
-      />
-      <TextField
-      // todo try to make less ugly
-        disabled={!this.state.isChecked}
-        error={!this.state.isValid}
-        label="How many?"
-        onChange={this.handleQuantityChange}
-        type="number"
-        defaultValue={1}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        margin="normal"
-      />
+        <FormControlLabel
+          className="customize-buttons"
+          control={
+            <CssCheckbox
+              icon={<ToggleRadioButtonUnchecked />}
+              checkedIcon={<ToggleRadioButtonChecked />}
+              onChange={this.handleCheck}
+            />
+          }
+          label={this.props.label}
+        />
+        <TextField
+          // todo try to make less ugly
+          disabled={!this.state.isChecked}
+          error={!this.state.isValid}
+          label="How many?"
+          onChange={this.handleQuantityChange}
+          type="number"
+          defaultValue={1}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  //todo
-}
-
 const mapDispatchToProps = (dispatch, ownProps) => {
-  //todo
+  const mappedLabel = placeLabelToTypeMap.get(ownProps.label);
+  return {
+    setPlaceTypeAndQuantity: (quantity) => dispatch(setPlaceTypeAndQuantity(mappedLabel, quantity)),
+    removePlaceType: () => dispatch(removePlaceType(mappedLabel))
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomizeTripButton)
+export default connect(null, mapDispatchToProps)(CustomizeTripButton)

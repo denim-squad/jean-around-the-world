@@ -7,7 +7,6 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   SIGNUP_USER,
-  GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
@@ -15,16 +14,15 @@ import {
   REQUEST_PLACES_START,
   RECEIVE_PLACES_SUCCESS,
   RECEIVE_PLACES_FAILURE,
-  ADD_PLACE_TYPE,
-  REMOVE_PLACE_TYPE,
-  MODIFY_PLACE_TYPE_QUANTITY
+  SET_PLACE_TYPE_AND_QUANTITY,
+  REMOVE_PLACE_TYPE
 } from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
 import {
   MIN_RADIUS,
   MIN_PRICE_LEVEL,
-  MAX_PRICE_LEVEL
+  MAX_PRICE_LEVEL,
 } from '../../constants';
 
 const initialMapState = {
@@ -181,7 +179,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         isFetchingPlaces: action.isFetchingPlaces,
         error: action.error
       };
-    case ADD_PLACE_TYPE:
+    case SET_PLACE_TYPE_AND_QUANTITY:
       return {
         ...state,
         typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
@@ -189,12 +187,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
     case REMOVE_PLACE_TYPE:
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.remove(action.placeType)
-      };
-    case MODIFY_PLACE_TYPE_QUANTITY:
-      return {
-        ...state,
-        typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
+        typesAndQuantities: state.typesAndQuantities.delete(action.placeType)
       };
     default:
       return state;

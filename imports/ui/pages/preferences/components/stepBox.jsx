@@ -3,13 +3,9 @@ import '../preferences.page.css';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../preferences.page';
 import { addBlacklist } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
-import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
 import CustomizeTripButton from './customizeTripButton';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';

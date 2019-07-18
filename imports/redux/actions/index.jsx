@@ -17,9 +17,8 @@ export const
   REQUEST_PLACES_START = 13,
   RECEIVE_PLACES_SUCCESS = 14,
   RECEIVE_PLACES_FAILURE = 15,
-  ADD_PLACE_TYPE = 16,
-  REMOVE_PLACE_TYPE = 17,
-  MODIFY_PLACE_TYPE_QUANTITY = 18;
+  SET_PLACE_TYPE_AND_QUANTITY = 16,
+  REMOVE_PLACE_TYPE = 17;
 
 export function showModal(kind) {
   return {
@@ -183,9 +182,9 @@ function receivePlacesFailure(error) {
   }
 }
 
-export function addPlaceType(placeType, quantity) {
+export function setPlaceTypeAndQuantity(placeType, quantity) {
   return {
-    type: addPlaceType,
+    type: SET_PLACE_TYPE_AND_QUANTITY,
     placeType,
     quantity
   }
@@ -198,12 +197,5 @@ export function removePlaceType(placeType) {
   }
 }
 
-export function modifyPlaceTypeQuantity(placeType, quantity) {
-  return {
-    type: MODIFY_PLACE_TYPE_QUANTITY,
-    placeType,
-    quantity
-  }
-}
 
 

@@ -10,7 +10,7 @@ export const MAX_RATING = 5;
 export const DEFAULT_RATING = 3;
 
 // mapping venue types from the preference step to valid api type strings
-export const placeLabelToTypeDict = new Map([
+export const placeLabelToTypeMap = new Map([
   ['Coffee', 'cafe'],
   ['Bars', 'bar'],
   ['Restaurants', 'restaurant'],
