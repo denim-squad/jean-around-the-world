@@ -5,5 +5,17 @@
     top: 0;
     left: 0;
     display: grid;
-    grid-template-rows: 32.8% 67.2%;
+    grid-template-rows: 22.8% 15% 62.2%;
+}
+
+.results-buttons-container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 25% 10% 5% 20% 5% 10% 25%;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #000000;
 }
