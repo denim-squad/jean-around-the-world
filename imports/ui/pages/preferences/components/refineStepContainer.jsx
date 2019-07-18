@@ -8,6 +8,7 @@ import {
   MAX_PRICE_LEVEL
 } from '../../../../constants'
 import { updateRating, updateBudget } from '../../../../redux/actions';
+import '../preferences.page.css';
 
 class RefineStepContainer extends React.Component {
   constructor() {
