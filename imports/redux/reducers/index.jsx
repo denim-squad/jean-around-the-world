@@ -19,8 +19,7 @@ import {
   UPDATE_RATING,
   UPDATE_BUDGET
 } from '../actions/index';
-import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
-import { UserInfo } from '../../../lib/userInfoCollection';
+import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
   MIN_RADIUS,
   DEFAULT_RATING,
