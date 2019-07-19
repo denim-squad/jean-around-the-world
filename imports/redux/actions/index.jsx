@@ -16,7 +16,11 @@ export const
   SIGNUP_USER = 12,
   REQUEST_PLACES_START = 13,
   RECEIVE_PLACES_SUCCESS = 14,
-  RECEIVE_PLACES_FAILURE = 15;
+  RECEIVE_PLACES_FAILURE = 15,
+  SET_PLACE_TYPE_AND_QUANTITY = 16,
+  REMOVE_PLACE_TYPE = 17,
+  UPDATE_RATING = 18,
+  UPDATE_BUDGET = 19;
 
 export function showModal(kind) {
   return {
@@ -45,11 +49,10 @@ export function setMapCenter(coords) {
   };
 }
 
-export function loginUser(email, password) {
+export function loginUser(email) {
   return {
     type: LOGIN_USER,
-    email,
-    password
+    email
   };
 }
 
@@ -101,7 +104,7 @@ export function removeFavourites(favouriteToRemove) {
 export function getPlaces() {
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
-    
+
     const { location, radius, price, typesAndQuantities, blacklist } = getState();
     const placesPromises = [], quantities = [];
 
@@ -124,9 +127,9 @@ export function getPlaces() {
  * how many of each type, and the list of blacklisted places,
  * returns an array of valid places with the correct number of each type.
  * If any promise returns an error, immediately throws the error.
- * @param {Array} places 
- * @param {Array} quantities 
- * @param {Array} blacklist 
+ * @param {Array} places
+ * @param {Array} quantities
+ * @param {Array} blacklist
  */
 function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
@@ -138,8 +141,8 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
     }
     const results = response.json.results;
     const quantity = quantities[promiseIndex];
-    
-    for (let i = 0; i < quantity; i++) {
+
+    for (let i = 0; i < quantity && i < results.length; i++) {
       let isBlacklisted = false;
       for (const blacklistedName of blacklist) {
         if (results[i].name.includes(blacklistedName)) {
@@ -177,5 +180,34 @@ function receivePlacesFailure(error) {
     type: RECEIVE_PLACES_FAILURE,
     isFetchingPlaces: false,
     error
+  }
+}
+
+export function setPlaceTypeAndQuantity(placeType, quantity) {
+  return {
+    type: SET_PLACE_TYPE_AND_QUANTITY,
+    placeType,
+    quantity
+  }
+}
+
+export function removePlaceType(placeType) {
+  return {
+    type: REMOVE_PLACE_TYPE,
+    placeType
+  }
+}
+
+export function updateRating(rating) {
+  return {
+    type: UPDATE_RATING,
+    rating
+  }
+}
+
+export function updateBudget(budgetRange) {
+  return {
+    type: UPDATE_BUDGET,
+    budgetRange
   }
 }
