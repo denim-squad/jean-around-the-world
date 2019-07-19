@@ -26,6 +26,8 @@ import {
   DEFAULT_RATING,
   DEFAULT_BUDGET_RANGE
 } from '../../constants';
+import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 const initialMapState = {
   radius: MIN_RADIUS,
@@ -75,7 +77,7 @@ function modalReducer(state = initialModalState, action) {
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
     case LOGIN_USER:
-      let userQuery = UserInfo.find({ email: action.email, password: action.password }).fetch();
+      let userQuery = Meteor.users.find({ 'emails.address': action.email }).fetch();
       let userInfo = userQuery[0];
       if (userInfo) {
         return {
@@ -83,13 +85,11 @@ function userReducer(state = initialUserState, action) {
           userId: userInfo._id,
           email: action.email,
           isSignedIn: true,
-          fullName: `${userInfo.firstName} ${userInfo.lastName}`,
-          blacklist: userInfo.preferences.blacklist,
-          favourites: userInfo.preferences.favourites
+          fullName: `${userInfo.profile.firstName} ${userInfo.profile.lastName}`,
+          blacklist: userInfo.profile.preferences.blacklist,
+          favourites: userInfo.profile.preferences.favourites
         };
       }
-      alert("Invalid login info. Try Again.");
-      break; //TODO: remove after reducer refactor
     case LOGOUT_USER:
       return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
     case SIGNUP_USER:
@@ -100,17 +100,16 @@ function userReducer(state = initialUserState, action) {
         break;
       }
       else {
-        UserInfo.insert({
+        const userId = Accounts.createUser({
           email: action.email,
-          firstName: action.firstName,
-          lastName: action.lastName,
           password: action.password,
-          preferences: { blacklist: [], favourites: [] }
-        }, function (err) {
-          if (err) {
-            console.log(err);
+          profile: {
+            firstName: action.firstName,
+            lastName: action.lastName,
+            preferences: { blacklist: [], favourites: [] }
           }
-        });
+        })
+        console.log("users are:", Meteor.users);
         return {
           ...state,
           email: action.email,

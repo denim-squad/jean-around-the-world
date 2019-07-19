@@ -49,11 +49,10 @@ export function setMapCenter(coords) {
   };
 }
 
-export function loginUser(email, password) {
+export function loginUser(email) {
   return {
     type: LOGIN_USER,
-    email,
-    password
+    email
   };
 }
 
@@ -105,7 +104,7 @@ export function removeFavourites(favouriteToRemove) {
 export function getPlaces() {
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
-    
+
     const { location, radius, price, typesAndQuantities, blacklist } = getState();
     const placesPromises = [], quantities = [];
 
@@ -128,9 +127,9 @@ export function getPlaces() {
  * how many of each type, and the list of blacklisted places,
  * returns an array of valid places with the correct number of each type.
  * If any promise returns an error, immediately throws the error.
- * @param {Array} places 
- * @param {Array} quantities 
- * @param {Array} blacklist 
+ * @param {Array} places
+ * @param {Array} quantities
+ * @param {Array} blacklist
  */
 function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
@@ -142,7 +141,7 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
     }
     const results = response.json.results;
     const quantity = quantities[promiseIndex];
-    
+
     for (let i = 0; i < quantity && i < results.length; i++) {
       let isBlacklisted = false;
       for (const blacklistedName of blacklist) {
@@ -212,5 +211,3 @@ export function updateBudget(budgetRange) {
     budgetRange
   }
 }
-
-
