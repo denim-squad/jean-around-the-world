@@ -93,7 +93,7 @@ function userReducer(state = initialUserState, action) {
     case LOGOUT_USER:
       return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
     case SIGNUP_USER:
-      let query = UserInfo.find({ email: action.email }).fetch();
+      let query = Meteor.users.find({ 'emails.address': action.email }).fetch();
       let userExists = query[0];
       if (userExists) {
         alert("An account with this email already exists. Proceed to login to continue.");
