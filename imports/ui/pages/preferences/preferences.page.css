@@ -45,6 +45,7 @@
     display: grid;
     grid-template-rows: 18.6% 43.8% 17.2%;
     grid-row-gap: 10.2%;
+    height: 50%;
 }
 
 .step-text-container {
@@ -102,6 +103,7 @@
 .stepbox-container {
     background-color: #FFFFFF;
     border-radius: 9px;
+    height: 50%;
 }
 
 .stepbox-padding {
@@ -115,9 +117,8 @@
 
 .customize-container {
     display: grid;
-    grid-template-rows: 18% 81%;
-    grid-row-gap: 3%;
-    height: 100%;
+    grid-template-rows: 20% 80%;
+    height: 50%;
 }
 
 .stepbox-title {
@@ -127,6 +128,7 @@
     font-size: 20px;
     line-height: 24px;
     color: #000000;
+    height: 50%;
 }
 
 /* Checkbox label styling */
@@ -142,6 +144,16 @@
 
 .customize-buttons {
     cursor: pointer;
+}
+
+.customize-buttons-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.form-container {
+    display: grid;
+    grid-template-rows: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
 }
 
 .blacklist-container {
