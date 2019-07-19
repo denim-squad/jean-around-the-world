@@ -21,6 +21,7 @@ const googleMapsClient = createClient({
  */
 export default function getNearbyPlaces(location, radius, priceRange, type) {
   console.log("in getNearbyPlaces, priceRange:", priceRange)
+  console.log("process:", process);
   console.log("process.env:", process.env);
   console.log("process.env.API_KEY:", process.env.API_KEY);
   const [ minprice, maxprice ] = priceRange;
