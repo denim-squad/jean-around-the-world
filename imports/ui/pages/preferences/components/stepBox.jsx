@@ -33,9 +33,10 @@ class StepBox extends React.Component {
           <div className="stepbox-title">
             <strong>
               What would you like to be included in your trip?
-                        </strong>
+            </strong>
           </div>
           <FormGroup>
+            {/* todo make responsive and consider more types */}
             <CustomizeTripButton label="Coffee" />
             <CustomizeTripButton label="Fast Food" />
             <CustomizeTripButton label="Bakeries" />
@@ -47,16 +48,16 @@ class StepBox extends React.Component {
             {/* todo, this isn't a directly searchable type but may be a returned type
                             (point_of_interest), so would need some additional work */}
             {/* <FormControlLabel
-                            className="customize-buttons"
-                            control={
-                                <CssCheckbox
-                                    checked={this.props.isLandmark}
-                                    icon={<ToggleRadioButtonUnchecked />}
-                                    checkedIcon={<ToggleRadioButtonChecked />}
-                                />
-                            }
-                            label="Landmarks/Attractions"
-                        /> */}
+              className="customize-buttons"
+              control={
+                <CssCheckbox
+                  checked={this.props.isLandmark}
+                  icon={<ToggleRadioButtonUnchecked />}
+                  checkedIcon={<ToggleRadioButtonChecked />}
+                />
+              }
+              label="Landmarks/Attractions"
+            /> */}
           </FormGroup>
         </div>;
       case BLACKLIST_STEP:
@@ -64,7 +65,7 @@ class StepBox extends React.Component {
           <div className="stepbox-title">
             <strong>
               Enter a location to blacklist
-                        </strong>
+            </strong>
           </div>
           <div className="blacklist-add-container">
             <CssTextField
@@ -79,7 +80,7 @@ class StepBox extends React.Component {
               size="small"
               color="primary">
               ADD
-                        </BootstrapButton>
+            </BootstrapButton>
           </div>
           <div>
             {/* spacing */}
@@ -87,7 +88,7 @@ class StepBox extends React.Component {
           <div className="stepbox-title">
             <strong>
               Blacklist:
-                        </strong>
+            </strong>
           </div>
           <div className="blacklist-buttons-container">
             {this.getBlacklist()}
