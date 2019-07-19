@@ -14,11 +14,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { showModal, hideModal, loginUser } from '../../.././redux/actions';
 import { SIGNUP } from '../../.././redux/actions';
+import { Meteor } from 'meteor/meteor';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(5),
   },
   closeButton: {
     position: 'absolute',
@@ -47,51 +50,49 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: 0,
   },
 }))(MuiDialogContent);
 
 const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(1),
+    padding: theme.spacing(4),
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
   },
 }))(MuiDialogActions);
-
 
 class Login extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      email: "",
-      password: ""
-    };
-  }
-
-  handleClose = () => {
-    this.props.hideModal();
+    this.email = React.createRef();
+    this.password = React.createRef();
   }
 
   loginUser = () => {
-    this.props.loginUser(this.state.email, this.state.password);
-    this.props.hideModal();
-  }
-
-  inputEmailChange = (e) => {
-    this.setState({
-      email: e.target.value
-    })
+    Meteor.loginWithPassword(this.email.value, this.password.value, (err) => {
+      if (err) {
+        alert("Invalid email or password");
+      }
+      else {
+        this.props.loginUser(this.email.value);
+        this.props.hideModal();
+      }
+    });
   }
 
   render() {
     return (
         <Dialog
           open={this.props.isModalShown}
-          onClose={this.handleClose}
+          onClose={this.props.hideModal}
           aria-labelledby="customized-dialog-title">
           <DialogTitle
             id="customized-dialog-title"
-            onClose={this.handleClose}>
+            onClose={this.props.hideModal}>
               Log in to your Account
           </DialogTitle>
           <DialogContent>
@@ -99,18 +100,20 @@ class Login extends React.Component {
               Enter your details below.
             </DialogContentText>
             <TextField
-              onChange={this.inputEmailChange}
+              inputRef = {(input) => (this.email = input)}
               margin="dense"
               label="Email Address"
               type="email"
               fullWidth
+              required={true}
             />
             <TextField
-              // TODO: handle password input
+              inputRef = {(input) => (this.password = input)}
               margin="dense"
               label="Password"
               type="password"
               fullWidth
+              required={true}
             />
             <DialogContentText id="link-to-signup">
               <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>

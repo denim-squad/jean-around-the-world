@@ -6,7 +6,7 @@ import StepIcon from './components/stepIcon';
 import StepBox from './components/stepBox';
 import ContinueButtons from './components/shared/continueButtons';
 
-export const CUSTOMIZE_STEP = 1, BLACKLIST_STEP = 2, REFINE_STEP = 3;
+export const CUSTOMIZE_STEP = 1, BLACKLIST_STEP = 2, REFINE_STEP = 3, COMPLETE_STEP = 4;
 
 const images = [
     "/grand_canyon.svg",
@@ -22,10 +22,10 @@ const images = [
 ];
 
 class PreferencesPage extends React.Component {
-  
+
     constructor() {
         super();
-        this.state = { 
+        this.state = {
             imgPath: "url(" + images[~~(Math.random() *10)] + ")",
             currentStep: CUSTOMIZE_STEP
         };
@@ -36,21 +36,25 @@ class PreferencesPage extends React.Component {
     previousStep() {
         if (this.state.currentStep > CUSTOMIZE_STEP) {
             this.setState({
-                imgPath: this.state.imgPath, 
+                imgPath: this.state.imgPath,
                 currentStep: this.state.currentStep - 1
             });
         }
     }
 
     nextStep() {
-        if (this.state.currentStep < REFINE_STEP) {
+          // todo implement COMPLETE_STEP:
+          // - set state based on parameters chosen,
+          // - dispatch trip creation process,
+          // - change to finished trip view with spinner while waiting
+        if (this.state.currentStep < COMPLETE_STEP) {
             this.setState({
-                imgPath:this.state.imgPath, 
+                imgPath:this.state.imgPath,
                 currentStep: this.state.currentStep + 1
             });
         }
     }
-  
+
     render() {
         return <div className="preferences-page-container">
             <Navbar />
@@ -60,8 +64,8 @@ class PreferencesPage extends React.Component {
                         <div className="preferences-col-left">
                             <StepIcon currentStep={this.state.currentStep} />
                             <StepText currentStep={this.state.currentStep}/>
-                            <ContinueButtons 
-                                nextStep={this.nextStep} 
+                            <ContinueButtons
+                                nextStep={this.nextStep}
                                 previousStep={this.previousStep}
                                 currentStep={this.state.currentStep}
                                 />
