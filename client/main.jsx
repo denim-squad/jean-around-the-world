@@ -10,6 +10,7 @@ import './main.css';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/integration/react'
+import LoadingSpinner from '../imports/ui/shared_components/loading/loadingSpinner';
 
 const persistConfig = {
   key: 'root',
@@ -23,7 +24,7 @@ Meteor.startup(() => {
   const persistor = persistStore(store);
   ReactDOM.render(
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
         <RoutingPage />
       </PersistGate>
     </Provider>,
