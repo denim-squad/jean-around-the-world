@@ -7,8 +7,6 @@ import { StyledSlider } from '../MUI/slider/styledSlider';
 import { connect } from 'react-redux';
 import { setRadius, setMapCenter } from '../../../redux/actions/index';
 import Geocode from 'react-geocode';
-import { MIN_RADIUS, MAX_RADIUS } from '../../../constants';
-import LoadingSpinner from '../loading/loadingSpinner';
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -17,7 +15,6 @@ class MapQuery extends React.Component {
     constructor() {
         super();
         Geocode.setApiKey(''); // SET API KEY HERE. DO NOT COMMIT
-        this.loadingSpinner = React.createRef();
     }
 
     handleSearch = (event) => {
@@ -38,16 +35,15 @@ class MapQuery extends React.Component {
     };
 
     goToPreferencesPage = async () => {
-        this.loadingSpinner.current.style.display = 'block';
+        // this.loadingSpinner.current.style.display = 'block';
         await setTimeout(() => {
-            this.loadingSpinner.current.style.display = 'none';
+            // this.loadingSpinner.current.style.display = 'none';
             history.push('/preferences');
         }, 2800);
     }
 
     render() {
         return <div className="map-query-container">
-        <LoadingSpinner ref={this.loadingSpinner}/>
         <div>
             {/* spacing */}
         </div>
@@ -56,8 +52,8 @@ class MapQuery extends React.Component {
         </div>
         <StyledSlider
             value={this.props.radius}
-            min={MIN_RADIUS}
-            max={MAX_RADIUS}
+            min={1000}
+            max={80000}
             onChange={this.changeRadius}
             aria-labelledby="radius slider"
             className="slider"
