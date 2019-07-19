@@ -2,6 +2,7 @@ import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
+import { connect } from 'react-redux';
 
 const history = createBrowserHistory({forceRefresh: true});
 
@@ -16,11 +17,14 @@ class ResultsButtons extends React.Component {
     }
 
     render() {
+        const { places } = this.props;
+        console.log("places:", places);
         return <div className="results-container">
             WE FOUND JUST THE TRIP FOR YOU!
             <div className="results-buttons-container">
                <div>
-                  {/* spacing  */}
+                  {/* todo major styling, decisions about how to format, what to display, etc */}
+                  
                </div>
                <BootstrapButton
                    className="save-trip-button"
@@ -58,4 +62,8 @@ class ResultsButtons extends React.Component {
     }
 }
 
-export default ResultsButtons;
+const mapStateToProps = (state) => {
+    return { places: state.places }
+}
+
+export default connect(mapStateToProps)(ResultsButtons);

@@ -3,17 +3,27 @@ import { createBrowserHistory } from 'history';
 import '../../preferences.page.css';
 import { BootstrapButton } from '../../../../shared_components/MUI/button/bootstrapButton';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../../preferences.page';
+import { connect } from 'react-redux';
+import { getPlaces } from '../../../../../redux/actions';
 
 const history = createBrowserHistory({forceRefresh: true});
 
 class ContinueButtons extends React.Component {
 
     goToResultsPage = async () => {
+        this.props.getPlaces();
         // this.loadingSpinner.current.style.display = 'block';
-        await setTimeout(() => {
+        const timer = await setTimeout(() => {
             // this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 2800);
+        }, 10000);
+        setInterval(() => {
+            if (this.props.places) {
+                console.log("cancelling timer, places:", this.props.places);
+                clearTimeout(timer);
+                history.push('/results');
+            }
+        }, 250)
     }
 
     render() {
@@ -46,10 +56,16 @@ class ContinueButtons extends React.Component {
                UNRAVEL THE TRAVEL
            </BootstrapButton>
         }
-
         </div>;
     }
-
 }
 
-export default ContinueButtons;
+const mapStateToProps = (state) => {
+    return { places: state.placeSearch.places };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return { getPlaces: () => dispatch(getPlaces) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContinueButtons);
