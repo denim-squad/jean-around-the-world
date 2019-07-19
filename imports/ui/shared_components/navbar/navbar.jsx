@@ -7,23 +7,29 @@ import Signup from '../signup/signup';
 import { showModal, logoutUser } from '../../.././redux/actions';
 import { createBrowserHistory } from 'history';
 import { LOGIN, SIGNUP } from '../../.././redux/actions';
+import LoadingSpinner from '../loading/loadingSpinner';
 
 const history = createBrowserHistory({forceRefresh: true});
 
 class Navbar extends React.Component {
 
+    constructor () {
+        super();
+        this.loadingSpinner = React.createRef();
+    }
+
     goToHomePage = async () => {
-        // this.loadingSpinner.current.style.display = 'block';
+        this.loadingSpinner.current.style.display = 'block';
         await setTimeout(() => {
-            // this.loadingSpinner.current.style.display = 'none';
+            this.loadingSpinner.current.style.display = 'none';
             history.push('/');
         }, 1400);
     }
 
     goToAboutPage = async () => {
-        // this.loadingSpinner.current.style.display = 'block';
+        this.loadingSpinner.current.style.display = 'block';
         await setTimeout(() => {
-            // this.loadingSpinner.current.style.display = 'none';
+            this.loadingSpinner.current.style.display = 'none';
             history.push('/about');
         }, 1400);
       }
@@ -39,11 +45,12 @@ class Navbar extends React.Component {
 
     render() {
         return <div className={ this.props.isHomePage ? "homepage-navbar-container" : "navbar-container"}>
+            <LoadingSpinner ref={this.loadingSpinner}/>
             {
                 this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
                     <div className="navbar-button">
-                        <div className="navbar-text">
+                        <div className="navbar-text username">
                             {this.props.fullName}
                         </div>
                     </div>

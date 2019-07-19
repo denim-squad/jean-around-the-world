@@ -6,7 +6,7 @@ import StepIcon from './components/stepIcon';
 import StepBox from './components/stepBox';
 import ContinueButtons from './components/shared/continueButtons';
 
-export const CUSTOMIZE_STEP = 1, BLACKLIST_STEP = 2, REFINE_STEP = 3;
+export const CUSTOMIZE_STEP = 1, BLACKLIST_STEP = 2, REFINE_STEP = 3, COMPLETE_STEP = 4;
 
 const images = [
     "/grand_canyon.svg",
@@ -43,7 +43,11 @@ class PreferencesPage extends React.Component {
     }
 
     nextStep() {
-        if (this.state.currentStep < REFINE_STEP) {
+          // todo implement COMPLETE_STEP:
+          // - set state based on parameters chosen,
+          // - dispatch trip creation process,
+          // - change to finished trip view with spinner while waiting
+        if (this.state.currentStep < COMPLETE_STEP) {
             this.setState({
                 imgPath:this.state.imgPath,
                 currentStep: this.state.currentStep + 1
