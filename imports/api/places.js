@@ -2,7 +2,7 @@ import { createClient } from '@google/maps';
 import API_KEY from '../constants';
 
 const googleMapsClient = createClient({
-  key: API_KEY, 
+  key: "AIzaSyDJueLy9ZKUPA9pJhtUPykPysJdBZgT9NY", 
   Promise: Promise
 });
 
@@ -14,14 +14,15 @@ const googleMapsClient = createClient({
  * 
  * @param {LatLng} location 
  * @param {number} radius 0 < radius <= 50000
- * @param {Object} priceRange 0 <= price <= 4;
+ * @param {Object} budgetRange 0 <= price <= 4;
  * I'd prefer that these be camelCase but following the api convention for simplicity
- * @param {number} priceRange.minprice
- * @param {number} priceRange.maxprice
+ * @param {number} budgetRange.minprice
+ * @param {number} budgetRange.maxprice
  * @param {string} type https://developers.google.com/places/supported_types
  */
-export default function getNearbyPlaces(location, radius, priceRange, type) {
-  const [ minprice, maxprice ] = priceRange;
+export default function getNearbyPlaces(location, radius, budgetRange, type) {
+  console.log("in getNearbyPlaces, budgetRange:", budgetRange);
+  const [ minprice, maxprice ] = budgetRange;
   return googleMapsClient.placesNearby({
     location,
     radius,

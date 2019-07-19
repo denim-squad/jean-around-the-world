@@ -109,9 +109,9 @@ export function getPlaces() {
     console.log("state:", getState());
     const placeSearchState = getState().placeSearch;
     console.log("placesSearchState:", placeSearchState);
-    const { location, radius, budgetRange, typesAndQuantities, blacklist } = getState().placeSearch;
+    const { location, radius, budgetRange, typesAndQuantities, blacklist } = placeSearchState;
     const placesPromises = [], quantities = [];
-    console.log("typesAndQuantities:", typesAndQuantities);
+    // console.log("typesAndQuantities:", typesAndQuantities);
 
     typesAndQuantities.forEach(({ type, quantity }) => {
       const promise = getNearbyPlaces(location, radius, budgetRange, type);

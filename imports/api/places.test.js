@@ -19,13 +19,13 @@ const location = {
     lng: -123.247480
   },
   radius = 4000,
-  price = [1, 3],
+  budgetRange = [1, 3],
   type = 'meal_takeaway';
 
 let results = [];
 describe('getNearbyPlaces', () => {
   it('returns results in a promise', function () {
-    const response = getNearbyPlaces(location, radius, price, type);
+    const response = getNearbyPlaces(location, radius, budgetRange, type);
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
         results = searchResponse.json.results;
@@ -53,7 +53,7 @@ const initialState = {
   placeSearch: {
     location,
     radius,
-    price,
+    budgetRange,
     typesAndQuantities: [{
         type: 'meal_takeaway',
         quantity: 2
