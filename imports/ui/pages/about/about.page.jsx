@@ -4,6 +4,15 @@ import AboutPageTextContainer from './components/aboutPageTextContainer';
 import './about.page.css'
 
 class AboutPage extends React.Component {
+  constructor() {
+    super();
+    console.log("in getNearbyPlaces, priceRange:", priceRange)
+    console.log("process:", process);
+    console.log("process.env:", process.env);
+    console.log("process.env.API_KEY:", process.env.API_KEY);
+    console.log("meteor settings:", Meteor.settings);
+  }
+
   render() {
     return (
       <div>
