@@ -170,7 +170,7 @@ async function convertPlacesPromisesToValidList(places, quantities, blacklist = 
   });
 
   await Promise.all(places);
-  // console.log("at end of converting promises, listOfPlaces:", listOfPlaces);
+  console.log("at end of converting promises, listOfPlaces:", listOfPlaces);
   return listOfPlaces;
 }
 

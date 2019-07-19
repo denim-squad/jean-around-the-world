@@ -1,5 +1,4 @@
 import { createClient } from '@google/maps';
-import { Meteor } from 'meteor/meteor';
 import API_KEY from '../constants';
 
 const googleMapsClient = createClient({
@@ -22,11 +21,6 @@ const googleMapsClient = createClient({
  * @param {string} type https://developers.google.com/places/supported_types
  */
 export default function getNearbyPlaces(location, radius, priceRange, type) {
-  console.log("in getNearbyPlaces, priceRange:", priceRange)
-  console.log("process:", process);
-  console.log("process.env:", process.env);
-  console.log("process.env.API_KEY:", process.env.API_KEY);
-  console.log("meteor settings:", Meteor.settings);
   const [ minprice, maxprice ] = priceRange;
   return googleMapsClient.placesNearby({
     location,
