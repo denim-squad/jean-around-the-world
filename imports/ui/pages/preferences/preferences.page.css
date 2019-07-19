@@ -45,7 +45,6 @@
     display: grid;
     grid-template-rows: 18.6% 43.8% 17.2%;
     grid-row-gap: 10.2%;
-    height: 50%;
 }
 
 .step-text-container {
@@ -103,7 +102,6 @@
 .stepbox-container {
     background-color: #FFFFFF;
     border-radius: 9px;
-    height: 50%;
 }
 
 .stepbox-padding {
@@ -117,8 +115,6 @@
 
 .customize-container {
     display: grid;
-    grid-template-rows: 20% 80%;
-    height: 50%;
 }
 
 .stepbox-title {
@@ -128,7 +124,6 @@
     font-size: 20px;
     line-height: 24px;
     color: #000000;
-    height: 50%;
 }
 
 /* Checkbox label styling */
@@ -154,6 +149,14 @@
 .form-container {
     display: grid;
     grid-template-rows: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
+}
+
+div .MuiFormControl-marginNormal {
+    margin: 0px;
+}
+
+div .MuiFormControl-root {
+    height: 80%;
 }
 
 .blacklist-container {
@@ -192,14 +195,24 @@
 
 .refine-slider-container {
     display: grid;
-    grid-template-columns: 5% 80% 5%;
-    grid-column-gap: 2.5%;
+    grid-template-columns: 13% 63% 13%;
+    grid-column-gap: 5.5%;
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 24px;
     color: #000000;
+}
+
+svg.MuiSvgIcon-root {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+svg.MuiSvgIcon-root.Rating-icon-160 {
+    width: 1.5em;
+    height: 1.5em;
 }
 
 img {
