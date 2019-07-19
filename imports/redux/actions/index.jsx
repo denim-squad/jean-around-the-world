@@ -141,15 +141,16 @@ export function getPlaces() {
  */
 async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
+  console.log("in convertPlacesPromisesToValidList");
 
   places.forEach(async (promise, promiseIndex) => {
     const response = await promise;
-    // console.log("response:", response);
+    console.log("response:", response);
     if (response.error) {
       throw response.error;
     }
     const results = response.json.results;
-    // console.log("results:", results);
+    console.log("results:", results);
     const quantity = quantities[promiseIndex];
     console.log("quantity: ", quantity);
 
@@ -161,8 +162,8 @@ async function convertPlacesPromisesToValidList(places, quantities, blacklist = 
           break;
         }
       }
-      // console.log("results[i]:", results[i]);
-      // console.log("after pushing, listOfPlaces:", listOfPlaces);
+      console.log("results[i]:", results[i]);
+      console.log("after pushing, listOfPlaces:", listOfPlaces);
       isBlacklisted ?
         quantity++ // need to get another item
         : listOfPlaces.push(results[i]);

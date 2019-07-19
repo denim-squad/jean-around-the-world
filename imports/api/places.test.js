@@ -16,7 +16,7 @@ const location = {
   lng: -123.247480
 },
   radius = 4000,
-  price = 1,
+  price = [1, 3],
   type = 'meal_takeaway';
 
 let results = [];
