@@ -1,7 +1,8 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
 import { connect } from 'react-redux';
-import API_KEY from '../../../../constants';
+import API_KEY from '../../../../api/key';
+console.log("API_KEY in resultsMapContainer:", API_KEY);
 
 const mapStyles = {
   width: '100%',
