@@ -1,7 +1,7 @@
 import { createClient } from '@google/maps';
 
 const googleMapsClient = createClient({
-  key: '', 
+  key: process.env.API_KEY, 
   Promise: Promise
 });
 

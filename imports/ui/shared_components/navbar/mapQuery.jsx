@@ -15,7 +15,7 @@ class MapQuery extends React.Component {
 
     constructor() {
         super();
-        Geocode.setApiKey(''); // SET API KEY HERE. DO NOT COMMIT
+        Geocode.setApiKey(process.env.API_KEY); // SET API KEY HERE. DO NOT COMMIT
     }
 
     handleSearch = (event) => {
