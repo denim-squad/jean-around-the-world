@@ -1,7 +1,7 @@
 import { createClient } from '@google/maps';
 
 const googleMapsClient = createClient({
-  key: 'AIzaSyADJMOp1324kjVZA6ZI6TxQWOkgA5dxMY4', 
+  key: '', 
   Promise: Promise
 });
 
