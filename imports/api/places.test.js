@@ -1,5 +1,8 @@
 import getNearbyPlaces from './places';
-import { assert, expect } from 'chai';
+import {
+  assert,
+  expect
+} from 'chai';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -12,9 +15,9 @@ import {
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const location = {
-  lat: 49.263749,
-  lng: -123.247480
-},
+    lat: 49.263749,
+    lng: -123.247480
+  },
   radius = 4000,
   price = [1, 3],
   type = 'meal_takeaway';
@@ -25,11 +28,11 @@ describe('getNearbyPlaces', () => {
     const response = getNearbyPlaces(location, radius, price, type);
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
-      results = searchResponse.json.results;
-      // console.log("results:", results);
-      assert.isArray(results);
-      assert.isNotEmpty(results, "results array was empty");
-    })
+        results = searchResponse.json.results;
+        // console.log("results:", results);
+        assert.isArray(results);
+        assert.isNotEmpty(results, "results array was empty");
+      })
       .catch(error => {
         console.log(error);
         throw error;
@@ -47,18 +50,23 @@ describe('getNearbyPlaces', () => {
 })
 
 const initialState = {
-  location, radius, price, typesAndQuantities: [
-    {
-      type: 'meal_takeaway',
-      quantity: 2
-    },
-    {
-      type: 'cafe',
-      quantity: 3
-    }
-  ], blacklist: [
-    'subway'
-  ]
+  placeSearch: {
+    location,
+    radius,
+    price,
+    typesAndQuantities: [{
+        type: 'meal_takeaway',
+        quantity: 2
+      },
+      {
+        type: 'cafe',
+        quantity: 3
+      }
+    ],
+    blacklist: [
+      'subway'
+    ]
+  }
 }
 
 describe('getPlaces action function', function () {
@@ -68,9 +76,9 @@ describe('getPlaces action function', function () {
   //   try {
   //     emptyStore.dispatch(getPlaces());
   //   } catch (error) {
-      
+
   //   }
-    
+
   //   console.log(emptyStore.getActions());
   // })
 
@@ -87,3 +95,4 @@ describe('getPlaces action function', function () {
     })
   });
 })
+
