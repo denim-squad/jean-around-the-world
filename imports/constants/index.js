@@ -1,3 +1,5 @@
+export const API_KEY = process.env.API_KEY;
+
 export const MIN_RADIUS = 1000;
 export const MAX_RADIUS = 50000;
 

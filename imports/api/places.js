@@ -1,6 +1,6 @@
 import { createClient } from '@google/maps';
 import { Meteor } from 'meteor/meteor';
-import API_KEY from './key';
+import API_KEY from '../constants';
 
 const googleMapsClient = createClient({
   key: API_KEY, 

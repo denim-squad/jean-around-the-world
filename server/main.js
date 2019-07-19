@@ -1,1 +1,2 @@
-import '../imports/api/key';
+// get api key while active
+import '../imports/constants';
