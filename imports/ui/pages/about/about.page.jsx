@@ -10,6 +10,7 @@ class AboutPage extends React.Component {
     console.log("process.env:", process.env);
     console.log("process.env.API_KEY:", process.env.API_KEY);
     console.log("meteor settings:", Meteor.settings);
+    console.log("server_only_setting:", Meteor.settings.server_only_setting);
   }
 
   render() {
