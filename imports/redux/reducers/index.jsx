@@ -3,7 +3,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SET_RADIUS,
-  SET_CENTER ,
+  SET_CENTER,
   LOGIN_USER,
   LOGOUT_USER,
   SIGNUP_USER,
@@ -11,7 +11,11 @@ import {
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
-  REMOVE_FAVOURITES } from '../actions/index';
+  REMOVE_FAVOURITES,
+  REQUEST_PLACES_START,
+  RECEIVE_PLACES_SUCCESS,
+  RECEIVE_PLACES_FAILURE
+} from '../actions/index';
 import { LOGIN, SIGNUP } from '../../ui/shared_components/navbar/navbar';
 import { UserInfo } from '../../../lib/userInfoCollection';
 
@@ -21,7 +25,7 @@ const initialMapState = {
     lat: 49.263749,
     lng: -123.247480
   }
-}
+};
 
 const initialModalState = {
   isModalShown: false,
@@ -37,10 +41,19 @@ const initialUserState = {
   userId: ""
 }
 
+const initialPlaceSearchState = {
+  isFetchingPlaces: false,
+  places: [],
+  price: 4,
+  typesAndQuantities: [],
+  error: undefined
+}
+
 function modalReducer(state = initialModalState, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return { ...state,
+      return {
+        ...state,
         isModalShown: true,
         modalKind: action.kind
       };
@@ -143,8 +156,30 @@ function mapReducer(state = initialMapState, action) {
   }
 }
 
+function placeSearchReducer(state = initialPlaceSearchState, action) {
+  switch (action.type) {
+    case REQUEST_PLACES_START:
+      return { ...state, isFetchingPlaces: action.isFetchingPlaces };
+    case RECEIVE_PLACES_SUCCESS:
+      return {
+        ...state,
+        isFetchingPlaces: action.isFetchingPlaces,
+        places: action.places
+      };
+    case RECEIVE_PLACES_FAILURE:
+      return {
+        ...state,
+        isFetchingPlaces: action.isFetchingPlaces,
+        error: action.error
+      };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   modal: modalReducer,
   user: userReducer,
   map: mapReducer,
+  placeSearch: placeSearchReducer
 });

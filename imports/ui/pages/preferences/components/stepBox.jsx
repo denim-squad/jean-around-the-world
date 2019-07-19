@@ -13,6 +13,7 @@ import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
 import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
 import Rating from 'material-ui-rating';
+import { DEFAULT_PRICE_LEVEL, DEFAULT_RATING, MAX_RATING, MIN_PRICE_LEVEL, MAX_PRICE_LEVEL } from '../../../../constants'
 
 class StepBox extends React.Component {
 
@@ -20,8 +21,8 @@ class StepBox extends React.Component {
         super();
         this.blacklistInput = React.createRef();
         this.state = {
-            budgetValue: 50,
-            ratingValue: 5,
+            budgetValue: DEFAULT_PRICE_LEVEL,
+            ratingValue: DEFAULT_RATING,
         };
     }
 
@@ -51,6 +52,11 @@ class StepBox extends React.Component {
                             What would you like to be included in your trip?
                         </strong>
                     </div>
+                    {/* todos 
+                        - allow clicking to choose how many of each type of venue
+                          e.g. 3 restaurants, 1 hotel, 4 attractions 
+                        - change global state based on what is selected
+                    */}
                     <FormGroup>
                         <FormControlLabel
                             className="customize-buttons"
@@ -172,12 +178,13 @@ class StepBox extends React.Component {
                     </div>
                     <div className="stepbox-title">
                         <strong>
+                          {/* todo discuss whether min rating of 5 should be allowed, make range slider? */}
                             Minimum Rating out of 5:
                         </strong>
                     </div>
                     <Rating
                         value={ratingValue}
-                        max={5}
+                        max={MAX_RATING}
                         onChange={this.changerating}
                     />
                     <div />
@@ -188,14 +195,20 @@ class StepBox extends React.Component {
                     </div>
                     <div className="refine-slider-container">
                         <div>
-                            $
+                            Free
                         </div>
                         <div className="slider-div">
+                          {/* todo make this slider discrete from 0 to 4 inclusive, make range slider? */}
                             <StyledSlider
                                 value={budgetValue}
                                 onChange={this.changeBudget}
                                 aria-labelledby="budget slider"
                                 className="slider"
+                                step={1}
+                                marks
+                                min={MIN_PRICE_LEVEL}
+                                max={MAX_PRICE_LEVEL}
+                                valueLabelDisplay="auto"
                             />
                         </div>
                         <div>

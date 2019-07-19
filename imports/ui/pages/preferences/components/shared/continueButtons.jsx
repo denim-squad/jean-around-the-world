@@ -17,6 +17,7 @@ class ContinueButtons extends React.Component {
             </div>
         }
         {
+          // todo remove this check when implementing finished trip view
             !(this.props.currentStep === REFINE_STEP) &&
             <div 
                 className="next-button"
