@@ -11,19 +11,20 @@ const history = createBrowserHistory({forceRefresh: true});
 class ContinueButtons extends React.Component {
 
     goToResultsPage = async () => {
+        console.log("in goToResultsPage, this.props:", this.props)
         this.props.getPlaces();
         // this.loadingSpinner.current.style.display = 'block';
         const timer = await setTimeout(() => {
             // this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 10000);
-        setInterval(() => {
-            if (this.props.places) {
-                console.log("cancelling timer, places:", this.props.places);
-                clearTimeout(timer);
-                history.push('/results');
-            }
-        }, 250)
+        }, 20000);
+        // setInterval(() => {
+        //     if (this.props.places) {
+        //         console.log("cancelling timer, places:", this.props.places);
+        //         clearTimeout(timer);
+        //         history.push('/results');
+        //     }
+        // }, 250)
     }
 
     render() {
@@ -65,7 +66,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return { getPlaces: () => dispatch(getPlaces) };
+    return { getPlaces: () => dispatch(getPlaces()) };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContinueButtons);

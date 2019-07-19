@@ -102,19 +102,27 @@ export function removeFavourites(favouriteToRemove) {
 
 // uses redux-thunk
 export function getPlaces() {
+  console.log("in getPlaces");
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
-
-    const { location, radius, price, typesAndQuantities, blacklist } = getState();
+    console.log("dispatched requestPlacesStart");
+    console.log("state:", getState());
+    const placeSearchState = getState().placeSearch;
+    console.log("placesSearchState:", placeSearchState);
+    const { location, radius, budgetRange, typesAndQuantities, blacklist } = getState().placeSearch;
     const placesPromises = [], quantities = [];
+    console.log("typesAndQuantities:", typesAndQuantities);
 
     typesAndQuantities.forEach(({ type, quantity }) => {
-      placesPromises.push(getNearbyPlaces(location, radius, price, type));
+      const promise = getNearbyPlaces(location, radius, budgetRange, type);
+      console.log(promise);
+      placesPromises.push(promise);
       quantities.push(quantity);
     });
 
     try {
       const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
+      console.log("in promise return, listOfPlaces:", listOfPlaces);
       dispatch(receivePlacesSuccess(listOfPlaces));
     } catch (error) {
       dispatch(receivePlacesFailure(error));
@@ -131,16 +139,19 @@ export function getPlaces() {
  * @param {Array} quantities
  * @param {Array} blacklist
  */
-function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
+async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
 
   places.forEach(async (promise, promiseIndex) => {
     const response = await promise;
+    // console.log("response:", response);
     if (response.error) {
       throw response.error;
     }
     const results = response.json.results;
+    // console.log("results:", results);
     const quantity = quantities[promiseIndex];
+    console.log("quantity: ", quantity);
 
     for (let i = 0; i < quantity && i < results.length; i++) {
       let isBlacklisted = false;
@@ -150,16 +161,21 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
           break;
         }
       }
+      // console.log("results[i]:", results[i]);
+      // console.log("after pushing, listOfPlaces:", listOfPlaces);
       isBlacklisted ?
         quantity++ // need to get another item
         : listOfPlaces.push(results[i]);
     }
   });
 
+  await Promise.all(places);
+  // console.log("at end of converting promises, listOfPlaces:", listOfPlaces);
   return listOfPlaces;
 }
 
 function requestPlacesStart() {
+  console.log("in requestPlacesStart");
   return {
     type: REQUEST_PLACES_START,
     isFetchingPlaces: true

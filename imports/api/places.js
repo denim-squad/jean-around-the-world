@@ -1,7 +1,7 @@
 import { createClient } from '@google/maps';
 
 const googleMapsClient = createClient({
-  key: '', 
+  key: 'AIzaSyADJMOp1324kjVZA6ZI6TxQWOkgA5dxMY4', 
   Promise: Promise
 });
 
@@ -20,7 +20,8 @@ const googleMapsClient = createClient({
  * @param {string} type https://developers.google.com/places/supported_types
  */
 export default function getNearbyPlaces(location, radius, priceRange, type) {
-  const { minprice, maxprice } = priceRange;
+  console.log("in getNearbyPlaces, priceRange:", priceRange)
+  const [ minprice, maxprice ] = priceRange;
   return googleMapsClient.placesNearby({
     location,
     radius,

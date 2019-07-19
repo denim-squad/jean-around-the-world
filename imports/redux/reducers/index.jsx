@@ -187,9 +187,10 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
       };
     case REMOVE_PLACE_TYPE:
+      state.typesAndQuantities.delete(action.placeType);
+      console.log("in removePlaceType, state:", typesAndQuantities);
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.delete(action.placeType)
       };
     case UPDATE_RATING:
       return {

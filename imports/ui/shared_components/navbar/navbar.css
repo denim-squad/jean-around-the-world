@@ -145,7 +145,7 @@
 }
 
 .slider {
-    touch-action: none; //Fixes console log errors
+    touch-action: none;
 }
 
 .MuiTypography-h6 {
