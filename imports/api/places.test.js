@@ -28,10 +28,10 @@ describe('getNearbyPlaces', () => {
     const response = getNearbyPlaces(location, radius, budgetRange, type);
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
-        results = searchResponse.json.results;
-        assert.isArray(results);
-        assert.isNotEmpty(results, "results array was empty");
-      })
+      results = searchResponse.json.results;
+      assert.isArray(results);
+      assert.isNotEmpty(results, "results array was empty");
+    })
       .catch(error => {
         throw error;
       })
