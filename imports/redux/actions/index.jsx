@@ -106,8 +106,8 @@ export function getPlaces() {
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
     console.log("dispatched requestPlacesStart");
-    console.log("state:", getState());
     const state = getState();
+    console.log("state:", state);
     const placeSearchState = state.placeSearch;
     console.log("placesSearchState:", placeSearchState);
     const { radius, budgetRange, typesAndQuantities, blacklist } = placeSearchState;
