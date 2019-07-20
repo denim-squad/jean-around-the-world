@@ -110,11 +110,13 @@ export function getPlaces() {
     console.log("state:", state);
     const placeSearchState = state.placeSearch;
     console.log("placesSearchState:", placeSearchState);
-    const { radius, budgetRange, typesAndQuantities, blacklist } = placeSearchState;
+    const { budgetRange, typesAndQuantities, blacklist } = placeSearchState;
+    const radius = state.map.radius;
     const location = state.map.initialCenter;
     const placesPromises = [], quantities = [];
 
-    typesAndQuantities.forEach(({ type, quantity }) => {
+    typesAndQuantities.forEach((quantity, type, map) => {
+      console.log(`in forEach loop, quantity:${quantity}, type: ${type}`);
       const promise = getNearbyPlaces(location, radius, budgetRange, type);
       console.log(promise);
       placesPromises.push(promise);
