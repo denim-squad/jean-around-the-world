@@ -149,7 +149,9 @@ async function convertPlacesPromisesToValidList(places, quantities, blacklist = 
     if (response.error) {
       throw response.error;
     }
-    const results = response.json.results;
+    const json = await response.json();
+    console.log("json:", json);
+    const results = json.body.results;
     console.log("results:", results);
     const quantity = quantities[promiseIndex];
     console.log("quantity: ", quantity);

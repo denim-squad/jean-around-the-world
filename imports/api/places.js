@@ -1,10 +1,8 @@
-import { createClient } from '@google/maps';
+import {
+  createClient
+} from '@google/maps';
 import API_KEY from '../constants';
-
-const googleMapsClient = createClient({
-  key: "AIzaSyDJueLy9ZKUPA9pJhtUPykPysJdBZgT9NY", 
-  Promise: Promise
-});
+const fetch = require('node-fetch');
 
 /**
  * Makes a nearby places request.
@@ -21,13 +19,23 @@ const googleMapsClient = createClient({
  * @param {string} type https://developers.google.com/places/supported_types
  */
 export default function getNearbyPlaces(location, radius, budgetRange, type) {
-  console.log("in getNearbyPlaces, budgetRange:", budgetRange);
-  const [ minprice, maxprice ] = budgetRange;
-  return googleMapsClient.placesNearby({
-    location,
-    radius,
-    minprice,
-    maxprice,
-    type
-  }).asPromise();
+  const [minprice, maxprice] = budgetRange;
+  const { lat, lng } = location;
+  const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
+    `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
+
+  const response = fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'include'
+  });
+  console.log(response);
+  return response;
+  // return googleMapsClient.placesNearby({
+  //   location,
+  //   radius,
+  //   minprice,
+  //   maxprice,
+  //   type
+  // }).asPromise();
 }
