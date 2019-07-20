@@ -5,16 +5,21 @@ import { BootstrapButton } from '../../../../shared_components/MUI/button/bootst
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../../preferences.page';
 import { connect } from 'react-redux';
 import { getPlaces } from '../../../../../redux/actions';
+import LoadingSpinner from '../../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({forceRefresh: true});
 
 class ContinueButtons extends React.Component {
+    constructor () {
+        super();
+        this.loadingSpinner = React.createRef();
+    }
 
     goToResultsPage = async () => {
         this.props.getPlaces();
-        // this.loadingSpinner.current.style.display = 'block';
+        this.loadingSpinner.current.style.display = 'block';
         const timer = await setTimeout(() => {
-            // this.loadingSpinner.current.style.display = 'none';
+            this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
         }, 10000);
         setInterval(() => {
@@ -28,6 +33,7 @@ class ContinueButtons extends React.Component {
 
     render() {
         return <div className="nav-buttons-container">
+        <LoadingSpinner ref={this.loadingSpinner}/>
         {
             !(this.props.currentStep === CUSTOMIZE_STEP) ?
             <div
