@@ -26,7 +26,6 @@ describe('getNearbyPlaces', () => {
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
       results = searchResponse.json.results;
-      console.log("results:", results);
       assert.isArray(results);
       assert.isNotEmpty(results, "results array was empty");
     })
@@ -68,9 +67,9 @@ describe('getPlaces action function', function () {
   //   try {
   //     emptyStore.dispatch(getPlaces());
   //   } catch (error) {
-      
+
   //   }
-    
+
   //   console.log(emptyStore.getActions());
   // })
 
