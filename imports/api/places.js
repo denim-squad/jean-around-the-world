@@ -18,7 +18,7 @@ const fetch = require('node-fetch');
 export default function getNearbyPlaces(location, radius, budgetRange, type) {
   const [minprice, maxprice] = budgetRange;
   const { lat, lng } = location;
-  const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
+  const url = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
     `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
   
   console.log("url:", url);
