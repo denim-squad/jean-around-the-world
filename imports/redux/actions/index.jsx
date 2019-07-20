@@ -107,11 +107,12 @@ export function getPlaces() {
     dispatch(requestPlacesStart());
     console.log("dispatched requestPlacesStart");
     console.log("state:", getState());
-    const placeSearchState = getState().placeSearch;
+    const state = getState();
+    const placeSearchState = state.placeSearch;
     console.log("placesSearchState:", placeSearchState);
-    const { location, radius, budgetRange, typesAndQuantities, blacklist } = placeSearchState;
+    const { radius, budgetRange, typesAndQuantities, blacklist } = placeSearchState;
+    const location = state.map.initialCenter;
     const placesPromises = [], quantities = [];
-    // console.log("typesAndQuantities:", typesAndQuantities);
 
     typesAndQuantities.forEach(({ type, quantity }) => {
       const promise = getNearbyPlaces(location, radius, budgetRange, type);

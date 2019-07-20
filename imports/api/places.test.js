@@ -50,8 +50,10 @@ describe('getNearbyPlaces', () => {
 })
 
 const initialState = {
+  map: {
+    initialCenter: location
+  },
   placeSearch: {
-    location,
     radius,
     budgetRange,
     typesAndQuantities: [{

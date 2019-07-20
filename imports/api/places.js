@@ -28,11 +28,4 @@ export default function getNearbyPlaces(location, radius, budgetRange, type) {
   });
   console.log(response);
   return response;
-  // return googleMapsClient.placesNearby({
-  //   location,
-  //   radius,
-  //   minprice,
-  //   maxprice,
-  //   type
-  // }).asPromise();
 }
