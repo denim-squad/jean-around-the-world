@@ -1,6 +1,3 @@
-import {
-  createClient
-} from '@google/maps';
 import API_KEY from '../constants';
 const fetch = require('node-fetch');
 
