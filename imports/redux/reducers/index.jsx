@@ -108,7 +108,6 @@ function userReducer(state = initialUserState, action) {
             preferences: { blacklist: [], favourites: [] }
           }
         })
-        console.log("users are:", Meteor.users);
         return {
           ...state,
           email: action.email,
