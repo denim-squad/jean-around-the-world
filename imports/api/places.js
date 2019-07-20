@@ -23,7 +23,7 @@ export default function getNearbyPlaces(location, radius, budgetRange, type) {
 
   const response = fetch(url, {
     method: 'GET',
-    mode: 'cors',
+    mode: 'no-cors',
     credentials: 'include'
   });
   console.log(response);
