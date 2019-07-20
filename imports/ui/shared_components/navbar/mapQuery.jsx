@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { setRadius, setMapCenter } from '../../../redux/actions/index';
 import Geocode from 'react-geocode';
 import { MIN_RADIUS, MAX_RADIUS } from '../../../constants'
-import API_KEY from '../../../constants';
+import { API_KEY } from '../../../constants';
 
 const history = createBrowserHistory({forceRefresh: true});
 
