@@ -31,10 +31,7 @@ describe('getNearbyPlaces', () => {
       results = searchResponse.json.results;
       assert.isArray(results);
       assert.isNotEmpty(results, "results array was empty");
-    })
-      .catch(error => {
-        throw error;
-      })
+    });
   });
 
   it('only returns results with the specified type', function () {
@@ -49,10 +46,10 @@ describe('getNearbyPlaces', () => {
 
 const initialState = {
   map: {
-    initialCenter: location
+    initialCenter: location,
+    radius
   },
   placeSearch: {
-    radius,
     budgetRange,
     typesAndQuantities: [{
         type: 'meal_takeaway',

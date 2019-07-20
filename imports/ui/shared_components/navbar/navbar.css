@@ -149,6 +149,7 @@
 }
 
 .slider {
+  /* Fixes console log errors */
     touch-action: none;
 }
 

@@ -190,7 +190,8 @@ div .MuiFormControl-root {
 }
 
 .slider {
-    touch-action: none;
+  /* Fixes console log errors */
+    touch-action: none; 
 }
 
 .refine-slider-container {
