@@ -20,7 +20,8 @@ export default function getNearbyPlaces(location, radius, budgetRange, type) {
   const { lat, lng } = location;
   const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
     `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
-
+  
+  console.log("url:", url);
   const response = fetch(url, {
     method: 'GET',
     mode: 'no-cors',
