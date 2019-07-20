@@ -38,14 +38,15 @@ class StepBox extends React.Component {
           </div>
           <FormGroup>
             {/* todo make responsive and consider more types */}
+            <div className="form-container">
             <CustomizeTripButton label="Coffee" />
             <CustomizeTripButton label="Fast Food" />
             <CustomizeTripButton label="Bakeries" />
             <CustomizeTripButton label="Restaurants" />
             <CustomizeTripButton label="Bars" />
-            {/* <CustomizeTripButton label="Nightclubs" /> */}
             <CustomizeTripButton label="Parks" />
             <CustomizeTripButton label="Hotels" />
+            {/* <CustomizeTripButton label="Nightclubs" /> */}
             {/* todo, this isn't a directly searchable type but may be a returned type
                             (point_of_interest), so would need some additional work */}
             {/* <FormControlLabel
@@ -59,6 +60,7 @@ class StepBox extends React.Component {
               }
               label="Landmarks/Attractions"
             /> */}
+            </div>
           </FormGroup>
         </div>;
       case BLACKLIST_STEP:

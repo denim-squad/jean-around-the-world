@@ -12,8 +12,8 @@ import { placeLabelToTypeMap } from '../../../../constants'
 class CustomizeTripButton extends React.Component {
   constructor() {
     super();
-    this.state = { 
-      isChecked: false, 
+    this.state = {
+      isChecked: false,
       isValid: true,
       quantity: 1
     };
@@ -35,7 +35,7 @@ class CustomizeTripButton extends React.Component {
     const quantity = event.target.value;
     // by default, google returns max 20 results, with an option to get the next page of results
     // currently capping at 20 for simplicity
-    if (quantity < 1 || quantity > 20) { 
+    if (quantity < 1 || quantity > 20) {
       this.setState({ isValid: false, quantity });
     } else {
       this.setState({ isValid: true, quantity });
@@ -45,7 +45,7 @@ class CustomizeTripButton extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="customize-buttons-container">
         <FormControlLabel
           className="customize-buttons"
           control={

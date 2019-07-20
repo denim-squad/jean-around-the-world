@@ -36,6 +36,10 @@
     vertical-align: middle;
 }
 
+.username {
+    padding-left: 15%;
+}
+
 .navbar-last-container {
     height: 100%;
     display: grid;
