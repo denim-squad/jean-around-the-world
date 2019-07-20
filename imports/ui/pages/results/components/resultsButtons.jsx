@@ -17,6 +17,7 @@ class ResultsButtons extends React.Component {
     }
 
     render() {
+        // todo remove when api call working
         const { places } = this.props;
         console.log("places:", places);
         return <div className="results-container">

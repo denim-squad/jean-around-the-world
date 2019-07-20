@@ -11,20 +11,20 @@ const history = createBrowserHistory({forceRefresh: true});
 class ContinueButtons extends React.Component {
 
     goToResultsPage = async () => {
-        console.log("in goToResultsPage, this.props:", this.props)
         this.props.getPlaces();
         // this.loadingSpinner.current.style.display = 'block';
         const timer = await setTimeout(() => {
             // this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 100000);
+        }, 1000);
+        // todo once api call working
         // setInterval(() => {
-        //     if (this.props.places) {
+        //     if (this.props.places.length > 0) {
         //         console.log("cancelling timer, places:", this.props.places);
         //         clearTimeout(timer);
         //         history.push('/results');
         //     }
-        // }, 250)
+        // }, 100)
     }
 
     render() {

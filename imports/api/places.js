@@ -21,12 +21,14 @@ export default function getNearbyPlaces(location, radius, budgetRange, type) {
   const url = 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
     `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
   
-  console.log("url:", url);
   const response = fetch(url, {
     method: 'GET',
     mode: 'no-cors',
-    credentials: 'include'
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    }
   });
-  console.log(response);
   return response;
 }

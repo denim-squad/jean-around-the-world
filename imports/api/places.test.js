@@ -29,12 +29,10 @@ describe('getNearbyPlaces', () => {
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
         results = searchResponse.json.results;
-        // console.log("results:", results);
         assert.isArray(results);
         assert.isNotEmpty(results, "results array was empty");
       })
       .catch(error => {
-        console.log(error);
         throw error;
       })
   });
@@ -80,8 +78,6 @@ describe('getPlaces action function', function () {
   //   } catch (error) {
 
   //   }
-
-  //   console.log(emptyStore.getActions());
   // })
 
   let store = mockStore(initialState);
@@ -92,7 +88,6 @@ describe('getPlaces action function', function () {
       REQUEST_PLACES_START, RECEIVE_PLACES_SUCCESS
     ];
     store.getActions().map((action) => {
-      console.log("action type:", action.type);
       expect(expectedActions).to.contain(action.type);
     })
   });

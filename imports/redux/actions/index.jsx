@@ -102,30 +102,21 @@ export function removeFavourites(favouriteToRemove) {
 
 // uses redux-thunk
 export function getPlaces() {
-  console.log("in getPlaces");
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
-    console.log("dispatched requestPlacesStart");
     const state = getState();
-    console.log("state:", state);
-    const placeSearchState = state.placeSearch;
-    console.log("placesSearchState:", placeSearchState);
-    const { budgetRange, typesAndQuantities, blacklist } = placeSearchState;
-    const radius = state.map.radius;
-    const location = state.map.initialCenter;
+    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { radius, initialCenter } = state.map;
     const placesPromises = [], quantities = [];
 
     typesAndQuantities.forEach((quantity, type, map) => {
-      console.log(`in forEach loop, quantity:${quantity}, type: ${type}`);
-      const promise = getNearbyPlaces(location, radius, budgetRange, type);
-      console.log(promise);
+      const promise = getNearbyPlaces(initialCenter, radius, budgetRange, type);
       placesPromises.push(promise);
       quantities.push(quantity);
     });
 
     try {
       const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
-      console.log("in promise return, listOfPlaces:", listOfPlaces);
       dispatch(receivePlacesSuccess(listOfPlaces));
     } catch (error) {
       dispatch(receivePlacesFailure(error));
@@ -144,20 +135,15 @@ export function getPlaces() {
  */
 async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
-  console.log("in convertPlacesPromisesToValidList");
 
   places.forEach(async (promise, promiseIndex) => {
     const response = await promise;
-    console.log("response:", response);
     if (response.error) {
       throw response.error;
     }
     const json = await response.json();
-    console.log("json:", json);
     const results = json.body.results;
-    console.log("results:", results);
     const quantity = quantities[promiseIndex];
-    console.log("quantity: ", quantity);
 
     for (let i = 0; i < quantity && i < results.length; i++) {
       let isBlacklisted = false;
@@ -167,8 +153,6 @@ async function convertPlacesPromisesToValidList(places, quantities, blacklist = 
           break;
         }
       }
-      console.log("results[i]:", results[i]);
-      console.log("after pushing, listOfPlaces:", listOfPlaces);
       isBlacklisted ?
         quantity++ // need to get another item
         : listOfPlaces.push(results[i]);
@@ -176,12 +160,10 @@ async function convertPlacesPromisesToValidList(places, quantities, blacklist = 
   });
 
   await Promise.all(places);
-  console.log("at end of converting promises, listOfPlaces:", listOfPlaces);
   return listOfPlaces;
 }
 
 function requestPlacesStart() {
-  console.log("in requestPlacesStart");
   return {
     type: REQUEST_PLACES_START,
     isFetchingPlaces: true

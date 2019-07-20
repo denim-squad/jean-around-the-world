@@ -109,7 +109,6 @@ function userReducer(state = initialUserState, action) {
             preferences: { blacklist: [], favourites: [] }
           }
         })
-        console.log("users are:", Meteor.users);
         return {
           ...state,
           email: action.email,
@@ -188,7 +187,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       };
     case REMOVE_PLACE_TYPE:
       state.typesAndQuantities.delete(action.placeType);
-      console.log("in removePlaceType, state:", typesAndQuantities);
       return {
         ...state,
       };
