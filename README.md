@@ -1,7 +1,7 @@
 Jean Around the World
 ===
 #### TL;DR
-*Jean Around the World* is a web app that allows users to plan an adventure anywhere in the world. Select a location anywhere on the map, and we will provide an itinerary for you based on your preferences!
+*Jean Around the World* is a web app that allows users to plan an adventure anywhere in the world. Select a location on the map, and we will provide an itinerary for you based on your preferences!
 
 ***
 
