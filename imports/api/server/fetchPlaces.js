@@ -10,6 +10,7 @@ const fetchPlacesSchema = new SimpleSchema({
   location: Object,
   'location.lat': { type: Number, min: 1, max: 50000 },
   'location.lng': { type: Number, min: 1, max: 50000 },
+  radius: SimpleSchema.Integer,
   budgetRange: Object,
   'budgetRange.minprice': { type: SimpleSchema.Integer, min: 0, max: 4 },
   'budgetRange.maxprice': { type: SimpleSchema.Integer, min: 0, max: 4 },
