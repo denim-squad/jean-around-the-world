@@ -16,7 +16,7 @@ const fetch = require('node-fetch');
  * @param {string} type https://developers.google.com/places/supported_types
  */
 export default function getNearbyPlaces(location, radius, budgetRange, type) {
-  const [minprice, maxprice] = budgetRange;
+  const [ minprice, maxprice ] = budgetRange;
   const { lat, lng } = location;
   
   const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +

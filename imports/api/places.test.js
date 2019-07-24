@@ -51,7 +51,7 @@ const initialState = {
   },
   placeSearch: {
     budgetRange,
-    typesAndQuantities: [{
+    typesAndQuantities: new Map([{
         type: 'meal_takeaway',
         quantity: 2
       },
@@ -59,7 +59,7 @@ const initialState = {
         type: 'cafe',
         quantity: 3
       }
-    ],
+    ]),
     blacklist: [
       'subway'
     ]
