@@ -104,6 +104,7 @@ export function removeFavourites(favouriteToRemove) {
 // uses redux-thunk
 export function getPlaces() {
   return async (dispatch, getState) => {
+    console.log("in getPlaces action");
     dispatch(requestPlacesStart());
     const state = getState();
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
@@ -143,6 +144,7 @@ export function getPlaces() {
  */
 async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
+  console.log("in convertPlacesPromisesToValidList, placesPromises:", places);
 
   places.forEach(async (promise, promiseIndex) => {
     const response = await promise;

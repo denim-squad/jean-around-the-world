@@ -29,7 +29,9 @@ export const fetchPlaces = new ValidatedMethod({
       // TODO Simulation code for the client (optional)
     } else if (this.isServer) {
       import { fetchPlacesFromServer } from './server/fetchPlaces';
+      console.log("in fetchPlaces method");
       const resultsAsPromise = fetchPlacesFromServer(location, radius, budgetRange, type);
+      console.log("resultsAsPromise:", resultsAsPromise);
     }
 
   }
