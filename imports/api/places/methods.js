@@ -5,12 +5,6 @@ export const FETCH_PLACES_NAME = 'places.fetchPlaces';
 
 const fetchPlacesSchema = new SimpleSchema({
   location: Object,
-  'location.lat': {
-    type: Number
-  },
-  'location.lng': {
-    type: Number
-  },
   radius: SimpleSchema.Integer,
   budgetRange: [SimpleSchema.Integer, SimpleSchema.Integer],
   type: String
