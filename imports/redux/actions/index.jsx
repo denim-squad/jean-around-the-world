@@ -1,4 +1,3 @@
-import getNearbyPlaces from '../../api/places';
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
 
