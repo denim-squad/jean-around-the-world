@@ -1,4 +1,6 @@
 import getNearbyPlaces from '../../api/places';
+import { Meteor } from 'meteor/meteor';
+import { FETCH_PLACES_NAME } from '../../api/places/methods';
 
 export const
   SHOW_MODAL = 0,
@@ -110,9 +112,16 @@ export function getPlaces() {
     const placesPromises = [], quantities = [];
 
     typesAndQuantities.forEach((quantity, type, map) => {
-      const promise = getNearbyPlaces(initialCenter, radius, budgetRange, type);
-      placesPromises.push(promise);
-      quantities.push(quantity);
+      Meteor.call(FETCH_PLACES_NAME, (initialCenter, radius, budgetRange, type), 
+        (err, res) => {
+          if (err) {
+            dispatch(receivePlacesFailure(err));
+            return;
+          } else {
+            placesPromises.push(res);
+            quantities.push(quantity);
+          }
+        });
     });
 
     try {

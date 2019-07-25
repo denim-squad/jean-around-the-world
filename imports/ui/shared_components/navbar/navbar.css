@@ -149,7 +149,7 @@
 }
 
 .slider {
-  /* Fixes console log errors */
+    /* Fixes console log errors */
     touch-action: none;
 }
 
@@ -159,8 +159,10 @@
 }
 
 .slider {
-    touch-action: none; /* Fixes console log errors */
+    /* Fixes console log errors */
+    touch-action: none; 
 }
+
 .MuiTypography-body1, .MuiInputLabel-formControl {
     font-family: 'Rubik', sans-serif !important;
 }

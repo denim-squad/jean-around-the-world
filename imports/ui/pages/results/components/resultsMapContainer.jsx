@@ -35,5 +35,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(GoogleApiWrapper({
-  apiKey: API_KEY // paste API key here each time, DO NOT COMMIT.
+  apiKey: API_KEY
 })(ResultsMapContainer));
