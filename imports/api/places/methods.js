@@ -18,7 +18,7 @@ const fetchPlacesSchema = new SimpleSchema({
 
 export const fetchPlaces = new ValidatedMethod({
   name: FETCH_PLACES_NAME,
-  // validate: fetchPlacesSchema.validator(),
+  validate: fetchPlacesSchema.validator(),
   run({
     location,
     radius,
