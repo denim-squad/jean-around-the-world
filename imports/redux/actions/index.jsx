@@ -112,7 +112,7 @@ export function getPlaces() {
     const placesPromises = [], quantities = [];
 
     typesAndQuantities.forEach((quantity, type, map) => {
-      Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
+      Meteor.call(FETCH_PLACES_NAME, { initialCenter, radius, budgetRange, type }, 
         (err, res) => {
           if (err) {
             dispatch(receivePlacesFailure(err));
