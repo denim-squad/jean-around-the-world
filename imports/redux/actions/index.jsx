@@ -115,7 +115,7 @@ export function getPlaces() {
     console.log("before forEach, typesAndQuantities:", typesAndQuantities);
 
     typesAndQuantities.forEach((quantity, type, map) => {
-      Meteor.apply(FETCH_PLACES_NAME, [ initialCenter, radius, budgetRange, type ], 
+      Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
         (err, res) => {
           if (err) {
             console.log("received error from fetch places method:", err);
