@@ -19,7 +19,7 @@ Meteor.methods({
     } else if (this.isServer) {
       require('./server/fetchPlaces');
       console.log("in fetchPlaces method, fetchPlacesFromServer:", fetchPlacesFromServer);
-      const results = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
+      return fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
       // const resultsAsPromise = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
       // console.log("resultsAsPromise:", resultsAsPromise);
       // return resultsAsPromise;
