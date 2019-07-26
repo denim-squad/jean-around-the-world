@@ -28,6 +28,5 @@ export const fetchPlaces = new ValidatedMethod({
       console.log("resultsAsPromise:", resultsAsPromise);
       return resultsAsPromise;
     }
-
   }
 });
