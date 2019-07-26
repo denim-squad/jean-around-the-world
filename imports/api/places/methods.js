@@ -26,6 +26,7 @@ export const fetchPlaces = new ValidatedMethod({
       console.log("in fetchPlaces method");
       const resultsAsPromise = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
       console.log("resultsAsPromise:", resultsAsPromise);
+      return resultsAsPromise;
     }
 
   }

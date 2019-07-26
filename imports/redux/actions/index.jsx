@@ -128,7 +128,7 @@ export function getPlaces() {
           }
         });
     });
-    console.log("after forEach");
+    console.log("after forEach, placesPromises:", placesPromises);
 
     try {
       const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
