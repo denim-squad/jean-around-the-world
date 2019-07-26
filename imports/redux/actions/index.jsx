@@ -118,7 +118,7 @@ export function getPlaces() {
       Meteor.call(FETCH_PLACES_NAME, { initialCenter, radius, budgetRange, type }, 
         (err, res) => {
           if (err) {
-            console.log("received error from fetch places method");
+            console.log("received error from fetch places method:", err);
             dispatch(receivePlacesFailure(err));
             return;
           } else {
