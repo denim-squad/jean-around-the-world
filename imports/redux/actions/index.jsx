@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
+import { types } from 'util';
 
 export const
   SHOW_MODAL = 0,
@@ -111,18 +112,23 @@ export function getPlaces() {
     const { radius, initialCenter } = state.map;
     const placesPromises = [], quantities = [];
 
+    console.log("before forEach, typesAndQuantities:", typesAndQuantities);
+
     typesAndQuantities.forEach((quantity, type, map) => {
       Meteor.call(FETCH_PLACES_NAME, { initialCenter, radius, budgetRange, type }, 
         (err, res) => {
           if (err) {
+            console.log("received error from fetch places method");
             dispatch(receivePlacesFailure(err));
             return;
           } else {
+            console.log("received response from fetch places method:", res);
             placesPromises.push(res);
             quantities.push(quantity);
           }
         });
     });
+    console.log("after forEach");
 
     try {
       const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
