@@ -21,6 +21,7 @@ export const fetchPlaces = new ValidatedMethod({
   }) {
     if (this.isSimulation) {
       // TODO Simulation code for the client (optional)
+      console.log("In client method call, parameters:", initialCenter, radius, budgetRange, type);
     } else if (this.isServer) {
       import { fetchPlacesFromServer } from './server/fetchPlaces';
       console.log("in fetchPlaces method");
