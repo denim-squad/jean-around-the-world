@@ -12,31 +12,27 @@ if (Meteor.isServer) {
   const type = 'meal_takeaway';
 
   let results = [];
-  describe('fetchPlaces', function () {
+  describe('fetchPlacesFromServer', function () {
     it('returns results in a promise', function () {
-      const testCall = Meteor.call(FETCH_PLACES_NAME, {
-        location,
-        radius,
-        budgetRange,
-        type
-      }, (err, res) => {
-        console.log("err:",err);
-        console.log("res:", res);
-      });
-
-      const fetchPlaces = Meteor.methods(FETCH_PLACES_NAME);
-      console.log("fetchPlaces:", fetchPlaces);
-      const response = fetchPlaces.call(location, radius, budgetRange, type);
-      console.log("response:", response);
-
-      expect(response).to.be.a('Promise');
-      response.then((searchResponse) => {
-        results = searchResponse.data.results;
-        assert.isArray(results);
-        assert.isNotEmpty(results, "results array was empty");
-      });
+      let response = false;
+      Meteor.call(FETCH_PLACES_NAME, location, radius, budgetRange, type,
+        (err, res) => {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+          console.log("res:", res);
+          response = res;
+        });
     });
-  })
+    while (!response);
+    expect(response).to.be.a('Promise');
+    response.then((searchResponse) => {
+      results = searchResponse.data.results;
+      assert.isArray(results);
+      assert.isNotEmpty(results, "results array was empty");
+    });
+  });
 }
 
 
