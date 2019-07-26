@@ -115,18 +115,28 @@ export function getPlaces() {
     console.log("before forEach, typesAndQuantities:", typesAndQuantities);
 
     typesAndQuantities.forEach((quantity, type, map) => {
-      Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
-        (err, res) => {
-          if (err) {
-            console.log("received error from fetch places method:", err);
-            dispatch(receivePlacesFailure(err));
-            return;
-          } else {
-            console.log("received response from fetch places method:", res);
-            placesPromises.push(res);
-            quantities.push(quantity);
-          }
-        });
+      console.log("before synchronous call");
+      try {
+        const result = Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type);
+      } catch (error) {
+        console.log("threw error:", error);
+      }
+      
+      console.log("after meteor.call, result:", result);
+
+
+      // Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
+      //   (err, res) => {
+      //     if (err) {
+      //       console.log("received error from fetch places method:", err);
+      //       dispatch(receivePlacesFailure(err));
+      //       return;
+      //     } else {
+      //       console.log("received response from fetch places method:", res);
+      //       placesPromises.push(res);
+      //       quantities.push(quantity);
+      //     }
+      //   });
     });
     console.log("after forEach, placesPromises:", placesPromises);
 
