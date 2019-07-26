@@ -2,7 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Meteor } from 'meteor/meteor';
 
-export const FETCH_PLACES_NAME = 'places.fetchPlaces';
+export const FETCH_PLACES_NAME = 'fetchPlaces';
 
 const fetchPlacesSchema = new SimpleSchema({
   initialCenter: Object,
