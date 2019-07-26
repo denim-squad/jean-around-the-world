@@ -111,6 +111,7 @@ export function getPlaces() {
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
     const { radius, initialCenter } = state.map;
     const placesPromises = [], quantities = [];
+    const resultsAndQuantities = new Map();
 
     console.log("before forEach, typesAndQuantities:", typesAndQuantities);
 
@@ -118,13 +119,15 @@ export function getPlaces() {
       console.log("before synchronous call");
       try {
         const result = Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type);
+        console.log("after synchronous call, result:", result);
+        resultsAndQuantities.set(result, quantity);
       } catch (error) {
         console.log("threw error:", error);
+        dispatch(receivePlacesFailure(error));
+        return;
       }
+      dispatch(receivePlacesSuccess(resultsAndQuantities));
       
-      console.log("after meteor.call, result:", result);
-
-
       // Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
       //   (err, res) => {
       //     if (err) {
@@ -138,14 +141,14 @@ export function getPlaces() {
       //     }
       //   });
     });
-    console.log("after forEach, placesPromises:", placesPromises);
+    // console.log("after forEach, placesPromises:", placesPromises);
 
-    try {
-      const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
-      dispatch(receivePlacesSuccess(listOfPlaces));
-    } catch (error) {
-      dispatch(receivePlacesFailure(error));
-    }
+    // try {
+    //   const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
+    //   dispatch(receivePlacesSuccess(listOfPlaces));
+    // } catch (error) {
+    //   dispatch(receivePlacesFailure(error));
+    // }
   }
 }
 

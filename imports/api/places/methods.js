@@ -17,11 +17,12 @@ Meteor.methods({
       // TODO Simulation code for the client (optional)
       console.log("In client method call, parameters:", initialCenter, radius, budgetRange, type);
     } else if (this.isServer) {
-      import { fetchPlacesFromServer } from './server/fetchPlaces';
+      require('./server/fetchPlaces');
       console.log("in fetchPlaces method, fetchPlacesFromServer:", fetchPlacesFromServer);
-      const resultsAsPromise = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
-      console.log("resultsAsPromise:", resultsAsPromise);
-      return resultsAsPromise;
+      const results = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
+      // const resultsAsPromise = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
+      // console.log("resultsAsPromise:", resultsAsPromise);
+      // return resultsAsPromise;
     }
   }
 })
