@@ -60,10 +60,9 @@ class CustomizeTripButton extends React.Component {
           // todo try to make less ugly
           disabled={!this.state.isChecked}
           error={!this.state.isValid}
-          label="How many?"
           onChange={this.handleQuantityChange}
           type="number"
-          defaultValue={1}
+          placeholder="How many to include?"
           InputLabelProps={{
             shrink: true,
           }}
