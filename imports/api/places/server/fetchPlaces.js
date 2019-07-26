@@ -6,7 +6,7 @@ const googleMapsClient = createClient({
   Promise: Promise
 });
 
-export default function getNearbyPlaces(location, radius, budgetRange, type) {
+export default function fetchPlacesFromServer(location, radius, budgetRange, type) {
   const [ minprice, maxprice ] = budgetRange;
   return googleMapsClient.placesNearby({
     location,
