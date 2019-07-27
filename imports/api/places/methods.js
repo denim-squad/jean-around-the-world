@@ -12,7 +12,7 @@ const fetchPlacesSchema = new SimpleSchema({
 });
 
 Meteor.methods({
-  fetchPlaces(initialCenter, radius, budgetRange, type) {
+  FETCH_PLACES_NAME(initialCenter, radius, budgetRange, type) {
     if (this.isSimulation) {
       // TODO Simulation code for the client (optional)
       console.log("In client method call, parameters:", initialCenter, radius, budgetRange, type);

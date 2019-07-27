@@ -1,6 +1,7 @@
 import { createClient } from '@google/maps';
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http'
+import { FETCH_PLACES_NAME } from '../methods';
 
 export default function fetchPlacesFromServer(location, radius, budgetRange, type) {
   const [ minprice, maxprice ] = budgetRange;
