@@ -4,13 +4,16 @@ import { HTTP } from 'meteor/http'
 import { FETCH_PLACES_NAME } from '../methods';
 
 export default function fetchPlacesFromServer(location, radius, budgetRange, type) {
+  console.log("in fetchPlacesFromServer");
   const [ minprice, maxprice ] = budgetRange;
   const { lat, lng } = location;
   
   const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
     `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
 
-  return HTTP.get(url);
+  const result = HTTP.get(url);
+  console.log(result);
+  return 'test';
 }
 
 Meteor.methods({
