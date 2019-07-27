@@ -22,7 +22,8 @@ export const
   SET_PLACE_TYPE_AND_QUANTITY = 16,
   REMOVE_PLACE_TYPE = 17,
   UPDATE_RATING = 18,
-  UPDATE_BUDGET = 19;
+  UPDATE_BUDGET = 19,
+  RECEIVE_LOGS = 20;
 
 export function showModal(kind) {
   return {
@@ -120,7 +121,7 @@ export function getPlaces() {
       try {
         console.log("Meteor:", Meteor);
         const result = Meteor.call(FETCH_PLACES_NAME, 
-          {initialCenter, radius, budgetRange, type});
+          {initialCenter, radius, budgetRange, type, dispatch});
         console.log("after synchronous call, result:", result);
         resultsAndQuantities.set(result, quantity);
       } catch (error) {
@@ -244,5 +245,12 @@ export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
     budgetRange
+  }
+}
+
+export function receiveLogs(logs) {
+  return {
+    type: RECEIVE_LOGS,
+    logs
   }
 }

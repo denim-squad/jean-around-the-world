@@ -210,6 +210,9 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         ...state,
         budgetRange: action.budgetRange
       }
+    case RECEIVE_LOGS:
+      console.log("in RECEIVE_LOGS, logs:", action.logs);
+      return state;
     default:
       return state;
   }

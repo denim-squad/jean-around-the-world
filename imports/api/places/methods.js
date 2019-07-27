@@ -1,6 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Meteor } from 'meteor/meteor';
+import { RECEIVE_LOGS, receiveLogs } from '../../redux/actions'
 
 export const FETCH_PLACES_NAME = 'fetchPlaces';
 
@@ -18,15 +19,18 @@ export const fetchPlaces = new ValidatedMethod({
     initialCenter,
     radius,
     budgetRange,
-    type
+    type,
+    dispatch
   }) {
     if (this.isSimulation) {
       // TODO Simulation code for the client (optional)
       console.log("In client method call, parameters:", initialCenter, radius, budgetRange, type);
     } else if (this.isServer) {
       const { fetchPlacesFromServer } = require('./server/fetchPlaces');
+      dispatch(receiveLogs("in fetchPlaces method"));
       console.log("in fetchPlaces method");
       const resultsAsPromise = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
+      dispatch(receiveLogs("resultsAsPromise:", resultsAsPromise));
       console.log("resultsAsPromise:", resultsAsPromise);
       return resultsAsPromise;
     }
