@@ -118,7 +118,9 @@ export function getPlaces() {
     typesAndQuantities.forEach((quantity, type, map) => {
       console.log("before synchronous call");
       try {
-        const result = Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type);
+        console.log("Meteor:", Meteor);
+        const result = Meteor.call(FETCH_PLACES_NAME, 
+          {initialCenter, radius, budgetRange, type});
         console.log("after synchronous call, result:", result);
         resultsAndQuantities.set(result, quantity);
       } catch (error) {
