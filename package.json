@@ -4,8 +4,9 @@
   "description": "Project for CPSC436I",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "nuke": "rm -Rf node_modules && npm install"
+    "nuke": "rm -Rf node_modules && npm install",
+    "test": "meteor test --driver-package meteortesting:mocha --port 3100",
+    "start": "MONGO_URL=“mongodb://m001-user:m001-mongodb-basics@sandbox-shard-00-00-ist5c.mongodb.net:27017,sandbox-shard-00-01-ist5c.mongodb.net:27017,sandbox-shard-00-02-ist5c.mongodb.net:27017/jean-around-the-world?ssl=true&replicaSet=Sandbox-shard-0&authSource=admin&retryWrites=true&w=1” meteor"
   },
   "repository": {
     "type": "git",
@@ -18,17 +19,26 @@
   },
   "homepage": "https://github.com/denim-squad/jean-around-the-world#readme",
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.1",
     "@material-ui/lab": "^4.0.0-alpha.14",
+    "bcrypt": "^3.0.6",
     "google-maps-react": "git://github.com/denim-squad/google-maps-react",
     "history": "^4.9.0",
     "material-ui-rating": "^4.0.0",
+    "meteor-node-stubs": "^0.4.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-geocode": "^0.1.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "redux-mock-store": "^1.5.3"
   }
 }

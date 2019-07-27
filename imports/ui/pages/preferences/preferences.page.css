@@ -37,7 +37,7 @@
     padding: 3.6% 4.6% 2.8% 4.6%;
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -109,15 +109,12 @@
     width: 100%;
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 .customize-container {
     display: grid;
-    grid-template-rows: 11% 88%;
-    grid-row-gap: 3%;
-    height: 100%;
 }
 
 .stepbox-title {
@@ -144,10 +141,28 @@
     cursor: pointer;
 }
 
+.customize-buttons-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.form-container {
+    display: grid;
+    grid-template-rows: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
+}
+
+div .MuiFormControl-marginNormal {
+    margin: 0px;
+}
+
+div .MuiFormControl-root {
+    height: 80%;
+}
+
 .blacklist-container {
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 6% 17% 1% 6% 40%;
@@ -167,7 +182,7 @@
 .refine-container {
     height: 100%;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;    
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 2% 6% 12% 10% 17%;
@@ -180,8 +195,8 @@
 
 .refine-slider-container {
     display: grid;
-    grid-template-columns: 5% 80% 5%;
-    grid-column-gap: 2.5%;
+    grid-template-columns: 13% 63% 13%;
+    grid-column-gap: 5.5%;
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -190,8 +205,14 @@
     color: #000000;
 }
 
-.slider-div {
-    padding-top: 5%;
+svg.MuiSvgIcon-root {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+svg.MuiSvgIcon-root.Rating-icon-160 {
+    width: 1.5em;
+    height: 1.5em;
 }
 
 img {

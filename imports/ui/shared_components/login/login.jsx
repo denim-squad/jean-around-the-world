@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { showModal, hideModal, loginUser } from '../../.././redux/actions';
 import { SIGNUP } from '../../.././redux/actions';
+import { Meteor } from 'meteor/meteor';
 
 const styles = (theme) => ({
   root: {
@@ -72,17 +73,15 @@ class Login extends React.Component {
   }
 
   loginUser = () => {
-    if (this.email.value && this.password.value) {
-      this.props.loginUser(this.email.value, this.password.value);
-      this.props.hideModal();
-    }
-    else if (!this.email.value && !this.password.value) {
-      alert("Enter your email and password to proceed.");
-    }
-    else
-      (!this.email.value) ?
-        alert("Enter your email to proceed.") :
-        alert("Enter your password to proceed.");
+    Meteor.loginWithPassword(this.email.value, this.password.value, (err) => {
+      if (err) {
+        alert("Invalid email or password");
+      }
+      else {
+        this.props.loginUser(this.email.value);
+        this.props.hideModal();
+      }
+    });
   }
 
   render() {
