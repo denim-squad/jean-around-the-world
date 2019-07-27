@@ -107,11 +107,14 @@ function userReducer(state = initialUserState, action) {
       let info = updatedInfo[0];
       return { ...state, blacklist: info.preferences.blacklist };
     case REMOVE_BLACKLIST:
-      //TODO: change this to use MongoToDelete
-      let updatedBlacklist = Array.filter((value, index, array) => {
-        return action.blacklistToRemove !== value;
-      })
-      return { ...state, blacklist: updatedBlacklist };
+      console.log("Reached Reducer");
+      let removedBlacklistUsers = UserInfo.update({_id: state.userId}, {$pull:{"preferences.blacklist": action.blacklistToRemove}})
+      if (removedBlacklistUsers === 0){
+        console.log("Error Removing From Blacklist")
+      }
+      let updatedUsers = UserInfo.find({_id: state.userId}).fetch();
+      let updatedRemoveInfo = updatedUsers[0];
+      return { ...state, blacklist: updatedRemoveInfo.preferences.blacklist };
     case ADD_FAVOURITES:
       matchedUsers = UserInfo.update({_id: state.userId}, { $push:{ "preferences.favourites": action.favourite } })
       if (matchedUsers === 0) {
@@ -122,11 +125,13 @@ function userReducer(state = initialUserState, action) {
       info = updatedInfo[0];
       return { ...state, favourites: info.preferences.favourites };
     case REMOVE_FAVOURITES:
-      //TODO: change this to use MongoToDelete
-      let updatedFavourites = Array.filter((value, index, array) => {
-        return action.favouriteToRemove !== value;
-      })
-      return { ...state, favourites: updatedFavourites };
+      matchedUsers = UserInfo.update({_id: state.userId}, {$pull:{"preferences.favourites": action.favouriteToRemove}})
+      if (matchedUser === 0){
+        console.log("Error Removing From Favourites")
+      }
+      updatedInfo = UserInfo.find({_id: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, favourites: info.preferences.favourites };
     default:
       return state;
   }

@@ -8,7 +8,6 @@ class ProfileContainer extends React.Component {
         return (
           <div className="profile-container">
             <Profile />
-            <PreviousTravels />
           </div>
         );
     }

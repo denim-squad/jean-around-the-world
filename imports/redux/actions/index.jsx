@@ -74,7 +74,7 @@ export function addFavourites(favourite) {
 export function removeBlacklist(blacklistToRemove){
   return {
     type: REMOVE_BLACKLIST,
-    blacklist
+    blacklistToRemove
   };
 }
 

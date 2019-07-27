@@ -28,6 +28,14 @@ class Navbar extends React.Component {
         }, 1400);
       }
 
+    goToProfilePage = async () => {
+      // this.loadingSpinner.current.style.display = 'block';
+      await setTimeout(() => {
+          // this.loadingSpinner.current.style.display = 'none';
+          history.push('/profile');
+      }, 1400);
+    }
+
     openModal = (kind) => () => {
       this.props.showModal(kind);
     }
@@ -50,12 +58,14 @@ class Navbar extends React.Component {
                     <div>
                         {/* spacing  */}
                     </div>
-                    <div>
-                        {/* spacing  */}
-                    </div>
                     <div className="navbar-button" onClick={this.goToHomePage}>
                         <div className="navbar-text">
                             HOME
+                        </div>
+                    </div>
+                    <div className="navbar-button" onClick={this.goToProfilePage}>
+                        <div className="navbar-text">
+                            PROFILE
                         </div>
                     </div>
                     <div className="navbar-button" onClick={this.goToAboutPage}>
