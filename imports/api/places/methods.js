@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { Meteor } from 'meteor/meteor';
-import { RECEIVE_LOGS, receiveLogs } from '../../redux/actions'
+import { receiveLogs } from '../../redux/actions'
 
 export const FETCH_PLACES_NAME = 'fetchPlaces';
 

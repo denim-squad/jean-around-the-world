@@ -17,7 +17,8 @@ import {
   SET_PLACE_TYPE_AND_QUANTITY,
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
-  UPDATE_BUDGET
+  UPDATE_BUDGET,
+  RECEIVE_LOGS
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
