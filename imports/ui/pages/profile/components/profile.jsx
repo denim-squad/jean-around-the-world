@@ -15,13 +15,13 @@ class Profile extends React.Component {
             </div>
           </div>
           <div className="blacklist-text">
-            Blacklist:
+            BLACKLIST:
           </div>
           <div className="profile-blacklist-container">
             <BlacklistContainer />
           </div>
           <div className="favourites-text">
-            Favourites:
+            FAVOURITES:
           </div>
           <div className="profile-favourites-container">
             <FavouritesContainer />

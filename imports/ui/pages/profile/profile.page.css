@@ -103,6 +103,7 @@
 
   .profile {
     position: relative;
+    float: left;
     width: 57%;
     height: 85%;
     margin-left: 3%;
@@ -112,9 +113,27 @@
 
   .previous-travels {
     position: relative;
+    float: left;
     width: 30%;
-    height: 50%;
+    height: 85%;
+    margin-left: 3%;
     background: #EEEEEE;
+  }
+
+  .previous-travels-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-left: 4%;
+  }
+
+  .previous-travels-container {
+    position: relative;
+    width: 87%;
+    height: 85%;
+    margin: 5%;
+    background: #C4C4C4;
+    border-radius: 3px;
   }
 
   .profile-info{
@@ -131,6 +150,7 @@
   .profile-text{
     margin-top: 1%;
     margin-left: 1%;
+    font-family: 'Rubik', sans-serif;
     font-size: 15px;
   }
 
@@ -139,6 +159,7 @@
     margin-left: 2%;
     float: left;
     position: relative;
+    font-family: 'Rubik', sans-serif;
     font-size: 15px;
   }
 
@@ -156,6 +177,7 @@
   .favourites-text{
     position: relative;
     float: left;
+    font-family: 'Rubik', sans-serif;
     font-size: 15px;
     margin-left: 2%;
     margin-top: 2%;

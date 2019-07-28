@@ -45,6 +45,7 @@ const initialUserState = {
   isSignedIn: false,
   blacklist: [],
   favourites: [],
+  previousTravels: [],
   fullName: "",
   email: "",
   userId: ""
@@ -86,7 +87,8 @@ function userReducer(state = initialUserState, action) {
           isSignedIn: true,
           fullName: `${userInfo.profile.firstName} ${userInfo.profile.lastName}`,
           blacklist: userInfo.profile.preferences.blacklist,
-          favourites: userInfo.profile.preferences.favourites
+          favourites: userInfo.profile.preferences.favourites,
+          previousTravels: userInfo.profile.previousTravels
         };
       }
     case LOGOUT_USER:
@@ -105,6 +107,7 @@ function userReducer(state = initialUserState, action) {
           profile: {
             firstName: action.firstName,
             lastName: action.lastName,
+            previousTravels: [],
             preferences: { blacklist: [], favourites: [] }
           }
         })
@@ -114,7 +117,8 @@ function userReducer(state = initialUserState, action) {
           isSignedIn: true,
           fullName: `${action.firstName} ${action.lastName}`,
           blacklist: [],
-          favourites: []
+          favourites: [],
+          previousTravels: []
         }
       }
     case ADD_BLACKLIST:
@@ -144,11 +148,11 @@ function userReducer(state = initialUserState, action) {
       info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     case REMOVE_FAVOURITES:
-      matchedUsers = UserInfo.update({_id: state.userId}, {$pull:{"preferences.favourites": action.favouriteToRemove}})
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"preferences.favourites": action.favouriteToRemove}})
       if (matchedUser === 0){
         console.log("Error Removing From Favourites")
       }
-      updatedInfo = UserInfo.find({_id: state.userId}).fetch();
+      updatedInfo = Meteor.users.find({_id: state.userId}).fetch();
       info = updatedInfo[0];
       return { ...state, favourites: info.preferences.favourites };
     default:
