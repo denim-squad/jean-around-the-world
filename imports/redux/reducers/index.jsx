@@ -127,14 +127,13 @@ function userReducer(state = initialUserState, action) {
       let info = updatedInfo[0];
       return { ...state, blacklist: info.profile.preferences.blacklist };
     case REMOVE_BLACKLIST:
-      console.log("Reached Reducer");
-      let removedBlacklistUsers = UserInfo.update({_id: state.userId}, {$pull:{"preferences.blacklist": action.blacklistToRemove}})
+      let removedBlacklistUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.blacklist": action.blacklistToRemove}})
       if (removedBlacklistUsers === 0){
         console.log("Error Removing From Blacklist")
       }
-      let updatedUsers = UserInfo.find({_id: state.userId}).fetch();
+      let updatedUsers = Meteor.users.find({_id: state.userId}).fetch();
       let updatedRemoveInfo = updatedUsers[0];
-      return { ...state, blacklist: updatedRemoveInfo.preferences.blacklist };
+      return { ...state, blacklist: updatedRemoveInfo.profile.preferences.blacklist };
     case ADD_FAVOURITES:
       matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { "profile.preferences.favourites": action.favourite } })
       if (matchedUsers === 0) {

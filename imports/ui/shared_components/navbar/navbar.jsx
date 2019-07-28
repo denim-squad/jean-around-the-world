@@ -57,7 +57,7 @@ class Navbar extends React.Component {
             {
                 this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToProfilePage}>
                         <div className="navbar-text username">
                             {this.props.fullName}
                         </div>
@@ -65,14 +65,12 @@ class Navbar extends React.Component {
                     <div>
                         {/* spacing  */}
                     </div>
+                    <div>
+                        {/* spacing  */}
+                    </div>
                     <div className="navbar-button" onClick={this.goToHomePage}>
                         <div className="navbar-text">
                             HOME
-                        </div>
-                    </div>
-                    <div className="navbar-button" onClick={this.goToProfilePage}>
-                        <div className="navbar-text">
-                            PROFILE
                         </div>
                     </div>
                     <div className="navbar-button" onClick={this.goToAboutPage}>
