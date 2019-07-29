@@ -4,7 +4,6 @@ import { HTTP } from 'meteor/http'
 import { FETCH_PLACES_NAME } from '../methods';
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { receiveLogs } from '../../../redux/actions'
 
 
 function fetchPlacesFromServer(location, radius, budgetRange, type) {
@@ -18,11 +17,13 @@ function fetchPlacesFromServer(location, radius, budgetRange, type) {
 
   const result = HTTP.get(url);
   console.log(result);
-  return { message: 'test', result };
+  return result;
 }
 
 const fetchPlacesSchema = new SimpleSchema({
   initialCenter: Object,
+  'initialCenter.lat': Number,
+  'initialCenter.lng': Number,
   radius: SimpleSchema.Integer,
   budgetRange: [ SimpleSchema.Integer, SimpleSchema.Integer ],
   type: String

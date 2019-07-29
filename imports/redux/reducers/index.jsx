@@ -17,8 +17,7 @@ import {
   SET_PLACE_TYPE_AND_QUANTITY,
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
-  UPDATE_BUDGET,
-  RECEIVE_LOGS
+  UPDATE_BUDGET
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -211,9 +210,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         ...state,
         budgetRange: action.budgetRange
       }
-    case RECEIVE_LOGS:
-      console.log("in RECEIVE_LOGS, logs:", action.logs);
-      return state;
     default:
       return state;
   }

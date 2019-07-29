@@ -22,8 +22,7 @@ export const
   SET_PLACE_TYPE_AND_QUANTITY = 16,
   REMOVE_PLACE_TYPE = 17,
   UPDATE_RATING = 18,
-  UPDATE_BUDGET = 19,
-  RECEIVE_LOGS = 20;
+  UPDATE_BUDGET = 19;
 
 export function showModal(kind) {
   return {
@@ -134,22 +133,10 @@ export function getPlaces() {
         dispatch(receivePlacesFailure(error));
         return;
       }
-      dispatch(receivePlacesSuccess(resultsAndQuantities));
-      
-      // Meteor.call(FETCH_PLACES_NAME, initialCenter, radius, budgetRange, type, 
-      //   (err, res) => {
-      //     if (err) {
-      //       console.log("received error from fetch places method:", err);
-      //       dispatch(receivePlacesFailure(err));
-      //       return;
-      //     } else {
-      //       console.log("received response from fetch places method:", res);
-      //       placesPromises.push(res);
-      //       quantities.push(quantity);
-      //     }
-      //   });
     });
-    // console.log("after forEach, placesPromises:", placesPromises);
+    console.log("after forEach, resulstAndQuantities:", resultsAndQuantities);
+    // TODO filter results
+    dispatch(receivePlacesSuccess(resultsAndQuantities.keys()));
 
     // try {
     //   const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
@@ -250,12 +237,5 @@ export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
     budgetRange
-  }
-}
-
-export function receiveLogs(logs) {
-  return {
-    type: RECEIVE_LOGS,
-    logs
   }
 }

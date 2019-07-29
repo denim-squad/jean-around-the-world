@@ -30,7 +30,6 @@ class ResultsButtons extends React.Component {
             <div className="results-buttons-container">
                <div>
                   {/* todo major styling, decisions about how to format, what to display, etc */}
-                  
                </div>
                <BootstrapButton
                    className="save-trip-button"
