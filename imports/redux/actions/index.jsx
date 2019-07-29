@@ -120,10 +120,15 @@ export function getPlaces() {
       console.log("before synchronous call");
       try {
         console.log("Meteor:", Meteor);
-        const result = Meteor.call(FETCH_PLACES_NAME, 
-          {initialCenter, radius, budgetRange, type, dispatch});
-        console.log("after synchronous call, result:", result);
-        resultsAndQuantities.set(result, quantity);
+        Meteor.call(FETCH_PLACES_NAME, 
+          {initialCenter, radius, budgetRange, type}, (error, result) => {
+            console.log("in async callback");
+            if (error) {
+              console.log("error in async callback:", error);
+            }
+            console.log("no error in callback, result:", result);
+            resultsAndQuantities.set(result, quantity);
+          });
       } catch (error) {
         console.log("threw error:", error);
         dispatch(receivePlacesFailure(error));
