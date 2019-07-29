@@ -18,7 +18,8 @@ class ResultsButtons extends React.Component {
 
     displayResults = (results) => {
         //todo
-        console.log(results);
+        console.log("this.props:", this.props);
+        console.log("results:", results);
     }
 
     render() {

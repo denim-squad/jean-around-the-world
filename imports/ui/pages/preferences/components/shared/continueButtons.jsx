@@ -21,7 +21,7 @@ class ContinueButtons extends React.Component {
         const timer = await setTimeout(() => {
             this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 100000);
+        }, 5000);
         // todo once api call working
         // setInterval(() => {
         //     if (this.props.places.length > 0) {
