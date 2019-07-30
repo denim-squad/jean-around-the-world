@@ -110,8 +110,7 @@ export function getPlaces() {
     const state = getState();
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
     const { radius, initialCenter } = state.map;
-    const placesPromises = [], quantities = [];
-    const resultsAndQuantities = new Map();
+    const typesAndResults = new Map();
 
     console.log("before forEach, typesAndQuantities:", typesAndQuantities);
     
@@ -126,12 +125,11 @@ export function getPlaces() {
               return;
             }
             console.log("no error in callback, result:", result);
-            resultsAndQuantities.set(result, quantity);
+            typesAndResults.set(type, result.data.results);
             callCounter--;
             if (callCounter < 1) {
-              const results = Array.from(resultsAndQuantities.keys());
-              console.log("in last async callback, results:", results);
-              dispatch(receivePlacesSuccess(results));
+              console.log("in last async callback, typesAndResults:", typesAndResults);
+              dispatch(receivePlacesSuccess(typesAndResults));
             }
           });
     });

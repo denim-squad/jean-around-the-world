@@ -17,6 +17,9 @@ function fetchPlacesFromServer(location, radius, budgetRange, type) {
 
   const result = HTTP.get(url);
   console.log(result);
+  if (result.error) {
+    throw new Meteor.Error(error);
+  }
   return result;
 }
 

@@ -55,7 +55,7 @@ const initialPlaceSearchState = {
   typesAndQuantities: new Map(),
   minimumAcceptableRating: DEFAULT_RATING,
   budgetRange: DEFAULT_BUDGET_RANGE,
-  places: [],
+  places: new Map(),
   error: undefined
 }
 
