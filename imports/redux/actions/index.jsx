@@ -110,11 +110,11 @@ export function getPlaces() {
     const state = getState();
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
     const { radius, initialCenter } = state.map;
-    const typesAndResults = new Map();
+    const typesAndResults = [];
 
     console.log("before forEach, typesAndQuantities:", typesAndQuantities);
 
-    let callCounter = typesAndQuantities.size;
+    let callCounter = typesAndQuantities.length;
     typesAndQuantities.forEach((quantity, type, map) => {
       Meteor.call(FETCH_PLACES_NAME,
         { initialCenter, radius, budgetRange, type }, (error, result) => {
@@ -125,7 +125,10 @@ export function getPlaces() {
             return;
           }
           console.log("no error in callback, result:", result);
-          typesAndResults.set(type, result.data.results);
+          typesAndResults.push({
+            type, 
+            results: result.data.results
+          });
           callCounter--;
           if (callCounter < 1) {
             console.log("in last async callback, typesAndResults:", typesAndResults);
@@ -133,55 +136,7 @@ export function getPlaces() {
           }
         });
     });
-    // TODO filter results
-
-    // try {
-    //   const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
-    //   dispatch(receivePlacesSuccess(listOfPlaces));
-    // } catch (error) {
-    //   dispatch(receivePlacesFailure(error));
-    // }
   }
-}
-
-/**
- * Given an array of place API response promises from getNearbyPlaces,
- * how many of each type, and the list of blacklisted places,
- * returns an array of valid places with the correct number of each type.
- * If any promise returns an error, immediately throws the error.
- * @param {Array} places
- * @param {Array} quantities
- * @param {Array} blacklist
- */
-async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
-  const listOfPlaces = [];
-  console.log("in convertPlacesPromisesToValidList, placesPromises:", places);
-
-  places.forEach(async (promise, promiseIndex) => {
-    const response = await promise;
-    if (response.error) {
-      throw response.error;
-    }
-    const json = await response.json();
-    const results = json.body.results;
-    const quantity = quantities[promiseIndex];
-
-    for (let i = 0; i < quantity && i < results.length; i++) {
-      let isBlacklisted = false;
-      for (const blacklistedName of blacklist) {
-        if (results[i].name.includes(blacklistedName)) {
-          isBlacklisted = true;
-          break;
-        }
-      }
-      isBlacklisted ?
-        quantity++ // need to get another item
-        : listOfPlaces.push(results[i]);
-    }
-  });
-
-  await Promise.all(places);
-  return listOfPlaces;
 }
 
 function requestPlacesStart() {

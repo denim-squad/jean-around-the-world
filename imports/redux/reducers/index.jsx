@@ -52,10 +52,10 @@ const initialUserState = {
 
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
-  typesAndQuantities: new Map(),
+  typesAndQuantities: [],
   minimumAcceptableRating: DEFAULT_RATING,
   budgetRange: DEFAULT_BUDGET_RANGE,
-  places: new Map(),
+  places: [],
   error: undefined
 }
 
@@ -169,12 +169,10 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
     case RECEIVE_PLACES_SUCCESS: {
       console.log("in receive_places_success, places:", action.places);
-      const receivedPlaces = new Map(action.places);
-      console.log("receivedPlaces:", receivedPlaces);
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
-        places: receivedPlaces
+        places: action.places
       };
     }
     case RECEIVE_PLACES_FAILURE:
@@ -184,20 +182,25 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
-      const changedTypesAndQuantities = new Map(Array.from(state.typesAndQuantities));
-      changedTypesAndQuantities.set(action.placeType, action.quantity);
+      const changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
+        return type !== action.placeType;
+      });
+
+      changedTypesAndQuantities.push({ 
+        type: action.placeType, 
+        quantity: action.quantity 
+      });
+
       return {
         ...state,
         typesAndQuantities: changedTypesAndQuantities
       };
     }
     case REMOVE_PLACE_TYPE: {
-      const filteredTypesAndQuantities = new Map();
-      state.typesAndQuantities.forEach((value, key, map) => {
-        if (key !== action.placeType) {
-          filteredTypesAndQuantities.set(key, value);
-        }
+      const filteredTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
+        return type !== action.placeType;
       });
+      
       return {
         ...state,
         typesAndQuantities: filteredTypesAndQuantities
