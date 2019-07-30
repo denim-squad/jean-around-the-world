@@ -18,8 +18,10 @@ class ResultsButtons extends React.Component {
 
   displayPlaces = (places) => {
     //todo
-    console.log("this.props:", this.props);
-    console.log("places:", places);
+    console.log("places.size:", places.size);
+    places.forEach((value, key, map) => {
+      console.log(value);
+    });
   }
 
   render() {

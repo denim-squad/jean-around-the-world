@@ -169,8 +169,8 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
     case RECEIVE_PLACES_SUCCESS: {
       console.log("in receive_places_success, places:", action.places);
-      const receivedPlaces = new Map(action.places);
-      console.log("receivedPlaces:", receivedPlaces);
+      // const receivedPlaces = new Map(action.places);
+      // console.log("receivedPlaces:", receivedPlaces);
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
