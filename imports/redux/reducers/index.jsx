@@ -183,9 +183,13 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
       console.log("in setPlaceTypeAndQuantity, state:", state);
-      const changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
-        return type !== action.placeType;
-      });
+      let changedTypesAndQuantities = [];
+      if (state.typesAndQuantities.type === Array) {
+        changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
+          return type !== action.placeType;
+        });
+      }
+      
       changedTypesAndQuantities.push({
         type: action.placeType,
         quantity: action.quantity
@@ -197,9 +201,13 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
     }
     case REMOVE_PLACE_TYPE: {
       console.log("in removePlaceType, state:", state);
-      const filteredTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
-        return type !== action.placeType;
-      });
+      let filteredTypesAndQuantities = [];
+      if (state.typesAndQuantities.type === Array) {
+        filteredTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
+          return type !== action.placeType;
+        });
+      }
+      
       return {
         ...state,
         typesAndQuantities: filteredTypesAndQuantities

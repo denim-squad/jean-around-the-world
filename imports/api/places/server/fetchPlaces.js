@@ -17,8 +17,8 @@ function fetchPlacesFromServer(location, radius, budgetRange, type) {
 
   const result = HTTP.get(url);
   console.log(result);
-  if (result.content.errorMessage) {
-    throw new Meteor.Error("error in API call", result.data.errorMessage);
+  if (result.statusCode >= 400 || result.content.errorMessage) {
+    throw new Meteor.Error(result.content.errorMessage);
   }
   return result;
 }
@@ -54,19 +54,3 @@ export const fetchPlaces = new ValidatedMethod({
     }
   }
 });
-
-// const googleMapsClient = createClient({
-//   key: Meteor.settings.API_KEY || "", 
-//   Promise: Promise
-// });
-
-// export default function fetchPlacesFromServer(location, radius, budgetRange, type) {
-//   const [ minprice, maxprice ] = budgetRange;
-//   return googleMapsClient.placesNearby({
-//     location,
-//     radius,
-//     minprice,
-//     maxprice,
-//     type
-//   }).asPromise();
-// }
