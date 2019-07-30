@@ -16,12 +16,14 @@ class ResultsButtons extends React.Component {
     }, 2800);
   }
 
-  displayPlaces = (places) => {
+  displayPlaces = () => {
     //todo
+    console.log("this.props.places:", this.props.places);
+    const places = this.props.places;
     console.log("places.size:", places.size);
-    places.forEach((value, key, map) => {
-      console.log(value);
-    });
+    // places.forEach((value, key, map) => {
+    //   console.log(value);
+    // });
   }
 
   render() {
@@ -30,7 +32,7 @@ class ResultsButtons extends React.Component {
       <div className="results-buttons-container">
         <div>
           {/* todo major styling, decisions about how to format, what to display, etc */}
-          { this.displayPlaces(this.props.places) }
+          { this.displayPlaces() }
         </div>
         <BootstrapButton
           className="save-trip-button"

@@ -29,7 +29,7 @@ class ContinueButtons extends React.Component {
         //         clearTimeout(timer);
         //         history.push('/results');
         //     }
-        // }, 250)
+        // }, 500)
     }
 
     render() {
