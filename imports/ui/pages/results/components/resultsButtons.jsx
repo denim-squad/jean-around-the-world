@@ -25,12 +25,10 @@ class ResultsButtons extends React.Component {
   render() {
     return <div className="results-container">
       WE FOUND JUST THE TRIP FOR YOU!
-            <div className="results-places-container">
-        {this.displayPlaces(this.props.places)}
-      </div>
       <div className="results-buttons-container">
         <div>
           {/* todo major styling, decisions about how to format, what to display, etc */}
+          { this.displayPlaces(this.props.places) }
         </div>
         <BootstrapButton
           className="save-trip-button"
