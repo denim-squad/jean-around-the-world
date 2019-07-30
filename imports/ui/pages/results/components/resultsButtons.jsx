@@ -67,6 +67,7 @@ class ResultsButtons extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("in resultsPage mapStateToProps, state:", state);
   return { places: state.placeSearch.places }
 }
 
