@@ -69,7 +69,7 @@ class ResultsButtons extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { places: state.places }
+    return { places: state.placeSearch.places }
 }
 
 export default connect(mapStateToProps)(ResultsButtons);
