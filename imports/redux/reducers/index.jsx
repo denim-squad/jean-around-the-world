@@ -182,25 +182,24 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
+      console.log("in setPlaceTypeAndQuantity, state:", state);
       const changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
         return type !== action.placeType;
       });
-
-      changedTypesAndQuantities.push({ 
-        type: action.placeType, 
-        quantity: action.quantity 
+      changedTypesAndQuantities.push({
+        type: action.placeType,
+        quantity: action.quantity
       });
-
       return {
         ...state,
         typesAndQuantities: changedTypesAndQuantities
       };
     }
     case REMOVE_PLACE_TYPE: {
+      console.log("in removePlaceType, state:", state);
       const filteredTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
         return type !== action.placeType;
       });
-      
       return {
         ...state,
         typesAndQuantities: filteredTypesAndQuantities
