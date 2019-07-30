@@ -129,8 +129,9 @@ export function getPlaces() {
             resultsAndQuantities.set(result, quantity);
             callCounter--;
             if (callCounter < 1) {
-              console.log("in last async callback, resultsAndQuantities:", resultsAndQuantities);
-              dispatch(receivePlacesSuccess(resultsAndQuantities.keys()));
+              const results = Array.from(resultsAndQuantities.keys());
+              console.log("in last async callback, results:", results);
+              dispatch(receivePlacesSuccess(results));
             }
           });
     });
