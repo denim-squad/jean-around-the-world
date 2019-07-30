@@ -179,16 +179,26 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         isFetchingPlaces: action.isFetchingPlaces,
         error: action.error
       };
-    case SET_PLACE_TYPE_AND_QUANTITY:
+    case SET_PLACE_TYPE_AND_QUANTITY: {
+      const changedTypesAndQuantities = new Map(Array.from(state.typesAndQuantities));
+      changedTypesAndQuantities.set(action.placeType, action.quantity);
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
+        typesAndQuantities: changedTypesAndQuantities
       };
-    case REMOVE_PLACE_TYPE:
+    }
+    case REMOVE_PLACE_TYPE: {
+      const filteredTypesAndQuantities = new Map();
+      state.typesAndQuantities.forEach((value, key, map) => {
+        if (key !== action.placeType) {
+          filteredTypesAndQuantities.set(key, value);
+        }
+      });
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.delete(action.placeType)
+        typesAndQuantities: filteredTypesAndQuantities
       };
+    }
     case UPDATE_RATING:
       return {
         ...state,

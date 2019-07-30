@@ -18,6 +18,7 @@ class StepBox extends React.Component {
   }
 
   getBlacklist = () => {
+      //todo put in state
     return Array.from(this.props.blacklist).map((value, index) => {
       return (
         <PreferenceButton key={index} name={value} />

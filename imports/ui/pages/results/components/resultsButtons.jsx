@@ -17,8 +17,6 @@ class ResultsButtons extends React.Component {
     }
 
     render() {
-        const { places } = this.props;
-        console.log("places:", places);
         return <div className="results-container">
             WE FOUND JUST THE TRIP FOR YOU!
             <div className="results-buttons-container">

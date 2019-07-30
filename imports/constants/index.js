@@ -1,3 +1,6 @@
+import { Meteor } from 'meteor/meteor'
+export const API_KEY = Meteor.settings.public.API_KEY || "AIza";
+
 export const MIN_RADIUS = 1000;
 export const MAX_RADIUS = 50000;
 

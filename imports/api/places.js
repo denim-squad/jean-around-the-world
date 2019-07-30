@@ -1,9 +1,5 @@
-import { createClient } from '@google/maps';
-
-const googleMapsClient = createClient({
-  key: '', 
-  Promise: Promise
-});
+import { API_KEY } from '../constants';
+const fetch = require('node-fetch');
 
 /**
  * Makes a nearby places request.
@@ -13,19 +9,26 @@ const googleMapsClient = createClient({
  * 
  * @param {LatLng} location 
  * @param {number} radius 0 < radius <= 50000
- * @param {Object} priceRange 0 <= price <= 4;
+ * @param {Object} budgetRange 0 <= price <= 4;
  * I'd prefer that these be camelCase but following the api convention for simplicity
- * @param {number} priceRange.minprice
- * @param {number} priceRange.maxprice
+ * @param {number} budgetRange.minprice
+ * @param {number} budgetRange.maxprice
  * @param {string} type https://developers.google.com/places/supported_types
  */
-export default function getNearbyPlaces(location, radius, priceRange, type) {
-  const { minprice, maxprice } = priceRange;
-  return googleMapsClient.placesNearby({
-    location,
-    radius,
-    minprice,
-    maxprice,
-    type
-  }).asPromise();
+export default function getNearbyPlaces(location, radius, budgetRange, type) {
+  const [ minprice, maxprice ] = budgetRange;
+  const { lat, lng } = location;
+  
+  const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?' +
+    `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
+
+  const response = fetch(url, {
+    method: 'GET',
+    mode: 'no-cors',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  return response;
 }
