@@ -168,7 +168,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
     case REQUEST_PLACES_START:
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
     case RECEIVE_PLACES_SUCCESS: {
-      console.log("in receive_places_success, places:", action.places);
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
@@ -182,17 +181,8 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
-      console.log("in setPlaceTypeAndQuantity, state:", state);
       const changedTypesAndQuantities = state.typesAndQuantities.filter(
         (typeAndQuantity) => typeAndQuantity.type !== action.placeType);
-      
-      console.log("changedTypesAndQuantities:", changedTypesAndQuantities);
-
-      // if (state.typesAndQuantities.type === Array) {
-      //   changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
-      //     return type !== action.placeType;
-      //   });
-      // }
       
       changedTypesAndQuantities.push({
         type: action.placeType,
@@ -204,16 +194,8 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       };
     }
     case REMOVE_PLACE_TYPE: {
-      console.log("in removePlaceType, state:", state);
       const filteredTypesAndQuantities = state.typesAndQuantities.filter(
         (typeAndQuantity) => typeAndQuantity.type !== action.placeType);
-
-      console.log("filteredTypesAndQuantities:", filteredTypesAndQuantities);
-      // if (state.typesAndQuantities.type === Array) {
-      //   filteredTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {
-      //     return type !== action.placeType;
-      //   });
-      // }
       
       return {
         ...state,

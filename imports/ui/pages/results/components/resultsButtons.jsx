@@ -17,13 +17,12 @@ class ResultsButtons extends React.Component {
   }
 
   displayPlaces = () => {
-    //todo
+    /**
+     * TODO: I want to keep this console log until we do something
+     * with the data on this page, as a quick smoke test
+     */
     console.log("this.props.places:", this.props.places);
     const places = this.props.places;
-    console.log("places.size:", places.size);
-    // places.forEach((value, key, map) => {
-    //   console.log(value);
-    // });
   }
 
   render() {
@@ -71,7 +70,6 @@ class ResultsButtons extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("in resultsPage mapStateToProps, state:", state);
   return { places: state.placeSearch.places }
 }
 

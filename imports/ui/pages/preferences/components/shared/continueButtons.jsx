@@ -22,14 +22,6 @@ class ContinueButtons extends React.Component {
             this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
         }, 10000);
-
-        // setInterval(() => {
-        //     if (this.props.places.size > 0) {
-        //         console.log("cancelling timer, places:", this.props.places);
-        //         clearTimeout(timer);
-        //         history.push('/results');
-        //     }
-        // }, 500)
     }
 
     render() {

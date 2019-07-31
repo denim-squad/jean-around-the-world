@@ -112,26 +112,22 @@ export function getPlaces() {
     const { radius, initialCenter } = state.map;
     const typesAndResults = [];
 
-    console.log("before forEach, typesAndQuantities:", typesAndQuantities);
-
     let callCounter = typesAndQuantities.length;
-    typesAndQuantities.forEach((quantity, type, map) => {
+    typesAndQuantities.forEach((singleTypeAndQuantity) => {
+      const { type } = singleTypeAndQuantity;
+
       Meteor.call(FETCH_PLACES_NAME,
         { initialCenter, radius, budgetRange, type }, (error, result) => {
-          console.log("in async callback");
           if (error) {
-            console.log("error in async callback:", error);
             dispatch(receivePlacesFailure(error));
             return;
           }
-          console.log("no error in callback, result:", result);
           typesAndResults.push({
             type, 
             results: result.data.results
           });
           callCounter--;
           if (callCounter < 1) {
-            console.log("in last async callback, typesAndResults:", typesAndResults);
             dispatch(receivePlacesSuccess(typesAndResults));
           }
         });
