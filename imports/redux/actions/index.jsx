@@ -102,10 +102,14 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
-// uses redux-thunk
+/**
+ * Uses Redux-Thunk as an async action that dispatches other actions.
+ * This will set placeSearch.places to an array of objects with the format
+ * { type, results }, where results is an array of Google nearby place search results.
+ * format for results can be found at https://bit.ly/2LRd8YD
+ */
 export function getPlaces() {
   return async (dispatch, getState) => {
-    console.log("in getPlaces action");
     dispatch(requestPlacesStart());
     const state = getState();
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;

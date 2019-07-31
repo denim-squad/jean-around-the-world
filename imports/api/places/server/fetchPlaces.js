@@ -32,7 +32,7 @@ const fetchPlacesSchema = new SimpleSchema({
 
 export const fetchPlaces = new ValidatedMethod({
   name: FETCH_PLACES_NAME,
-  validate: null, //TODO
+  validate: fetchPlacesSchema.validator(), //TODO
   run({
     initialCenter,
     radius,
