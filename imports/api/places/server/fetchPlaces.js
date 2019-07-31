@@ -7,6 +7,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 
 function fetchPlacesFromServer(location, radius, budgetRange, type) {
+  console.log("in fetchPlacesFromServer");
   const [ minprice, maxprice ] = budgetRange;
   const { lat, lng } = location;
   const API_KEY = Meteor.settings.API_KEY || "could not find private key";
@@ -15,6 +16,7 @@ function fetchPlacesFromServer(location, radius, budgetRange, type) {
     `key=${API_KEY}&location=${lat},${lng}&radius=${radius}&type=${type}&minprice=${minprice}&maxprice=${maxprice}`;
 
   const result = HTTP.get(url);
+  console.log(result);
   if (result.statusCode >= 400 || result.content.errorMessage) {
     throw new Meteor.Error(result.content.errorMessage);
   }
@@ -41,6 +43,7 @@ export const fetchPlaces = new ValidatedMethod({
   }) {
     if (this.isSimulation) {
       // TODO Simulation code for the client (optional)
+      console.log("In client method call, parameters:", initialCenter, radius, budgetRange, type, dispatch);
     } else {
       try {
         const result = fetchPlacesFromServer(initialCenter, radius, budgetRange, type);
