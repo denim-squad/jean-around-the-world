@@ -21,15 +21,7 @@ class ContinueButtons extends React.Component {
         const timer = await setTimeout(() => {
             this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 10000);
-
-        setInterval(() => {
-            if (this.props.places.length > 0) {
-                console.log("cancelling timer, places:", this.props.places);
-                clearTimeout(timer);
-                history.push('/results');
-            }
-        }, 500)
+        }, 5000);
     }
 
     render() {
@@ -68,7 +60,10 @@ class ContinueButtons extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return { places: state.placeSearch.places };
+    return { 
+        places: state.placeSearch.places,
+        typesAndQuantities: state.placeSearch.typesAndQuantities
+     };
 }
 
 const mapDispatchToProps = (dispatch) => {
