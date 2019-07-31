@@ -23,13 +23,13 @@ class ContinueButtons extends React.Component {
             history.push('/results');
         }, 10000);
 
-        // setInterval(() => {
-        //     if (this.props.places.size > 0) {
-        //         console.log("cancelling timer, places:", this.props.places);
-        //         clearTimeout(timer);
-        //         history.push('/results');
-        //     }
-        // }, 500)
+        setInterval(() => {
+            if (this.props.places.length > 0) {
+                console.log("cancelling timer, places:", this.props.places);
+                clearTimeout(timer);
+                history.push('/results');
+            }
+        }, 500)
     }
 
     render() {

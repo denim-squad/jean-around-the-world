@@ -17,13 +17,12 @@ class ResultsButtons extends React.Component {
   }
 
   displayPlaces = () => {
-    //todo
+    /**
+     * TODO: I want to leave this console log here until we do something with the data
+     * on this page, as a quick smoke test
+     */
     console.log("this.props.places:", this.props.places);
     const places = this.props.places;
-    console.log("places.size:", places.size);
-    // places.forEach((value, key, map) => {
-    //   console.log(value);
-    // });
   }
 
   render() {
@@ -32,7 +31,7 @@ class ResultsButtons extends React.Component {
       <div className="results-buttons-container">
         <div>
           {/* todo major styling, decisions about how to format, what to display, etc */}
-          { this.displayPlaces() }
+          {this.displayPlaces()}
         </div>
         <BootstrapButton
           className="save-trip-button"
@@ -40,7 +39,7 @@ class ResultsButtons extends React.Component {
           size="small"
           color="primary">
           SAVE TRIP
-               </BootstrapButton>
+        </BootstrapButton>
         <div>
           {/* spacing  */}
         </div>
@@ -50,7 +49,7 @@ class ResultsButtons extends React.Component {
           size="small"
           color="primary">
           ADD TO CALENDAR
-               </BootstrapButton>
+        </BootstrapButton>
         <div>
           {/* spacing  */}
         </div>
@@ -61,7 +60,7 @@ class ResultsButtons extends React.Component {
           color="primary"
           onClick={this.goToHomePage}>
           NEW TRIP
-               </BootstrapButton>
+        </BootstrapButton>
         <div>
           {/* spacing  */}
         </div>
@@ -71,7 +70,6 @@ class ResultsButtons extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("in resultsPage mapStateToProps, state:", state);
   return { places: state.placeSearch.places }
 }
 

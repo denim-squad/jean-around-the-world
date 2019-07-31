@@ -168,7 +168,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
     case REQUEST_PLACES_START:
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
     case RECEIVE_PLACES_SUCCESS: {
-      console.log("in receive_places_success, places:", action.places);
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
@@ -182,7 +181,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
-      console.log("in setPlaceTypeAndQuantity, state:", state);
       let changedTypesAndQuantities = [];
       if (state.typesAndQuantities.type === Array) {
         changedTypesAndQuantities = state.typesAndQuantities.filter(({ type }) => {

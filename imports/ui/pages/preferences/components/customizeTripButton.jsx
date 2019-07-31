@@ -26,7 +26,6 @@ class CustomizeTripButton extends React.Component {
     if (checked) {
       this.props.setPlaceTypeAndQuantity(this.state.quantity);
     } else {
-      // todo fix unchecking
       this.props.removePlaceType();
     }
   }
