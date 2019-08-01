@@ -22,8 +22,6 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 Meteor.startup(() => {
   const store = createStore(persistedReducer, applyMiddleware(thunk));
   const persistor = persistStore(store);
-  export default store;
-  
   ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={<LoadingSpinner />} persistor={persistor}>

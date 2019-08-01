@@ -1,10 +1,8 @@
-import { createClient } from '@google/maps';
 import { Meteor } from 'meteor/meteor';
 import { HTTP } from 'meteor/http'
 import { FETCH_PLACES_NAME } from '../methods';
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-
 
 function fetchPlacesFromServer(location, radius, budgetRange, type) {
   const [ minprice, maxprice ] = budgetRange;
@@ -32,7 +30,7 @@ const fetchPlacesSchema = new SimpleSchema({
 
 export const fetchPlaces = new ValidatedMethod({
   name: FETCH_PLACES_NAME,
-  validate: fetchPlacesSchema.validator(), //TODO
+  validate: fetchPlacesSchema.validator(),
   run({
     initialCenter,
     radius,
