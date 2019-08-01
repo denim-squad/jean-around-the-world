@@ -1,7 +1,7 @@
 import React from 'react';
 import '../preferences.page.css';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../preferences.page';
-import { addBlacklist } from '../../../../redux/actions/index';
+import { addBlacklist, REMOVE_BLACKLIST } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
 import FormGroup from '@material-ui/core/FormGroup';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
@@ -20,7 +20,7 @@ class StepBox extends React.Component {
   getBlacklist = () => {
     return Array.from(this.props.blacklist).map((value, index) => {
       return (
-        <PreferenceButton key={index} name={value} />
+        <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
       );
     }
     )

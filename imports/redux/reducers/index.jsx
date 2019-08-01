@@ -17,7 +17,9 @@ import {
   SET_PLACE_TYPE_AND_QUANTITY,
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
-  UPDATE_BUDGET
+  UPDATE_BUDGET,
+  SAVE_PREVIOUS_TRAVEL,
+  DELETE_PREVIOUS_TRAVEL
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -148,13 +150,30 @@ function userReducer(state = initialUserState, action) {
       info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     case REMOVE_FAVOURITES:
-      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"preferences.favourites": action.favouriteToRemove}})
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.favourites": action.favouriteToRemove}})
       if (matchedUser === 0){
         console.log("Error Removing From Favourites")
       }
       updatedInfo = Meteor.users.find({_id: state.userId}).fetch();
       info = updatedInfo[0];
-      return { ...state, favourites: info.preferences.favourites };
+      return { ...state, favourites: info.profile.preferences.favourites };
+    case SAVE_PREVIOUS_TRAVEL:
+      //may not be able to save to meteor a javascript object -- TEST THIS
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$push:{"profile.previousTravels": action.prevTravel}})
+      if (matchedUsers == 0){
+        console.log("Error Saving Travel")
+      }
+      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
+    case DELETE_PREVIOUS_TRAVEL:
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.previousTravels": action.toDeleteTravel}})
+      if (matchedUsers == 0){
+        console.log("Error Deleting Travel")
+      }
+      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
     default:
       return state;
   }

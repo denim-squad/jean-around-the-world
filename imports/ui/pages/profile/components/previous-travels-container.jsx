@@ -1,6 +1,7 @@
 import React from 'react';
 import '../profile.page.css';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
+import { DELETE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
 
 class PreviousTravelContainer extends React.Component {
@@ -8,7 +9,7 @@ class PreviousTravelContainer extends React.Component {
     getBlacklist = () => {
         return Array.from(this.props.previousTravels).map((value, index) => {
             return (
-              <PreferenceButton key={index} name={value}/>
+              <PreferenceButton key={index} name={value} type={DELETE_PREVIOUS_TRAVEL}/>
             );
         }
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../profile.page.css';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
+import { REMOVE_BLACKLIST } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
 
 class BlacklistContainer extends React.Component {
@@ -8,7 +9,7 @@ class BlacklistContainer extends React.Component {
     getBlacklist = () => {
         return Array.from(this.props.blacklist).map((value, index) => {
             return (
-              <PreferenceButton key={index} name={value}/>
+              <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
             );
         }
     )

@@ -106,7 +106,7 @@
     float: left;
     width: 57%;
     height: 85%;
-    margin-left: 3%;
+    margin-left: 5%;
     margin-bottom: 4%;
     background: #EBEBEB;
   }
@@ -131,17 +131,27 @@
     position: relative;
     width: 87%;
     height: 85%;
-    margin: 5%;
+    margin-left: 6%;
+    margin-top: 3%;
     background: #C4C4C4;
     border-radius: 3px;
+  }
+
+  .profile-pic{
+    position: relative;
+    float:left;
+    width: 17%;
+    height: 25%;
+    margin-left: 2%;
+    margin-top: 2%;
   }
 
   .profile-info{
     position: relative;
     float: left;
-    width: 81%;
+    width: 76%;
     height: 25%;
-    margin-left: 17%;
+    margin-left: 3%;
     margin-top: 2%;
     background: #C4C4C4;
     border-radius: 3px;

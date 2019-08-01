@@ -20,7 +20,9 @@ export const
   SET_PLACE_TYPE_AND_QUANTITY = 16,
   REMOVE_PLACE_TYPE = 17,
   UPDATE_RATING = 18,
-  UPDATE_BUDGET = 19;
+  UPDATE_BUDGET = 19,
+  SAVE_PREVIOUS_TRAVEL = 20,
+  DELETE_PREVIOUS_TRAVEL = 21;
 
 export function showModal(kind) {
   return {
@@ -98,6 +100,20 @@ export function removeFavourites(favouriteToRemove) {
     type: REMOVE_FAVOURITES,
     favouriteToRemove
   };
+}
+
+export function savePrevTravel(prevTravel){
+  return {
+    type: SAVE_PREVIOUS_TRAVEL,
+    prevTravel
+  }
+}
+
+export function deletePrevTravel(toDeleteTravel){
+  return {
+    type: DELETE_PREVIOUS_TRAVEL,
+    toDeleteTravel
+  }
 }
 
 // uses redux-thunk
