@@ -6,19 +6,19 @@ import { connect } from 'react-redux';
 
 class PreviousTravelContainer extends React.Component {
 
-    getBlacklist = () => {
-        return Array.from(this.props.previousTravels).map((value, index) => {
-            return (
-              <PreferenceButton key={index} name={value} type={DELETE_PREVIOUS_TRAVEL}/>
-            );
+    getPreviousTravels = () => {
+      return Array.from(this.props.previousTravels).map((value, index) => {
+          return (
+            <PreferenceButton key={index} name={value} type={DELETE_PREVIOUS_TRAVEL}/>
+          );
         }
-    )
-}
+      )
+    }
 
     render() {
         return (
           <div className="previous-travels-container">
-            <br/>
+            {this.getPreviousTravels()}
           </div>
         );
     }

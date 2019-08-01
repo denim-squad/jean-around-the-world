@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 class BlacklistContainer extends React.Component {
 
     getBlacklist = () => {
-        return Array.from(this.props.blacklist).map((value, index) => {
-            return (
-              <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
-            );
+      return Array.from(this.props.blacklist).map((value, index) => {
+          return (
+            <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
+          );
         }
-    )
-}
+      )
+    }
 
     render() {
         return (

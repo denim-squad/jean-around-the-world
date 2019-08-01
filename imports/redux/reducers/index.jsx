@@ -135,7 +135,7 @@ function userReducer(state = initialUserState, action) {
     case REMOVE_BLACKLIST:
       let removedBlacklistUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.blacklist": action.blacklistToRemove}})
       if (removedBlacklistUsers === 0){
-        console.log("Error Removing From Blacklist")
+        console.error("Error Removing From Blacklist");
       }
       let updatedUsers = Meteor.users.find({_id: state.userId}).fetch();
       let updatedRemoveInfo = updatedUsers[0];
@@ -144,7 +144,7 @@ function userReducer(state = initialUserState, action) {
       matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { "profile.preferences.favourites": action.favourite } })
       if (matchedUsers === 0) {
         //TODO: create better error handling
-        console.log("Error Updating Favourites for User")
+        console.error("Error Updating Favourites for User");
       }
       updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
       info = updatedInfo[0];
@@ -152,7 +152,8 @@ function userReducer(state = initialUserState, action) {
     case REMOVE_FAVOURITES:
       matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.favourites": action.favouriteToRemove}})
       if (matchedUser === 0){
-        console.log("Error Removing From Favourites")
+        //TODO: create better error handling
+        console.error("Error Removing From Favourites");
       }
       updatedInfo = Meteor.users.find({_id: state.userId}).fetch();
       info = updatedInfo[0];
@@ -161,7 +162,8 @@ function userReducer(state = initialUserState, action) {
       //may not be able to save to meteor a javascript object -- TEST THIS
       matchedUsers = Meteor.users.update({_id: state.userId}, {$push:{"profile.previousTravels": action.prevTravel}})
       if (matchedUsers == 0){
-        console.log("Error Saving Travel")
+        //TODO: create better error handling
+        console.error("Error Saving Travel");
       }
       updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
       info = updatedInfo[0];
@@ -169,7 +171,8 @@ function userReducer(state = initialUserState, action) {
     case DELETE_PREVIOUS_TRAVEL:
       matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.previousTravels": action.toDeleteTravel}})
       if (matchedUsers == 0){
-        console.log("Error Deleting Travel")
+        //TODO: create better error handling
+        console.error("Error Deleting Travel");
       }
       updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
       info = updatedInfo[0];

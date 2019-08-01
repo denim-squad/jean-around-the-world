@@ -16,7 +16,6 @@ class PreferenceButton extends React.Component {
       handleDelete = (type, name) => {
         switch (type) {
           case REMOVE_BLACKLIST:
-            console.log("BlackList Case");
             this.props.removeBlacklist(name);
           case REMOVE_FAVOURITES:
             this.props.removeFavourites(name);
