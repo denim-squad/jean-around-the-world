@@ -18,11 +18,12 @@ class PreviousTravelContainer extends React.Component {
     render() {
         return (
           <div className="previous-travels-container">
+            <br/>
             {this.getPreviousTravels()}
           </div>
         );
+      }
     }
-}
 
 const mapStateToProps = (state) => {
   return {

@@ -135,6 +135,7 @@ function userReducer(state = initialUserState, action) {
     case REMOVE_BLACKLIST:
       let removedBlacklistUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.blacklist": action.blacklistToRemove}})
       if (removedBlacklistUsers === 0){
+        //TODO: create better error handling
         console.error("Error Removing From Blacklist");
       }
       let updatedUsers = Meteor.users.find({_id: state.userId}).fetch();
