@@ -21,7 +21,7 @@ class ContinueButtons extends React.Component {
         const timer = await setTimeout(() => {
             this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-        }, 10000);
+        }, 5000);
     }
 
     render() {
