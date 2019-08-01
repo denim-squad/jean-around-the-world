@@ -1,66 +1,64 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
-import { types } from 'util';
 
-export const
-  SHOW_MODAL = 0,
-  HIDE_MODAL = 1,
-  SET_RADIUS = 2,
-  SET_CENTER = 3,
-  LOGIN_USER = 4,
-  LOGOUT_USER = 5,
-  ADD_BLACKLIST = 6,
-  REMOVE_BLACKLIST = 7,
-  ADD_FAVOURITES = 8,
-  REMOVE_FAVOURITES = 9,
-  LOGIN = 10,
-  SIGNUP = 11,
-  SIGNUP_USER = 12,
-  REQUEST_PLACES_START = 13,
-  RECEIVE_PLACES_SUCCESS = 14,
-  RECEIVE_PLACES_FAILURE = 15,
-  SET_PLACE_TYPE_AND_QUANTITY = 16,
-  REMOVE_PLACE_TYPE = 17,
-  UPDATE_RATING = 18,
-  UPDATE_BUDGET = 19;
+export const SHOW_MODAL = 0;
+export const HIDE_MODAL = 1;
+export const SET_RADIUS = 2;
+export const SET_CENTER = 3;
+export const LOGIN_USER = 4;
+export const LOGOUT_USER = 5;
+export const ADD_BLACKLIST = 6;
+export const REMOVE_BLACKLIST = 7;
+export const ADD_FAVOURITES = 8;
+export const REMOVE_FAVOURITES = 9;
+export const LOGIN = 10;
+export const SIGNUP = 11;
+export const SIGNUP_USER = 12;
+export const REQUEST_PLACES_START = 13;
+export const RECEIVE_PLACES_SUCCESS = 14;
+export const RECEIVE_PLACES_FAILURE = 15;
+export const SET_PLACE_TYPE_AND_QUANTITY = 16;
+export const REMOVE_PLACE_TYPE = 17;
+export const UPDATE_RATING = 18;
+export const UPDATE_BUDGET = 19;
 
 export function showModal(kind) {
   return {
     type: SHOW_MODAL,
-    kind
+    kind,
   };
 }
 
 export function hideModal() {
   return {
-    type: HIDE_MODAL
+    type: HIDE_MODAL,
   };
 }
 
 export function setRadius(radius) {
   return {
     type: SET_RADIUS,
-    radius
+    radius,
   };
 }
 
 export function setMapCenter(coords) {
   return {
     type: SET_CENTER,
-    coords
+    coords,
   };
 }
 
 export function loginUser(email) {
   return {
     type: LOGIN_USER,
-    email
+    email,
   };
 }
 
 export function logoutUser() {
   return {
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   };
 }
 
@@ -70,35 +68,59 @@ export function signupUser(firstName, lastName, email, password) {
     firstName,
     lastName,
     email,
-    password
+    password,
   };
 }
 
 export function addBlacklist(blacklist) {
   return {
     type: ADD_BLACKLIST,
-    blacklist
+    blacklist,
   };
 }
 
 export function addFavourites(favourite) {
   return {
     type: ADD_FAVOURITES,
-    favourite
+    favourite,
   };
 }
 
 export function removeBlacklist(blacklistToRemove) {
   return {
     type: REMOVE_BLACKLIST,
-    blacklist
+    blacklist,
   };
 }
 
 export function removeFavourites(favouriteToRemove) {
   return {
     type: REMOVE_FAVOURITES,
-    favouriteToRemove
+    favouriteToRemove,
+  };
+}
+
+function requestPlacesStart() {
+  return {
+    type: REQUEST_PLACES_START,
+    isFetchingPlaces: true,
+  };
+}
+
+
+function receivePlacesSuccess(places) {
+  return {
+    type: RECEIVE_PLACES_SUCCESS,
+    isFetchingPlaces: false,
+    places,
+  };
+}
+
+function receivePlacesFailure(error) {
+  return {
+    type: RECEIVE_PLACES_FAILURE,
+    isFetchingPlaces: false,
+    error,
   };
 }
 
@@ -109,7 +131,7 @@ export function removeFavourites(favouriteToRemove) {
  * format for results can be found at https://bit.ly/2LRd8YD
  */
 export function getPlaces() {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     dispatch(requestPlacesStart());
     const state = getState();
     const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
@@ -121,73 +143,51 @@ export function getPlaces() {
       const { type } = singleTypeAndQuantity;
 
       Meteor.call(FETCH_PLACES_NAME,
-        { initialCenter, radius, budgetRange, type }, (error, result) => {
+        {
+          initialCenter, radius, budgetRange, type,
+        }, (error, result) => {
           if (error) {
             dispatch(receivePlacesFailure(error));
             return;
           }
           typesAndResults.push({
-            type, 
-            results: result.data.results
+            type,
+            results: result.data.results,
           });
-          callCounter--;
+          callCounter -= 1;
           if (callCounter < 1) {
             dispatch(receivePlacesSuccess(typesAndResults));
           }
         });
     });
-  }
-}
-
-function requestPlacesStart() {
-  return {
-    type: REQUEST_PLACES_START,
-    isFetchingPlaces: true
-  }
-}
-
-
-function receivePlacesSuccess(places) {
-  return {
-    type: RECEIVE_PLACES_SUCCESS,
-    isFetchingPlaces: false,
-    places
-  }
-}
-
-function receivePlacesFailure(error) {
-  return {
-    type: RECEIVE_PLACES_FAILURE,
-    isFetchingPlaces: false,
-    error
-  }
+  };
 }
 
 export function setPlaceTypeAndQuantity(placeType, quantity) {
   return {
     type: SET_PLACE_TYPE_AND_QUANTITY,
     placeType,
-    quantity
-  }
+    quantity,
+  };
 }
 
 export function removePlaceType(placeType) {
   return {
     type: REMOVE_PLACE_TYPE,
-    placeType
-  }
+    placeType,
+  };
 }
 
 export function updateRating(rating) {
   return {
     type: UPDATE_RATING,
-    rating
-  }
+    rating,
+  };
 }
 
 export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
-    budgetRange
-  }
+    budgetRange,
+  };
 }
