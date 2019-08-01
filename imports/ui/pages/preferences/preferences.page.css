@@ -190,7 +190,8 @@ div .MuiFormControl-root {
 }
 
 .slider {
-    touch-action: none; //Fixes console log errors
+  /* Fixes console log errors */
+    touch-action: none; 
 }
 
 .refine-slider-container {
@@ -218,3 +219,4 @@ svg.MuiSvgIcon-root.Rating-icon-160 {
 img {
     max-width: 100%;
 }
+

@@ -1,5 +1,8 @@
 import getNearbyPlaces from './places';
-import { assert, expect } from 'chai';
+import {
+  assert,
+  expect
+} from 'chai';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -12,27 +15,23 @@ import {
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 const location = {
-  lat: 49.263749,
-  lng: -123.247480
-},
+    lat: 49.263749,
+    lng: -123.247480
+  },
   radius = 4000,
-  price = 1,
+  budgetRange = [1, 3],
   type = 'meal_takeaway';
 
 let results = [];
 describe('getNearbyPlaces', () => {
   it('returns results in a promise', function () {
-    const response = getNearbyPlaces(location, radius, price, type);
+    const response = getNearbyPlaces(location, radius, budgetRange, type);
     expect(response).to.be.a('Promise');
     response.then((searchResponse) => {
       results = searchResponse.json.results;
       assert.isArray(results);
       assert.isNotEmpty(results, "results array was empty");
-    })
-      .catch(error => {
-        console.log(error);
-        throw error;
-      })
+    });
   });
 
   it('only returns results with the specified type', function () {
@@ -46,18 +45,25 @@ describe('getNearbyPlaces', () => {
 })
 
 const initialState = {
-  location, radius, price, typesAndQuantities: [
-    {
-      type: 'meal_takeaway',
-      quantity: 2
-    },
-    {
-      type: 'cafe',
-      quantity: 3
-    }
-  ], blacklist: [
-    'subway'
-  ]
+  map: {
+    initialCenter: location,
+    radius
+  },
+  placeSearch: {
+    budgetRange,
+    typesAndQuantities: new Map([{
+        type: 'meal_takeaway',
+        quantity: 2
+      },
+      {
+        type: 'cafe',
+        quantity: 3
+      }
+    ]),
+    blacklist: [
+      'subway'
+    ]
+  }
 }
 
 describe('getPlaces action function', function () {
@@ -69,8 +75,6 @@ describe('getPlaces action function', function () {
   //   } catch (error) {
 
   //   }
-
-  //   console.log(emptyStore.getActions());
   // })
 
   let store = mockStore(initialState);
@@ -85,3 +89,4 @@ describe('getPlaces action function', function () {
     })
   });
 })
+

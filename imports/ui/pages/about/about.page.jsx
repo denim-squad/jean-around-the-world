@@ -4,6 +4,10 @@ import AboutPageTextContainer from './components/aboutPageTextContainer';
 import './about.page.css'
 
 class AboutPage extends React.Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
       <div>

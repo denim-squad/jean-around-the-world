@@ -120,12 +120,14 @@ export function deletePrevTravel(toDeleteTravel){
 export function getPlaces() {
   return async (dispatch, getState) => {
     dispatch(requestPlacesStart());
-
-    const { location, radius, price, typesAndQuantities, blacklist } = getState();
+    const state = getState();
+    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { radius, initialCenter } = state.map;
     const placesPromises = [], quantities = [];
 
-    typesAndQuantities.forEach(({ type, quantity }) => {
-      placesPromises.push(getNearbyPlaces(location, radius, price, type));
+    typesAndQuantities.forEach((quantity, type, map) => {
+      const promise = getNearbyPlaces(initialCenter, radius, budgetRange, type);
+      placesPromises.push(promise);
       quantities.push(quantity);
     });
 
@@ -147,7 +149,7 @@ export function getPlaces() {
  * @param {Array} quantities
  * @param {Array} blacklist
  */
-function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
+async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
   const listOfPlaces = [];
 
   places.forEach(async (promise, promiseIndex) => {
@@ -155,7 +157,8 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
     if (response.error) {
       throw response.error;
     }
-    const results = response.json.results;
+    const json = await response.json();
+    const results = json.body.results;
     const quantity = quantities[promiseIndex];
 
     for (let i = 0; i < quantity && i < results.length; i++) {
@@ -172,6 +175,7 @@ function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
     }
   });
 
+  await Promise.all(places);
   return listOfPlaces;
 }
 
