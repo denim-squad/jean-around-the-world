@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 class PreviousTravelContainer extends React.Component {
 
     getPreviousTravels = () => {
+      console.log(this.props.blacklist);
       return Array.from(this.props.previousTravels).map((value, index) => {
           return (
             <PreferenceButton key={index} name={value} type={DELETE_PREVIOUS_TRAVEL}/>
@@ -19,7 +20,6 @@ class PreviousTravelContainer extends React.Component {
         return (
           <div className="previous-travels-container">
             <br/>
-            {this.getPreviousTravels()}
           </div>
         );
       }
@@ -27,7 +27,8 @@ class PreviousTravelContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    previousTravels: state.user.previousTravels
+    previousTravels: state.user.previousTravels,
+    blacklist: state.user.blacklist
   };
 }
 
