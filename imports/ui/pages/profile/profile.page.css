@@ -36,7 +36,7 @@
 
   .previous-travels-text {
     font-family: 'Rubik', sans-serif;
-    font-size: (20/1440) * 100vw;
+    font-size: (60/1440) * 100vw;
     margin-top: 2%;
     margin-left: 4%;
   }
@@ -73,7 +73,7 @@
     margin-top: 1%;
     margin-left: 1%;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
   }
 
   .blacklist-text{
@@ -82,7 +82,7 @@
     float: left;
     position: relative;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
   }
 
   .profile-blacklist-container {
@@ -99,7 +99,7 @@
     position: relative;
     float: left;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
     margin-left: 2%;
     margin-top: 2%;
   }
@@ -153,16 +153,16 @@
 
   .previous-travels-text {
     font-family: 'Rubik', sans-serif;
-    font-size: 20px;
+    font-size: (50/1024) * 100vw;
     margin-top: 2%;
     margin-left: 4%;
   }
 
   .previous-travels-container {
     position: relative;
-    width: 87%;
-    height: 85%;
-    margin-left: 6%;
+    width: 92%;
+    height: 87%;
+    margin-left: 4%;
     margin-top: 3%;
     background: #C4C4C4;
   }
@@ -190,7 +190,7 @@
     margin-top: 1%;
     margin-left: 1%;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
   }
 
   .blacklist-text{
@@ -199,7 +199,7 @@
     float: left;
     position: relative;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
   }
 
   .profile-blacklist-container {
@@ -216,7 +216,7 @@
     position: relative;
     float: left;
     font-family: 'Rubik', sans-serif;
-    font-size: 15px;
+    font-size: (15/1440) * 100vw;
     margin-left: 2%;
     margin-top: 2%;
   }
