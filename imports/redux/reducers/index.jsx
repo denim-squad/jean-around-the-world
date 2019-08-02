@@ -5,10 +5,11 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SET_RADIUS,
-  SET_CENTER,
+  SET_CENTER ,
   LOGIN_USER,
   LOGOUT_USER,
   SIGNUP_USER,
+  GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
@@ -29,7 +30,7 @@ import {
 } from '../../constants';
 
 const initialMapState = {
-  radius: MIN_RADIUS,
+  radius: 1000,
   initialCenter: {
     lat: 49.263749,
     lng: -123.247480,
@@ -62,8 +63,7 @@ const initialPlaceSearchState = {
 function modalReducer(state = initialModalState, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return {
-        ...state,
+      return { ...state,
         isModalShown: true,
         modalKind: action.kind,
       };
@@ -104,6 +104,8 @@ function userReducer(state = initialUserState, action) {
       } else {
         const userId = Accounts.createUser({
           email: action.email,
+          firstName: action.firstName,
+          lastName: action.lastName,
           password: action.password,
           profile: {
             firstName: action.firstName,
@@ -144,7 +146,7 @@ function userReducer(state = initialUserState, action) {
         // TODO: create better error handling
         console.log('Error Updating Favourites for User');
       }
-      updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      updatedInfo = UserInfo.find({userId:state.userId}).fetch();
       info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     }

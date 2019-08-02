@@ -24,12 +24,14 @@ export const StyledSlider = withStyles({
       backgroundColor: '#47C8FF',
       height: 8,
     },
-    // throws console warning, keeping in case colour is wanted
-    // trackAfter: {
-    //   backgroundColor: '#d0d7dc',
-    // },
+    trackAfter: {
+      backgroundColor: '#d0d7dc',
+    },
     rail: {
       height: 8,
       borderRadius: 4,
     },
+    focused: {},
+    activated: {},
+    jumped: {},
 })(Slider);
