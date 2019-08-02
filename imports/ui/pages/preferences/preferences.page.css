@@ -115,9 +115,6 @@
 
 .customize-container {
     display: grid;
-    grid-template-rows: 11% 88%;
-    grid-row-gap: 3%;
-    height: 100%;
 }
 
 .stepbox-title {
@@ -142,6 +139,24 @@
 
 .customize-buttons {
     cursor: pointer;
+}
+
+.customize-buttons-container {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.form-container {
+    display: grid;
+    grid-template-rows: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%;
+}
+
+div .MuiFormControl-marginNormal {
+    margin: 0px;
+}
+
+div .MuiFormControl-root {
+    height: 80%;
 }
 
 .blacklist-container {
@@ -175,13 +190,14 @@
 }
 
 .slider {
-    touch-action: none; //Fixes console log errors
+  /* Fixes console log errors */
+    touch-action: none; 
 }
 
 .refine-slider-container {
     display: grid;
-    grid-template-columns: 5% 80% 5%;
-    grid-column-gap: 2.5%;
+    grid-template-columns: 13% 63% 13%;
+    grid-column-gap: 5.5%;
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -190,10 +206,17 @@
     color: #000000;
 }
 
-.slider-div {
-    padding-top: 5%;
+svg.MuiSvgIcon-root {
+    width: 0.6em;
+    height: 0.6em;
+}
+
+svg.MuiSvgIcon-root.Rating-icon-160 {
+    width: 1.5em;
+    height: 1.5em;
 }
 
 img {
     max-width: 100%;
 }
+

@@ -43,7 +43,7 @@ class PreferencesPage extends React.Component {
     }
 
     nextStep() {
-        if (this.state.currentStep < REFINE_STEP) {
+        if (this.state.currentStep < COMPLETE_STEP) {
             this.setState({
                 imgPath:this.state.imgPath,
                 currentStep: this.state.currentStep + 1

@@ -1,11 +1,31 @@
 import React from 'react';
 import '../../preferences.page.css';
-import { CUSTOMIZE_STEP, REFINE_STEP } from '../../preferences.page';
+import { BootstrapButton } from '../../../../shared_components/MUI/button/bootstrapButton';
+import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../../preferences.page';
+import { connect } from 'react-redux';
+import { getPlaces } from '../../../../../redux/actions';
+import LoadingSpinner from '../../../../shared_components/loading/loadingSpinner';
+
+const history = createBrowserHistory({forceRefresh: true});
 
 class ContinueButtons extends React.Component {
+    constructor () {
+        super();
+        this.loadingSpinner = React.createRef();
+    }
+
+    goToResultsPage = async () => {
+        this.props.getPlaces();
+        this.loadingSpinner.current.style.display = 'block';
+        const timer = await setTimeout(() => {
+            this.loadingSpinner.current.style.display = 'none';
+            history.push('/results');
+        }, 5000);
+    }
 
     render() {
         return <div className="nav-buttons-container">
+        <LoadingSpinner ref={this.loadingSpinner}/>
         {
             !(this.props.currentStep === CUSTOMIZE_STEP) ?
             <div 
@@ -26,7 +46,17 @@ class ContinueButtons extends React.Component {
             
         </div>;
     }
+}
 
+const mapStateToProps = (state) => {
+    return { 
+        places: state.placeSearch.places,
+        typesAndQuantities: state.placeSearch.typesAndQuantities
+     };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return { getPlaces: () => dispatch(getPlaces()) };
 }
 
 export default ContinueButtons;
