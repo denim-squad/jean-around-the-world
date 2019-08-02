@@ -9,12 +9,12 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { hideModal, signupUser } from '../../.././redux/actions';
+import { BootstrapButton } from '../MUI/button/bootstrapButton';
+import { hideModal, signupUser } from '../../../redux/actions';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(4),
@@ -38,7 +38,8 @@ const DialogTitle = withStyles(styles)((props) => {
         <IconButton
           aria-label="Close"
           className={classes.closeButton}
-          onClick={onClose}>
+          onClick={onClose}
+        >
           <CloseIcon />
         </IconButton>
       )}
@@ -46,7 +47,7 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const DialogContent = withStyles((theme) => ({
+const DialogContent = withStyles(theme => ({
   root: {
     padding: theme.spacing(4),
     paddingTop: theme.spacing(2),
@@ -54,17 +55,17 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
+const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(4),
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 }))(MuiDialogActions);
 
 
 class Signup extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.firstName = React.createRef();
     this.lastName = React.createRef();
@@ -75,90 +76,89 @@ class Signup extends React.Component {
   signupUser = async () => {
     if (this.firstName.value && this.lastName.value
       && this.email.value && this.password.value) {
-        // add loadingSpinner: "Signing you up, welcome..."
-        await setTimeout(() => {
-          this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
-          this.props.hideModal();
-        }, 1400);
-
-      }
-    else {
-      alert("Please fill in the missing fields to proceed");
+      // add loadingSpinner: "Signing you up, welcome..."
+      await setTimeout(() => {
+        this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
+        this.props.hideModal();
+      }, 1400);
+    } else {
+      alert('Please fill in the missing fields to proceed');
     }
   }
 
   render() {
     return (
-        <Dialog
-          open={this.props.isModalShown}
+      <Dialog
+        open={this.props.isModalShown}
+        onClose={this.props.hideModal}
+        aria-labelledby="customized-dialog-title"
+        fullWidth
+        maxWidth="xs"
+      >
+        <DialogTitle
+          id="customized-dialog-title"
           onClose={this.props.hideModal}
-          aria-labelledby="customized-dialog-title"
-          fullWidth={true}
-          maxWidth = {'xs'}>
-          <DialogTitle
-            id="customized-dialog-title"
-            onClose={this.props.hideModal}>
+        >
             New here? Sign up now!
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
               Create your free account below.
-            </DialogContentText>
-            <TextField
-              inputRef = {(input) => (this.firstName = input)}
-              margin="dense"
-              id="firstname"
-              label="First Name"
-              type="firstname"
-              fullWidth
-              required={true}
-            />
-            <TextField
-              inputRef = {(input) => (this.lastName = input)}
-              margin="dense"
-              id="lastname"
-              label="Last Name"
-              type="lastname"
-              fullWidth
-              required={true}
-            />
-            <TextField
-              inputRef = {(input) => (this.email = input)}
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
-              fullWidth
-              required={true}
-            />
-            <TextField
-              inputRef = {(input) => (this.password = input)}
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
-              fullWidth
-              required={true}
-            />
-          </DialogContent>
-          <DialogActions>
-            <BootstrapButton
-              onClick={this.signupUser}
-              variant="contained"
-              size="small"
-              color="primary">
+          </DialogContentText>
+          <TextField
+            inputRef={input => (this.firstName = input)}
+            margin="dense"
+            id="firstname"
+            label="First Name"
+            type="firstname"
+            fullWidth
+            required
+          />
+          <TextField
+            inputRef={input => (this.lastName = input)}
+            margin="dense"
+            id="lastname"
+            label="Last Name"
+            type="lastname"
+            fullWidth
+            required
+          />
+          <TextField
+            inputRef={input => (this.email = input)}
+            margin="dense"
+            id="email"
+            label="Email Address"
+            type="email"
+            fullWidth
+            required
+          />
+          <TextField
+            inputRef={input => (this.password = input)}
+            margin="dense"
+            id="password"
+            label="Password"
+            type="password"
+            fullWidth
+            required
+          />
+        </DialogContent>
+        <DialogActions>
+          <BootstrapButton
+            onClick={this.signupUser}
+            variant="contained"
+            size="small"
+            color="primary"
+          >
               Sign Up
-            </BootstrapButton>
-          </DialogActions>
-        </Dialog>
+          </BootstrapButton>
+        </DialogActions>
+      </Dialog>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isModalShown: state.modal.isModalShown
-  };
-}
+const mapStateToProps = state => ({
+  isModalShown: state.modal.isModalShown,
+});
 
 export default connect(mapStateToProps, { hideModal, signupUser })(Signup);
