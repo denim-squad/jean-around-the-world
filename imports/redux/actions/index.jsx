@@ -1,66 +1,66 @@
-import getNearbyPlaces from '../../api/places';
+import { Meteor } from 'meteor/meteor';
+import { FETCH_PLACES_NAME } from '../../api/places/methods';
 
-export const
-  SHOW_MODAL = 0,
-  HIDE_MODAL = 1,
-  SET_RADIUS = 2,
-  SET_CENTER = 3,
-  LOGIN_USER = 4,
-  LOGOUT_USER = 5,
-  ADD_BLACKLIST = 6,
-  REMOVE_BLACKLIST = 7,
-  ADD_FAVOURITES = 8,
-  REMOVE_FAVOURITES = 9,
-  LOGIN = 10,
-  SIGNUP = 11,
-  SIGNUP_USER = 12,
-  REQUEST_PLACES_START = 13,
-  RECEIVE_PLACES_SUCCESS = 14,
-  RECEIVE_PLACES_FAILURE = 15,
-  SET_PLACE_TYPE_AND_QUANTITY = 16,
-  REMOVE_PLACE_TYPE = 17,
-  UPDATE_RATING = 18,
-  UPDATE_BUDGET = 19,
-  SAVE_PREVIOUS_TRAVEL = 20,
-  DELETE_PREVIOUS_TRAVEL = 21;
+export const SHOW_MODAL = 0;
+export const HIDE_MODAL = 1;
+export const SET_RADIUS = 2;
+export const SET_CENTER = 3;
+export const LOGIN_USER = 4;
+export const LOGOUT_USER = 5;
+export const ADD_BLACKLIST = 6;
+export const REMOVE_BLACKLIST = 7;
+export const ADD_FAVOURITES = 8;
+export const REMOVE_FAVOURITES = 9;
+export const LOGIN = 10;
+export const SIGNUP = 11;
+export const SIGNUP_USER = 12;
+export const REQUEST_PLACES_START = 13;
+export const RECEIVE_PLACES_SUCCESS = 14;
+export const RECEIVE_PLACES_FAILURE = 15;
+export const SET_PLACE_TYPE_AND_QUANTITY = 16;
+export const REMOVE_PLACE_TYPE = 17;
+export const UPDATE_RATING = 18;
+export const UPDATE_BUDGET = 19;
+export const SAVE_PREVIOUS_TRAVEL = 20;
+export const DELETE_PREVIOUS_TRAVEL = 21;
 
 export function showModal(kind) {
   return {
     type: SHOW_MODAL,
-    kind
+    kind,
   };
 }
 
 export function hideModal() {
   return {
-    type: HIDE_MODAL
+    type: HIDE_MODAL,
   };
 }
 
 export function setRadius(radius) {
   return {
     type: SET_RADIUS,
-    radius
+    radius,
   };
 }
 
 export function setMapCenter(coords) {
   return {
     type: SET_CENTER,
-    coords
+    coords,
   };
 }
 
 export function loginUser(email) {
   return {
     type: LOGIN_USER,
-    email
+    email,
   };
 }
 
 export function logoutUser() {
   return {
-    type: LOGOUT_USER
+    type: LOGOUT_USER,
   };
 }
 
@@ -70,21 +70,21 @@ export function signupUser(firstName, lastName, email, password) {
     firstName,
     lastName,
     email,
-    password
+    password,
   };
 }
 
 export function addBlacklist(blacklist) {
   return {
     type: ADD_BLACKLIST,
-    blacklist
+    blacklist,
   };
 }
 
 export function addFavourites(favourite) {
   return {
     type: ADD_FAVOURITES,
-    favourite
+    favourite,
   };
 }
 
@@ -98,7 +98,7 @@ export function removeBlacklist(blacklistToRemove) {
 export function removeFavourites(favouriteToRemove) {
   return {
     type: REMOVE_FAVOURITES,
-    favouriteToRemove
+    favouriteToRemove,
   };
 }
 
@@ -116,74 +116,11 @@ export function deletePrevTravel(toDeleteTravel){
   }
 }
 
-// uses redux-thunk
-export function getPlaces() {
-  return async (dispatch, getState) => {
-    dispatch(requestPlacesStart());
-    const state = getState();
-    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
-    const { radius, initialCenter } = state.map;
-    const placesPromises = [], quantities = [];
-
-    typesAndQuantities.forEach((quantity, type, map) => {
-      const promise = getNearbyPlaces(initialCenter, radius, budgetRange, type);
-      placesPromises.push(promise);
-      quantities.push(quantity);
-    });
-
-    try {
-      const listOfPlaces = convertPlacesPromisesToValidList(placesPromises, quantities, blacklist);
-      dispatch(receivePlacesSuccess(listOfPlaces));
-    } catch (error) {
-      dispatch(receivePlacesFailure(error));
-    }
-  }
-}
-
-/**
- * Given an array of place API response promises from getNearbyPlaces,
- * how many of each type, and the list of blacklisted places,
- * returns an array of valid places with the correct number of each type.
- * If any promise returns an error, immediately throws the error.
- * @param {Array} places
- * @param {Array} quantities
- * @param {Array} blacklist
- */
-async function convertPlacesPromisesToValidList(places, quantities, blacklist = []) {
-  const listOfPlaces = [];
-
-  places.forEach(async (promise, promiseIndex) => {
-    const response = await promise;
-    if (response.error) {
-      throw response.error;
-    }
-    const json = await response.json();
-    const results = json.body.results;
-    const quantity = quantities[promiseIndex];
-
-    for (let i = 0; i < quantity && i < results.length; i++) {
-      let isBlacklisted = false;
-      for (const blacklistedName of blacklist) {
-        if (results[i].name.includes(blacklistedName)) {
-          isBlacklisted = true;
-          break;
-        }
-      }
-      isBlacklisted ?
-        quantity++ // need to get another item
-        : listOfPlaces.push(results[i]);
-    }
-  });
-
-  await Promise.all(places);
-  return listOfPlaces;
-}
-
 function requestPlacesStart() {
   return {
     type: REQUEST_PLACES_START,
-    isFetchingPlaces: true
-  }
+    isFetchingPlaces: true,
+  };
 }
 
 
@@ -191,43 +128,82 @@ function receivePlacesSuccess(places) {
   return {
     type: RECEIVE_PLACES_SUCCESS,
     isFetchingPlaces: false,
-    places
-  }
+    places,
+  };
 }
 
 function receivePlacesFailure(error) {
   return {
     type: RECEIVE_PLACES_FAILURE,
     isFetchingPlaces: false,
-    error
-  }
+    error,
+  };
+}
+
+/**
+ * Uses Redux-Thunk as an async action that dispatches other actions.
+ * This will set placeSearch.places to an array of objects with the format
+ * { type, results }, where results is an array of Google nearby place search results.
+ * format for results can be found at https://bit.ly/2LRd8YD
+ */
+export function getPlaces() {
+  return (dispatch, getState) => {
+    dispatch(requestPlacesStart());
+    const state = getState();
+    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { radius, initialCenter } = state.map;
+    const typesAndResults = [];
+
+    let callCounter = typesAndQuantities.length;
+    typesAndQuantities.forEach((singleTypeAndQuantity) => {
+      const { type } = singleTypeAndQuantity;
+
+      Meteor.call(FETCH_PLACES_NAME,
+        {
+          initialCenter, radius, budgetRange, type,
+        }, (error, result) => {
+          if (error) {
+            dispatch(receivePlacesFailure(error));
+            return;
+          }
+          typesAndResults.push({
+            type,
+            results: result.data.results,
+          });
+          callCounter -= 1;
+          if (callCounter < 1) {
+            dispatch(receivePlacesSuccess(typesAndResults));
+          }
+        });
+    });
+  };
 }
 
 export function setPlaceTypeAndQuantity(placeType, quantity) {
   return {
     type: SET_PLACE_TYPE_AND_QUANTITY,
     placeType,
-    quantity
-  }
+    quantity,
+  };
 }
 
 export function removePlaceType(placeType) {
   return {
     type: REMOVE_PLACE_TYPE,
-    placeType
-  }
+    placeType,
+  };
 }
 
 export function updateRating(rating) {
   return {
     type: UPDATE_RATING,
-    rating
-  }
+    rating,
+  };
 }
 
 export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
-    budgetRange
-  }
+    budgetRange,
+  };
 }

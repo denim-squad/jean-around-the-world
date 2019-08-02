@@ -1,2 +1,3 @@
-// get api key while active
-import { API_KEY } from '../imports/constants';
+// initialize server methods
+import '../imports/api/places/methods'
+import '../imports/api/places/server/fetchPlaces';
