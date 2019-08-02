@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { combineReducers } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';

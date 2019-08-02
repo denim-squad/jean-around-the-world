@@ -2,12 +2,12 @@ import React from 'react';
 import '../preferences.page.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
 import ToggleRadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import ToggleRadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import { connect } from 'react-redux';
-import { setPlaceTypeAndQuantity, removePlaceType } from '../../../../redux/actions'
-import { placeLabelToTypeMap } from '../../../../constants'
+import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
+import { setPlaceTypeAndQuantity, removePlaceType } from '../../../../redux/actions';
+import { placeLabelToTypeMap } from '../../../../constants';
 
 class CustomizeTripButton extends React.Component {
   constructor() {
@@ -15,14 +15,14 @@ class CustomizeTripButton extends React.Component {
     this.state = {
       isChecked: false,
       isValid: true,
-      quantity: 1
+      quantity: 1,
     };
     this.handleCheck = this.handleCheck.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   handleCheck = (event, checked) => {
-    this.setState({ isChecked: checked })
+    this.setState({ isChecked: checked });
     if (checked) {
       this.props.setPlaceTypeAndQuantity(this.state.quantity);
     } else {
@@ -47,13 +47,13 @@ class CustomizeTripButton extends React.Component {
       <div className="customize-buttons-container">
         <FormControlLabel
           className="customize-buttons"
-          control={
+          control={(
             <CssCheckbox
               icon={<ToggleRadioButtonUnchecked />}
               checkedIcon={<ToggleRadioButtonChecked />}
               onChange={this.handleCheck}
             />
-          }
+)}
           label={this.props.label}
         />
         <TextField
@@ -75,9 +75,9 @@ class CustomizeTripButton extends React.Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const mappedLabel = placeLabelToTypeMap.get(ownProps.label);
   return {
-    setPlaceTypeAndQuantity: (quantity) => dispatch(setPlaceTypeAndQuantity(mappedLabel, quantity)),
-    removePlaceType: () => dispatch(removePlaceType(mappedLabel))
+    setPlaceTypeAndQuantity: quantity => dispatch(setPlaceTypeAndQuantity(mappedLabel, quantity)),
+    removePlaceType: () => dispatch(removePlaceType(mappedLabel)),
   };
-}
+};
 
-export default connect(null, mapDispatchToProps)(CustomizeTripButton)
+export default connect(null, mapDispatchToProps)(CustomizeTripButton);
