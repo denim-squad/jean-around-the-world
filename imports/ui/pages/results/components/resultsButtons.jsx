@@ -15,13 +15,21 @@ class ResultsButtons extends React.Component {
     }, 2800);
   }
 
+  filterPlaces = () => {
+    const { places, minimumAcceptableRating, blacklist } = this.props;
+    // const filteredPlaces = [];
+    // places.forEach((place) => {
+    //   const filteredResults = [];
+    // })
+  }
+
   displayPlaces = () => {
     /**
      * TODO: I want to keep this console log until we do something
      * with the data on this page, as a quick smoke test
      */
     console.log('this.props.places:', this.props.places);
-    const { places } = this.props;
+    
   }
 
   render() {
@@ -73,6 +81,10 @@ class ResultsButtons extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ places: state.placeSearch.places });
+const mapStateToProps = state => ({
+  places: state.placeSearch.places,
+  minimumAcceptableRating: state.placeSearch.minimumAcceptableRating,
+  blacklist: state.user.blacklist,
+});
 
 export default connect(mapStateToProps)(ResultsButtons);
