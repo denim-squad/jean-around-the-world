@@ -139,6 +139,12 @@ class Signup extends React.Component {
               type="password"
               fullWidth
               required={true}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  this.signupUser();
+                }
+              }}
             />
           </DialogContent>
           <DialogActions>
