@@ -23,6 +23,7 @@ export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
+export const UPDATE_PLACES = 22;
 
 export function showModal(kind) {
   return {
@@ -205,5 +206,12 @@ export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
     budgetRange,
+  };
+}
+
+export function updatePlaces(places) {
+  return {
+    type: UPDATE_PLACES,
+    places,
   };
 }
