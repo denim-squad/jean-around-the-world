@@ -135,7 +135,8 @@ class Navbar extends React.Component {
                                     UNRAVEL THE TRAVEL
                                 </div>
                                 <div className="description">
-                                    Here is a description of the project and more interesting stuff.
+                                    Never be afraid of the question "What do you want to do today?" ever again.
+                                    Jean Around the World will give you the adventures of your lifetime.
                                 </div>
                             </div>
                             <div>

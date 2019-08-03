@@ -27,12 +27,14 @@ class RefineStepContainer extends React.Component {
           Minimum Rating out of 5:
         </strong>
       </div>
+      <div className="rating-button">
       <Rating
         value={minimumAcceptableRating}
         max={MAX_RATING}
         onChange={updateRating}
       />
-      <div />
+      </div>
+      <div/>
       <div className="stepbox-title">
         <strong>
           Budget Range:
