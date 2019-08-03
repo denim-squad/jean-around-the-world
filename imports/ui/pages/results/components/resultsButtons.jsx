@@ -64,6 +64,13 @@ class ResultsButtons extends React.Component {
         <div>
           {/* spacing  */}
         </div>
+        <BootstrapButton
+          className="reroll-button"
+          variant="contained"
+          size="small"
+          color="primary">
+          REROLL
+               </BootstrapButton>
       </div>
     </div>;
   }
