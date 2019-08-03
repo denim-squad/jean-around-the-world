@@ -29,51 +29,48 @@ class ContinueButtons extends React.Component {
       <div className="nav-buttons-container">
         <LoadingSpinner ref={this.loadingSpinner} />
         {
-          !(this.props.currentStep === CUSTOMIZE_STEP)
-            ? (
-              <div
-                className="back-button"
-                onClick={this.props.previousStep}
-              />
-            )
-            : (
-              <div>
-                {/* spacing */}
-              </div>
-            )
-        }
-        {
-          !(this.props.currentStep === REFINE_STEP)
-          && (
+        !(this.props.currentStep === CUSTOMIZE_STEP)
+          ? (
             <div
-              className="next-button"
-              onClick={this.props.nextStep}
+              className="back-button"
+              onClick={this.props.previousStep}
             />
           )
-        }
-        {
-          !(this.props.currentStep === CUSTOMIZE_STEP)
-          && !(this.props.currentStep === BLACKLIST_STEP)
-          && (
-            <BootstrapButton
-              variant="contained"
-              size="small"
-              color="primary"
-              onClick={this.goToResultsPage}
-            >
-              UNRAVEL THE TRAVEL
-            </BootstrapButton>
+          : (
+            <div>
+              {/* spacing */}
+            </div>
           )
-        }
+    }
+        {
+        !(this.props.currentStep === REFINE_STEP)
+        && (
+        <div
+          className="next-button"
+          onClick={this.props.nextStep}
+        />
+        )
+    }
+        {
+       !(this.props.currentStep === CUSTOMIZE_STEP)
+       && !(this.props.currentStep === BLACKLIST_STEP)
+       && (
+       <BootstrapButton
+         variant="contained"
+         size="small"
+         color="primary"
+         onClick={this.goToResultsPage}
+       >
+           UNRAVEL THE TRAVEL
+       </BootstrapButton>
+       )
+    }
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  places: state.placeSearch.places,
-  typesAndQuantities: state.placeSearch.typesAndQuantities,
-});
+const mapStateToProps = state => ({ places: state.placeSearch.places });
 
 const mapDispatchToProps = dispatch => ({ getPlaces: () => dispatch(getPlaces()) });
 

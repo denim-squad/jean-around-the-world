@@ -8,6 +8,13 @@ import { updatePlaces } from '../../../../redux/actions';
 const history = createBrowserHistory({ forceRefresh: true });
 
 class ResultsButtons extends React.Component {
+  constructor(props) {
+    super(props);
+    this.isNotBlacklisted = this.isNotBlacklisted.bind(this);
+    this.filterPlaces = this.filterPlaces.bind(this);
+    this.displayPlaces = this.displayPlaces.bind(this);
+  }
+
   goToHomePage = async () => {
     // this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
@@ -34,10 +41,6 @@ class ResultsButtons extends React.Component {
     this.props.updatePlaces(filteredPlaces);
   }
 
-  componentDidMount() {
-    this.filterPlaces();
-  }
-
   displayPlaces = () => {
     /**
      * TODO: I want to keep this console log until we do something
@@ -53,7 +56,8 @@ class ResultsButtons extends React.Component {
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            {this.displayPlaces()}
+            { this.filterPlaces() }
+            { this.displayPlaces() }
           </div>
           <BootstrapButton
             className="save-trip-button"
