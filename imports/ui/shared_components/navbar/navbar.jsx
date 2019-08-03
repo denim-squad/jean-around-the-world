@@ -151,7 +151,7 @@ class Navbar extends React.Component {
                 <MapQuery />
             }
             {
-                (this.props.modal.modalKind === LOGIN) ? <Login/> : <Signup/>
+                (this.props.modal.modalKind === LOGIN) ? <Login/> : (this.props.modal.modalKind === SIGNUP) && <Signup/>
             }
         </div>
     }

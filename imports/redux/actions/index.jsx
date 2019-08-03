@@ -21,6 +21,7 @@ export const SET_PLACE_TYPE_AND_QUANTITY = 16;
 export const REMOVE_PLACE_TYPE = 17;
 export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
+export const CALENDAR = 20;
 
 export function showModal(kind) {
   return {

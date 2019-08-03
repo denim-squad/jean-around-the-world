@@ -3,6 +3,8 @@ import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { connect } from 'react-redux';
+import CalendarContainer from './calendar-container';
+import { showModal, CALENDAR } from '../../../.././redux/actions';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
@@ -23,6 +25,10 @@ class ResultsButtons extends React.Component {
      */
     console.log("this.props.places:", this.props.places);
     const places = this.props.places;
+  }
+
+  openModal = (kind) => () => {
+    this.props.showModal(kind);
   }
 
   render() {
@@ -47,7 +53,8 @@ class ResultsButtons extends React.Component {
           className="add-calendar-button"
           variant="contained"
           size="small"
-          color="primary">
+          color="primary"
+          onClick={this.openModal(CALENDAR)}>
           ADD TO CALENDAR
                </BootstrapButton>
         <div>
@@ -71,13 +78,19 @@ class ResultsButtons extends React.Component {
           color="primary">
           REROLL
                </BootstrapButton>
+        {
+          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer/>
+        }
       </div>
     </div>;
   }
 }
 
 const mapStateToProps = (state) => {
-  return { places: state.placeSearch.places }
+  return {
+    places: state.placeSearch.places,
+    modal: state.modal
+  }
 }
 
-export default connect(mapStateToProps)(ResultsButtons);
+export default connect(mapStateToProps, { showModal })(ResultsButtons);

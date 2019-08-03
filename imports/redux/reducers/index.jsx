@@ -20,6 +20,7 @@ import {
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
   UPDATE_BUDGET,
+  CALENDAR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
