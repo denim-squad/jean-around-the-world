@@ -13,6 +13,7 @@ import { BootstrapButton } from '../MUI/button/bootstrapButton';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { hideModal, signupUser } from '../../.././redux/actions';
+import LoadingSpinner from '../loading/loadingSpinner';
 
 const styles = (theme) => ({
   root: {
@@ -70,15 +71,18 @@ class Signup extends React.Component {
     this.lastName = React.createRef();
     this.email = React.createRef();
     this.password = React.createRef();
+    this.loadingSpinner = React.createRef();
   }
 
   signupUser = async () => {
     if (this.firstName.value && this.lastName.value
       && this.email.value && this.password.value) {
-        // add loadingSpinner: "Signing you up, welcome..."
+        this.props.hideModal();
+        this.loadingSpinner.current.style.display = 'block';
+        this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
         await setTimeout(() => {
-          this.props.signupUser(this.firstName.value, this.lastName.value, this.email.value, this.password.value);
-          this.props.hideModal();
+          this.loadingSpinner.current.style.display = 'none';
+          
         }, 1400);
 
       }
@@ -89,6 +93,8 @@ class Signup extends React.Component {
 
   render() {
     return (
+      <div>
+        <LoadingSpinner ref={this.loadingSpinner}/>
         <Dialog
           open={this.props.isModalShown}
           onClose={this.props.hideModal}
@@ -157,6 +163,7 @@ class Signup extends React.Component {
             </BootstrapButton>
           </DialogActions>
         </Dialog>
+      </div>
     );
   }
 }
