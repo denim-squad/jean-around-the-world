@@ -14,31 +14,31 @@ const history = createBrowserHistory({forceRefresh: true});
 class Navbar extends React.Component {
 
     constructor () {
-        super();
-        this.loadingSpinner = React.createRef();
+      super();
+      this.loadingSpinner = React.createRef();
     }
 
     goToHomePage = async () => {
-        this.loadingSpinner.current.style.display = 'block';
-        await setTimeout(() => {
-            this.loadingSpinner.current.style.display = 'none';
-            history.push('/');
-        }, 1400);
+      this.loadingSpinner.current.style.display = 'block';
+      await setTimeout(() => {
+          this.loadingSpinner.current.style.display = 'none';
+          history.push('/');
+      }, 1400);
     }
 
     goToAboutPage = async () => {
         this.loadingSpinner.current.style.display = 'block';
         await setTimeout(() => {
-            this.loadingSpinner.current.style.display = 'none';
-            history.push('/about');
-        }, 1400);
-      }
+          this.loadingSpinner.current.style.display = 'none';
+          history.push('/about');
+      }, 1400);
+    }
 
     goToProfilePage = async () => {
-      // this.loadingSpinner.current.style.display = 'block';
+      this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
-          // this.loadingSpinner.current.style.display = 'none';
-          history.push('/profile');
+        this.loadingSpinner.current.style.display = 'none';
+        history.push('/profile');
       }, 1400);
     }
 
