@@ -3,6 +3,8 @@ import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { connect } from 'react-redux';
+import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods'
+import { Meteor } from 'meteor/meteor';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
@@ -23,6 +25,11 @@ class ResultsButtons extends React.Component {
      */
     console.log("this.props.places:", this.props.places);
     const places = this.props.places;
+    const firstPlace = places[0].results[0];
+    const id = firstPlace.id;
+    const types = ['formatted_address', 'icon', 'photo', 'url', 'website', 'opening hours'];
+    const details = Meteor.call(GET_PLACE_DETAILS_NAME, id, types);
+    console.log("details:", details);
   }
 
   render() {
