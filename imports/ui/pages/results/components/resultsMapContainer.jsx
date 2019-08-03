@@ -51,7 +51,7 @@ export class ResultsMapContainer extends React.Component {
           })}
           <Polyline
             path={triangleCoords}
-            strokeColor="#0000FF"
+            strokeColor="#FF5D47"
             strokeOpacity={0.8}
             strokeWeight={2} />
           <InfoWindow
@@ -67,7 +67,6 @@ export class ResultsMapContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-      //TODO: return paths
       initialCenter: state.map.initialCenter,
   };
 }
