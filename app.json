@@ -1,0 +1,36 @@
+{
+  "addons": [
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/AdmitHub/meteor-buildpack-horse.git"
+    }
+  ],
+  "env": {
+    "API_KEY": {
+      "required": true
+    },
+    "METEOR_SETTINGS": {
+      "required": true
+    },
+    "MONGO_URL": {
+      "required": true
+    },
+    "PAPERTRAIL_API_TOKEN": {
+      "required": true
+    },
+    "ROOT_URL": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "jean-around-the-world",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
