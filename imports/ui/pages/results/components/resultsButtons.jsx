@@ -20,7 +20,7 @@ class ResultsButtons extends React.Component {
     await setTimeout(() => {
       this.loadingSpinner.current.style.display = 'none';
       history.push('/');
-    }, 2800);
+    }, 1400);
   }
 
   // isNotBlacklisted = (result, blacklist) => {
@@ -68,7 +68,7 @@ class ResultsButtons extends React.Component {
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            {this.displayPlaces()}
+            { this.displayPlaces() }
           </div>
           <BootstrapButton
             className="save-trip-button"

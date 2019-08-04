@@ -263,6 +263,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         ...state,
         budgetRange: action.budgetRange,
       };
+      // todo remove
     case UPDATE_PLACES:
       return {
         ...state,

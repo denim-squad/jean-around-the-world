@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
-import { filterPlaces } from '../../api/places/filterPlaces';
+import filterPlaces from '../../api/places/filterPlaces';
 
 export const SHOW_MODAL = 0;
 export const HIDE_MODAL = 1;
