@@ -10,9 +10,12 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { BootstrapButton } from '../../.././shared_components/MUI/button/bootstrapButton';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { hideModal } from '../../../.././redux/actions';
+import DateFnsUtils from "@date-io/date-fns"; // import
+import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 
 const styles = (theme) => ({
   root: {
@@ -68,9 +71,8 @@ class CalendarContainer extends React.Component {
     super(props);
   }
 
-
   addToCalendar = async () => {
-
+    //TODO: implement
   }
 
   render() {
@@ -90,22 +92,13 @@ class CalendarContainer extends React.Component {
             <DialogContentText>
               Select the preferred times for your trip event(s).
             </DialogContentText>
-            <TextField
-              margin="dense"
-              id="email"
-              label="Email Address"
-              type="email"
-              fullWidth
-              required={true}
-            />
-            <TextField
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
-              fullWidth
-              required={true}
-            />
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <DateTimePicker
+                label="Date and Time"
+                disablePast
+              />
+              {/* TODO: add date picker per event returned by API*/}
+            </MuiPickersUtilsProvider>
           </DialogContent>
           <DialogActions>
             <BootstrapButton
@@ -113,6 +106,7 @@ class CalendarContainer extends React.Component {
               size="small"
               color="primary">
               Add Event(s)
+              {/* TODO: add event to calendar callback function*/}
             </BootstrapButton>
           </DialogActions>
         </Dialog>
