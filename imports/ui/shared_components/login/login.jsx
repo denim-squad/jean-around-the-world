@@ -106,6 +106,12 @@ class Login extends React.Component {
               type="email"
               fullWidth
               required={true}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  this.loginUser();
+                }
+              }}
             />
             <TextField
               inputRef = {(input) => (this.password = input)}
@@ -114,6 +120,12 @@ class Login extends React.Component {
               type="password"
               fullWidth
               required={true}
+              onKeyPress={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  this.loginUser();
+                }
+              }}
             />
             <DialogContentText id="link-to-signup">
               <a href="#" onClick={()=>this.props.showModal(SIGNUP)}>
