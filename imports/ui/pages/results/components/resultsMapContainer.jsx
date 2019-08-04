@@ -1,11 +1,16 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import { connect } from 'react-redux';
+import { API_KEY } from '../../../../constants';
 
 const mapStyles = {
   width: '100%',
   height: '100%'
 };
+
+function randomizePlaces() {
+  
+}
 
 export class ResultsMapContainer extends React.Component {
 
@@ -15,6 +20,8 @@ export class ResultsMapContainer extends React.Component {
         showingInfoWindow: false,
         activeMarker: {},
       };
+      this.randomizedPlaces = randomizePlaces(this.props.places);
+      console.log('constructor - randomized places');
     }
 
     setActiveMarker = (props, marker, e) => {
@@ -68,9 +75,10 @@ export class ResultsMapContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
       initialCenter: state.map.initialCenter,
+      places: state.placeSearch.places,
   };
 }
 
 export default connect(mapStateToProps)(GoogleApiWrapper({
-  apiKey: ("") // paste API key here each time, DO NOT COMMIT.
+  apiKey: API_KEY
 })(ResultsMapContainer));

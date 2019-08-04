@@ -14,25 +14,33 @@ const history = createBrowserHistory({forceRefresh: true});
 class Navbar extends React.Component {
 
     constructor () {
-        super();
-        this.loadingSpinner = React.createRef();
+      super();
+      this.loadingSpinner = React.createRef();
     }
 
     goToHomePage = async () => {
-        this.loadingSpinner.current.style.display = 'block';
-        await setTimeout(() => {
-            this.loadingSpinner.current.style.display = 'none';
-            history.push('/');
-        }, 1400);
+      this.loadingSpinner.current.style.display = 'block';
+      await setTimeout(() => {
+          this.loadingSpinner.current.style.display = 'none';
+          history.push('/');
+      }, 1400);
     }
 
     goToAboutPage = async () => {
         this.loadingSpinner.current.style.display = 'block';
         await setTimeout(() => {
-            this.loadingSpinner.current.style.display = 'none';
-            history.push('/about');
-        }, 1400);
-      }
+          this.loadingSpinner.current.style.display = 'none';
+          history.push('/about');
+      }, 1400);
+    }
+
+    goToProfilePage = async () => {
+      this.loadingSpinner.current.style.display = 'block';
+      await setTimeout(() => {
+        this.loadingSpinner.current.style.display = 'none';
+        history.push('/profile');
+      }, 1400);
+    }
 
     openModal = (kind) => () => {
       this.props.showModal(kind);
@@ -49,7 +57,7 @@ class Navbar extends React.Component {
             {
                 this.props.isSignedIn ?
                 <div className="navbar-buttons-container">
-                    <div className="navbar-button">
+                    <div className="navbar-button" onClick={this.goToProfilePage}>
                         <div className="navbar-text username">
                             {this.props.fullName}
                         </div>

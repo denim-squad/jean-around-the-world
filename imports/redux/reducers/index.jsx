@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 import {
   SHOW_MODAL,
   HIDE_MODAL,
@@ -17,47 +19,48 @@ import {
   SET_PLACE_TYPE_AND_QUANTITY,
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
-  UPDATE_BUDGET
+  UPDATE_BUDGET,
+  SAVE_PREVIOUS_TRAVEL,
+  DELETE_PREVIOUS_TRAVEL
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
   MIN_RADIUS,
   DEFAULT_RATING,
-  DEFAULT_BUDGET_RANGE
+  DEFAULT_BUDGET_RANGE,
 } from '../../constants';
-import { Accounts } from 'meteor/accounts-base';
-import { Meteor } from 'meteor/meteor';
 
 const initialMapState = {
   radius: MIN_RADIUS,
   initialCenter: {
     lat: 49.263749,
-    lng: -123.247480
-  }
+    lng: -123.247480,
+  },
 };
 
 const initialModalState = {
   isModalShown: false,
-  modalKind: LOGIN
-}
+  modalKind: LOGIN,
+};
 
 const initialUserState = {
   isSignedIn: false,
   blacklist: [],
   favourites: [],
-  fullName: "",
-  email: "",
-  userId: ""
+  previousTravels: [],
+  fullName: '',
+  email: '',
+  userId: '',
 }
 
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
-  typesAndQuantities: new Map(),
+  typesAndQuantities: [],
   minimumAcceptableRating: DEFAULT_RATING,
   budgetRange: DEFAULT_BUDGET_RANGE,
   places: [],
-  error: undefined
-}
+  error: undefined,
+};
 
 function modalReducer(state = initialModalState, action) {
   switch (action.type) {
@@ -65,7 +68,7 @@ function modalReducer(state = initialModalState, action) {
       return {
         ...state,
         isModalShown: true,
-        modalKind: action.kind
+        modalKind: action.kind,
       };
     case HIDE_MODAL:
       return { ...state, isModalShown: false };
@@ -75,9 +78,9 @@ function modalReducer(state = initialModalState, action) {
 }
 function userReducer(state = initialUserState, action) {
   switch (action.type) {
-    case LOGIN_USER:
-      let userQuery = Meteor.users.find({ 'emails.address': action.email }).fetch();
-      let userInfo = userQuery[0];
+    case LOGIN_USER: {
+      const userQuery = Meteor.users.find({ 'emails.address': action.email }).fetch();
+      const userInfo = userQuery[0];
       if (userInfo) {
         return {
           ...state,
@@ -86,25 +89,30 @@ function userReducer(state = initialUserState, action) {
           isSignedIn: true,
           fullName: `${userInfo.profile.firstName} ${userInfo.profile.lastName}`,
           blacklist: userInfo.profile.preferences.blacklist,
-          favourites: userInfo.profile.preferences.favourites
+          favourites: userInfo.profile.preferences.favourites,
+          previousTravels: userInfo.profile.previousTravels
         };
       }
+      return state;
+    }
     case LOGOUT_USER:
-      return { ...state, isSignedIn: false, fullName: "", userId: "", email: "", blacklist: [], favourites: [] };
-    case SIGNUP_USER:
-      let query = Meteor.users.find({ 'emails.address': action.email }).fetch();
-      let userExists = query[0];
+      return {
+        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
+      };
+    case SIGNUP_USER: {
+      const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
+      const userExists = query[0];
       if (userExists) {
-        alert("An account with this email already exists. Proceed to login to continue.");
+        alert('An account with this email already exists. Proceed to login to continue.');
         break;
-      }
-      else {
+      } else {
         const userId = Accounts.createUser({
           email: action.email,
           password: action.password,
           profile: {
             firstName: action.firstName,
             lastName: action.lastName,
+            previousTravels: [],
             preferences: { blacklist: [], favourites: [] }
           }
         })
@@ -114,39 +122,66 @@ function userReducer(state = initialUserState, action) {
           isSignedIn: true,
           fullName: `${action.firstName} ${action.lastName}`,
           blacklist: [],
-          favourites: []
+          favourites: [],
+          previousTravels: []
         }
       }
+    }
     case ADD_BLACKLIST:
-      let matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { "profile.preferences.blacklist": action.blacklist } })
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
-        //TODO: create better error handling
-        console.log("Error Updating Blacklist for User")
+        // TODO: create better error handling
+        console.log('Error Updating Blacklist for User');
       }
-      let updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
-      let info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, blacklist: info.profile.preferences.blacklist };
     case REMOVE_BLACKLIST:
-      //TODO: change this to use MongoToDelete
-      let updatedBlacklist = Array.filter((value, index, array) => {
-        return action.blacklistToRemove !== value;
-      })
-      return { ...state, blacklist: updatedBlacklist };
+      let removedBlacklistUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.blacklist": action.blacklistToRemove}})
+      if (removedBlacklistUsers === 0){
+        //TODO: create better error handling
+        console.error("Error Removing From Blacklist");
+      }
+      let updatedUsers = Meteor.users.find({_id: state.userId}).fetch();
+      let updatedRemoveInfo = updatedUsers[0];
+      return { ...state, blacklist: updatedRemoveInfo.profile.preferences.blacklist };
     case ADD_FAVOURITES:
       matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { "profile.preferences.favourites": action.favourite } })
       if (matchedUsers === 0) {
         //TODO: create better error handling
-        console.log("Error Updating Favourites for User")
+        console.error("Error Updating Favourites for User");
       }
       updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
       info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     case REMOVE_FAVOURITES:
-      //TODO: change this to use MongoToDelete
-      let updatedFavourites = Array.filter((value, index, array) => {
-        return action.favouriteToRemove !== value;
-      })
-      return { ...state, favourites: updatedFavourites };
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.favourites": action.favouriteToRemove}})
+      if (matchedUser === 0){
+        //TODO: create better error handling
+        console.error("Error Removing From Favourites");
+      }
+      updatedInfo = Meteor.users.find({_id: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, favourites: info.profile.preferences.favourites };
+    case SAVE_PREVIOUS_TRAVEL:
+      //may not be able to save to meteor a javascript object -- TEST THIS
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$push:{"profile.previousTravels": action.prevTravel}})
+      if (matchedUsers == 0){
+        //TODO: create better error handling
+        console.error("Error Saving Travel");
+      }
+      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
+    case DELETE_PREVIOUS_TRAVEL:
+      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.previousTravels": action.toDeleteTravel}})
+      if (matchedUsers == 0){
+        //TODO: create better error handling
+        console.error("Error Deleting Travel");
+      }
+      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
+      info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
     default:
       return state;
   }
@@ -171,34 +206,46 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
-        places: action.places
+        places: action.places,
       };
     case RECEIVE_PLACES_FAILURE:
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
-        error: action.error
+        error: action.error,
       };
-    case SET_PLACE_TYPE_AND_QUANTITY:
+    case SET_PLACE_TYPE_AND_QUANTITY: {
+      const changedTypesAndQuantities = state.typesAndQuantities.filter(
+        typeAndQuantity => typeAndQuantity.type !== action.placeType,
+      );
+      changedTypesAndQuantities.push({
+        type: action.placeType,
+        quantity: action.quantity,
+      });
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.set(action.placeType, action.quantity)
+        typesAndQuantities: changedTypesAndQuantities,
       };
-    case REMOVE_PLACE_TYPE:
+    }
+    case REMOVE_PLACE_TYPE: {
+      const filteredTypesAndQuantities = state.typesAndQuantities.filter(
+        typeAndQuantity => typeAndQuantity.type !== action.placeType,
+      );
       return {
         ...state,
-        typesAndQuantities: state.typesAndQuantities.delete(action.placeType)
+        typesAndQuantities: filteredTypesAndQuantities,
       };
+    }
     case UPDATE_RATING:
       return {
         ...state,
-        minimumAcceptableRating: action.rating
-      }
+        minimumAcceptableRating: action.rating,
+      };
     case UPDATE_BUDGET:
       return {
         ...state,
-        budgetRange: action.budgetRange
-      }
+        budgetRange: action.budgetRange,
+      };
     default:
       return state;
   }
@@ -208,5 +255,5 @@ export default combineReducers({
   modal: modalReducer,
   user: userReducer,
   map: mapReducer,
-  placeSearch: placeSearchReducer
+  placeSearch: placeSearchReducer,
 });

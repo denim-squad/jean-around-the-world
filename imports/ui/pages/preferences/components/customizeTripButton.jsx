@@ -57,7 +57,6 @@ class CustomizeTripButton extends React.Component {
           label={this.props.label}
         />
         <TextField
-          // todo try to make less ugly
           disabled={!this.state.isChecked}
           error={!this.state.isValid}
           onChange={this.handleQuantityChange}
