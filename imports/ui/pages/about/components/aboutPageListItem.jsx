@@ -42,7 +42,7 @@ const emailIcon = (
 class AboutPageListItem extends React.Component {
   render() {
     const {
-      name, linkedIn, github, picturePath, description, email,
+      name, linkedIn, github, email, picturePath, description,
     } = this.props.info;
 
     return (
@@ -59,10 +59,10 @@ class AboutPageListItem extends React.Component {
                 variant="body2"
                 color="textPrimary"
               >
-                { description }
+                {description}
               </Typography>
             </React.Fragment>
-)}
+          )}
         />
         <ListItemSecondaryAction>
           <IconButton // linkedIn button

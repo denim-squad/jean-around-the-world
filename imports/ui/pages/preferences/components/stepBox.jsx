@@ -25,7 +25,6 @@ class StepBox extends React.Component {
     this.blacklistInput.value = '';
   }
 
-
   renderCurrentStep = () => {
     switch (this.props.currentStep) {
       case CUSTOMIZE_STEP:
