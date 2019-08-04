@@ -32,11 +32,15 @@ const githubIcon = (
   </SvgIcon>
 );
 
+const emailIcon = (
+  <SvgIcon>
+    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+  </SvgIcon>
+);
+
 class AboutPageListItem extends React.Component {
   render() {
-    const {
-      name, linkedIn, github, picturePath, description,
-    } = this.props.info;
+    const { name, linkedIn, github, email, picturePath, description } = this.props.info;
 
     return (
       <ListItem className="about-page-list-item">
@@ -71,6 +75,13 @@ class AboutPageListItem extends React.Component {
             }}
           >
             {githubIcon}
+          </IconButton>
+          <IconButton // email button
+            onClick={() => {
+              window.location.assign(email);
+            }}
+          >
+            {emailIcon}
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
