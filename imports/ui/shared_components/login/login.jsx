@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -110,6 +109,12 @@ class Login extends React.Component {
             type="email"
             fullWidth
             required
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                this.loginUser();
+              }
+            }}
           />
           <TextField
             inputRef={input => (this.password = input)}
@@ -118,6 +123,12 @@ class Login extends React.Component {
             type="password"
             fullWidth
             required
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                this.loginUser();
+              }
+            }}
           />
           <DialogContentText id="link-to-signup">
             <a href="#" onClick={() => this.props.showModal(SIGNUP)}>

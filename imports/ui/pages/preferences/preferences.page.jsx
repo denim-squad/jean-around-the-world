@@ -6,8 +6,10 @@ import StepIcon from './components/stepIcon';
 import StepBox from './components/stepBox';
 import ContinueButtons from './components/shared/continueButtons';
 
-export const CUSTOMIZE_STEP = 1; const BLACKLIST_STEP = 2; const REFINE_STEP = 3; const
-  COMPLETE_STEP = 4;
+export const CUSTOMIZE_STEP = 1;
+export const BLACKLIST_STEP = 2;
+export const REFINE_STEP = 3;
+export const COMPLETE_STEP = 4;
 
 const images = [
   '/grand_canyon.svg',
