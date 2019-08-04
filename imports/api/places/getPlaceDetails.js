@@ -8,6 +8,7 @@ import { GET_PLACE_DETAILS_NAME } from './methods';
 const getPlaceDetailsSchema = new SimpleSchema({
   id: String,
   fields: { type: Array, optional: true },
+  'fields.$': String,
 });
 
 export default new ValidatedMethod({
