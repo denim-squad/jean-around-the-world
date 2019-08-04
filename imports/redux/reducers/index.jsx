@@ -267,7 +267,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       return {
         ...state,
         places: action.places
-      }
+      };
     default:
       return state;
   }

@@ -12,8 +12,6 @@ const history = createBrowserHistory({ forceRefresh: true });
 class ResultsButtons extends React.Component {
   constructor(props) {
     super(props);
-    this.isNotBlacklisted = this.isNotBlacklisted.bind(this);
-    this.filterPlaces = this.filterPlaces.bind(this);
     this.displayPlaces = this.displayPlaces.bind(this);
   }
 
@@ -25,23 +23,25 @@ class ResultsButtons extends React.Component {
     }, 2800);
   }
 
-  isNotBlacklisted = (result, blacklist) => {
-    // TODO more sophisticated filtering if time
-    const { name } = result;
-    return !blacklist.contains(name);
-  }
+  // isNotBlacklisted = (result, blacklist) => {
+  //   // TODO more sophisticated filtering if time
+  //   const { name } = result;
+  //   return !blacklist.includes(name);
+  // }
 
-  filterPlaces = () => {
-    const { places, minimumAcceptableRating, blacklist } = this.props;
-    const filteredPlaces = [];
-    places.forEach((place) => {
-      const filteredResults = places.results.filter(result => (
-        minimumAcceptableRating <= result.rating && this.isNotBlacklisted(result, blacklist)
-      ));
-      filteredPlaces.push({ type: place.type, results: filteredResults });
-    });
-    this.props.updatePlaces(filteredPlaces);
-  }
+  // filterPlaces = () => {
+  //   const { places, minimumAcceptableRating, blacklist } = this.props;
+  //   console.log('this.props:', this.props);
+  //   console.log('places:', places);
+  //   const filteredPlaces = [];
+  //   places.forEach((place) => {
+  //     const filteredResults = place.results.filter(result => (
+  //       minimumAcceptableRating <= result.rating && this.isNotBlacklisted(result, blacklist)
+  //     ));
+  //     filteredPlaces.push({ type: place.type, results: filteredResults });
+  //   });
+  //   this.props.updatePlaces(filteredPlaces);
+  // }
 
   displayPlaces = () => {
     /**
@@ -68,7 +68,6 @@ class ResultsButtons extends React.Component {
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            {this.filterPlaces()}
             {this.displayPlaces()}
           </div>
           <BootstrapButton

@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
+import { filterPlaces } from '../../api/places/filterPlaces';
 
 export const SHOW_MODAL = 0;
 export const HIDE_MODAL = 1;
@@ -151,8 +152,9 @@ export function getPlaces() {
   return (dispatch, getState) => {
     dispatch(requestPlacesStart());
     const state = getState();
-    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { budgetRange, typesAndQuantities, minimumAcceptableRating } = state.placeSearch;
     const { radius, initialCenter } = state.map;
+    const { blacklist } = state.user;
     const typesAndResults = [];
 
     let callCounter = typesAndQuantities.length;
@@ -167,9 +169,10 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
+          const results = filterPlaces(result.data.results, minimumAcceptableRating, blacklist);
           typesAndResults.push({
             type,
-            results: result.data.results,
+            results,
           });
           callCounter -= 1;
           if (callCounter < 1) {
