@@ -28,7 +28,9 @@ class ResultsButtons extends React.Component {
     const firstPlace = places[0].results[0];
     const id = firstPlace.id;
     const types = ['formatted_address', 'icon', 'photo', 'url', 'website', 'opening hours'];
-    Meteor.call(GET_PLACE_DETAILS_NAME, id, types, (error, details) => {
+    const params = [id, types];
+    console.log("params:", params);
+    Meteor.apply(GET_PLACE_DETAILS_NAME, params, { throwStubExceptions: false }, (error, details) => {
       if (error) console.log(error);
       console.log("details:", details);
     });
