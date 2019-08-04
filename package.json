@@ -6,7 +6,8 @@
   "scripts": {
     "nuke": "rm -Rf node_modules && npm install",
     "test": "meteor test --driver-package meteortesting:mocha --port 3100",
-    "start": "MONGO_URL=“mongodb://m001-user:m001-mongodb-basics@sandbox-shard-00-00-ist5c.mongodb.net:27017,sandbox-shard-00-01-ist5c.mongodb.net:27017,sandbox-shard-00-02-ist5c.mongodb.net:27017/jean-around-the-world?ssl=true&replicaSet=Sandbox-shard-0&authSource=admin&retryWrites=true&w=1” meteor"
+    "start": "MONGO_URL=“mongodb://m001-user:m001-mongodb-basics@sandbox-shard-00-00-ist5c.mongodb.net:27017,sandbox-shard-00-01-ist5c.mongodb.net:27017,sandbox-shard-00-02-ist5c.mongodb.net:27017/jean-around-the-world?ssl=true&replicaSet=Sandbox-shard-0&authSource=admin&retryWrites=true&w=1” meteor",
+    "meteor": "meteor --settings settings.json"
   },
   "repository": {
     "type": "git",
