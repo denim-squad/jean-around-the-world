@@ -20,6 +20,9 @@ export default new ValidatedMethod({
       const API_KEY = Meteor.settings.API_KEY || 'could not find private key';
       try {
         const result = HTTP.call('GET', url, { API_KEY, id, fields });
+        if (result.statusCode >= 400 || result.content.errorMessage) {
+          throw new Meteor.Error('error in API call: ', result);
+        }
         return result;
       } catch (error) {
         throw new Meteor.Error(error);
