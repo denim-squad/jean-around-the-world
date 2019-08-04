@@ -1,6 +1,7 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import {
-  Map, GoogleApiWrapper, Marker, Circle,
+  Map, GoogleApiWrapper,
 } from 'google-maps-react';
 import { connect } from 'react-redux';
 import { API_KEY } from '../../../../constants';
@@ -11,10 +12,6 @@ const mapStyles = {
 };
 
 export class ResultsMapContainer extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <Map
