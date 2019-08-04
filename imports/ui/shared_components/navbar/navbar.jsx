@@ -36,9 +36,9 @@ class Navbar extends React.Component {
     }
 
     goToProfilePage = async () => {
-      // this.loadingSpinner.current.style.display = 'block';
+      this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
-        // this.loadingSpinner.current.style.display = 'none';
+        this.loadingSpinner.current.style.display = 'none';
         history.push('/profile');
       }, 1400);
     }

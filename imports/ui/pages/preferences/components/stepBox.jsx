@@ -15,14 +15,21 @@ class StepBox extends React.Component {
     super();
     this.blacklistInput = React.createRef();
   }
+  
+  getBlacklist = () => {
+    return Array.from(this.props.blacklist).map((value, index) => {
+      return (
+        <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
+      );
+    }
+    )
+  }
 
-  getBlacklist = () =>
-  // todo put in state
-    Array.from(this.props.blacklist).map((value, index) => (
-      <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST} />
-    ))
-
-
+  handleAddBlacklist = () => {
+    this.props.addBlacklist(this.blacklistInput.value);
+    this.blacklistInput.value = "";
+  }
+  
   renderCurrentStep = () => {
     switch (this.props.currentStep) {
       case CUSTOMIZE_STEP:
@@ -65,24 +72,22 @@ class StepBox extends React.Component {
         return (
           <div className="blacklist-container">
             <div className="stepbox-title">
-              <strong>
+             <strong>
               Enter a location to blacklist
-              </strong>
-            </div>
-            <div className="blacklist-add-container">
-              <CssTextField
-                placeholder="John Sastrillo's House"
-                margin="none"
-                inputRef={(input) => { this.blacklistInput = input; }}
-              />
-              <BootstrapButton
-                className="add-button"
-                onClick={() => { this.props.addBlacklist(this.blacklistInput.value); }}
-                disabled={this.props.isLocationEmpty}
-                variant="contained"
-                size="small"
-                color="primary"
-              >
+            </strong>
+          </div>
+          <div className="blacklist-add-container">
+            <CssTextField
+              placeholder="John Sastrillo's House"
+              margin="none"
+              inputRef={(input) => { this.blacklistInput = input }} />
+            <BootstrapButton
+              className="add-button"
+              onClick={() => { this.handleAddBlacklist() }}
+              disabled={this.props.isLocationEmpty}
+              variant="contained"
+              size="small"
+              color="primary">
               ADD
               </BootstrapButton>
             </div>
