@@ -14,21 +14,20 @@ const getPlaceDetailsSchema = new SimpleSchema({
 export default new ValidatedMethod({
   name: GET_PLACE_DETAILS_NAME,
   validate: getPlaceDetailsSchema.validator(),
-  run(id, fields) {
+  run({ id, fields }) {
     if (!this.isSimulation) {
-      const url = 'https://maps.googleapis.com/maps/api/place/details/output';
       const API_KEY = Meteor.settings.API_KEY || 'could not find private key';
+      const url = 'https://maps.googleapis.com/maps/api/place/details/json?'
+      + `placeid=${id}&fields=${fields}&key=${API_KEY}`;
       try {
-        const result = HTTP.call('GET', url, { API_KEY, id, fields });
-        if (result.statusCode >= 400 || result.content.errorMessage) {
-          throw new Meteor.Error('error in API call: ', result);
+        const details = HTTP.get(url);
+        if (details.statusCode >= 400 || details.content.errorMessage) {
+          throw new Meteor.Error(details);
         }
-        return result;
+        return details.data.result;
       } catch (error) {
-        throw new Meteor.Error(error);
+        throw new Meteor.Error('error in getPlaceDetails API call:', error);
       }
-    } else {
-      console.log('id:', id, 'fields:', fields);
     }
   },
 });
