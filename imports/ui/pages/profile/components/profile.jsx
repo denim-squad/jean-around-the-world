@@ -9,19 +9,20 @@ class Profile extends React.Component {
     render() {
         return (
         <div className="profile">
+          <img src="/generic-profile.png" className="profile-pic"/>
           <div className="profile-info">
             <div className="profile-text">
-              Email: {this.props.email}
+              Welcome {this.props.fullName}!
             </div>
           </div>
           <div className="blacklist-text">
-            Blacklist:
+            BLACKLIST:
           </div>
           <div className="profile-blacklist-container">
             <BlacklistContainer />
           </div>
           <div className="favourites-text">
-            Favourites:
+            FAVOURITES:
           </div>
           <div className="profile-favourites-container">
             <FavouritesContainer />
@@ -33,7 +34,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    email: state.user.email
+    fullName: state.user.fullName
   };
 }
 

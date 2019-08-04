@@ -1,6 +1,7 @@
 import React from 'react';
 import '../profile.page.css';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
+import { REMOVE_FAVOURITES } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
 
 class FavouritesContainer extends React.Component {
@@ -8,7 +9,7 @@ class FavouritesContainer extends React.Component {
     getFavourites = () => {
       return Array.from(this.props.favourites).map((value, index) => {
           return (
-            <PreferenceButton key={index} name={value}/>
+            <PreferenceButton key={index} name={value} type={REMOVE_FAVOURITES}/>
           );
         }
       )
