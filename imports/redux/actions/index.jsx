@@ -21,7 +21,9 @@ export const SET_PLACE_TYPE_AND_QUANTITY = 16;
 export const REMOVE_PLACE_TYPE = 17;
 export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
-export const CALENDAR = 20;
+export const SAVE_PREVIOUS_TRAVEL = 20;
+export const DELETE_PREVIOUS_TRAVEL = 21;
+export const CALENDAR = 22;
 
 export function showModal(kind) {
   return {
@@ -90,7 +92,7 @@ export function addFavourites(favourite) {
 export function removeBlacklist(blacklistToRemove) {
   return {
     type: REMOVE_BLACKLIST,
-    blacklist,
+    blacklistToRemove
   };
 }
 
@@ -99,6 +101,20 @@ export function removeFavourites(favouriteToRemove) {
     type: REMOVE_FAVOURITES,
     favouriteToRemove,
   };
+}
+
+export function savePrevTravel(prevTravel){
+  return {
+    type: SAVE_PREVIOUS_TRAVEL,
+    prevTravel
+  }
+}
+
+export function deletePrevTravel(toDeleteTravel){
+  return {
+    type: DELETE_PREVIOUS_TRAVEL,
+    toDeleteTravel
+  }
 }
 
 function requestPlacesStart() {

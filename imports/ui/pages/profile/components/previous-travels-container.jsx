@@ -1,18 +1,20 @@
 import React from 'react';
 import '../profile.page.css';
 import PreferenceButton from '../../../shared_components/preferences/preference-button'
+import { DELETE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
 import { connect } from 'react-redux';
 
 class PreviousTravelContainer extends React.Component {
 
-    getBlacklist = () => {
-        return Array.from(this.props.previousTravels).map((value, index) => {
-            return (
-              <PreferenceButton key={index} name={value}/>
-            );
+    getPreviousTravels = () => {
+      console.log(this.props.blacklist);
+      return Array.from(this.props.previousTravels).map((value, index) => {
+          return (
+            <PreferenceButton key={index} name={value} type={DELETE_PREVIOUS_TRAVEL}/>
+          );
         }
-    )
-}
+      )
+    }
 
     render() {
         return (
@@ -20,12 +22,13 @@ class PreviousTravelContainer extends React.Component {
             <br/>
           </div>
         );
+      }
     }
-}
 
 const mapStateToProps = (state) => {
   return {
-    previousTravels: state.user.previousTravels
+    previousTravels: state.user.previousTravels,
+    blacklist: state.user.blacklist
   };
 }
 
