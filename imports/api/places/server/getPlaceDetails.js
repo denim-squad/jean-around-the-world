@@ -13,9 +13,7 @@ const getPlaceDetailsSchema = new SimpleSchema({
 export default new ValidatedMethod({
   name: GET_PLACE_DETAILS_NAME,
   validate: getPlaceDetailsSchema.validator(),
-  run({
-    id, fields,
-  }) {
+  run(id, fields) {
     if (!this.isSimulation) {
       const url = 'https://maps.googleapis.com/maps/api/place/details/output';
       try {
