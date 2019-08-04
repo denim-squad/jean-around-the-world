@@ -16,6 +16,8 @@ import { connect } from 'react-redux';
 import { hideModal } from '../../../.././redux/actions';
 import DateFnsUtils from "@date-io/date-fns"; // import
 import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
+import AddToCalendar from 'react-add-to-calendar';
+import 'react-add-to-calendar/dist/react-add-to-calendar.css'
 
 const styles = (theme) => ({
   root: {
@@ -61,18 +63,30 @@ const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(4),
+    paddingBottom: theme.spacing(10),
     justifyContent: 'center'
   },
 }))(MuiDialogActions);
 
+const items = [
+   { google: 'Google' }
+];
+
+const useStyles = makeStyles({
+  grid: {
+    width: '60%',
+  },
+});
+
+const classes = () => {
+  useStyles();
+};
+
+const icon = { 'calendar-plus-o': 'left' };
 
 class CalendarContainer extends React.Component {
   constructor(props){
     super(props);
-  }
-
-  addToCalendar = async () => {
-    //TODO: implement
   }
 
   render() {
@@ -90,24 +104,36 @@ class CalendarContainer extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Select the preferred times for your trip event(s).
+              Select the preferred dates and times for your trip event(s).
             </DialogContentText>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DateTimePicker
-                label="Date and Time"
-                disablePast
-              />
+              <Grid container className={classes.grid} justify="space-around">
+                <DateTimePicker
+                  label="Start"
+                  disablePast
+                />
+                <DateTimePicker
+                  label="End"
+                  disablePast
+                />
+              </Grid>
               {/* TODO: add date picker per event returned by API*/}
             </MuiPickersUtilsProvider>
           </DialogContent>
           <DialogActions>
-            <BootstrapButton
-              variant="contained"
-              size="small"
-              color="primary">
-              Add Event(s)
-              {/* TODO: add event to calendar callback function*/}
-            </BootstrapButton>
+            <AddToCalendar
+               event={ /* TODO: match up to list of events returned */
+                 {title: 'Sample Event',
+                 description: 'This is the sample event provided as an example only',
+                 location: 'Portland, OR',
+                 startTime: '2016-09-16T20:15:00-04:00',
+                 endTime: '2016-09-16T21:45:00-04:00'
+                }
+               }
+               buttonTemplate={icon}
+               listItems={items}
+            />
+            <div/>
           </DialogActions>
         </Dialog>
     );
