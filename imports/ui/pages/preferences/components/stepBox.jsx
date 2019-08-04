@@ -18,7 +18,6 @@ class StepBox extends React.Component {
   }
 
   getBlacklist = () => {
-      //todo put in state
     return Array.from(this.props.blacklist).map((value, index) => {
       return (
         <PreferenceButton key={index} name={value} type={REMOVE_BLACKLIST}/>
@@ -26,6 +25,13 @@ class StepBox extends React.Component {
     }
     )
   }
+
+  handleAddBlacklist = () => {
+    this.props.addBlacklist(this.blacklistInput.value);
+    this.blacklistInput.value = "";
+  }
+
+
 
   renderCurrentStep = () => {
     switch (this.props.currentStep) {
@@ -77,7 +83,7 @@ class StepBox extends React.Component {
               inputRef={(input) => { this.blacklistInput = input }} />
             <BootstrapButton
               className="add-button"
-              onClick={() => { this.props.addBlacklist(this.blacklistInput.value) }}
+              onClick={() => { this.handleAddBlacklist() }}
               disabled={this.props.isLocationEmpty}
               variant="contained"
               size="small"
