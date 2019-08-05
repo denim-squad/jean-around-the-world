@@ -23,24 +23,24 @@ class Navbar extends React.Component {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/');
-      }, 1400);
+      }, 3000);
+      history.push('/');
     }
 
     goToAboutPage = async () => {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/about');
-      }, 1400);
+      }, 3000);
+      history.push('/about');
     }
 
     goToProfilePage = async () => {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/profile');
-      }, 1400);
+      }, 3000);
+      history.push('/profile');
     }
 
     openModal = kind => () => {

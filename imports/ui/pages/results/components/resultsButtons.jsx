@@ -11,8 +11,8 @@ class ResultsButtons extends React.Component {
     // this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
       // this.loadingSpinner.current.style.display = 'none';
-      history.push('/');
     }, 2800);
+    history.push('/');
   }
 
   displayPlaces = () => {
