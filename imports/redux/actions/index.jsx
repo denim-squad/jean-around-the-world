@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
-import filterPlaces from '../../api/places/filterPlaces';
+import filterResults from '../../api/places/filterResults';
 
 export const SHOW_MODAL = 0;
 export const HIDE_MODAL = 1;
@@ -169,7 +169,9 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
-          const results = filterPlaces(result.data.results, minimumAcceptableRating, blacklist);
+          console.log('results before filtering:', result.data.results);
+          const results = filterResults(result.data.results, minimumAcceptableRating, blacklist);
+          console.log('results after filtering:', results);
           typesAndResults.push({
             type,
             results,

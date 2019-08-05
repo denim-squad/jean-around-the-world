@@ -15,13 +15,14 @@ class ContinueButtons extends React.Component {
     this.loadingSpinner = React.createRef();
   }
 
+  // TODO change after debugging
   goToResultsPage = async () => {
     this.props.getPlaces();
     this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
       this.loadingSpinner.current.style.display = 'none';
       history.push('/results');
-    }, 5000);
+    }, 25000);
   }
 
   render() {

@@ -23,26 +23,6 @@ class ResultsButtons extends React.Component {
     }, 1400);
   }
 
-  // isNotBlacklisted = (result, blacklist) => {
-  //   // TODO more sophisticated filtering if time
-  //   const { name } = result;
-  //   return !blacklist.includes(name);
-  // }
-
-  // filterPlaces = () => {
-  //   const { places, minimumAcceptableRating, blacklist } = this.props;
-  //   console.log('this.props:', this.props);
-  //   console.log('places:', places);
-  //   const filteredPlaces = [];
-  //   places.forEach((place) => {
-  //     const filteredResults = place.results.filter(result => (
-  //       minimumAcceptableRating <= result.rating && this.isNotBlacklisted(result, blacklist)
-  //     ));
-  //     filteredPlaces.push({ type: place.type, results: filteredResults });
-  //   });
-  //   this.props.updatePlaces(filteredPlaces);
-  // }
-
   displayPlaces = () => {
     /**
      * TODO: I want to keep this console log until we do something
