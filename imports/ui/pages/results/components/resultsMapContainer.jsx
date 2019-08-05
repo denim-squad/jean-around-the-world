@@ -15,8 +15,8 @@ function randomizePlaces() {
 
 export class ResultsMapContainer extends React.Component {
 
-    constructor() {
-      super();
+    constructor(props) {
+      super(props);
       this.state = {
         showingInfoWindow: false,
         activeMarker: {},
