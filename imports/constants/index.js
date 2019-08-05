@@ -1,5 +1,6 @@
-import { Meteor } from 'meteor/meteor'
-export const API_KEY = Meteor.settings.public.API_KEY || "AIza";
+import { Meteor } from 'meteor/meteor';
+
+export const API_KEY = Meteor.settings.public.API_KEY || 'AIza';
 
 export const MIN_RADIUS = 1000;
 export const MAX_RADIUS = 50000;
@@ -21,5 +22,5 @@ export const placeLabelToTypeMap = new Map([
   ['Parks', 'park'],
   ['Fast Food', 'meal_takeaway'],
   ['Nightclubs', 'night_club'],
-  ['Bakeries', 'bakery']
+  ['Bakeries', 'bakery'],
 ]);

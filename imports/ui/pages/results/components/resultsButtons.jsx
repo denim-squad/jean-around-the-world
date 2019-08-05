@@ -1,15 +1,14 @@
 import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
-import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { connect } from 'react-redux';
+import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import CalendarContainer from './calendar-container';
 import { showModal, CALENDAR } from '../../../.././redux/actions';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
 class ResultsButtons extends React.Component {
-
   goToHomePage = async () => {
     // this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
@@ -23,8 +22,8 @@ class ResultsButtons extends React.Component {
      * TODO: I want to keep this console log until we do something
      * with the data on this page, as a quick smoke test
      */
-    console.log("this.props.places:", this.props.places);
-    const places = this.props.places;
+    console.log('this.props.places:', this.props.places);
+    const { places } = this.props;
   }
 
   openModal = (kind) => () => {
@@ -32,57 +31,61 @@ class ResultsButtons extends React.Component {
   }
 
   render() {
-    return <div className="results-container">
+    return (
+      <div className="results-container">
       WE FOUND JUST THE TRIP FOR YOU!
-      <div className="results-buttons-container">
-        <div>
-          {/* todo major styling, decisions about how to format, what to display, etc */}
-          { this.displayPlaces() }
-        </div>
-        <BootstrapButton
-          className="save-trip-button"
-          variant="contained"
-          size="small"
-          color="primary">
+        <div className="results-buttons-container">
+          <div>
+            {/* todo major styling, decisions about how to format, what to display, etc */}
+            { this.displayPlaces() }
+          </div>
+          <BootstrapButton
+            className="save-trip-button"
+            variant="contained"
+            size="small"
+            color="primary"
+          >
           SAVE TRIP
-               </BootstrapButton>
-        <div>
-          {/* spacing  */}
-        </div>
-        <BootstrapButton
-          className="add-calendar-button"
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={this.openModal(CALENDAR)}>
+            </BootstrapButton>
+          <div>
+            {/* spacing  */}
+          </div>
+          <BootstrapButton
+            className="add-calendar-button"
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={this.openModal(CALENDAR)}>
           ADD TO CALENDAR
-               </BootstrapButton>
-        <div>
-          {/* spacing  */}
-        </div>
-        <BootstrapButton
-          className="new-trip-button"
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={this.goToHomePage}>
+            </BootstrapButton>
+          <div>
+            {/* spacing  */}
+          </div>
+          <BootstrapButton
+            className="new-trip-button"
+            variant="contained"
+            size="small"
+            color="primary"
+            onClick={this.goToHomePage}
+          >
           NEW TRIP
-               </BootstrapButton>
-        <div>
-          {/* spacing  */}
+            </BootstrapButton>
+          <div>
+            {/* spacing  */}
+          </div>
+          <BootstrapButton
+            className="reroll-button"
+            variant="contained"
+            size="small"
+            color="primary">
+            REROLL
+            </BootstrapButton>
         </div>
-        <BootstrapButton
-          className="reroll-button"
-          variant="contained"
-          size="small"
-          color="primary">
-          REROLL
-               </BootstrapButton>
         {
           (this.props.modal.modalKind === CALENDAR) && <CalendarContainer/>
         }
       </div>
-    </div>;
+    );
   }
 }
 

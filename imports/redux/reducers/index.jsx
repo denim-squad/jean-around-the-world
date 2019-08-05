@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { combineReducers } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
@@ -20,9 +21,10 @@ import {
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
   UPDATE_BUDGET,
-  CALENDAR,
   SAVE_PREVIOUS_TRAVEL,
-  DELETE_PREVIOUS_TRAVEL
+  DELETE_PREVIOUS_TRAVEL,
+  SIGNUP_USER_ERROR,
+  CALENDAR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -52,7 +54,7 @@ const initialUserState = {
   fullName: '',
   email: '',
   userId: '',
-}
+};
 
 const initialPlaceSearchState = {
   isFetchingPlaces: false,
@@ -101,33 +103,22 @@ function userReducer(state = initialUserState, action) {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
     case SIGNUP_USER: {
-      const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
-      const userExists = query[0];
-      if (userExists) {
-        alert('An account with this email already exists. Proceed to login to continue.');
-        break;
-      } else {
-        const userId = Accounts.createUser({
-          email: action.email,
-          password: action.password,
-          profile: {
-            firstName: action.firstName,
-            lastName: action.lastName,
-            previousTravels: [],
-            preferences: { blacklist: [], favourites: [] }
-          }
-        })
-        return {
-          ...state,
-          email: action.email,
-          isSignedIn: true,
-          fullName: `${action.firstName} ${action.lastName}`,
-          blacklist: [],
-          favourites: [],
-          previousTravels: []
-        }
-      }
+      return {
+        ...state,
+        userId: action.userId,
+        email: action.email,
+        isSignedIn: true,
+        fullName: `${action.firstName} ${action.lastName}`,
+        blacklist: [],
+        favourites: [],
+        previousTravels: [],
+      };
     }
+    case SIGNUP_USER_ERROR:
+      alert(action.error);
+      return {
+        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
+      };
     case ADD_BLACKLIST:
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
@@ -137,55 +128,60 @@ function userReducer(state = initialUserState, action) {
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       return { ...state, blacklist: info.profile.preferences.blacklist };
-    case REMOVE_BLACKLIST:
-      let removedBlacklistUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.blacklist": action.blacklistToRemove}})
-      if (removedBlacklistUsers === 0){
-        //TODO: create better error handling
-        console.error("Error Removing From Blacklist");
+    case REMOVE_BLACKLIST: {
+      const removedBlacklistUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.blacklist': action.blacklistToRemove } });
+      if (removedBlacklistUsers === 0) {
+        // TODO: create better error handling
+        console.error('Error Removing From Blacklist');
       }
-      let updatedUsers = Meteor.users.find({_id: state.userId}).fetch();
-      let updatedRemoveInfo = updatedUsers[0];
+      const updatedUsers = Meteor.users.find({ _id: state.userId }).fetch();
+      const updatedRemoveInfo = updatedUsers[0];
       return { ...state, blacklist: updatedRemoveInfo.profile.preferences.blacklist };
-    case ADD_FAVOURITES:
-      matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { "profile.preferences.favourites": action.favourite } })
+    }
+    case ADD_FAVOURITES: {
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.favourites': action.favourite } });
       if (matchedUsers === 0) {
-        //TODO: create better error handling
-        console.error("Error Updating Favourites for User");
+        // TODO: create better error handling
+        console.error('Error Updating Favourites for User');
       }
-      updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
-      info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
-    case REMOVE_FAVOURITES:
-      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.preferences.favourites": action.favouriteToRemove}})
-      if (matchedUser === 0){
-        //TODO: create better error handling
-        console.error("Error Removing From Favourites");
+    }
+    case REMOVE_FAVOURITES: {
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.favourites': action.favouriteToRemove } });
+      if (!matchedUsers) {
+        // TODO: create better error handling
+        console.error('Error Removing From Favourites');
       }
-      updatedInfo = Meteor.users.find({_id: state.userId}).fetch();
-      info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
-    case SAVE_PREVIOUS_TRAVEL:
-      //may not be able to save to meteor a javascript object -- TEST THIS
-      matchedUsers = Meteor.users.update({_id: state.userId}, {$push:{"profile.previousTravels": action.prevTravel}})
-      if (matchedUsers == 0){
-        //TODO: create better error handling
-        console.error("Error Saving Travel");
+    }
+    case SAVE_PREVIOUS_TRAVEL: {
+      // may not be able to save to meteor a javascript object -- TEST THIS
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.previousTravels': action.prevTravel } });
+      if (!matchedUsers) {
+        // TODO: create better error handling
+        console.error('Error Saving Travel');
       }
-      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
-      info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, previousTravels: info.profile.previousTravels };
-    case DELETE_PREVIOUS_TRAVEL:
-      matchedUsers = Meteor.users.update({_id: state.userId}, {$pull:{"profile.previousTravels": action.toDeleteTravel}})
-      if (matchedUsers == 0){
-        //TODO: create better error handling
-        console.error("Error Deleting Travel");
+    }
+    case DELETE_PREVIOUS_TRAVEL: {
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': action.toDeleteTravel } });
+      if (matchedUsers == 0) {
+        // TODO: create better error handling
+        console.error('Error Deleting Travel');
       }
-      updatedInfo = Meteor.users.find({ userId: state.userId}).fetch();
-      info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, previousTravels: info.profile.previousTravels };
+    }
     default:
-      return state;
   }
+  return state;
 }
 
 function mapReducer(state = initialMapState, action) {
