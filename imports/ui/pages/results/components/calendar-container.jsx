@@ -17,7 +17,9 @@ import { hideModal } from '../../../.././redux/actions';
 import DateFnsUtils from "@date-io/date-fns"; // import
 import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 import AddToCalendar from 'react-add-to-calendar';
-import 'react-add-to-calendar/dist/react-add-to-calendar.css'
+import 'react-add-to-calendar/dist/react-add-to-calendar.css';
+import { format } from 'date-fns';
+import moment from 'moment';
 
 const styles = (theme) => ({
   root: {
@@ -84,9 +86,37 @@ const classes = () => {
 
 const icon = { 'calendar-plus-o': 'left' };
 
+var event = {
+  title: 'Jean Around the World Trip',
+  location: 'Portland, OR', //TODO: replace placeholder w/ location from results
+}
+
+event.startTime = moment(new Date()).format();
+event.endTime = moment(new Date()).format();
+
 class CalendarContainer extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      minDate: format(new Date(), "Y-MM-dd h:mm a"),
+      startDate: format(new Date(), "Y-MM-dd h:mm a"),
+      endDate: format(new Date(), "Y-MM-dd h:mm a"),
+    }
+  }
+
+  onChangeStart = (date) => {
+    this.setState({
+      startDate: format(date, "Y-MM-dd h:mm a")
+    });
+    console.log("startdate is:", this.state.startDate);
+    event.startTime = moment(date).format();
+  }
+
+  onChangeEnd = (date) => {
+    this.setState({
+      endDate: format(date, "Y-MM-dd h:mm a")
+    });
+    event.endTime = moment(date).format();
   }
 
   render() {
@@ -109,12 +139,16 @@ class CalendarContainer extends React.Component {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Grid container className={classes.grid} justify="space-around">
                 <DateTimePicker
+                  onChange={this.onChangeStart}
                   label="Start"
-                  disablePast
+                  minDate={this.state.minDate}
+                  value={this.state.startDate}
                 />
                 <DateTimePicker
+                  onChange={this.onChangeEnd}
                   label="End"
-                  disablePast
+                  minDate={this.state.startDate}
+                  value={this.state.endDate}
                 />
               </Grid>
               {/* TODO: add date picker per event returned by API*/}
@@ -123,12 +157,7 @@ class CalendarContainer extends React.Component {
           <DialogActions>
             <AddToCalendar
                event={ /* TODO: match up to list of events returned */
-                 {title: 'Sample Event',
-                 description: 'This is the sample event provided as an example only',
-                 location: 'Portland, OR',
-                 startTime: '2016-09-16T20:15:00-04:00',
-                 endTime: '2016-09-16T21:45:00-04:00'
-                }
+                 event
                }
                buttonTemplate={icon}
                listItems={items}
