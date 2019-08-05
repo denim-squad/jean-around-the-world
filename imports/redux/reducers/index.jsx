@@ -1,6 +1,5 @@
 /* eslint-disable comma-dangle */
 import { combineReducers } from 'redux';
-import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import {
   SHOW_MODAL,
@@ -118,7 +117,7 @@ function userReducer(state = initialUserState, action) {
       return {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
-    case ADD_BLACKLIST:
+    case ADD_BLACKLIST: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
@@ -171,7 +170,7 @@ function userReducer(state = initialUserState, action) {
     }
     case DELETE_PREVIOUS_TRAVEL: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': action.toDeleteTravel } });
-      if (matchedUsers == 0) {
+      if (matchedUsers === 0) {
         // TODO: create better error handling
         console.error('Error Deleting Travel');
       }
