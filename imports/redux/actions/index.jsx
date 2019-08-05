@@ -156,7 +156,6 @@ export function getPlaces() {
     const { radius, initialCenter } = state.map;
     const { blacklist } = state.user;
     const typesAndResults = [];
-
     let callCounter = typesAndQuantities.length;
     typesAndQuantities.forEach((singleTypeAndQuantity) => {
       const { type } = singleTypeAndQuantity;
@@ -169,7 +168,10 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
-          const results = filterResults(result.data.results, minimumAcceptableRating, blacklist);
+          const results = filterResults(result.data.results,
+            budgetRange,
+            minimumAcceptableRating,
+            blacklist);
           typesAndResults.push({
             type,
             results,

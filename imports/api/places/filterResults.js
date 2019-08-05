@@ -1,11 +1,24 @@
+import levenshtein from 'js-levenshtein';
+
 const isNotBlacklisted = (result, blacklist) => {
-  // TODO more sophisticated filtering if time
-  const { name } = result;
-  return !blacklist.includes(name);
+  blacklist.every((blacklistItem) => {
+    const { name } = result;
+    const lowerCaseBlacklist = blacklistItem.toLowerCase();
+    const lowerCaseResultName = name.toLowerCase();
+
+    return !lowerCaseBlacklist.includes(lowerCaseResultName)
+      || levenshtein(lowerCaseBlacklist, lowerCaseResultName) > 3;
+  });
 };
 
-export default (results, minimumRating, blacklist) => (
+const isInBudgetRange = (result, budgetRange) => {
+  return budgetRange[0] <= result.price_level && result.price_level <= budgetRange[1];
+};
+
+export default (results, budgetRange, minimumRating, blacklist) => (
   results.filter(result => (
-    minimumRating <= result.rating && isNotBlacklisted(result, blacklist)
+    minimumRating <= result.rating
+    && isInBudgetRange(result, budgetRange)
+    && isNotBlacklisted(result, blacklist)
   ))
 );
