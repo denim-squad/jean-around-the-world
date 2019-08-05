@@ -22,7 +22,8 @@ import {
   UPDATE_RATING,
   UPDATE_BUDGET,
   SAVE_PREVIOUS_TRAVEL,
-  DELETE_PREVIOUS_TRAVEL
+  DELETE_PREVIOUS_TRAVEL,
+  SIGNUP_USER_ERROR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -101,33 +102,22 @@ function userReducer(state = initialUserState, action) {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
     case SIGNUP_USER: {
-      const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
-      const userExists = query[0];
-      if (userExists) {
-        alert('An account with this email already exists. Proceed to login to continue.');
-        break;
-      } else {
-        const userId = Accounts.createUser({
-          email: action.email,
-          password: action.password,
-          profile: {
-            firstName: action.firstName,
-            lastName: action.lastName,
-            previousTravels: [],
-            preferences: { blacklist: [], favourites: [] }
-          }
-        });
-        return {
-          ...state,
-          email: action.email,
-          isSignedIn: true,
-          fullName: `${action.firstName} ${action.lastName}`,
-          blacklist: [],
-          favourites: [],
-          previousTravels: []
-        };
-      }
+      return {
+        ...state,
+        userId: action.userId,
+        email: action.email,
+        isSignedIn: true,
+        fullName: `${action.firstName} ${action.lastName}`,
+        blacklist: [],
+        favourites: [],
+        previousTravels: [],
+      };
     }
+    case SIGNUP_USER_ERROR:
+      alert(action.error);
+      return {
+        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
+      };
     case ADD_BLACKLIST: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
