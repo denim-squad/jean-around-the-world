@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
 import { connect } from 'react-redux';
@@ -5,7 +6,7 @@ import { API_KEY } from '../../../../constants';
 
 const mapStyles = {
   width: '100%',
-  height: '100%'
+  height: '100%',
 };
 
 function randomizePlaces() {
@@ -80,5 +81,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(GoogleApiWrapper({
-  apiKey: API_KEY
+  apiKey: API_KEY,
 })(ResultsMapContainer));
