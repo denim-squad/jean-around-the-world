@@ -25,6 +25,7 @@ export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
 export const UPDATE_PLACES = 22;
+export const SIGNUP_USER_ERROR = 23;
 
 export function showModal(kind) {
   return {
@@ -66,14 +67,50 @@ export function logoutUser() {
   };
 }
 
-export function signupUser(firstName, lastName, email, password) {
+function signupUserSuccess(userId, firstName, lastName, email) {
   return {
     type: SIGNUP_USER,
+    userId,
     firstName,
     lastName,
     email,
-    password,
   };
+}
+
+function signupUserFailure(error) {
+  return {
+    type: SIGNUP_USER_ERROR,
+    error
+  }
+}
+
+export function signupUser(firstname, lastname, email, password) {
+  return (dispatch) => {
+    const query = Meteor.users.find({ 'emails.address': email }).fetch();
+    const userExists = query[0];
+    if (userExists) {
+      dispatch(signupUserFailure('An account with this email already exists. Proceed to login to continue.'));
+    } else {
+      Accounts.createUser({
+        email: email,
+        password: password,
+        profile: {
+          firstName: firstname,
+          lastName: lastname,
+          previousTravels: [],
+          preferences: { blacklist: [], favourites: [] },
+        },
+      }, (err) => {
+        if (err) {
+          dispatch(signupUserFailure(err));
+        } else {
+          const userInfo = Meteor.users.find({ 'emails.address': email }).fetch();
+          const newUser = userInfo[0];
+          dispatch(signupUserSuccess(newUser._id, firstname, lastname, email));
+        }
+      });
+    }
+  }
 }
 
 export function addBlacklist(blacklist) {
