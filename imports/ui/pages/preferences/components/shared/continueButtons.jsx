@@ -18,11 +18,13 @@ class ContinueButtons extends React.Component {
   goToResultsPage = () => {
     this.props.getPlaces();
     this.loadingSpinner.current.style.display = 'block';
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       history.push('/results');
     }, 10000);
-    setInterval(() => {
+    const interval = setInterval(() => {
       if (!this.props.isFetchingPlaces) {
+        clearInterval(interval);
+        clearTimeout(timeout);
         history.push('/results');
       }
     }, 100);
