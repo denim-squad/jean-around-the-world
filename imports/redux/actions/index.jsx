@@ -64,7 +64,7 @@ export function logoutUser() {
   };
 }
 
-export function signupUser(firstName, lastName, email, password) {
+function signupUserSuccess(firstName, lastName, email, password) {
   return {
     type: SIGNUP_USER,
     firstName,
@@ -73,6 +73,36 @@ export function signupUser(firstName, lastName, email, password) {
     password,
   };
 }
+
+
+function signupUserFailer(error) {
+  return {
+    type: SIGNUP_USER_ERROR,
+    error
+  }
+}
+
+export function signupUser(firstname, lastname, email, password) {
+  return (dispatch) => {
+    const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
+    const userExists = query[0];
+    if (userExists) {
+      alert('An account with this email already exists. Proceed to login to continue.');
+    } else {
+      const userId = Accounts.createUser({
+        email: action.email,
+        password: action.password,
+        profile: {
+          firstName: action.firstName,
+          lastName: action.lastName,
+          previousTravels: [],
+          preferences: { blacklist: [], favourites: [] }
+        }
+      })
+      
+  }
+}
+
 
 export function addBlacklist(blacklist) {
   return {
@@ -102,14 +132,14 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
-export function savePrevTravel(prevTravel){
+export function savePrevTravel(prevTravel) {
   return {
     type: SAVE_PREVIOUS_TRAVEL,
     prevTravel
   }
 }
 
-export function deletePrevTravel(toDeleteTravel){
+export function deletePrevTravel(toDeleteTravel) {
   return {
     type: DELETE_PREVIOUS_TRAVEL,
     toDeleteTravel
