@@ -169,9 +169,7 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
-          console.log('results before filtering:', result.data.results);
           const results = filterResults(result.data.results, minimumAcceptableRating, blacklist);
-          console.log('results after filtering:', results);
           typesAndResults.push({
             type,
             results,
