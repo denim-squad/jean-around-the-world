@@ -128,7 +128,7 @@ export function addFavourites(favourite) {
 export function removeBlacklist(blacklistToRemove) {
   return {
     type: REMOVE_BLACKLIST,
-    blacklistToRemove
+    blacklistToRemove,
   };
 }
 
@@ -142,15 +142,15 @@ export function removeFavourites(favouriteToRemove) {
 export function savePrevTravel(prevTravel) {
   return {
     type: SAVE_PREVIOUS_TRAVEL,
-    prevTravel
-  }
+    prevTravel,
+  };
 }
 
 export function deletePrevTravel(toDeleteTravel) {
   return {
     type: DELETE_PREVIOUS_TRAVEL,
-    toDeleteTravel
-  }
+    toDeleteTravel,
+  };
 }
 
 function requestPlacesStart() {
