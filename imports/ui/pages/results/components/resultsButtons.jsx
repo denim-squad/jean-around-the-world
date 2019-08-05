@@ -5,14 +5,20 @@ import { connect } from 'react-redux';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import CalendarContainer from './calendar-container';
 import { showModal, CALENDAR } from '../../../.././redux/actions';
+import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
 class ResultsButtons extends React.Component {
+  constructor() {
+    super();
+    this.loadingSpinner = React.createRef();
+  }
+
   goToHomePage = async () => {
-    // this.loadingSpinner.current.style.display = 'block';
+    this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
-      // this.loadingSpinner.current.style.display = 'none';
+      this.loadingSpinner.current.style.display = 'none';
       history.push('/');
     }, 2800);
   }
@@ -33,6 +39,7 @@ class ResultsButtons extends React.Component {
   render() {
     return (
       <div className="results-container">
+      <LoadingSpinner ref={this.loadingSpinner} />
       WE FOUND JUST THE TRIP FOR YOU!
         <div className="results-buttons-container">
           <div>
