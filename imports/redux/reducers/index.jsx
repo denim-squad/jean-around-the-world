@@ -118,7 +118,7 @@ function userReducer(state = initialUserState, action) {
       return {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
-    case ADD_BLACKLIST:
+    case ADD_BLACKLIST: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
