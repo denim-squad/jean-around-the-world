@@ -15,13 +15,17 @@ class ContinueButtons extends React.Component {
     this.loadingSpinner = React.createRef();
   }
 
-  goToResultsPage = async () => {
+  goToResultsPage = () => {
     this.props.getPlaces();
     this.loadingSpinner.current.style.display = 'block';
-    await setTimeout(() => {
-      this.loadingSpinner.current.style.display = 'none';
+    setTimeout(() => {
       history.push('/results');
     }, 5000);
+    setInterval(() => {
+      if (!this.props.isFetchingPlaces) {
+        history.push('/results');
+      }
+    }, 100);
   }
 
   render() {
@@ -73,6 +77,7 @@ class ContinueButtons extends React.Component {
 const mapStateToProps = state => ({
   places: state.placeSearch.places,
   typesAndQuantities: state.placeSearch.typesAndQuantities,
+  isFetchingPlaces: state.placeSearch.isFetchingPlaces,
 });
 
 const mapDispatchToProps = dispatch => ({ getPlaces: () => dispatch(getPlaces()) });
