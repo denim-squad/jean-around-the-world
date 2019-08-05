@@ -7,6 +7,7 @@
     "nuke": "rm -Rf node_modules && npm install",
     "test": "meteor test --driver-package meteortesting:mocha --port 3100",
     "start": "MONGO_URL=“mongodb://m001-user:m001-mongodb-basics@sandbox-shard-00-00-ist5c.mongodb.net:27017,sandbox-shard-00-01-ist5c.mongodb.net:27017,sandbox-shard-00-02-ist5c.mongodb.net:27017/jean-around-the-world?ssl=true&replicaSet=Sandbox-shard-0&authSource=admin&retryWrites=true&w=1” meteor",
+    "lint": "./node_modules/.bin/eslint --fix imports/**",
     "meteor": "meteor --settings settings.json"
   },
   "repository": {
@@ -23,6 +24,7 @@
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.0.1",
     "@material-ui/lab": "^4.0.0-alpha.14",
+    "babel-eslint": "^10.0.2",
     "bcrypt": "^3.0.6",
     "google-maps-react": "git://github.com/denim-squad/google-maps-react",
     "history": "^4.9.0",

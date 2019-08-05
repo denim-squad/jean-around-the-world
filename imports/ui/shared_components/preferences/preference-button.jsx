@@ -1,43 +1,44 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
+import { connect } from 'react-redux';
 import {
   removeBlacklist,
   removeFavourites,
   deletePrevTravel,
   REMOVE_BLACKLIST,
   REMOVE_FAVOURITES,
-  DELETE_PREVIOUS_TRAVEL
+  DELETE_PREVIOUS_TRAVEL,
 } from '../../../redux/actions/index';
-import { connect } from 'react-redux';
 import './preference-button.css';
 
 class PreferenceButton extends React.Component {
-
       handleDelete = (type, name) => {
         switch (type) {
           case REMOVE_BLACKLIST:
             this.props.removeBlacklist(name);
+            break;
           case REMOVE_FAVOURITES:
             this.props.removeFavourites(name);
+            break;
           case DELETE_PREVIOUS_TRAVEL:
             this.props.deletePrevTravel(name);
+            break;
+          default:
         }
       }
 
       render() {
-        return(
+        return (
           <Chip
             label={this.props.name}
-            onDelete={() => {this.handleDelete(this.props.type, this.props.name)}}
-            className="preference-chip">
-          </Chip>
-        )
-    }
+            onDelete={() => { this.handleDelete(this.props.type, this.props.name); }}
+            className="preference-chip"
+          />
+        );
+      }
 }
 
-const mapStateToProps = (state) => {
-  return {
-  };
-}
+const mapStateToProps = state => ({
+});
 
-export default connect(mapStateToProps, {removeBlacklist, removeFavourites, deletePrevTravel})(PreferenceButton);
+export default connect(mapStateToProps, { removeBlacklist, removeFavourites, deletePrevTravel })(PreferenceButton);
