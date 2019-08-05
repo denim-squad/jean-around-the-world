@@ -23,6 +23,7 @@ export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
+export const SIGNUP_USER_ERROR = 22;
 
 export function showModal(kind) {
   return {
@@ -64,18 +65,17 @@ export function logoutUser() {
   };
 }
 
-function signupUserSuccess(firstName, lastName, email, password) {
+function signupUserSuccess(userId, firstName, lastName, email) {
   return {
     type: SIGNUP_USER,
+    userId,
     firstName,
     lastName,
     email,
-    password,
   };
 }
 
-
-function signupUserFailer(error) {
+function signupUserFailure(error) {
   return {
     type: SIGNUP_USER_ERROR,
     error
@@ -84,25 +84,32 @@ function signupUserFailer(error) {
 
 export function signupUser(firstname, lastname, email, password) {
   return (dispatch) => {
-    const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
+    const query = Meteor.users.find({ 'emails.address': email }).fetch();
     const userExists = query[0];
     if (userExists) {
-      alert('An account with this email already exists. Proceed to login to continue.');
+      dispatch(signupUserFailure('An account with this email already exists. Proceed to login to continue.'));
     } else {
-      const userId = Accounts.createUser({
-        email: action.email,
-        password: action.password,
+      Accounts.createUser({
+        email: email,
+        password: password,
         profile: {
-          firstName: action.firstName,
-          lastName: action.lastName,
+          firstName: firstname,
+          lastName: lastname,
           previousTravels: [],
-          preferences: { blacklist: [], favourites: [] }
+          preferences: { blacklist: [], favourites: [] },
+        },
+      }, (err) => {
+        if (err) {
+          dispatch(signupUserFailure(err));
+        } else {
+          const userInfo = Meteor.users.find({ 'emails.address': email }).fetch();
+          const newUser = userInfo[0];
+          dispatch(signupUserSuccess(newUser._id, firstname, lastname, email));
         }
-      })
-      
+      });
+    }
   }
 }
-
 
 export function addBlacklist(blacklist) {
   return {
