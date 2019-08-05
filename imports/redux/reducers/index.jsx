@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 import { combineReducers } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
@@ -20,6 +21,9 @@ import {
   REMOVE_PLACE_TYPE,
   UPDATE_RATING,
   UPDATE_BUDGET,
+  SAVE_PREVIOUS_TRAVEL,
+  DELETE_PREVIOUS_TRAVEL,
+  SIGNUP_USER_ERROR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -45,6 +49,7 @@ const initialUserState = {
   isSignedIn: false,
   blacklist: [],
   favourites: [],
+  previousTravels: [],
   fullName: '',
   email: '',
   userId: '',
@@ -87,6 +92,7 @@ function userReducer(state = initialUserState, action) {
           fullName: `${userInfo.profile.firstName} ${userInfo.profile.lastName}`,
           blacklist: userInfo.profile.preferences.blacklist,
           favourites: userInfo.profile.preferences.favourites,
+          previousTravels: userInfo.profile.previousTravels
         };
       }
       return state;
@@ -96,32 +102,23 @@ function userReducer(state = initialUserState, action) {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
     case SIGNUP_USER: {
-      const query = Meteor.users.find({ 'emails.address': action.email }).fetch();
-      const userExists = query[0];
-      if (userExists) {
-        alert('An account with this email already exists. Proceed to login to continue.');
-        break;
-      } else {
-        const userId = Accounts.createUser({
-          email: action.email,
-          password: action.password,
-          profile: {
-            firstName: action.firstName,
-            lastName: action.lastName,
-            preferences: { blacklist: [], favourites: [] },
-          },
-        });
-        return {
-          ...state,
-          email: action.email,
-          isSignedIn: true,
-          fullName: `${action.firstName} ${action.lastName}`,
-          blacklist: [],
-          favourites: [],
-        };
-      }
+      return {
+        ...state,
+        userId: action.userId,
+        email: action.email,
+        isSignedIn: true,
+        fullName: `${action.firstName} ${action.lastName}`,
+        blacklist: [],
+        favourites: [],
+        previousTravels: [],
+      };
     }
-    case ADD_BLACKLIST: {
+    case SIGNUP_USER_ERROR:
+      alert(action.error);
+      return {
+        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
+      };
+    case ADD_BLACKLIST:
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
@@ -132,29 +129,59 @@ function userReducer(state = initialUserState, action) {
       return { ...state, blacklist: info.profile.preferences.blacklist };
     }
     case REMOVE_BLACKLIST: {
-      // TODO: change this to use MongoToDelete
-      const updatedBlacklist = Array.filter(
-        (value, index, array) => action.blacklistToRemove !== value
-      );
-      return { ...state, blacklist: updatedBlacklist };
+      const removedBlacklistUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.blacklist': action.blacklistToRemove } });
+      if (removedBlacklistUsers === 0) {
+        // TODO: create better error handling
+        console.error('Error Removing From Blacklist');
+      }
+      const updatedUsers = Meteor.users.find({ _id: state.userId }).fetch();
+      const updatedRemoveInfo = updatedUsers[0];
+      return { ...state, blacklist: updatedRemoveInfo.profile.preferences.blacklist };
     }
     case ADD_FAVOURITES: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.favourites': action.favourite } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
-        console.log('Error Updating Favourites for User');
+        console.error('Error Updating Favourites for User');
       }
-      updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
-      info = updatedInfo[0];
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     }
-    case REMOVE_FAVOURITES:
-      // TODO: change this to use MongoToDelete
-      const updatedFavourites = Array.filter((value, index, array) => action.favouriteToRemove !== value);
-      return { ...state, favourites: updatedFavourites };
+    case REMOVE_FAVOURITES: {
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.favourites': action.favouriteToRemove } });
+      if (!matchedUsers) {
+        // TODO: create better error handling
+        console.error('Error Removing From Favourites');
+      }
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
+      const info = updatedInfo[0];
+      return { ...state, favourites: info.profile.preferences.favourites };
+    }
+    case SAVE_PREVIOUS_TRAVEL: {
+      // may not be able to save to meteor a javascript object -- TEST THIS
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.previousTravels': action.prevTravel } });
+      if (!matchedUsers) {
+        // TODO: create better error handling
+        console.error('Error Saving Travel');
+      }
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
+    }
+    case DELETE_PREVIOUS_TRAVEL: {
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': action.toDeleteTravel } });
+      if (matchedUsers == 0) {
+        // TODO: create better error handling
+        console.error('Error Deleting Travel');
+      }
+      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const info = updatedInfo[0];
+      return { ...state, previousTravels: info.profile.previousTravels };
+    }
     default:
-      return state;
   }
+  return state;
 }
 
 function mapReducer(state = initialMapState, action) {
