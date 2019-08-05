@@ -20,7 +20,7 @@ class ContinueButtons extends React.Component {
     this.loadingSpinner.current.style.display = 'block';
     setTimeout(() => {
       history.push('/results');
-    }, 5000);
+    }, 10000);
     setInterval(() => {
       if (!this.props.isFetchingPlaces) {
         history.push('/results');
