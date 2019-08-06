@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { connect } from 'react-redux';
 import Rating from 'material-ui-rating';

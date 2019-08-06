@@ -41,8 +41,8 @@ class MapQuery extends React.Component {
     this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
       this.loadingSpinner.current.style.display = 'none';
-      history.push('/preferences');
-    }, 2800);
+    }, 3000);
+    history.push('/preferences');
   }
 
   render() {
