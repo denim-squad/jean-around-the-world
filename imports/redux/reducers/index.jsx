@@ -1,6 +1,5 @@
 /* eslint-disable comma-dangle */
 import { combineReducers } from 'redux';
-import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import {
   SHOW_MODAL,
@@ -23,7 +22,6 @@ import {
   UPDATE_BUDGET,
   SAVE_PREVIOUS_TRAVEL,
   DELETE_PREVIOUS_TRAVEL,
-  UPDATE_PLACES,
   SIGNUP_USER_ERROR,
   CALENDAR,
 } from '../actions/index';
@@ -88,6 +86,7 @@ function userReducer(state = initialUserState, action) {
       if (userInfo) {
         return {
           ...state,
+          // eslint-disable-next-line no-underscore-dangle
           userId: userInfo._id,
           email: action.email,
           isSignedIn: true,
@@ -121,6 +120,12 @@ function userReducer(state = initialUserState, action) {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
     case ADD_BLACKLIST: {
+      if (!state.isSignedIn) {
+        const updatedBlacklist = Array.from(state.blacklist);
+        updatedBlacklist.push(action.blacklist);
+        return { ...state, blacklist: updatedBlacklist };
+      }
+
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
@@ -131,6 +136,11 @@ function userReducer(state = initialUserState, action) {
       return { ...state, blacklist: info.profile.preferences.blacklist };
     }
     case REMOVE_BLACKLIST: {
+      if (!state.isSignedIn) {
+        const filteredBlacklist = state.blacklist.filter(item => item !== action.blacklistToRemove);
+        return { ...state, blacklist: filteredBlacklist };
+      }
+
       const removedBlacklistUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.blacklist': action.blacklistToRemove } });
       if (removedBlacklistUsers === 0) {
         // TODO: create better error handling
@@ -173,7 +183,7 @@ function userReducer(state = initialUserState, action) {
     }
     case DELETE_PREVIOUS_TRAVEL: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': action.toDeleteTravel } });
-      if (matchedUsers == 0) {
+      if (matchedUsers === 0) {
         // TODO: create better error handling
         console.error('Error Deleting Travel');
       }
