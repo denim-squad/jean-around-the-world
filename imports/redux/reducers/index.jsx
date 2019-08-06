@@ -82,6 +82,7 @@ function userReducer(state = initialUserState, action) {
     case LOGIN_USER: {
       const userQuery = Meteor.users.find({ 'emails.address': action.email }).fetch();
       const userInfo = userQuery[0];
+      console.log(userInfo);
       if (userInfo) {
         return {
           ...state,
@@ -98,7 +99,7 @@ function userReducer(state = initialUserState, action) {
     }
     case LOGOUT_USER:
       return {
-        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
+        ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [], previousTravels: [],
       };
     case SIGNUP_USER: {
       return {
@@ -158,23 +159,25 @@ function userReducer(state = initialUserState, action) {
       return { ...state, favourites: info.profile.preferences.favourites };
     }
     case SAVE_PREVIOUS_TRAVEL: {
-      // may not be able to save to meteor a javascript object -- TEST THIS
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.previousTravels': action.prevTravel } });
-      if (!matchedUsers) {
+      console.log(matchedUsers);
+      if (matchedUsers === 0) {
         // TODO: create better error handling
         console.error('Error Saving Travel');
       }
-      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
+      console.log(info);
       return { ...state, previousTravels: info.profile.previousTravels };
     }
     case DELETE_PREVIOUS_TRAVEL: {
-      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': action.toDeleteTravel } });
+      console.log(action.toDeleteTravel);
+      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': { name: action.toDeleteTrave } } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
         console.error('Error Deleting Travel');
       }
-      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       return { ...state, previousTravels: info.profile.previousTravels };
     }
