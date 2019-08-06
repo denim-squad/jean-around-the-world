@@ -6,7 +6,7 @@
 
 .homepage-navbar-container {
     display: grid;
-    grid-template-rows: 20.7% 43.7% 35.6%;
+    grid-template-rows: 20.7% 53.7% 25.6%;
     height: 100%;
 }
 
@@ -77,6 +77,19 @@
     font-size: calc(10px + 6 * ((100vw - 1000px) / 680));
 }
 
+.map-query-container {
+    display: grid;
+    grid-template-columns: 12.5% 5.3% 21.9% 6.9% 26.4% 8.2%;
+    grid-column-gap: 1.5%;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #000000;
+}
+
 @media only screen and (min-width: 1400px) {
     .title-container {
         font-size: 51.3px;
@@ -102,7 +115,7 @@
 
 @media only screen and (max-width: 1399px) {
     .title-container {
-        font-size: calc(38px + 6 * ((100vw - 1000px) / 680));
+        font-size: calc(28px + 6 * ((100vw - 1000px) / 680));
     }
 
     .navbar-buttons-container {
@@ -119,7 +132,7 @@
     }
 
     .MuiButton-label {
-        font-size: 14px;
+        font-size: calc(15px + 6 * ((100vw - 1000px) / 680));
     }
 
     .navbar-text {
@@ -127,9 +140,10 @@
     }
 }
 
-@media only screen and (max-width: 1399px) {
-    .title-container {
-        font-size: calc(28px + 6 * ((100vw - 1000px) / 680));
+@media only screen and (max-width: 1000px) {
+    .map-query-container {
+        grid-template-columns: 5.5% 8.3% 22.9% 8.9% 26.4% 12.2%;
+        grid-column-gap: 2.5%;
     }
 }
 
@@ -161,19 +175,6 @@
 
 .description-title {
     font-weight: 500;
-}
-
-.map-query-container {
-    display: grid;
-    grid-template-columns: 12.5% 5.3% 21.9% 6.9% 26.4% 8.2%;
-    grid-column-gap: 1.5%;
-    align-items: center;
-    font-family: 'Rubik', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.01em;
-    color: #000000;
 }
 
 .address-field {
