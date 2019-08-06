@@ -2,7 +2,7 @@ import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
-import { savePrevTravel } from '../../../../redux/actions/index';
+import { showModal, savePrevTravel, SAVE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -29,6 +29,10 @@ class ResultsButtons extends React.Component {
     this.props.savePrevTravel({ name: 'test', places: this.props.places }, this.props.userId);
   }
 
+  openModal = (kind) => {
+    this.props.showModal(SAVE_PREVIOUS_TRAVEL);
+  }
+
   render() {
     return (
       <div className="results-container">
@@ -43,7 +47,7 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
-            onClick={this.saveTrip}
+            onClick={this.openModal}
           >
           SAVE TRIP
           </BootstrapButton>
@@ -84,4 +88,4 @@ const mapStateToProps = state => ({
   userId: state.user.userId,
 });
 
-export default connect(mapStateToProps, { savePrevTravel })(ResultsButtons);
+export default connect(mapStateToProps, { showModal, savePrevTravel })(ResultsButtons);

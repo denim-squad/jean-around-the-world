@@ -84,7 +84,6 @@ function userReducer(state = initialUserState, action) {
     case LOGIN_USER: {
       const userQuery = Meteor.users.find({ 'emails.address': action.email }).fetch();
       const userInfo = userQuery[0];
-      console.log(userInfo);
       if (userInfo) {
         return {
           ...state,
@@ -124,7 +123,7 @@ function userReducer(state = initialUserState, action) {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
-        console.log('Error Updating Blacklist for User');
+        console.error('Error Updating Blacklist for User');
       }
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
@@ -163,7 +162,6 @@ function userReducer(state = initialUserState, action) {
     case SAVE_PREVIOUS_TRAVEL: {
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
-      console.log(info);
       return { ...state, previousTravels: info.profile.previousTravels };
     }
     case SAVE_PREVIOUS_TRAVEL_FAILURE: {

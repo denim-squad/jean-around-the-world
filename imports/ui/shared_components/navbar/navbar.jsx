@@ -5,8 +5,9 @@ import { createBrowserHistory } from 'history';
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
+import SaveTravelName from '../save-travel/save-travel';
 import {
-  showModal, logoutUser, LOGIN, SIGNUP,
+  showModal, logoutUser, LOGIN, SIGNUP, SAVE_PREVIOUS_TRAVEL,
 } from '../../../redux/actions';
 
 import LoadingSpinner from '../loading/loadingSpinner';
@@ -45,6 +46,17 @@ class Navbar extends React.Component {
 
     openModal = kind => () => {
       this.props.showModal(kind);
+    }
+
+    showSpecificModal = (kind) => {
+      switch (kind) {
+        case LOGIN:
+          return <Login />
+        case SIGNUP:
+          return <Signup />
+        case SAVE_PREVIOUS_TRAVEL:
+          return <SaveTravelName />
+      }
     }
 
     logout = () => {
@@ -165,7 +177,7 @@ class Navbar extends React.Component {
                 && <MapQuery />
             }
           {
-                (this.props.modal.modalKind === LOGIN) ? <Login /> : <Signup />
+              this.showSpecificModal(this.props.modal.modalKind)
             }
         </div>
       );
