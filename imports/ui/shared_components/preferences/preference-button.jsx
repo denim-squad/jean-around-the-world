@@ -21,7 +21,7 @@ class PreferenceButton extends React.Component {
             this.props.removeFavourites(name);
             break;
           case DELETE_PREVIOUS_TRAVEL:
-            this.props.deletePrevTravel(name);
+            this.props.deletePrevTravel(name, this.props.userId);
             break;
           default:
         }
@@ -39,6 +39,7 @@ class PreferenceButton extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  userId: state.user.userId,
 });
 
 export default connect(mapStateToProps, { removeBlacklist, removeFavourites, deletePrevTravel })(PreferenceButton);

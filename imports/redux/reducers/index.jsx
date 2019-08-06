@@ -23,6 +23,8 @@ import {
   SAVE_PREVIOUS_TRAVEL,
   DELETE_PREVIOUS_TRAVEL,
   SIGNUP_USER_ERROR,
+  SAVE_PREVIOUS_TRAVEL_FAILURE,
+  DELETE_PREVIOUS_TRAVEL_FAILURE,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -159,27 +161,23 @@ function userReducer(state = initialUserState, action) {
       return { ...state, favourites: info.profile.preferences.favourites };
     }
     case SAVE_PREVIOUS_TRAVEL: {
-      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.previousTravels': action.prevTravel } });
-      console.log(matchedUsers);
-      if (matchedUsers === 0) {
-        // TODO: create better error handling
-        console.error('Error Saving Travel');
-      }
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       console.log(info);
       return { ...state, previousTravels: info.profile.previousTravels };
     }
+    case SAVE_PREVIOUS_TRAVEL_FAILURE: {
+      alert(action.errMessage);
+      return { ...state };
+    }
     case DELETE_PREVIOUS_TRAVEL: {
-      console.log(action.toDeleteTravel);
-      const matchedUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.previousTravels': { name: action.toDeleteTrave } } });
-      if (matchedUsers === 0) {
-        // TODO: create better error handling
-        console.error('Error Deleting Travel');
-      }
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       return { ...state, previousTravels: info.profile.previousTravels };
+    }
+    case DELETE_PREVIOUS_TRAVEL_FAILURE: {
+      alert(action.errMessage);
+      return { ...state };
     }
     default:
   }

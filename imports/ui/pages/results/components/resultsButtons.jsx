@@ -26,10 +26,7 @@ class ResultsButtons extends React.Component {
   }
 
   saveTrip = () => {
-    this.props.savePrevTravel({
-      name: 'test',
-      places: this.props.places,
-    });
+    this.props.savePrevTravel({ name: 'test', places: this.props.places }, this.props.userId);
   }
 
   render() {
@@ -46,7 +43,7 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
-            onClick={this.saveTrip()}
+            onClick={this.saveTrip}
           >
           SAVE TRIP
           </BootstrapButton>
@@ -82,6 +79,9 @@ class ResultsButtons extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ places: state.placeSearch.places });
+const mapStateToProps = state => ({
+  places: state.placeSearch.places,
+  userId: state.user.userId,
+});
 
 export default connect(mapStateToProps, { savePrevTravel })(ResultsButtons);
