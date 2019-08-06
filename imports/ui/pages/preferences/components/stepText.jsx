@@ -12,7 +12,7 @@ class StepText extends React.Component {
                     this.props.currentStep === CUSTOMIZE_STEP
                       ? '1. CUSTOMIZE YOUR TRIP'
                       : this.props.currentStep === BLACKLIST_STEP
-                        ? "2. BLACKLIST WHAT YOU DON'T WANT"
+                        ? "2. BLACKLIST"
                         : this.props.currentStep === REFINE_STEP
                           ? '3. REFINE YOUR PREFERENCES'
                           : 'FOLLOW @hailinzhang_ ON INSTAGRAM'
