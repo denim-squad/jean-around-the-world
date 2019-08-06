@@ -2,16 +2,20 @@ import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
+import { Meteor } from 'meteor/meteor';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import CalendarContainer from './calendar-container';
-import { showModal, CALENDAR } from '../../../.././redux/actions';
+import { showModal, CALENDAR } from "../../../../redux/actions";
 import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
+import { updatePlaces } from '../../../../redux/actions';
+import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
 class ResultsButtons extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.displayPlaces = this.displayPlaces.bind(this);
     this.loadingSpinner = React.createRef();
   }
 
@@ -19,7 +23,6 @@ class ResultsButtons extends React.Component {
     this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
       this.loadingSpinner.current.style.display = 'none';
-      history.push('/');
     }, 2800);
     history.push('/');
   }
@@ -31,16 +34,25 @@ class ResultsButtons extends React.Component {
      */
     console.log('this.props.places:', this.props.places);
     const { places } = this.props;
+    const firstPlace = places[0].results[0];
+    if (firstPlace) {
+      const id = firstPlace.place_id;
+      const fields = ['formatted_address', 'icon', 'photo', 'url', 'website', 'opening_hours'];
+      Meteor.call(GET_PLACE_DETAILS_NAME, { id, fields }, (error, details) => {
+        if (error) console.log(error);
+        console.log('details:', details);
+      });
+    }
   }
 
-  openModal = (kind) => () => {
+  openModal = kind => () => {
     this.props.showModal(kind);
   }
 
   render() {
     return (
       <div className="results-container">
-      <LoadingSpinner ref={this.loadingSpinner} />
+        <LoadingSpinner ref={this.loadingSpinner} />
       WE FOUND JUST THE TRIP FOR YOU!
         <div className="results-buttons-container">
           <div>
@@ -54,7 +66,7 @@ class ResultsButtons extends React.Component {
             color="primary"
           >
           SAVE TRIP
-            </BootstrapButton>
+          </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
@@ -63,9 +75,10 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
-            onClick={this.openModal(CALENDAR)}>
+            onClick={this.openModal(CALENDAR)}
+          >
           ADD TO CALENDAR
-            </BootstrapButton>
+          </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
@@ -77,7 +90,7 @@ class ResultsButtons extends React.Component {
             onClick={this.goToHomePage}
           >
           NEW TRIP
-            </BootstrapButton>
+          </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
@@ -85,23 +98,29 @@ class ResultsButtons extends React.Component {
             className="reroll-button"
             variant="contained"
             size="small"
-            color="primary">
+            color="primary"
+          >
             REROLL
-            </BootstrapButton>
+          </BootstrapButton>
         </div>
         {
-          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer/>
+          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer />
         }
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    places: state.placeSearch.places,
-    modal: state.modal
-  }
-}
+const mapStateToProps = state => ({
+  places: state.placeSearch.places,
+  minimumAcceptableRating: state.placeSearch.minimumAcceptableRating,
+  blacklist: state.user.blacklist,
+  modal: state.modal,
+});
 
-export default connect(mapStateToProps, { showModal })(ResultsButtons);
+const mapDispatchToProps = dispatch => ({
+  updatePlaces: places => dispatch(updatePlaces(places)),
+  showModal: () => dispatch(showModal),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsButtons);

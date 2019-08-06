@@ -11,21 +11,19 @@ const mapStyles = {
   height: '100%',
 };
 
-export class ResultsMapContainer extends React.Component {
-  render() {
-    return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={{
-          lat: 49.263749,
-          lng: -123.247480,
-        }}
-      />
-    );
+export const ResultsMapContainer = props => (
+  <Map
+    google={props.google}
+    zoom={14}
+    style={mapStyles}
+    initialCenter={
+      {
+        lat: 49.263749,
+        lng: -123.247480,
+      }
   }
-}
+  />
+);
 
 const mapStateToProps = state => ({
   // TODO: return paths

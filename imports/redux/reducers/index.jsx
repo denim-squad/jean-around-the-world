@@ -23,6 +23,7 @@ import {
   UPDATE_BUDGET,
   SAVE_PREVIOUS_TRAVEL,
   DELETE_PREVIOUS_TRAVEL,
+  UPDATE_PLACES,
   SIGNUP_USER_ERROR,
   CALENDAR,
 } from '../actions/index';
@@ -200,12 +201,13 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
   switch (action.type) {
     case REQUEST_PLACES_START:
       return { ...state, isFetchingPlaces: action.isFetchingPlaces };
-    case RECEIVE_PLACES_SUCCESS:
+    case RECEIVE_PLACES_SUCCESS: {
       return {
         ...state,
         isFetchingPlaces: action.isFetchingPlaces,
         places: action.places,
       };
+    }
     case RECEIVE_PLACES_FAILURE:
       return {
         ...state,
