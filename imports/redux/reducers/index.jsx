@@ -119,7 +119,7 @@ function userReducer(state = initialUserState, action) {
       return {
         ...state, isSignedIn: false, fullName: '', userId: '', email: '', blacklist: [], favourites: [],
       };
-    case ADD_BLACKLIST:
+    case ADD_BLACKLIST: {
       const matchedUsers = Meteor.users.update({ _id: state.userId }, { $push: { 'profile.preferences.blacklist': action.blacklist } });
       if (matchedUsers === 0) {
         // TODO: create better error handling
@@ -128,6 +128,7 @@ function userReducer(state = initialUserState, action) {
       const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       return { ...state, blacklist: info.profile.preferences.blacklist };
+    }
     case REMOVE_BLACKLIST: {
       const removedBlacklistUsers = Meteor.users.update({ _id: state.userId }, { $pull: { 'profile.preferences.blacklist': action.blacklistToRemove } });
       if (removedBlacklistUsers === 0) {
