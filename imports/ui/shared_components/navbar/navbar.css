@@ -74,23 +74,27 @@
 }
 
 .description {
-    font-size: 12px;
+    font-size: calc(10px + 6 * ((100vw - 1000px) / 680));
 }
 
 @media only screen and (min-width: 1400px) {
     .title-container {
         font-size: 51.3px;
     }
+
     .navbar-buttons-container {
         font-size: 20px;
     }
+
     .query-label-text {
         font-size: 20px;
     }
+
     .title-description-container {
         font-size: 20px;
         line-height: 24px;
     }
+
     .MuiButton-label {
         font-size: 20px;
     }
@@ -99,28 +103,47 @@
 @media only screen and (max-width: 1399px) {
     .title-container {
         font-size: calc(38px + 6 * ((100vw - 1000px) / 680));
-        grid-template-columns: 14.1% 49.6% 36.3%;
     }
 
     .navbar-buttons-container {
         font-size: 16px;
     }
+
     .query-label-text {
-        font-size: 14px;
+        font-size: calc(14px + 6 * ((100vw - 1000px) / 680));
     }
+
     .title-description-container {
-        font-size: 15px;
         line-height: 18px;
+        font-size: calc(15px + 6 * ((100vw - 1000px) / 680));
     }
+
     .MuiButton-label {
         font-size: 14px;
+    }
+
+    .navbar-text {
+        font-size: calc(16px + 6 * ((100vw - 1000px) / 680));
     }
 }
 
 @media only screen and (max-width: 1399px) {
     .title-container {
         font-size: calc(28px + 6 * ((100vw - 1000px) / 680));
-        grid-template-columns: 14.1% 49.6% 36.3%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .title-container {
+        grid-template-columns: 14.1% 39.6% 46.3%;
+    }
+
+    .description {
+        visibility: hidden;
+    }
+
+    .title-description-text-container {
+        height: 70%;
     }
 }
 
