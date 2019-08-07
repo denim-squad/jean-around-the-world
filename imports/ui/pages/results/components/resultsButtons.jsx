@@ -41,9 +41,8 @@ class ResultsButtons extends React.Component {
         return <CalendarContainer />
       case SAVE_PREVIOUS_TRAVEL:
         return <SaveTravelName />
-      default:
+      case LOGIN_TO_SAVE:
         return <LoginToSaveContainer />
-
     }
   }
 
