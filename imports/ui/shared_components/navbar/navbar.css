@@ -160,8 +160,8 @@
 
 @media only screen and (max-width: 1000px) {
     .map-query-container {
-        grid-template-columns: 5.5% 8.3% 22.9% 8.9% 26.4% 12.2%;
-        grid-column-gap: 2.5%;
+        grid-template-columns: 5.5% 8.3% 20.9% 8.9% 26.4% 12.2%;
+        grid-column-gap: 2.2%;
     }
 
     .title-description-container {
