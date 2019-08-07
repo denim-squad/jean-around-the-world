@@ -30,7 +30,7 @@ function randomizePlaces(placesArray, count) {
           address: result.vicinity,
         });
         count--;
-        if (count === 0) { return };
+        if (count <= 0) { return };
       };
     });
   });
@@ -83,12 +83,12 @@ export class ResultsMapContainer extends React.Component {
           <Polyline
             path={() => {
               const markerLocations = [];
-              // randomPlaces.map((place) => {
-              //   markerLocations.push({
-              //     lat: place.lat,
-              //     lng: place.lng,
-              //   });
-              // });
+              randomPlaces.map((place) => {
+                markerLocations.push({
+                  lat: place.lat,
+                  lng: place.lng,
+                });
+              });
               return markerLocations;
             }}
             strokeColor="#FF5D47"
@@ -99,6 +99,8 @@ export class ResultsMapContainer extends React.Component {
             visible={this.state.showingInfoWindow}>
             <div>
               <h1>{this.state.currentMarkerName}</h1>
+              <h1>{this.state.activeMarker.lat}</h1>
+              <h1>{this.state.activeMarker.lng}</h1>
             </div>
         </InfoWindow>
       </Map>
