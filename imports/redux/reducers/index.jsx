@@ -23,8 +23,8 @@ import {
   UPDATE_BUDGET,
   SAVE_PREVIOUS_TRAVEL,
   DELETE_PREVIOUS_TRAVEL,
-  UPDATE_PLACES,
   SIGNUP_USER_ERROR,
+  CALENDAR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -252,12 +252,6 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       return {
         ...state,
         budgetRange: action.budgetRange,
-      };
-      // todo remove
-    case UPDATE_PLACES:
-      return {
-        ...state,
-        places: action.places
       };
     default:
       return state;

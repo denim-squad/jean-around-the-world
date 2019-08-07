@@ -24,8 +24,8 @@ export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
-export const UPDATE_PLACES = 22;
-export const SIGNUP_USER_ERROR = 23;
+export const SIGNUP_USER_ERROR = 22;
+export const CALENDAR = 23;
 
 export function showModal(kind) {
   return {
@@ -80,8 +80,8 @@ function signupUserSuccess(userId, firstName, lastName, email) {
 function signupUserFailure(error) {
   return {
     type: SIGNUP_USER_ERROR,
-    error
-  }
+    error,
+  };
 }
 
 export function signupUser(firstname, lastname, email, password) {
@@ -92,8 +92,8 @@ export function signupUser(firstname, lastname, email, password) {
       dispatch(signupUserFailure('An account with this email already exists. Proceed to login to continue.'));
     } else {
       Accounts.createUser({
-        email: email,
-        password: password,
+        email,
+        password,
         profile: {
           firstName: firstname,
           lastName: lastname,
@@ -110,7 +110,7 @@ export function signupUser(firstname, lastname, email, password) {
         }
       });
     }
-  }
+  };
 }
 
 export function addBlacklist(blacklist) {
@@ -248,12 +248,5 @@ export function updateBudget(budgetRange) {
   return {
     type: UPDATE_BUDGET,
     budgetRange,
-  };
-}
-
-export function updatePlaces(places) {
-  return {
-    type: UPDATE_PLACES,
-    places,
   };
 }
