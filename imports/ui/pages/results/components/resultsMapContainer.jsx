@@ -19,21 +19,19 @@ function decideRandomCount(radius) {
 
 function randomizePlaces(placesArray, count) {
   placesArray.forEach((googleAPIPlace) => {
-    googleAPIPlace.results.forEach((resultPlace) => {
-      resultPlace.forEach((result) => {
-        if (decideShouldBeIncluded(count)) {
-          randomPlaces.push({
-            lat: result.location.lat,
-            lng: result.location.lng,
-            name: result.name,
-            price: result.price_level,
-            rating: result.rating,
-            address: result.vicinity,
-          })
-          count--;
-          if (count === 0) { return };
-        };
-      });
+    googleAPIPlace.results.forEach((result) => {
+      if (decideShouldBeIncluded(count)) {
+        randomPlaces.push({
+          lat: result.geometry.location.lat,
+          lng: result.geometry.location.lng,
+          name: result.name,
+          price: result.price_level,
+          rating: result.rating,
+          address: result.vicinity,
+        })
+        count--;
+        if (count === 0) { return };
+      };
     });
   });
 }
@@ -110,7 +108,7 @@ export class ResultsMapContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
       initialCenter: state.map.initialCenter,
-      places: Array.from(state.placeSearch.places),
+      places: state.placeSearch.places,
   };
 }
 
