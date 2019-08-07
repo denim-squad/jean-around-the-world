@@ -26,6 +26,7 @@ import {
   SAVE_PREVIOUS_TRAVEL_FAILURE,
   DELETE_PREVIOUS_TRAVEL_FAILURE,
   GET_PREVIOUS_TRAVEL,
+  CALENDAR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -220,6 +221,14 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         error: action.error,
       };
     case SET_PLACE_TYPE_AND_QUANTITY: {
+      /**
+       * Unsure if this check will work, but trying to fix intermittent errors
+       * relating to previous app state causing typesAndQuantities to be an unknown object
+       */
+      if (!Array.isArray(state.typesAndQuantities)) {
+        // eslint-disable-next-line no-param-reassign
+        state = initialPlaceSearchState;
+      }
       const changedTypesAndQuantities = state.typesAndQuantities.filter(
         typeAndQuantity => typeAndQuantity.type !== action.placeType,
       );

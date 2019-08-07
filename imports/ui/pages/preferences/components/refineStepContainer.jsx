@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import { connect } from 'react-redux';
 import Rating from 'material-ui-rating';
@@ -18,26 +20,28 @@ class RefineStepContainer extends React.Component {
 
     return (
       <div className="refine-container">
-        <div>
-          {/* spacing */}
-        </div>
-        <div className="stepbox-title">
-          <strong>
-          Minimum Rating out of 5:
-          </strong>
-        </div>
-        <Rating
-          value={minimumAcceptableRating}
-          max={MAX_RATING}
-          onChange={updateRating}
-        />
-        <div />
-        <div className="stepbox-title">
-          <strong>
-          Budget Range:
-          </strong>
-        </div>
-        <div className="refine-slider-container">
+          <div>
+            {/* spacing */}
+          </div>
+          <div className="stepbox-title">
+            <strong>
+              Minimum Rating out of 5:
+            </strong>
+          </div>
+          <div className="rating-button">
+          <Rating
+            value={minimumAcceptableRating}
+            max={MAX_RATING}
+            onChange={updateRating}
+          />
+          </div>
+          <div/>
+          <div className="stepbox-title">
+            <strong>
+              Budget Range:
+            </strong>
+          </div>
+          <div className="refine-slider-container">
           <div>
           Free
           </div>

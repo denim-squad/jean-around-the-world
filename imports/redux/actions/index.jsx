@@ -27,6 +27,7 @@ export const SIGNUP_USER_ERROR = 22;
 export const SAVE_PREVIOUS_TRAVEL_FAILURE = 23;
 export const DELETE_PREVIOUS_TRAVEL_FAILURE = 24;
 export const GET_PREVIOUS_TRAVEL = 25;
+export const CALENDAR = 26;
 
 export function showModal(kind) {
   return {

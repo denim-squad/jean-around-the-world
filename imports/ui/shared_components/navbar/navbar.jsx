@@ -24,24 +24,24 @@ class Navbar extends React.Component {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/');
-      }, 1400);
+      }, 3000);
+      history.push('/');
     }
 
     goToAboutPage = async () => {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/about');
-      }, 1400);
+      }, 3000);
+      history.push('/about');
     }
 
     goToProfilePage = async () => {
       this.loadingSpinner.current.style.display = 'block';
       await setTimeout(() => {
         this.loadingSpinner.current.style.display = 'none';
-        history.push('/profile');
-      }, 1400);
+      }, 3000);
+      history.push('/profile');
     }
 
     openModal = kind => () => {
@@ -150,35 +150,36 @@ class Navbar extends React.Component {
             </p>
             <div>
               {
-                        this.props.isHomePage
-                        && (
-                        <div className="title-description-container">
-                          <div>
-                            {/* spacing */}
-                          </div>
-                          <div className="title-description-text-container">
-                            <div className="description-title">
-                                    UNRAVEL THE TRAVEL
-                            </div>
-                            <div className="description">
-                                    Here is a description of the project and more interesting stuff.
-                            </div>
-                          </div>
-                          <div>
-                            {/* spacing */}
-                          </div>
+                    this.props.isHomePage
+                    && (
+                    <div className="title-description-container">
+                      <div>
+                        {/* spacing */}
+                      </div>
+                      <div className="title-description-text-container">
+                        <div className="description-title">
+                                UNRAVEL THE TRAVEL
                         </div>
-                        )
-                    }
+                        <div className="description">
+                            Never be afraid of the question "What do you want to do today?" ever again.
+                            Jean Around the World will give you the adventures of your lifetime.
+                        </div>
+                      </div>
+                      <div>
+                        {/* spacing */}
+                      </div>
+                    </div>
+                    )
+                }
             </div>
           </div>
           {
-                this.props.isHomePage
-                && <MapQuery />
-            }
+              this.props.isHomePage
+              && <MapQuery />
+          }
           {
               this.showSpecificModal(this.props.modal.modalKind)
-            }
+          }
         </div>
       );
     }

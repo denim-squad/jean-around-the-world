@@ -2,27 +2,50 @@ import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
-import { showModal, savePrevTravel, SAVE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
+import { showModal, savePrevTravel, CALENDAR, SAVE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
+import { Meteor } from 'meteor/meteor';
+import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
+import CalendarContainer from './calendar-container';
+import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
 class ResultsButtons extends React.Component {
+  constructor() {
+    super();
+    this.loadingSpinner = React.createRef();
+  }
+
   goToHomePage = async () => {
-    // this.loadingSpinner.current.style.display = 'block';
+    this.loadingSpinner.current.style.display = 'block';
     await setTimeout(() => {
-      // this.loadingSpinner.current.style.display = 'none';
+      this.loadingSpinner.current.style.display = 'none';
       history.push('/');
     }, 2800);
+    history.push('/');
   }
 
   displayPlaces = () => {
     /**
-     * TODO: I want to keep this console log until we do something
+     * TODO: I want to keep these console logs until we do something
      * with the data on this page, as a quick smoke test
      */
-    console.log('this.props.places:', this.props.places);
     const { places } = this.props;
+    console.log('this.props.places:', places);
+    const firstPlace = places[0].results[0];
+    if (firstPlace) {
+      const id = firstPlace.place_id;
+      const fields = ['formatted_address', 'icon', 'photo', 'url', 'website', 'opening_hours'];
+      Meteor.call(GET_PLACE_DETAILS_NAME, { id, fields }, (error, details) => {
+        if (error) console.log(error);
+        console.log('details:', details);
+      });
+    }
+  }
+
+  openModal = (kind) => () => {
+    this.props.showModal(kind);
   }
 
   saveTrip = () => {
@@ -36,11 +59,12 @@ class ResultsButtons extends React.Component {
   render() {
     return (
       <div className="results-container">
+      <LoadingSpinner ref={this.loadingSpinner} />
       WE FOUND JUST THE TRIP FOR YOU!
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            { this.displayPlaces() }
+            {this.displayPlaces()}
           </div>
           <BootstrapButton
             className="save-trip-button"
@@ -50,7 +74,7 @@ class ResultsButtons extends React.Component {
             onClick={this.openModal}
           >
           SAVE TRIP
-          </BootstrapButton>
+            </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
@@ -59,9 +83,9 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
-          >
+            onClick={this.openModal(CALENDAR)}>
           ADD TO CALENDAR
-          </BootstrapButton>
+            </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
@@ -73,15 +97,26 @@ class ResultsButtons extends React.Component {
             onClick={this.goToHomePage}
           >
           NEW TRIP
-          </BootstrapButton>
+            </BootstrapButton>
           <div>
             {/* spacing  */}
           </div>
+          <BootstrapButton
+            className="reroll-button"
+            variant="contained"
+            size="small"
+            color="primary">
+            REROLL
+            </BootstrapButton>
         </div>
+        {
+          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer/>
+        }
       </div>
     );
   }
 }
+
 
 const mapStateToProps = state => ({
   places: state.placeSearch.places,

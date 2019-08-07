@@ -22,7 +22,11 @@
 
 .results-buttons-container {
     display: grid;
-    grid-template-columns: 25% 10% 5% 20% 5% 10% 25%;
+    grid-template-columns: 15% 12.5% 5% 20% 5% 12.5% 5% 10% 15%;
+}
+
+button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root-1, button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root-16{
+    height: 80%;
 }
 
 .save-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
@@ -39,4 +43,12 @@
 
 .new-trip-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
     background-color: #D83F2A !important;
+}
+
+.reroll-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #F9CB27 !important;
+}
+
+.reroll-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #DEA103 !important;
 }
