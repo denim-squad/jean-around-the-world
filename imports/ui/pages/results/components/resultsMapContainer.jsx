@@ -50,7 +50,7 @@ export class ResultsMapContainer extends React.Component {
         activeMarker: {},
       };
       const randomCount = decideRandomCount(this.props.radius);
-      this.randomizedPlaces = randomizePlaces(this.props.places, randomCount);
+      randomizePlaces(this.props.places, randomCount);
     }
 
     setActiveMarker = (props, marker, e) => {
