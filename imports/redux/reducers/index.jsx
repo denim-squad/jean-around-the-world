@@ -24,6 +24,7 @@ import {
   SAVE_PREVIOUS_TRAVEL,
   DELETE_PREVIOUS_TRAVEL,
   SIGNUP_USER_ERROR,
+  CALENDAR,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {

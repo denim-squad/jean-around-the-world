@@ -73,6 +73,10 @@
     font-family: 'Cute Font', cursive;
 }
 
+.description {
+    font-size: 12px;
+}
+
 @media only screen and (min-width: 1400px) {
     .title-container {
         font-size: 51.3px;
@@ -160,7 +164,7 @@
 
 .slider {
     /* Fixes console log errors */
-    touch-action: none; 
+    touch-action: none;
 }
 
 .MuiTypography-body1, .MuiInputLabel-formControl {
@@ -178,4 +182,3 @@
 #link-to-signup a {
   color: red;
 }
-

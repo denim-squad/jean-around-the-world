@@ -24,6 +24,7 @@ export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
 export const SIGNUP_USER_ERROR = 22;
+export const CALENDAR = 23;
 
 export function showModal(kind) {
   return {
