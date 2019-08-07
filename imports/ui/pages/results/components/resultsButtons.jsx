@@ -25,11 +25,12 @@ class ResultsButtons extends React.Component {
 
   displayPlaces = () => {
     /**
-     * TODO: I want to keep this console log until we do something
+     * TODO: I want to keep these console logs until we do something
      * with the data on this page, as a quick smoke test
      */
-    console.log('this.props.places:', this.props.places);
     const { places } = this.props;
+    console.log('this.props.places:', places);
+    
     const firstPlace = places[0].results[0];
     if (firstPlace) {
       const id = firstPlace.place_id;
@@ -48,7 +49,7 @@ class ResultsButtons extends React.Component {
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            { this.displayPlaces() }
+            {this.displayPlaces()}
           </div>
           <BootstrapButton
             className="save-trip-button"
