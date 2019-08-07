@@ -54,7 +54,7 @@ class ResultsButtons extends React.Component {
     return (
       <div className="results-container">
         <LoadingSpinner ref={this.loadingSpinner} />
-      WE FOUND JUST THE TRIP FOR YOU!
+        WE FOUND JUST THE TRIP FOR YOU!
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
