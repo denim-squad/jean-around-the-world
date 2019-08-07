@@ -49,6 +49,10 @@ class ResultsButtons extends React.Component {
   openModal = kind => () => {
     this.props.showModal(kind);
   }
+  
+  refreshResultsPage = () => {
+    history.push('/results');
+  }
 
   render() {
     return (
@@ -100,6 +104,7 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
+            onClick={this.refreshResultsPage}
           >
             REROLL
           </BootstrapButton>
