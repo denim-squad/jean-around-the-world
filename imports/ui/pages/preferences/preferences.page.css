@@ -73,7 +73,7 @@
 
 .nav-buttons-container {
     display: grid;
-    grid-template-columns: 35.3% 35.3%;
+    grid-template-columns: 30.3% 40.3%;
     grid-column-gap: 29.4%;
 }
 
@@ -144,7 +144,7 @@
 
 .customize-buttons-container {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 50% 50%;
 }
 
 .form-container {
@@ -202,14 +202,14 @@ div .MuiFormControl-root {
     font-family: 'Rubik', sans-serif;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
+    font-size: calc(16px + 6 * ((100vw - 1000px) / 680));
     line-height: 24px;
     color: #000000;
 }
 
 .customize-buttons svg.MuiSvgIcon-root {
-    width: 0.6em;
-    height: 0.6em;
+    width: calc(12px + 6 * ((100vw - 1000px) / 680));
+    height: calc(12px + 6 * ((100vw - 1000px) / 680));
 }
 
 .rating-button svg.MuiSvgIcon-root {
@@ -256,6 +256,10 @@ strong.blacklist-stepbox-title {
         grid-row-gap: 0%;
     }
 
+    .rating-button svg.MuiSvgIcon-root {
+        font-size: calc(25px + 6 * ((100vw - 1000px) / 680));
+    }
+
     .MuiButton-label {
         font-size: calc(12px + 6 * ((100vw - 1000px) / 680));
     }
@@ -271,11 +275,39 @@ strong.blacklist-stepbox-title {
         grid-template-columns: 40% 40%;
         grid-column-gap: 20%;
     }
+
+    .customize-buttons svg.MuiSvgIcon-root {
+        width: calc(18px + 6 * ((100vw - 1000px) / 680));
+        height: calc(18px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    .rating-button svg.MuiSvgIcon-root {
+        font-size: calc(18px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    .blacklist-add-container {
+        grid-template-columns: 65% 28%;
+        grid-column-gap: 7%;
+    }
+
+    .add-button {
+        height: calc(32px + 6 * ((100vw - 1000px) / 680));
+    }
 }
 
 @media only screen and (max-width: 750px) {
     .step-text-container {
-        grid-template-rows: 30% 70% !important;
+        grid-template-rows: 30% 70%;
         grid-row-gap: 0%;
+    }
+
+    .blacklist-add-container {
+        grid-template-columns: 55% 38%;
+        grid-column-gap: 7%;
+    }
+
+    .blacklist-container {
+        grid-template-rows: 12% 17% 1% 6% 34%;
+        grid-row-gap: 3%;
     }
 }
