@@ -205,6 +205,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         isFetchingPlaces: action.isFetchingPlaces,
         places: action.places,
       };
+    }
     case GET_PREVIOUS_TRAVEL: {
       const updatedInfo = Meteor.users.find({ _id: action.userId }).fetch();
       const info = updatedInfo[0];

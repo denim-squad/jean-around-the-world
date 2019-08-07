@@ -2,10 +2,15 @@ import React from 'react';
 import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
-import { showModal, savePrevTravel, CALENDAR, SAVE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
 import { Meteor } from 'meteor/meteor';
+import {
+  updatePlaces,
+  showModal,
+  savePrevTravel,
+  CALENDAR,
+  SAVE_PREVIOUS_TRAVEL,
+} from '../../../../redux/actions/index';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import { updatePlaces, showModal, CALENDAR } from '../../../../redux/actions';
 import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 import CalendarContainer from './calendar-container';
 import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
@@ -54,10 +59,6 @@ class ResultsButtons extends React.Component {
     this.props.savePrevTravel({ name: 'test', places: this.props.places }, this.props.userId);
   }
 
-  openModal = (kind) => {
-    this.props.showModal(SAVE_PREVIOUS_TRAVEL);
-  }
-
   render() {
     return (
       <div className="results-container">
@@ -73,7 +74,7 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
-            onClick={this.openModal}
+            onClick={this.openModal(SAVE_PREVIOUS_TRAVEL)}
           >
           SAVE TRIP
           </BootstrapButton>
@@ -133,6 +134,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updatePlaces: places => dispatch(updatePlaces(places)),
   showModal: kind => dispatch(showModal(kind)),
+  savePrevTravel: (places, userId) => dispatch(savePrevTravel(places, userId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, {showModal, savePrevTravel })(ResultsButtons);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsButtons);
