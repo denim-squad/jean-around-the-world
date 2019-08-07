@@ -4,10 +4,8 @@ const isNotBlacklisted = (result, blacklist) => {
   return blacklist.every((blacklistItem) => {
     const { name } = result;
     const lowerCaseBlacklist = blacklistItem.toLowerCase();
-    const lowerCaseResultName = name.toLowerCase();
-
-    console.log(levenshtein(lowerCaseBlacklist, lowerCaseResultName));
-
+    const lowerCaseResultName = name.toLowerCase();\
+    
     return !lowerCaseBlacklist.includes(lowerCaseResultName)
       || levenshtein(lowerCaseBlacklist, lowerCaseResultName) < 3;
   });
