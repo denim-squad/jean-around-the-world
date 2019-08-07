@@ -191,7 +191,7 @@ div .MuiFormControl-root {
 
 .slider {
   /* Fixes console log errors */
-    touch-action: none; 
+    touch-action: none;
 }
 
 .refine-slider-container {
@@ -206,17 +206,16 @@ div .MuiFormControl-root {
     color: #000000;
 }
 
-svg.MuiSvgIcon-root {
+.customize-buttons svg.MuiSvgIcon-root {
     width: 0.6em;
     height: 0.6em;
 }
 
-svg.MuiSvgIcon-root.Rating-icon-160 {
-    width: 1.5em;
-    height: 1.5em;
+.rating-button svg.MuiSvgIcon-root {
+    width: 1.5em !important;
+    height: 1.5em !important;
 }
 
 img {
     max-width: 100%;
 }
-

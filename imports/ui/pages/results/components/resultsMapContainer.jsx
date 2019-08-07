@@ -1,6 +1,8 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import { Map, GoogleApiWrapper, Marker, Polyline, InfoWindow } from 'google-maps-react';
+import {
+  Map, GoogleApiWrapper, Marker, Polyline, InfoWindow,
+} from 'google-maps-react';
 import { connect } from 'react-redux';
 import { API_KEY } from '../../../../constants';
 
@@ -65,8 +67,8 @@ export class ResultsMapContainer extends React.Component {
       if (this.state.showingInfoWindow) {
         this.setState({
           showingInfoWindow: false,
-          activeMarker: null
-        })
+          activeMarker: null,
+        });
       }
     }
 
@@ -93,26 +95,27 @@ export class ResultsMapContainer extends React.Component {
             }}
             strokeColor="#FF5D47"
             strokeOpacity={0.8}
-            strokeWeight={2} />
+            strokeWeight={2}
+          />
           <InfoWindow
             marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}>
+            visible={this.state.showingInfoWindow}
+          >
             <div>
               <h1>{this.state.currentMarkerName}</h1>
               <h1>{this.state.activeMarker.lat}</h1>
               <h1>{this.state.activeMarker.lng}</h1>
             </div>
-        </InfoWindow>
-      </Map>
+          </InfoWindow>
+        </Map>
+      );
     }
 }
 
-const mapStateToProps = (state) => {
-	return {
-      initialCenter: state.map.initialCenter,
-      places: state.placeSearch.places,
-  };
-}
+const mapStateToProps = state => ({
+  initialCenter: state.map.initialCenter,
+  places: state.placeSearch.places,
+});
 
 export default connect(mapStateToProps)(GoogleApiWrapper({
   apiKey: API_KEY,

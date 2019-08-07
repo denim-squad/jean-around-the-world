@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
+import filterResults from '../../api/places/filterResults';
 
 export const SHOW_MODAL = 0;
 export const HIDE_MODAL = 1;
@@ -23,6 +24,8 @@ export const UPDATE_RATING = 18;
 export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
+export const SIGNUP_USER_ERROR = 22;
+export const CALENDAR = 23;
 
 export function showModal(kind) {
   return {
@@ -64,13 +67,49 @@ export function logoutUser() {
   };
 }
 
-export function signupUser(firstName, lastName, email, password) {
+function signupUserSuccess(userId, firstName, lastName, email) {
   return {
     type: SIGNUP_USER,
+    userId,
     firstName,
     lastName,
     email,
-    password,
+  };
+}
+
+function signupUserFailure(error) {
+  return {
+    type: SIGNUP_USER_ERROR,
+    error,
+  };
+}
+
+export function signupUser(firstname, lastname, email, password) {
+  return (dispatch) => {
+    const query = Meteor.users.find({ 'emails.address': email }).fetch();
+    const userExists = query[0];
+    if (userExists) {
+      dispatch(signupUserFailure('An account with this email already exists. Proceed to login to continue.'));
+    } else {
+      Accounts.createUser({
+        email,
+        password,
+        profile: {
+          firstName: firstname,
+          lastName: lastname,
+          previousTravels: [],
+          preferences: { blacklist: [], favourites: [] },
+        },
+      }, (err) => {
+        if (err) {
+          dispatch(signupUserFailure(err));
+        } else {
+          const userInfo = Meteor.users.find({ 'emails.address': email }).fetch();
+          const newUser = userInfo[0];
+          dispatch(signupUserSuccess(newUser._id, firstname, lastname, email));
+        }
+      });
+    }
   };
 }
 
@@ -150,10 +189,10 @@ export function getPlaces() {
   return (dispatch, getState) => {
     dispatch(requestPlacesStart());
     const state = getState();
-    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { budgetRange, typesAndQuantities, minimumAcceptableRating } = state.placeSearch;
     const { radius, initialCenter } = state.map;
+    const { blacklist } = state.user;
     const typesAndResults = [];
-
     let callCounter = typesAndQuantities.length;
     typesAndQuantities.forEach((singleTypeAndQuantity) => {
       const { type } = singleTypeAndQuantity;
@@ -166,9 +205,13 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
+          const results = filterResults(result.data.results,
+            budgetRange,
+            minimumAcceptableRating,
+            blacklist);
           typesAndResults.push({
             type,
-            results: result.data.results,
+            results,
           });
           callCounter -= 1;
           if (callCounter < 1) {
