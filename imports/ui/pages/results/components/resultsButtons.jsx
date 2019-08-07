@@ -13,6 +13,7 @@ import {
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 import CalendarContainer from './calendar-container';
+import SaveTravelName from './save-travel';
 import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -30,6 +31,15 @@ class ResultsButtons extends React.Component {
       this.loadingSpinner.current.style.display = 'none';
     }, 2800);
     history.push('/');
+  }
+
+  showSpecificModal = (kind) => {
+    switch (kind) {
+      case CALENDAR:
+        return <CalendarContainer />
+      default:
+        return <SaveTravelName />
+    }
   }
 
   displayPlaces = () => {
@@ -115,7 +125,7 @@ class ResultsButtons extends React.Component {
           </BootstrapButton>
         </div>
         {
-          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer />
+          this.showSpecificModal(this.props.modal.modalKind)
         }
       </div>
     );

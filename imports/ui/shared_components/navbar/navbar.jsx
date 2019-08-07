@@ -5,7 +5,6 @@ import { createBrowserHistory } from 'history';
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
-import SaveTravelName from '../save-travel/save-travel';
 import {
   showModal, logoutUser, LOGIN, SIGNUP, SAVE_PREVIOUS_TRAVEL,
 } from '../../../redux/actions';
@@ -54,8 +53,6 @@ class Navbar extends React.Component {
           return <Login />
         case SIGNUP:
           return <Signup />
-        case SAVE_PREVIOUS_TRAVEL:
-          return <SaveTravelName />
       }
     }
 

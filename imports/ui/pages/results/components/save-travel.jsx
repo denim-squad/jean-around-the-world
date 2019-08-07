@@ -10,10 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { BootstrapButton } from '../MUI/button/bootstrapButton';
+import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import {
   hideModal, savePrevTravel,
-} from '../../../redux/actions';
+} from '../../../.././redux/actions';
 
 
 const styles = theme => ({
