@@ -9,11 +9,13 @@ import {
   savePrevTravel,
   CALENDAR,
   SAVE_PREVIOUS_TRAVEL,
+  LOGIN_TO_SAVE,
 } from '../../../../redux/actions/index';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 import CalendarContainer from './calendar-container';
 import SaveTravelName from './save-travel';
+import LoginToSaveContainer from './login-to-save';
 import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -37,8 +39,11 @@ class ResultsButtons extends React.Component {
     switch (kind) {
       case CALENDAR:
         return <CalendarContainer />
-      default:
+      case SAVE_PREVIOUS_TRAVEL:
         return <SaveTravelName />
+      default:
+        return <LoginToSaveContainer />
+
     }
   }
 
@@ -62,11 +67,12 @@ class ResultsButtons extends React.Component {
   }
 
   openModal = kind => () => {
-    this.props.showModal(kind);
-  }
-
-  saveTrip = () => {
-    this.props.savePrevTravel({ name: 'test', places: this.props.places }, this.props.userId);
+    if (!this.props.isSignedIn && kind === SAVE_PREVIOUS_TRAVEL) {
+      // change this to a modal that links to login or signup
+      this.props.showModal(LOGIN_TO_SAVE);
+    } else {
+      this.props.showModal(kind);
+    }
   }
 
   render() {
@@ -137,6 +143,7 @@ const mapStateToProps = state => ({
   places: state.placeSearch.places,
   minimumAcceptableRating: state.placeSearch.minimumAcceptableRating,
   blacklist: state.user.blacklist,
+  isSignedIn: state.user.isSignedIn,
   userId: state.user.userId,
   modal: state.modal,
 });
