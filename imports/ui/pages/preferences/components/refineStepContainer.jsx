@@ -20,28 +20,28 @@ class RefineStepContainer extends React.Component {
 
     return (
       <div className="refine-container">
-          <div>
-            {/* spacing */}
-          </div>
-          <div className="stepbox-title">
-            <strong>
+        <div>
+          {/* spacing */}
+        </div>
+        <div className="stepbox-title">
+          <strong>
               Minimum Rating out of 5:
-            </strong>
-          </div>
-          <div className="rating-button">
+          </strong>
+        </div>
+        <div className="rating-button">
           <Rating
             value={minimumAcceptableRating}
             max={MAX_RATING}
             onChange={updateRating}
           />
-          </div>
-          <div/>
-          <div className="stepbox-title">
-            <strong>
+        </div>
+        <div />
+        <div className="stepbox-title">
+          <strong>
               Budget Range:
-            </strong>
-          </div>
-          <div className="refine-slider-container">
+          </strong>
+        </div>
+        <div className="refine-slider-container">
           <div>
           Free
           </div>

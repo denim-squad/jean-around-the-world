@@ -4,11 +4,10 @@ import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import { Meteor } from 'meteor/meteor';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import CalendarContainer from './calendar-container';
-import { showModal, CALENDAR } from "../../../../redux/actions";
-import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
-import { updatePlaces } from '../../../../redux/actions';
+import { updatePlaces, showModal, CALENDAR } from '../../../../redux/actions';
 import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
+import CalendarContainer from './calendar-container';
+import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
 
@@ -29,11 +28,12 @@ class ResultsButtons extends React.Component {
 
   displayPlaces = () => {
     /**
-     * TODO: I want to keep this console log until we do something
+     * TODO: I want to keep these console logs until we do something
      * with the data on this page, as a quick smoke test
      */
-    console.log('this.props.places:', this.props.places);
     const { places } = this.props;
+    console.log('this.props.places:', places);
+
     const firstPlace = places[0].results[0];
     if (firstPlace) {
       const id = firstPlace.place_id;
@@ -53,11 +53,11 @@ class ResultsButtons extends React.Component {
     return (
       <div className="results-container">
         <LoadingSpinner ref={this.loadingSpinner} />
-      WE FOUND JUST THE TRIP FOR YOU!
+        WE FOUND JUST THE TRIP FOR YOU!
         <div className="results-buttons-container">
           <div>
             {/* todo major styling, decisions about how to format, what to display, etc */}
-            { this.displayPlaces() }
+            {this.displayPlaces()}
           </div>
           <BootstrapButton
             className="save-trip-button"
@@ -120,7 +120,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updatePlaces: places => dispatch(updatePlaces(places)),
-  showModal: () => dispatch(showModal),
+  showModal: kind => dispatch(showModal(kind)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsButtons);
