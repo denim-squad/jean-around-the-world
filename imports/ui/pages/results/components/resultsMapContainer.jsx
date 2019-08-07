@@ -83,7 +83,7 @@ export class ResultsMapContainer extends React.Component {
           <Polyline
             path={() => {
               const markerLocations = [];
-              randomPlaces.forEach((place) => {
+              randomPlaces.map((place) => {
                 markerLocations.push({
                   lat: place.lat,
                   lng: place.lng,
