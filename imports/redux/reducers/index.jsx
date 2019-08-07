@@ -25,6 +25,7 @@ import {
   SIGNUP_USER_ERROR,
   SAVE_PREVIOUS_TRAVEL_FAILURE,
   DELETE_PREVIOUS_TRAVEL_FAILURE,
+  GET_PREVIOUS_TRAVEL,
 } from '../actions/index';
 import { LOGIN } from '../../ui/shared_components/navbar/navbar';
 import {
@@ -203,6 +204,15 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
         isFetchingPlaces: action.isFetchingPlaces,
         places: action.places,
       };
+    case GET_PREVIOUS_TRAVEL: {
+      const updatedInfo = Meteor.users.find({ _id: action.userId }).fetch();
+      const info = updatedInfo[0];
+      const { previousTravels } = info.profile;
+      const toReturnTravel = previousTravels.find((travel) => {
+        return travel.name === action.travelName;
+      });
+      return { ...state, places: toReturnTravel.places };
+    }
     case RECEIVE_PLACES_FAILURE:
       return {
         ...state,
