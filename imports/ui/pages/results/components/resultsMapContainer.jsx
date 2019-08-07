@@ -19,7 +19,7 @@ function decideRandomCount(radius) {
 
 function randomizePlaces(placesArray, count) {
   placesArray.forEach((googleAPIPlace) => {
-    googleAPIPlace.forEach((resultPlace) => {
+    googleAPIPlace.results.forEach((resultPlace) => {
       resultPlace.forEach((result) => {
         if (decideShouldBeIncluded(count)) {
           randomPlaces.push({
@@ -110,7 +110,7 @@ export class ResultsMapContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
       initialCenter: state.map.initialCenter,
-      places: Array.from(state.placeSearch.places),
+      places: state.placeSearch.places,
   };
 }
 
