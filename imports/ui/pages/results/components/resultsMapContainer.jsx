@@ -110,7 +110,7 @@ export class ResultsMapContainer extends React.Component {
 const mapStateToProps = (state) => {
 	return {
       initialCenter: state.map.initialCenter,
-      places: state.placeSearch.places,
+      places: Array.from(state.placeSearch.places),
   };
 }
 
