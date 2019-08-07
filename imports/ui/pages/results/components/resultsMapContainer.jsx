@@ -18,8 +18,8 @@ function decideRandomCount(radius) {
 }
 
 function randomizePlaces(placesArray, count) {
-  placesArray.forEach((googleAPIPlace) => {
-    googleAPIPlace.results.forEach((result) => {
+  placesArray.map((googleAPIPlace) => {
+    googleAPIPlace.results.map((result) => {
       if (decideShouldBeIncluded(count)) {
         randomPlaces.push({
           lat: result.geometry.location.lat,
