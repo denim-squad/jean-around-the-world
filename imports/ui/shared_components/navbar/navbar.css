@@ -143,12 +143,12 @@
         font-size: calc(15px + 6 * ((100vw - 1000px) / 680));
     }
 
-    .MuiButton-label {
-        font-size: calc(15px + 6 * ((100vw - 1000px) / 680));
+    span.MuiButton-label {
+        font-size: calc(13px + 6 * ((100vw - 1000px) / 680));
     }
 
     .navbar-text {
-        font-size: calc(16px + 6 * ((100vw - 1000px) / 680));
+        font-size: calc(14px + 6 * ((100vw - 1000px) / 680));
     }
 }
 
