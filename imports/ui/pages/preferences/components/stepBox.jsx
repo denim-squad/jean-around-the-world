@@ -76,6 +76,12 @@ class StepBox extends React.Component {
                 placeholder="McDonald's"
                 margin="none"
                 inputRef={(input) => { this.blacklistInput = input; }}
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    event.preventDefault();
+                    this.handleAddBlacklist();
+                  }
+                }}
               />
               <BootstrapButton
                 className="add-button"
