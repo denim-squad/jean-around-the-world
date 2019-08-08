@@ -25,7 +25,11 @@ export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
 export const SIGNUP_USER_ERROR = 22;
-export const CALENDAR = 23;
+export const SAVE_PREVIOUS_TRAVEL_FAILURE = 23;
+export const DELETE_PREVIOUS_TRAVEL_FAILURE = 24;
+export const GET_PREVIOUS_TRAVEL = 25;
+export const CALENDAR = 26;
+export const LOGIN_TO_SAVE = 27;
 
 export function showModal(kind) {
   return {
@@ -141,17 +145,66 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
-export function savePrevTravel(prevTravel) {
+function savePrevTravelSuccess() {
   return {
     type: SAVE_PREVIOUS_TRAVEL,
-    prevTravel,
   };
 }
 
-export function deletePrevTravel(toDeleteTravel) {
+function savePrevTravelFailure(errMessage) {
+  return {
+    type: SAVE_PREVIOUS_TRAVEL_FAILURE,
+    errMessage,
+  };
+}
+
+export function savePrevTravel(prevTravel, userId) {
+  return (dispatch) => {
+    Meteor.users.update({ _id: userId },
+      { $push: { 'profile.previousTravels': prevTravel } },
+      (err, matchedUsers) => {
+        if (err || matchedUsers === 0) {
+          dispatch(savePrevTravelFailure(err));
+        } else {
+          dispatch(savePrevTravelSuccess());
+        }
+      });
+  };
+}
+
+function deletePrevTravelSuccess(toDeleteTravelName) {
   return {
     type: DELETE_PREVIOUS_TRAVEL,
-    toDeleteTravel,
+    toDeleteTravelName,
+  };
+}
+
+function deletePrevTravelFailure(errMessage) {
+  return {
+    type: DELETE_PREVIOUS_TRAVEL_FAILURE,
+    errMessage,
+  };
+}
+
+export function deletePrevTravel(toDeleteTravelName, userId) {
+  return (dispatch) => {
+    Meteor.users.update({ _id: userId },
+      { $pull: { 'profile.previousTravels': { name: toDeleteTravelName } } },
+      (err, matchedUsers) => {
+        if (err || matchedUsers === 0) {
+          dispatch(deletePrevTravelFailure(err));
+        } else {
+          dispatch(deletePrevTravelSuccess());
+        }
+      });
+  };
+}
+
+export function getPrevTravel(travelName, userId) {
+  return {
+    type: GET_PREVIOUS_TRAVEL,
+    travelName,
+    userId,
   };
 }
 
