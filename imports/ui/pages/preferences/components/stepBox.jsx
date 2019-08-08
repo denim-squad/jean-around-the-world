@@ -73,7 +73,7 @@ class StepBox extends React.Component {
             </div>
             <div className="blacklist-add-container">
               <CssTextField
-                placeholder="John Sastrillo's House"
+                placeholder="McDonald's"
                 margin="none"
                 inputRef={(input) => { this.blacklistInput = input; }}
               />
