@@ -201,7 +201,7 @@
   }
 
   .blacklist-text{
-    margin-top: 1%;
+    margin-top: 2%;
     margin-left: 2%;
     float: left;
     position: relative;
@@ -226,7 +226,7 @@
     font-family: 'Rubik', sans-serif;
     font-size: (10/1440) * 100vw;
     margin-left: 2%;
-    margin-top: 1%;
+    margin-top: 2%;
   }
 
   .profile-favourites-container {

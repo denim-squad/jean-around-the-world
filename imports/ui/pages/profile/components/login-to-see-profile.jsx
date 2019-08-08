@@ -60,7 +60,7 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 class LoginToSeeProfileContainer extends React.Component {
-  constructor(){
+  constructor() {
     super();
     this.loadingSpinner = React.createRef();
   }
@@ -77,12 +77,11 @@ class LoginToSeeProfileContainer extends React.Component {
     return (
       <Dialog
         open={this.props.isModalShown}
-        onClose={this.goToHomePage}
         aria-labelledby="customized-dialog-title"
       >
+        <LoadingSpinner ref={this.loadingSpinner} />
         <DialogTitle
           id="customized-dialog-title"
-          onClose={this.goToHomePage}
         >
           To see your profile, login, signup or Return Home!
         </DialogTitle>
@@ -99,6 +98,14 @@ class LoginToSeeProfileContainer extends React.Component {
             color="primary"
           >
           Login
+          </BootstrapButton>
+          <BootstrapButton
+            onClick={() => this.goToHomePage()}
+            variant="contained"
+            size="small"
+            color="primary"
+          >
+          Home
           </BootstrapButton>
         </DialogActions>
       </Dialog>

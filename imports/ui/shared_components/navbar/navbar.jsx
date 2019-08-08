@@ -59,8 +59,6 @@ class Navbar extends React.Component {
           return <Login />
         case SIGNUP:
           return <Signup />
-        case NOT_LOGGED_IN_PROFILE:
-          return <LoginToSeeProfileContainer />
       }
     }
 

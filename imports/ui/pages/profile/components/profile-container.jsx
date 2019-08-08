@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './profile';
 import PreviousTravels from './previousTravels';
-import LoginToSeeProfileContainer from './login-to-see-profile';
 import '../profile.page.css';
 import { showModal, NOT_LOGGED_IN_PROFILE } from '../../../../redux/actions'
 
