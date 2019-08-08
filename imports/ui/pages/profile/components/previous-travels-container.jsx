@@ -5,16 +5,14 @@ import PreferenceButton from '../../../shared_components/preferences/preference-
 import { GET_PREVIOUS_TRAVEL, DELETE_PREVIOUS_TRAVEL } from '../../../../redux/actions/index';
 
 class PreviousTravelContainer extends React.Component {
-    getPreviousTravels = () => {
-      return Array.from(this.props.previousTravels).map((value, index) => (
-        <PreferenceButton
-          key={index}
-          name={value.name}
-          isTravel={GET_PREVIOUS_TRAVEL}
-          type={DELETE_PREVIOUS_TRAVEL}
-        />
-      ));
-    }
+    getPreviousTravels = () => Array.from(this.props.previousTravels).map((value, index) => (
+      <PreferenceButton
+        key={index}
+        name={value.name}
+        isTravel={GET_PREVIOUS_TRAVEL}
+        type={DELETE_PREVIOUS_TRAVEL}
+      />
+    ))
 
     render() {
       return (

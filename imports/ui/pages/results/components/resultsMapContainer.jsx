@@ -17,7 +17,7 @@ const polylineCoords = [];
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000
 // Rounds up
 function decideRandomCount(radius) {
-  return Math.ceil(1/350000000*(radius**2)-1/350000*(radius)+5);
+  return Math.ceil(1 / 350000000 * (radius ** 2) - 1 / 350000 * (radius) + 5);
 }
 
 function randomizePlaces(placesArray, count) {
@@ -36,7 +36,7 @@ function randomizePlaces(placesArray, count) {
           place_id: result.place_id,
         });
         count--;
-      };
+      }
     });
     priority = 1;
   });
@@ -44,22 +44,21 @@ function randomizePlaces(placesArray, count) {
 
 // TODO - make a more intensive algorithm if needed
 function decideShouldBeIncluded(count, priority) {
-  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258*count**2 + 0.651969445777*count + 91.9579182846) * priority);
+  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 91.9579182846) * priority);
 }
 
 export class ResultsMapContainer extends React.Component {
-
-    constructor(props) {
-      super(props);
-      this.state = {
-        showingInfoWindow: false,
-        activeMarker: {},
-        currentMarkerName: '',
-      };
-      const randomCount = decideRandomCount(this.props.radius);
-      randomizePlaces(this.props.places, randomCount);
-      this.getPolyline();
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      currentMarkerName: '',
+    };
+    const randomCount = decideRandomCount(this.props.radius);
+    randomizePlaces(this.props.places, randomCount);
+    this.getPolyline();
+  }
 
     setActiveMarker = (props, marker, e) => {
       this.setState({
@@ -74,7 +73,7 @@ export class ResultsMapContainer extends React.Component {
         this.setState({
           showingInfoWindow: false,
           currentMarkerName: '',
-          activeMarker: null
+          activeMarker: null,
         });
       }
     }
@@ -89,15 +88,15 @@ export class ResultsMapContainer extends React.Component {
     }
 
     render() {
-      return <Map
-          google = {this.props.google}
-          zoom = {14}
-          style = {mapStyles}
-          initialCenter = {this.props.initialCenter}
-          onClick={this.closeActiveMaker}>
-          {randomPlaces.map((place) => {
-            return <Marker position={{lat: place.lat, lng: place.lng}} onClick={this.setActiveMarker} name={place.name}/>
-          })}
+      return (
+        <Map
+          google={this.props.google}
+          zoom={14}
+          style={mapStyles}
+          initialCenter={this.props.initialCenter}
+          onClick={this.closeActiveMaker}
+        >
+          {randomPlaces.map(place => <Marker position={{ lat: place.lat, lng: place.lng }} onClick={this.setActiveMarker} name={place.name} />)}
           <Polyline
             path={polylineCoords}
             strokeColor="#FF5D47"
@@ -113,6 +112,7 @@ export class ResultsMapContainer extends React.Component {
             </div>
           </InfoWindow>
         </Map>
+      );
     }
 }
 

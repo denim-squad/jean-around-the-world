@@ -38,11 +38,11 @@ class ResultsButtons extends React.Component {
   showSpecificModal = (kind) => {
     switch (kind) {
       case CALENDAR:
-        return <CalendarContainer />
+        return <CalendarContainer />;
       case SAVE_PREVIOUS_TRAVEL:
-        return <SaveTravelName />
+        return <SaveTravelName />;
       case LOGIN_TO_SAVE:
-        return <LoginToSaveContainer />
+        return <LoginToSaveContainer />;
     }
   }
 
@@ -73,7 +73,7 @@ class ResultsButtons extends React.Component {
       this.props.showModal(kind);
     }
   }
-  
+
   refreshResultsPage = () => {
     history.push('/results');
   }
