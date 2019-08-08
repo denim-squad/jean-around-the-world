@@ -66,7 +66,7 @@ export class ResultsMapContainer extends React.Component {
     }
 
     setActiveMarker = (props, marker, e) => {
-      if (this.state.showingInfoWindow && this.state.place_id === marker.place_id) {
+      if (this.props.isSignedIn && this.state.showingInfoWindow && this.state.place_id === marker.place_id) {
         this.toggleFavourites(this.state.currentMarkerName);
       } else {
         const fields = ['formatted_address', 'icon', 'url', 'website'];
@@ -135,13 +135,13 @@ export class ResultsMapContainer extends React.Component {
           >
             <div className="popup-box">
               <div className="popup-title-container">
-                {this.props.favourites.includes(this.state.currentMarkerName) ?
+                { this.props.isSignedIn && (this.props.favourites.includes(this.state.currentMarkerName) ?
                 <SvgIcon>
                   <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                 </SvgIcon> :
                 <SvgIcon>
                   <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
-                </SvgIcon>}
+                </SvgIcon>)}
                 <h2 className="popup-title">{this.state.currentMarkerName}</h2>
               </div>
               <h4>{this.state.formatted_address}</h4>
@@ -163,6 +163,7 @@ const mapStateToProps = state => ({
   places: state.placeSearch.places,
   radius: state.map.radius,
   favourites: state.user.favourites,
+  isSignedIn: state.user.isSignedIn,
 });
 
 export default connect(mapStateToProps, { addFavourites, removeFavourites })(GoogleApiWrapper({
