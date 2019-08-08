@@ -5,8 +5,9 @@ import { createBrowserHistory } from 'history';
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
+import LoginToSeeProfileContainer from '../../pages/profile/components/login-to-see-profile'
 import {
-  showModal, logoutUser, LOGIN, SIGNUP,
+  showModal, logoutUser, LOGIN, SIGNUP, NOT_LOGGED_IN_PROFILE,
 } from '../../../redux/actions';
 
 import LoadingSpinner from '../loading/loadingSpinner';
@@ -50,6 +51,17 @@ class Navbar extends React.Component {
     logout = () => {
       event.preventDefault();
       this.props.logoutUser();
+    }
+
+    showModalType = (type) => {
+      switch (type) {
+        case LOGIN:
+          return <Login />
+        case SIGNUP:
+          return <Signup />
+        case NOT_LOGGED_IN_PROFILE:
+          return <LoginToSeeProfileContainer />
+      }
     }
 
     render() {
@@ -166,7 +178,7 @@ class Navbar extends React.Component {
               && <MapQuery />
           }
           {
-              (this.props.modal.modalKind === LOGIN) ? <Login /> : (this.props.modal.modalKind === SIGNUP) && <Signup />
+              this.showModalType(this.props.modal.modalKind)
           }
         </div>
       );

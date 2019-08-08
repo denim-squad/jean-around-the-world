@@ -30,13 +30,6 @@ class ProfileContainer extends React.Component {
   render() {
     if (!this.props.isSignedIn) {
       this.props.showModal(NOT_LOGGED_IN_PROFILE);
-      return (
-        <div className="profile-page">
-        {
-          (this.props.modal.modalKind === NOT_LOGGED_IN_PROFILE) && <LoginToSeeProfileContainer />
-        }
-        </div>
-      );
     }
     return (
       <div className="profile-page" style={{ backgroundImage: this.state.imgPath}}>
@@ -49,7 +42,6 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = state => ({
   isSignedIn: state.user.isSignedIn,
-  modal: state.modal,
 });
 
 export default connect(mapStateToProps, { showModal })(ProfileContainer);

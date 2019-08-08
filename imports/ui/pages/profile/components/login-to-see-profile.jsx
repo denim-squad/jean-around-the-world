@@ -68,11 +68,8 @@ class LoginToSeeProfileContainer extends React.Component {
           id="customized-dialog-title"
           onClose={this.props.hideModal}
         >
-          Whoops!
-        </DialogTitle>
-        <DialogContentText>
           To see your profile, login or signup!
-        </DialogContentText>
+        </DialogTitle>
         <DialogContentText id="link-to-signup">
           <a href="#" onClick={() => this.props.showModal(SIGNUP)}>
               Don't have an account yet? Register now!
