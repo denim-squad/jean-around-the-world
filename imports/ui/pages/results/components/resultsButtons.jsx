@@ -77,10 +77,6 @@ class ResultsButtons extends React.Component {
   refreshResultsPage = () => {
     history.push('/results');
   }
-  
-  refreshResultsPage = () => {
-    history.push('/results');
-  }
 
   render() {
     return (
