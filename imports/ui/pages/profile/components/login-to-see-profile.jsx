@@ -8,11 +8,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import { createBrowserHistory } from 'history';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import {
   hideModal, showModal, SIGNUP, LOGIN,
 } from '../../../.././redux/actions';
+import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
+const history = createBrowserHistory({ forceRefresh: true });
 
 const styles = theme => ({
   root: {
@@ -57,18 +60,31 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 class LoginToSeeProfileContainer extends React.Component {
+  constructor(){
+    super();
+    this.loadingSpinner = React.createRef();
+  }
+
+  goToHomePage = async () => {
+    this.loadingSpinner.current.style.display = 'block';
+    await setTimeout(() => {
+      this.loadingSpinner.current.style.display = 'none';
+    }, 3000);
+    history.push('/');
+  }
+
   render() {
     return (
       <Dialog
         open={this.props.isModalShown}
-        onClose={this.props.hideModal}
+        onClose={this.goToHomePage}
         aria-labelledby="customized-dialog-title"
       >
         <DialogTitle
           id="customized-dialog-title"
-          onClose={this.props.hideModal}
+          onClose={this.goToHomePage}
         >
-          To see your profile, login or signup!
+          To see your profile, login, signup or Return Home!
         </DialogTitle>
         <DialogContentText id="link-to-signup">
           <a href="#" onClick={() => this.props.showModal(SIGNUP)}>
