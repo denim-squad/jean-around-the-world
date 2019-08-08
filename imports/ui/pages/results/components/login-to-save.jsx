@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import {
   hideModal, showModal, SIGNUP, LOGIN,
-} from '../../../.././redux/actions';
+} from '../../../../redux/actions';
 
 
 const styles = theme => ({
@@ -67,7 +67,6 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 class LoginToSaveContainer extends React.Component {
-
   render() {
     return (
       <Dialog

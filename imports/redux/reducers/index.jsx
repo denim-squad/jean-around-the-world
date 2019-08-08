@@ -222,9 +222,7 @@ function placeSearchReducer(state = initialPlaceSearchState, action) {
       const updatedInfo = Meteor.users.find({ _id: action.userId }).fetch();
       const info = updatedInfo[0];
       const { previousTravels } = info.profile;
-      const toReturnTravel = previousTravels.find((travel) => {
-        return travel.name === action.travelName;
-      });
+      const toReturnTravel = previousTravels.find(travel => travel.name === action.travelName);
       return { ...state, places: toReturnTravel.places };
     }
     case RECEIVE_PLACES_FAILURE:

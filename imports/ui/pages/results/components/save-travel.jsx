@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
 import {
   hideModal, savePrevTravel,
-} from '../../../.././redux/actions';
+} from '../../../../redux/actions';
 
 
 const styles = theme => ({
