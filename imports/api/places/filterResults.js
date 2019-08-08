@@ -5,8 +5,7 @@ const isNotBlacklisted = (result, blacklist) => blacklist.every((blacklistItem) 
   const lowerCaseBlacklist = blacklistItem.toLowerCase();
   const lowerCaseResultName = name.toLowerCase();
 
-  return !lowerCaseBlacklist.includes(lowerCaseResultName)
-      || levenshtein(lowerCaseBlacklist, lowerCaseResultName) < 3;
+  return !lowerCaseBlacklist.includes(lowerCaseResultName) && levenshtein(lowerCaseBlacklist, lowerCaseResultName) > 3;
 });
 
 const isInBudgetRange = (result, budgetRange) => (

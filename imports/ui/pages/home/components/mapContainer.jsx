@@ -4,6 +4,7 @@ import {
 } from 'google-maps-react';
 import { connect } from 'react-redux';
 import { API_KEY } from '../../../../constants';
+import { setMapCenter } from '../../../../redux/actions/index';
 
 const mapStyles = {
   width: '100%',
@@ -21,47 +22,45 @@ export class MapContainer extends React.Component {
     };
   }
 
-    setMarkerLocation = (e, map, coord) => {
-      const { latLng } = coord;
-      this.setState({
-        activeMarker: {
-          lat: latLng.lat(),
-          lng: latLng.lng(),
-        },
-      });
-    }
+  setMarkerLocation = (e, map, coord) => {
+    const { latLng } = coord;
+    this.setState({
+      activeMarker: {
+        lat: latLng.lat(),
+        lng: latLng.lng(),
+      },
+    });
+    this.props.setMapCenter({lat: latLng.lat(), lng: latLng.lng()});
+  }
 
-    render() {
-      const markerCoords = {
-        lat: this.state.activeMarker.lat,
-        lng: this.state.activeMarker.lng,
-      };
-      return (
-        <Map
-          google={this.props.google}
-          zoom={14}
-          style={mapStyles}
-          initialCenter={{
-            lat: 49.263749,
-            lng: -123.247480,
-          }}
-          center={this.props.initialCenter}
+  render() {
+    const markerCoords = {
+      lat: this.state.activeMarker.lat,
+      lng: this.state.activeMarker.lng,
+    };
+    return (
+      <Map
+        google={this.props.google}
+        zoom={14}
+        style={mapStyles}
+        initialCenter={this.props.initialCenter}
+        center={this.props.initialCenter}
+        onClick={this.setMarkerLocation}
+      >
+        <Marker
+          position={{ lat: markerCoords.lat, lng: markerCoords.lng }}
+        />
+        <Circle
+          radius={this.props.radius}
+          center={markerCoords}
+          strokeColor="transparent"
           onClick={this.setMarkerLocation}
-        >
-          <Marker
-            position={{ lat: markerCoords.lat, lng: markerCoords.lng }}
-          />
-          <Circle
-            radius={this.props.radius}
-            center={markerCoords}
-            strokeColor="transparent"
-            onClick={this.setMarkerLocation}
-            fillColor="#FFB26B"
-            fillOpacity={0.4}
-          />
-        </Map>
-      );
-    }
+          fillColor="#FFB26B"
+          fillOpacity={0.4}
+        />
+      </Map>
+    );
+  }
 }
 
 const mapStateToProps = state => ({
@@ -69,6 +68,6 @@ const mapStateToProps = state => ({
   initialCenter: state.map.initialCenter,
 });
 
-export default connect(mapStateToProps)(GoogleApiWrapper({
+export default connect(mapStateToProps, { setMapCenter })(GoogleApiWrapper({
   apiKey: (API_KEY),
 })(MapContainer));

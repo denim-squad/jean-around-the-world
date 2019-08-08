@@ -3,10 +3,19 @@ import '../results.page.css';
 import { createBrowserHistory } from 'history';
 import { connect } from 'react-redux';
 import { Meteor } from 'meteor/meteor';
+import {
+  updatePlaces,
+  showModal,
+  savePrevTravel,
+  CALENDAR,
+  SAVE_PREVIOUS_TRAVEL,
+  LOGIN_TO_SAVE,
+} from '../../../../redux/actions/index';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import { updatePlaces, showModal, CALENDAR } from '../../../../redux/actions';
 import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
 import CalendarContainer from './calendar-container';
+import SaveTravelName from './save-travel';
+import LoginToSaveContainer from './login-to-save';
 import LoadingSpinner from '../../../shared_components/loading/loadingSpinner';
 
 const history = createBrowserHistory({ forceRefresh: true });
@@ -24,6 +33,17 @@ class ResultsButtons extends React.Component {
       this.loadingSpinner.current.style.display = 'none';
     }, 2800);
     history.push('/');
+  }
+
+  showSpecificModal = (kind) => {
+    switch (kind) {
+      case CALENDAR:
+        return <CalendarContainer />;
+      case SAVE_PREVIOUS_TRAVEL:
+        return <SaveTravelName />;
+      case LOGIN_TO_SAVE:
+        return <LoginToSaveContainer />;
+    }
   }
 
   displayPlaces = () => {
@@ -46,7 +66,16 @@ class ResultsButtons extends React.Component {
   }
 
   openModal = kind => () => {
-    this.props.showModal(kind);
+    if (!this.props.isSignedIn && kind === SAVE_PREVIOUS_TRAVEL) {
+      // change this to a modal that links to login or signup
+      this.props.showModal(LOGIN_TO_SAVE);
+    } else {
+      this.props.showModal(kind);
+    }
+  }
+
+  refreshResultsPage = () => {
+    history.push('/results');
   }
 
   render() {
@@ -64,6 +93,7 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
+            onClick={this.openModal(SAVE_PREVIOUS_TRAVEL)}
           >
           SAVE TRIP
           </BootstrapButton>
@@ -99,28 +129,33 @@ class ResultsButtons extends React.Component {
             variant="contained"
             size="small"
             color="primary"
+            onClick={this.refreshResultsPage}
           >
             REROLL
           </BootstrapButton>
         </div>
         {
-          (this.props.modal.modalKind === CALENDAR) && <CalendarContainer />
+          this.showSpecificModal(this.props.modal.modalKind)
         }
       </div>
     );
   }
 }
 
+
 const mapStateToProps = state => ({
   places: state.placeSearch.places,
   minimumAcceptableRating: state.placeSearch.minimumAcceptableRating,
   blacklist: state.user.blacklist,
+  isSignedIn: state.user.isSignedIn,
+  userId: state.user.userId,
   modal: state.modal,
 });
 
 const mapDispatchToProps = dispatch => ({
   updatePlaces: places => dispatch(updatePlaces(places)),
   showModal: kind => dispatch(showModal(kind)),
+  savePrevTravel: (places, userId) => dispatch(savePrevTravel(places, userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultsButtons);

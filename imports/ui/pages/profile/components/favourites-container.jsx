@@ -6,7 +6,7 @@ import { REMOVE_FAVOURITES } from '../../../../redux/actions/index';
 
 class FavouritesContainer extends React.Component {
     getFavourites = () => Array.from(this.props.favourites).map((value, index) => (
-      <PreferenceButton key={index} name={value} type={REMOVE_FAVOURITES} />
+      <PreferenceButton name={value} type={REMOVE_FAVOURITES} />
     ))
 
     render() {
