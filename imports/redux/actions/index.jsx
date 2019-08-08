@@ -25,6 +25,7 @@ export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
 export const SIGNUP_USER_ERROR = 22;
 export const CALENDAR = 23;
+export const NOT_LOGGED_IN_PROFILE = 27;
 
 export function showModal(kind) {
   return {

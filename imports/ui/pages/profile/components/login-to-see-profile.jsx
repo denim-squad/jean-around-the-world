@@ -2,7 +2,6 @@ import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
@@ -48,14 +47,6 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(4),
-    paddingTop: theme.spacing(2),
-    paddingBottom: 0,
-  },
-}))(MuiDialogContent);
-
 const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
@@ -66,7 +57,6 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 class LoginToSeeProfileContainer extends React.Component {
-
   render() {
     return (
       <Dialog
