@@ -5,6 +5,9 @@ import {
 } from 'google-maps-react';
 import { connect } from 'react-redux';
 import { API_KEY } from '../../../../constants';
+import { GET_PLACE_DETAILS_NAME } from '../../../../api/places/methods';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import { addFavourites, removeFavourites } from '../../../../redux/actions/index';
 
 const mapStyles = {
   width: '100%',
@@ -55,6 +58,7 @@ export class ResultsMapContainer extends React.Component {
         showingInfoWindow: false,
         activeMarker: {},
         currentMarkerName: '',
+        place_id: undefined,
       };
       const randomCount = decideRandomCount(this.props.radius);
       randomizePlaces(this.props.places, randomCount);
@@ -62,11 +66,24 @@ export class ResultsMapContainer extends React.Component {
     }
 
     setActiveMarker = (props, marker, e) => {
-      this.setState({
-        activeMarker: marker,
-        currentMarkerName: marker.name,
-        showingInfoWindow: true,
-      });
+      if (this.state.showingInfoWindow && this.state.place_id === marker.place_id) {
+        this.toggleFavourites(this.state.currentMarkerName);
+      } else {
+        const fields = ['formatted_address', 'icon', 'url', 'website'];
+        Meteor.call(GET_PLACE_DETAILS_NAME, { id: marker.place_id, fields }, (error, details) => {
+          if (error) { console.error( error ) }
+          this.setState({
+            activeMarker: marker,
+            currentMarkerName: marker.name,
+            showingInfoWindow: true,
+            formatted_address: details.formatted_address,
+            icon: details.icon,
+            url: details.url,
+            website: details.website,
+            place_id: marker.place_id,
+          });
+        });
+      }
     }
 
     closeActiveMaker = (props) => {
@@ -88,6 +105,14 @@ export class ResultsMapContainer extends React.Component {
       });
     }
 
+    toggleFavourites = (favourite) => {
+      if (favourite) {
+        this.props.favourites.includes(favourite) ?
+        this.props.removeFavourites(favourite):
+        this.props.addFavourites(favourite);
+      }
+    }
+
     render() {
       return <Map
           google = {this.props.google}
@@ -96,7 +121,7 @@ export class ResultsMapContainer extends React.Component {
           initialCenter = {this.props.initialCenter}
           onClick={this.closeActiveMaker}>
           {randomPlaces.map((place) => {
-            return <Marker position={{lat: place.lat, lng: place.lng}} onClick={this.setActiveMarker} name={place.name}/>
+            return <Marker position={{lat: place.lat, lng: place.lng}} onClick={this.setActiveMarker} name={place.name} place_id={place.place_id}/>
           })}
           <Polyline
             path={polylineCoords}
@@ -108,8 +133,25 @@ export class ResultsMapContainer extends React.Component {
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
           >
-            <div>
-              <h1>{this.state.currentMarkerName}</h1>
+            <div className="popup-box">
+              <div className="popup-title-container">
+                {this.props.favourites.includes(this.state.currentMarkerName) ?
+                <SvgIcon>
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </SvgIcon> :
+                <SvgIcon>
+                  <path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
+                </SvgIcon>}
+                <h2 className="popup-title">{this.state.currentMarkerName}</h2>
+              </div>
+              <h4>{this.state.formatted_address}</h4>
+              <div className="popup-description-container">
+                <img src={this.state.icon}></img>
+                <div className="popup-urls-container">
+                  <a href={this.state.website}>Company Website</a>
+                  <a href={this.state.url}>Google Map Location</a>
+                </div>
+              </div>
             </div>
           </InfoWindow>
         </Map>
@@ -120,8 +162,9 @@ const mapStateToProps = state => ({
   initialCenter: state.map.initialCenter,
   places: state.placeSearch.places,
   radius: state.map.radius,
+  favourites: state.user.favourites,
 });
 
-export default connect(mapStateToProps)(GoogleApiWrapper({
+export default connect(mapStateToProps, { addFavourites, removeFavourites })(GoogleApiWrapper({
   apiKey: API_KEY,
 })(ResultsMapContainer));

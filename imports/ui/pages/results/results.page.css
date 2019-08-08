@@ -52,3 +52,51 @@ button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root
 .reroll-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
     background-color: #DEA103 !important;
 }
+
+.popup-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-box h4 {
+    margin-top: 0;
+}
+
+.popup-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.popup-title {
+    margin-left: 4.36%;
+}
+
+.popup-description-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-description-container img {
+    width: 8%;
+}
+
+.popup-urls-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+a:link, a:visited { 
+    color: #2495c5;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a:hover{ 
+    color: #0baff5;
+}
+  
+a:link:active, a:visited:active { 
+    color: #aadaff;
+}
