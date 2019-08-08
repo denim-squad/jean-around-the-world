@@ -7,7 +7,7 @@ import Login from '../login/login';
 import Signup from '../signup/signup';
 import LoginToSeeProfileContainer from '../../pages/profile/components/login-to-see-profile'
 import {
-  showModal, logoutUser, LOGIN, SIGNUP, NOT_LOGGED_IN_PROFILE,
+  showModal, logoutUser, LOGIN, SIGNUP,
 } from '../../../redux/actions';
 
 import LoadingSpinner from '../loading/loadingSpinner';
@@ -48,18 +48,18 @@ class Navbar extends React.Component {
       this.props.showModal(kind);
     }
 
-    logout = () => {
-      event.preventDefault();
-      this.props.logoutUser();
-    }
-
-    showModalType = (type) => {
-      switch (type) {
+    showSpecificModal = (kind) => {
+      switch (kind) {
         case LOGIN:
           return <Login />
         case SIGNUP:
           return <Signup />
       }
+    }
+
+    logout = () => {
+      event.preventDefault();
+      this.props.logoutUser();
     }
 
     render() {
@@ -176,7 +176,7 @@ class Navbar extends React.Component {
               && <MapQuery />
           }
           {
-              this.showModalType(this.props.modal.modalKind)
+              this.showSpecificModal(this.props.modal.modalKind)
           }
         </div>
       );
