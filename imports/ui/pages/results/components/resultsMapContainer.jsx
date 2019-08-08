@@ -24,11 +24,11 @@ function decideRandomCount(radius) {
 }
 
 function randomizePlaces(placesArray, count) {
-  let priority = 1;
+  let priority = 0.5;
   placesArray.forEach((googleAPIPlace) => {
     googleAPIPlace.results.forEach((result) => {
       if (count > 0 && decideShouldBeIncluded(count, priority)) {
-        priority = 0.05;
+        priority = 1;
         randomPlaces.push({
           lat: result.geometry.location.lat,
           lng: result.geometry.location.lng,
@@ -41,7 +41,7 @@ function randomizePlaces(placesArray, count) {
         count--;
       };
     });
-    priority = 1;
+    priority = 0.5;
   });
 }
 
@@ -54,13 +54,14 @@ export class ResultsMapContainer extends React.Component {
 
     constructor(props) {
       super(props);
+      const randomCount = decideRandomCount(this.props.radius);
       this.state = {
         showingInfoWindow: false,
         activeMarker: {},
         currentMarkerName: '',
         place_id: undefined,
+        randomCount,
       };
-      const randomCount = decideRandomCount(this.props.radius);
       randomizePlaces(this.props.places, randomCount);
       this.getPolyline();
     }
@@ -113,10 +114,15 @@ export class ResultsMapContainer extends React.Component {
       }
     }
 
+    // returns number between 8 for 5 random places and 14 for 20 random places
+    handleZoom = () => {
+      return Math.round(0.135218045113*this.state.randomCount**2 - 2.87013533835*this.state.randomCount + 24.9702255639);
+    }
+
     render() {
       return <Map
           google = {this.props.google}
-          zoom = {14}
+          zoom = {this.handleZoom()}
           style = {mapStyles}
           initialCenter = {this.props.initialCenter}
           onClick={this.closeActiveMaker}>
