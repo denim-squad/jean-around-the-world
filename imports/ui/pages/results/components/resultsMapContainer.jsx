@@ -181,6 +181,7 @@ export class ResultsMapContainer extends React.Component {
               position={{ lat: place.lat, lng: place.lng }}
               onClick={this.setActiveMarker}
               name={place.name}
+              key={place.place_id}
               place_id={place.place_id} />)}
           <Polyline
             path={polylineCoords}

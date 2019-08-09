@@ -12,9 +12,9 @@ class StepText extends React.Component {
                     this.props.currentStep === CUSTOMIZE_STEP
                       ? '1. CUSTOMIZE YOUR TRIP'
                       : this.props.currentStep === BLACKLIST_STEP
-                        ? "2. BLACKLIST UNWANTED"
+                        ? "2. BLACKLIST UNWANTED PLACES"
                         : this.props.currentStep === REFINE_STEP
-                          ? '3. REFINE PREFERENCES'
+                          ? '3. REFINE YOUR PREFERENCES'
                           : 'FOLLOW @hailinzhang_ ON INSTAGRAM'
                 }
           </strong>
