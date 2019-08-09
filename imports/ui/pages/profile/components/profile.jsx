@@ -9,7 +9,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div className="profile">
-        <img src="/generic-profile.png" className="profile-pic" />
+        <img src="/generic-user-icon-19.jpg" className="profile-pic" />
         <div className="profile-info">
           <div className="profile-text">
               Welcome
