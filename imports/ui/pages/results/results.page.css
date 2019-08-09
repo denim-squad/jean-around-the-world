@@ -53,6 +53,15 @@ button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root
     background-color: #DEA103 !important;
 }
 
+p.MuiTypography-root.MuiDialogContentText-root.place-name {
+  margin-bottom: 0px;
+}
+
+div.react-add-to-calendar {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
 .popup-box {
     display: flex;
     flex-direction: column;
@@ -87,16 +96,16 @@ button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root
     margin-left: 5%;
 }
 
-a:link, a:visited { 
+a:link, a:visited {
     color: #2495c5;
     text-decoration: underline;
     cursor: pointer;
 }
 
-a:hover{ 
+a:hover{
     color: #0baff5;
 }
-  
-a:link:active, a:visited:active { 
+
+a:link:active, a:visited:active {
     color: #aadaff;
 }

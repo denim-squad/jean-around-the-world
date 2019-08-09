@@ -71,6 +71,7 @@ class CustomizeTripButton extends React.Component {
           label={this.props.label}
         />
         <TextField
+          className="quantity-field"
           disabled={!this.state.isChecked}
           error={!this.state.isValid}
           onChange={this.handleQuantityChange}

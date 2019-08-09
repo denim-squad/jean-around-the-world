@@ -20,6 +20,7 @@ import { format } from 'date-fns';
 import moment from 'moment';
 import { hideModal } from '../../../../redux/actions';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
+import { randomPlaces } from './resultsMapContainer';
 
 const styles = theme => ({
   root: {
@@ -66,7 +67,7 @@ const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(4),
-    paddingBottom: theme.spacing(10),
+    paddingBottom: theme.spacing(4),
     justifyContent: 'center',
   },
 }))(MuiDialogActions);
@@ -87,36 +88,46 @@ const classes = () => {
 
 const icon = { 'calendar-plus-o': 'left' };
 
-const event = {
-  title: 'Jean Around the World Trip',
-  location: 'Portland, OR', // TODO: replace placeholder w/ location from results
-};
-
-event.startTime = moment(new Date()).format();
-event.endTime = moment(new Date()).format();
-
 class CalendarContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      minDate: format(new Date(), 'Y-MM-dd h:mm a'),
-      startDate: format(new Date(), 'Y-MM-dd h:mm a'),
-      endDate: format(new Date(), 'Y-MM-dd h:mm a'),
+      minDate: format(new Date(), 'Y-MM-dd hh:mm a'),
     };
   }
 
-  onChangeStart = (date) => {
+  onChangeStart = (date, place) => {
     this.setState({
-      startDate: format(date, 'Y-MM-dd h:mm a'),
+      [place.address]: format(date, 'Y-MM-dd hh:mm a'),
     });
-    event.startTime = moment(date).format();
   }
 
-  onChangeEnd = (date) => {
+  onChangeEnd = (date, place) => {
     this.setState({
-      endDate: format(date, 'Y-MM-dd h:mm a'),
+      [place.place_id]: format(date, 'Y-MM-dd hh:mm a'),
     });
-    event.endTime = moment(date).format();
+  }
+
+  createCurrEvent = (id, address, name) => {
+    const currEvent = {
+      title: `${name}`,
+      location: `${name}, ${address}`,
+      startTime: moment(this.state[address]).format(),
+      endTime: moment(this.state[id]).format(),
+    };
+    return currEvent;
+  }
+
+  createNewStateVar = async (place) => {
+    if (this.state[place.address] !== undefined ||
+      this.state[place.place_id] !== undefined) {
+        //prevents infinite rendering loop
+      return;
+    }
+    await this.setState({
+      [place.address]: format(new Date(), 'Y-MM-dd hh:mm a'),
+      [place.place_id]: format(new Date(), 'Y-MM-dd hh:mm a'),
+    });
   }
 
   render() {
@@ -139,32 +150,43 @@ class CalendarContainer extends React.Component {
               Select the preferred dates and times for your trip event(s).
           </DialogContentText>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container className={classes.grid} justify="space-around">
-              <DateTimePicker
-                onChange={this.onChangeStart}
-                label="Start"
-                minDate={this.state.minDate}
-                value={this.state.startDate}
-              />
-              <DateTimePicker
-                onChange={this.onChangeEnd}
-                label="End"
-                minDate={this.state.startDate}
-                value={this.state.endDate}
-              />
-            </Grid>
-            {/* TODO: add date picker per event returned by API */}
+              {
+                (randomPlaces) => {
+                  if (randomPlaces === undefined || randomPlaces.length < 1) {
+                    return <DialogContentText>No Event(s) Found</DialogContentText>;
+                  }
+                },
+                randomPlaces.map((place) => {
+                  let currEvent = this.createCurrEvent(place.place_id, place.address, place.name);
+                  this.createNewStateVar(place);
+                  return <div>
+                  <DialogContentText className="place-name">{place.name}</DialogContentText>
+                  <Grid container className={classes.grid} justify="space-around">
+                    <DateTimePicker
+                      onChange={(date) => {this.onChangeStart(date, place)}}
+                      label="Start"
+                      minDate={this.state.minDate}
+                      value={this.state[place.address]}
+                    />
+                    <DateTimePicker
+                      onChange={(date) => {this.onChangeEnd(date, place)}}
+                      label="End"
+                      minDate={this.state[place.address]}
+                      value={this.state[place.place_id]}
+                    />
+                    <AddToCalendar
+                      className="addToCalendar-button"
+                      event={currEvent}
+                      buttonTemplate={icon}
+                      listItems={items}
+                    />
+                  </Grid>
+                 </div>
+                })
+              }
           </MuiPickersUtilsProvider>
         </DialogContent>
         <DialogActions>
-          <AddToCalendar
-            event={/* TODO: match up to list of events returned */
-                 event
-               }
-            buttonTemplate={icon}
-            listItems={items}
-          />
-          <div />
         </DialogActions>
       </Dialog>
     );

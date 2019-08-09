@@ -67,7 +67,7 @@ class StepBox extends React.Component {
         return (
           <div className="blacklist-container">
             <div className="stepbox-title">
-              <strong>
+              <strong className="blacklist-stepbox-title">
               Enter a location to blacklist
               </strong>
             </div>

@@ -20,11 +20,8 @@ class RefineStepContainer extends React.Component {
 
     return (
       <div className="refine-container">
-        <div>
-          {/* spacing */}
-        </div>
-        <div className="stepbox-title">
-          <strong>
+          <div className="stepbox-title">
+            <strong>
               Minimum Rating out of 5:
           </strong>
         </div>
