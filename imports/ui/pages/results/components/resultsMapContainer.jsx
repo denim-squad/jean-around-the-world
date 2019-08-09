@@ -15,7 +15,7 @@ const mapStyles = {
 };
 
 const randomPlaces = [];
-const orderedPlaces = [];
+export const orderedPlaces = [];
 const polylineCoords = [];
 
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000
@@ -207,6 +207,7 @@ export class ResultsMapContainer extends React.Component {
             </div>
           </InfoWindow>
         </Map>
+      )
     }
 }
 
