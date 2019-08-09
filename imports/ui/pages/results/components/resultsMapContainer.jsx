@@ -85,10 +85,10 @@ function orderPlacesForIdealPath() {
 
 function distanceBetweenCoor(place1, place2) {
   const lat1 = place1.lat;
-  const lon1 = place1.lon;
+  const lon1 = place1.lng;
 
   const lat2 = place2.lat;
-  const lon2 = place2.lon;
+  const lon2 = place2.lng;
 
   // haversine formula to find distance
   const pi = 0.017453292519943295; //pi / 180
@@ -101,12 +101,14 @@ function distanceBetweenCoor(place1, place2) {
 export class ResultsMapContainer extends React.Component {
   constructor(props) {
     super(props);
+    const randomCount = decideRandomCount(this.props.radius);
     this.state = {
       showingInfoWindow: false,
       activeMarker: {},
       currentMarkerName: '',
+      place_id: undefined,
+      randomCount,
     };
-    const randomCount = decideRandomCount(this.props.radius);
     randomizePlaces(this.props.places, randomCount);
     orderPlacesForIdealPath();
     this.getPolyline();
@@ -169,12 +171,18 @@ export class ResultsMapContainer extends React.Component {
       return (
         <Map
           google={this.props.google}
-          zoom={14}
+          zoom={this.handleZoom()}
           style={mapStyles}
-          initialCenter={this.props.initialCenter}
+          initialCenter={polylineCoords[0] ? polylineCoords[0] : this.props.initialCenter}
           onClick={this.closeActiveMaker}
         >
-          {orderedPlaces.map(place => <Marker position={{ lat: place.lat, lng: place.lng }} onClick={this.setActiveMarker} name={place.name} />)}
+          {orderedPlaces.map(place =>
+            <Marker
+              position={{ lat: place.lat, lng: place.lng }}
+              onClick={this.setActiveMarker}
+              name={place.name}
+              key={place.place_id}
+              place_id={place.place_id} />)}
           <Polyline
             path={polylineCoords}
             strokeColor="#FF5D47"
