@@ -1,16 +1,14 @@
 import React from 'react';
 import '../preferences.page.css';
 import { connect } from 'react-redux';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import { CUSTOMIZE_STEP, BLACKLIST_STEP, REFINE_STEP } from '../preferences.page';
 import { addBlacklist, REMOVE_BLACKLIST } from '../../../../redux/actions/index';
 import PreferenceButton from '../../../shared_components/preferences/preference-button';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import { CssCheckbox } from '../../../shared_components/MUI/checkbox/cssCheckbox';
+import CustomizeTripButton from './customizeTripButton';
 import { CssTextField } from '../../../shared_components/MUI/textfield/cssTextfield';
-import { StyledSlider } from '../../../shared_components/MUI/slider/styledSlider';
-import Rating from 'material-ui-rating';
+import RefineStepContainer from './refineStepContainer';
 
 class StepBox extends React.Component {
   constructor() {
@@ -133,4 +131,4 @@ const mapStateToProps = state => ({
   blacklist: state.user.blacklist,
 });
 
-export default connect(mapStateToProps, {addBlacklist})(StepBox);
+export default connect(mapStateToProps, { addBlacklist })(StepBox);

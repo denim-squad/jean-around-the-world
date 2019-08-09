@@ -5,11 +5,10 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SET_RADIUS,
-  SET_CENTER ,
+  SET_CENTER,
   LOGIN_USER,
   LOGOUT_USER,
   SIGNUP_USER,
-  GET_PREFERENCES,
   ADD_BLACKLIST,
   ADD_FAVOURITES,
   REMOVE_BLACKLIST,
@@ -37,7 +36,7 @@ import {
 } from '../../constants';
 
 const initialMapState = {
-  radius: 1000,
+  radius: MIN_RADIUS,
   initialCenter: {
     lat: 49.263749,
     lng: -123.247480,
@@ -71,7 +70,8 @@ const initialPlaceSearchState = {
 function modalReducer(state = initialModalState, action) {
   switch (action.type) {
     case SHOW_MODAL:
-      return { ...state,
+      return {
+        ...state,
         isModalShown: true,
         modalKind: action.kind,
       };

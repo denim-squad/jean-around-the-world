@@ -1,0 +1,12 @@
+.loading-spinner {
+  background: rgba(20, 69, 120, 0.65) url('./loadingspinner.gif') no-repeat 50% 50%;
+  background-size: 14vw;
+  /* Change this to block to make visible */
+  display: none; 
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}

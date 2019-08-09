@@ -59,7 +59,7 @@ export function setMapCenter(coords) {
   };
 }
 
-export function loginUser(email, password) {
+export function loginUser(email) {
   return {
     type: LOGIN_USER,
     email,
@@ -132,14 +132,14 @@ export function addFavourites(favourite) {
   };
 }
 
-export function removeBlacklist(blacklistToRemove){
+export function removeBlacklist(blacklistToRemove) {
   return {
     type: REMOVE_BLACKLIST,
     blacklistToRemove,
   };
 }
 
-export function removeFavourites(favouriteToRemove){
+export function removeFavourites(favouriteToRemove) {
   return {
     type: REMOVE_FAVOURITES,
     favouriteToRemove,

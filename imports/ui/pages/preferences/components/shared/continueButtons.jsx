@@ -1,4 +1,5 @@
 import React from 'react';
+import { createBrowserHistory } from 'history';
 import '../../preferences.page.css';
 import { connect } from 'react-redux';
 import { BootstrapButton } from '../../../../shared_components/MUI/button/bootstrapButton';
@@ -83,4 +84,4 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({ getPlaces: () => dispatch(getPlaces()) });
 
-export default ContinueButtons;
+export default connect(mapStateToProps, mapDispatchToProps)(ContinueButtons);
