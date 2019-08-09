@@ -21,30 +21,37 @@ function decideRandomCount(radius) {
 }
 
 function randomizePlaces(placesArray, count) {
-  let priority = 1;
+  let priority = 0.5;
+  console.log(count);
   placesArray.forEach((googleAPIPlace) => {
     googleAPIPlace.results.forEach((result) => {
       if (count > 0 && decideShouldBeIncluded(count, priority)) {
-        priority = 0.05;
-        randomPlaces.push({
-          lat: result.geometry.location.lat,
-          lng: result.geometry.location.lng,
-          name: result.name,
-          price: result.price_level,
-          rating: result.rating,
-          address: result.vicinity,
-          place_id: result.place_id,
+        const alreadyExists = randomPlaces.find((places) => {
+          places.name === result.name;
         });
-        count--;
+        console.log(alreadyExists);
+        if (!alreadyExists){
+          priority = 1;
+          randomPlaces.push({
+            lat: result.geometry.location.lat,
+            lng: result.geometry.location.lng,
+            name: result.name,
+            price: result.price_level,
+            rating: result.rating,
+            address: result.vicinity,
+            place_id: result.place_id,
+          });
+          count--;
+        }
       }
     });
-    priority = 1;
+    priority = 0.5;
   });
 }
 
 // TODO - make a more intensive algorithm if needed
 function decideShouldBeIncluded(count, priority) {
-  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 91.9579182846) * priority);
+  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 81.9579182846) * priority);
 }
 
 export class ResultsMapContainer extends React.Component {
