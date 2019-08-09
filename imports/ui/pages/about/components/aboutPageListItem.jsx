@@ -15,7 +15,6 @@ import {
 
 const StyledAvatar = withStyles({
   root: {
-    marginLeft: '-70px',
     width: '100px',
     height: '100px',
   },
