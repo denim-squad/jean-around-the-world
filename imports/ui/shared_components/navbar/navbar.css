@@ -6,7 +6,7 @@
 
 .homepage-navbar-container {
     display: grid;
-    grid-template-rows: 20.7% 43.7% 35.6%;
+    grid-template-rows: 20.7% 53.7% 25.6%;
     height: 100%;
 }
 
@@ -69,58 +69,8 @@
     font-family: 'Cute Font', cursive;
 }
 
-@media only screen and (min-width: 1400px) {
-    .title-container {
-        font-size: 51.3px;
-    }
-    .navbar-buttons-container {
-        font-size: 20px;
-    }
-    .query-label-text {
-        font-size: 20px;
-    }
-    .title-description-container {
-        font-size: 20px;
-        line-height: 24px;
-    }
-    .MuiButton-label {
-        font-size: 20px;
-    }
-}
-
-@media only screen and (max-width: 1399px) {
-    .title-container {
-        font-size: 37.5px;
-    }
-    .navbar-buttons-container {
-        font-size: 16px;
-    }
-    .query-label-text {
-        font-size: 14px;
-    }
-    .title-description-container {
-        font-size: 15px;
-        line-height: 18px;
-    }
-    .MuiButton-label {
-        font-size: 14px;
-    }
-}
-
-.title-description-container {
-    font-family: 'Rubik', sans-serif;
-    font-style: normal;
-    text-align: right;
-    letter-spacing: 0.01em;
-    color: #000000;
-    display: grid;
-    grid-template-columns: 44.8% 42.1% 13.1%;
-    height: 85%;
-    align-items: flex-end;
-}
-
-.description-title {
-    font-weight: 500;
+.description {
+    font-size: calc(10px + 6 * ((100vw - 1000px) / 680));
 }
 
 .map-query-container {
@@ -136,6 +86,103 @@
     color: #000000;
 }
 
+.title-description-container {
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    text-align: right;
+    letter-spacing: 0.01em;
+    color: #000000;
+    display: grid;
+    grid-template-columns: 44.8% 42.1% 13.1%;
+    height: 85%;
+    align-items: flex-end;
+}
+
+@media only screen and (min-width: 1400px) {
+    .title-container {
+        font-size: 51.3px;
+    }
+
+    .navbar-buttons-container {
+        font-size: 20px;
+    }
+
+    .query-label-text {
+        font-size: 20px;
+    }
+
+    .title-description-container {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .MuiButton-label {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 1399px) {
+    .title-container {
+        font-size: calc(28px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    .navbar-buttons-container {
+        font-size: 16px;
+    }
+
+    .query-label-text {
+        font-size: calc(14px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    .title-description-container {
+        line-height: 18px;
+        font-size: calc(15px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    span.MuiButton-label {
+        font-size: calc(13px + 6 * ((100vw - 1000px) / 680));
+    }
+
+    .navbar-text {
+        font-size: calc(14px + 6 * ((100vw - 1000px) / 680));
+    }
+}
+
+@media only screen and (max-width: 1085px) {
+    .title-description-container {
+        grid-template-columns: 30.8% 56.1% 13.1%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .map-query-container {
+        grid-template-columns: 5.5% 8.3% 20.9% 8.9% 26.4% 12.2%;
+        grid-column-gap: 2.2%;
+    }
+
+    .title-description-container {
+        grid-template-columns: 24.8% 62.1% 13.1%;
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .title-container {
+        grid-template-columns: 14.1% 39.6% 46.3%;
+    }
+
+    .description {
+        visibility: hidden;
+    }
+
+    .title-description-text-container {
+        height: 40%;
+    }
+}
+
+.description-title {
+    font-weight: 500;
+}
+
 .address-field {
     width: 100%;
 }
@@ -145,7 +192,8 @@
 }
 
 .slider {
-    touch-action: none; //Fixes console log errors
+    /* Fixes console log errors */
+    touch-action: none;
 }
 
 .MuiTypography-h6 {
@@ -154,8 +202,10 @@
 }
 
 .slider {
-    touch-action: none; /* Fixes console log errors */
+    /* Fixes console log errors */
+    touch-action: none;
 }
+
 .MuiTypography-body1, .MuiInputLabel-formControl {
     font-family: 'Rubik', sans-serif !important;
 }

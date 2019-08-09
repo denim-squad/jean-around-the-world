@@ -1,83 +1,242 @@
-.profile-page-container {
+@media only screen and (min-width: 1400px){
+  .profile-page-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      grid-template-rows: 32.8% 67.2%;
+  }
+
+  .profile-container {
+    position: relative;
     width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: grid;
-    grid-template-rows: 32.8% 67.2%;
+    height:100%
+  }
+
+  .profile {
+    position: relative;
+    float: left;
+    width: 57%;
+    height: 85%;
+    margin-left: 5%;
+    margin-bottom: 4%;
+    background: #EBEBEB;
+    background-color: rgba(235, 235, 235, 0.8);
+  }
+
+  .previous-travels {
+    position: relative;
+    float: left;
+    width: 30%;
+    height: 85%;
+    margin-left: 3%;
+    background: #EEEEEE;
+    background-color: rgba(235, 235, 235, 0.8);
+  }
+
+  .previous-travels-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: (60/1440) * 100vw;
+    margin-top: 2%;
+    margin-left: 4%;
+  }
+
+  .previous-travels-container {
+    position: relative;
+    width: 87%;
+    height: 85%;
+    margin-left: 6%;
+    margin-top: 3%;
+    background: #C4C4C4;
+  }
+
+  .profile-pic{
+    position: relative;
+    float:left;
+    width: 17%;
+    height: 25%;
+    margin-left: 2%;
+    margin-top: 2%;
+  }
+
+  .profile-info{
+    position: relative;
+    float: left;
+    width: 76%;
+    height: 25%;
+    margin-left: 3%;
+    margin-top: 2%;
+    background: #C4C4C4;
+  }
+
+  .profile-text{
+    margin-top: 1%;
+    margin-left: 1%;
+    font-family: 'Rubik', sans-serif;
+    font-size: (15/1440) * 100vw;
+  }
+
+  .blacklist-text{
+    margin-top: 2%;
+    margin-left: 2%;
+    float: left;
+    position: relative;
+    font-family: 'Rubik', sans-serif;
+    font-size: (15/1440) * 100vw;
+  }
+
+  .profile-blacklist-container {
+    position: relative;
+    width: 96%;
+    height: 25%;
+    margin-top: 1%;
+    margin-left: 2%;
+    float: left;
+    background: #C4C4C4;
+  }
+
+  .favourites-text{
+    position: relative;
+    float: left;
+    font-family: 'Rubik', sans-serif;
+    font-size: (15/1440) * 100vw;
+    margin-left: 2%;
+    margin-top: 2%;
+  }
+
+  .profile-favourites-container {
+    position: relative;
+    float: left;
+    width: 96%;
+    height: 25%;
+    background: #C4C4C4;
+    margin-left: 2%;
+    margin-top: 1%;
+  }
 }
 
-.profile {
-  position: absolute;
-  width: 850px;
-  height: 550px;
-  left: 90px;
-  top: 200px;
-  background: #EBEBEB;
-  border-radius: 10px;
-}
+@media only screen and (max-width: 1399px){
+  .profile-page-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      grid-template-rows: 32.8% 67.2%;
+  }
 
-.previous-travels {
-  position: absolute;
-  width: 300px;
-  height: 550px;
-  left: 1000px;
-  top: 200px;
-  background: #EEEEEE;
-}
+  .profile-container {
+    position: relative;
+    width: 100%;
+    height:100%
+  }
 
-.profile-info{
-  position: absolute;
-  width: 550px;
-  height: 100px;
-  left: 225px;
-  top: 35px;
-  background: #C4C4C4;
-  border-radius: 3px;
+  .profile {
+    position: relative;
+    float: left;
+    width: 57%;
+    height: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: rgba(235, 235, 235, 0.8);
+    border-radius: 9px;
+  }
 
-}
+  .previous-travels {
+    position: relative;
+    float: left;
+    width: 30%;
+    height: 90%;
+    margin-left: 3%;
+    margin-top: 2%;
+    background-color: rgba(235, 235, 235, 0.8);
+    border-radius: 9px;
+  }
 
-.profile-text{
-  margin: 5px;
-  font-size: 15px;
-}
+  .previous-travels-text {
+    font-family: 'Rubik', sans-serif;
+    font-size: (50/1024) * 100vw;
+    margin-top: 2%;
+    margin-left: 4%;
+  }
 
-.blacklist-text{
-  position: absolute;
-  left: 50px;
-  top: 165px;
-  font-size: 15px;
-}
+  .previous-travels-container {
+    position: relative;
+    width: 92%;
+    height: 87%;
+    margin-left: 4%;
+    margin-top: 3%;
+    background: #FFFFFF;
+    border-radius: 9px;
+  }
 
-.add-blacklist{
-  position: absolute;
-  left: 400px;
-}
+  .profile-pic{
+    position: relative;
+    float:left;
+    width: 17%;
+    height: 25%;
+    margin-left: 2%;
+    margin-top: 2%;
+  }
 
-.profile-blacklist-container {
-  position: absolute;
-  width: 735px;
-  height: 150px;
-  left: 50px;
-  top: 190px;
-  background: #C4C4C4;
-  border-radius: 3px;
-}
+  .profile-info{
+    position: relative;
+    float: left;
+    width: 76%;
+    height: 25%;
+    margin-left: 3%;
+    margin-top: 2%;
+    background: #FFFFFF;
+    border-radius: 9px;
+  }
 
-.favourites-text{
-  position: absolute;
-  left: 50px;
-  top: 350px;
-  font-size: 15px;
-}
+  .profile-text{
+    margin-top: 2%;
+    margin-left: 2%;
+    font-family: 'Rubik', sans-serif;
+    font-size: (10/1440) * 100vw;
+  }
 
-.profile-favourites-container {
-  position: absolute;
-  width: 735px;
-  height: 150px;
-  left: 50px;
-  top: 375px;
-  background: #C4C4C4;
-  border-radius: 3px;
+  .blacklist-text{
+    margin-top: 2%;
+    margin-left: 2%;
+    float: left;
+    position: relative;
+    font-family: 'Rubik', sans-serif;
+    font-size: (10/1440) * 100vw;
+  }
+
+  .profile-blacklist-container {
+    position: relative;
+    width: 96%;
+    height: 25%;
+    margin-top: 1%;
+    margin-left: 2%;
+    float: left;
+    background: #FFFFFF;
+    border-radius: 9px;
+  }
+
+  .favourites-text{
+    position: relative;
+    float: left;
+    font-family: 'Rubik', sans-serif;
+    font-size: (10/1440) * 100vw;
+    margin-left: 2%;
+    margin-top: 2%;
+  }
+
+  .profile-favourites-container {
+    position: relative;
+    float: left;
+    width: 96%;
+    height: 25%;
+    margin-left: 2%;
+    margin-top: 1%;
+    background: #FFFFFF;
+    border-radius: 9px;
+  }
 }

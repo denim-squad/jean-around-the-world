@@ -1,0 +1,111 @@
+.results-page-container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-rows: 22.8% 15% 62.2%;
+}
+
+.results-container {
+    display: grid;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #000000;
+    grid-template-rows: 40% 40% 20%;
+}
+
+.results-buttons-container {
+    display: grid;
+    grid-template-columns: 15% 12.5% 5% 20% 5% 12.5% 5% 10% 15%;
+}
+
+button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root-1, button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root-16{
+    height: 80%;
+}
+
+.save-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #60D13E !important;
+}
+
+.save-trip-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #44B123 !important;
+}
+
+.new-trip-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #FF5D47 !important;
+}
+
+.new-trip-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #D83F2A !important;
+}
+
+.reroll-button, .MuiButton-containedPrimary .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #F9CB27 !important;
+}
+
+.reroll-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
+    background-color: #DEA103 !important;
+}
+
+p.MuiTypography-root.MuiDialogContentText-root.place-name {
+  margin-bottom: 0px;
+}
+
+div.react-add-to-calendar {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+.popup-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-box h4 {
+    margin-top: 0;
+}
+
+.popup-title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.popup-title {
+    margin-left: 4.36%;
+}
+
+.popup-description-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup-description-container img {
+    width: 8%;
+}
+
+.popup-urls-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+a:link, a:visited {
+    color: #2495c5;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a:hover{
+    color: #0baff5;
+}
+
+a:link:active, a:visited:active {
+    color: #aadaff;
+}
