@@ -67,13 +67,13 @@ class StepBox extends React.Component {
         return (
           <div className="blacklist-container">
             <div className="stepbox-title">
-              <strong>
+              <strong className="blacklist-stepbox-title">
               Enter a location to blacklist
               </strong>
             </div>
             <div className="blacklist-add-container">
               <CssTextField
-                placeholder="John Sastrillo's House"
+                placeholder="McDonald's"
                 margin="none"
                 inputRef={(input) => { this.blacklistInput = input; }}
                 onKeyPress={(event) => {
