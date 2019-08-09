@@ -88,31 +88,23 @@ const classes = () => {
 
 const icon = { 'calendar-plus-o': 'left' };
 
-const event = {
-  title: 'Jean Around the World Trip',
-  location: 'Portland, OR',
-};
-
-event.startTime = moment(new Date()).format();
-event.endTime = moment(new Date()).format();
-
 class CalendarContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      minDate: format(new Date(), 'Y-MM-dd h:mm a'),
+      minDate: format(new Date(), 'Y-MM-dd hh:mm a'),
     };
   }
 
   onChangeStart = (date, place) => {
     this.setState({
-      [place.address]: format(date, 'Y-MM-dd h:mm a'),
+      [place.address]: format(date, 'Y-MM-dd hh:mm a'),
     });
   }
 
   onChangeEnd = (date, place) => {
     this.setState({
-      [place.place_id]: format(date, 'Y-MM-dd h:mm a'),
+      [place.place_id]: format(date, 'Y-MM-dd hh:mm a'),
     });
   }
 
@@ -120,8 +112,8 @@ class CalendarContainer extends React.Component {
     const currEvent = {
       title: `${name}`,
       location: `${name}, ${address}`,
-      startTime: this.state[address],
-      endTime: this.state[id],
+      startTime: moment(this.state[address]).format(),
+      endTime: moment(this.state[id]).format(),
     };
     return currEvent;
   }
@@ -133,8 +125,8 @@ class CalendarContainer extends React.Component {
       return;
     }
     await this.setState({
-      [place.address]: format(new Date(), 'Y-MM-dd h:mm a'),
-      [place.place_id]: format(new Date(), 'Y-MM-dd h:mm a'),
+      [place.address]: format(new Date(), 'Y-MM-dd hh:mm a'),
+      [place.place_id]: format(new Date(), 'Y-MM-dd hh:mm a'),
     });
   }
 
