@@ -44,7 +44,7 @@ class PreferenceButton extends React.Component {
           await setTimeout(() => {
             this.loadingSpinner.current.style.display = 'none';
             history.push('/results');
-          }, 5000);
+          }, 2000);
         }
       }
 
