@@ -12,6 +12,7 @@ const mapStyles = {
 };
 
 const randomPlaces = [];
+const orderedPlaces = [];
 const polylineCoords = [];
 
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000
@@ -52,6 +53,49 @@ function decideShouldBeIncluded(count, priority) {
   return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 81.9579182846) * priority);
 }
 
+function orderPlacesForIdealPath() {
+  if (randomPlaces.length > 0) {
+    const anchor = randomPlaces.pop();
+    orderedPlaces.push(anchor);
+    while (randomPlaces.length > 0) {
+      let minDistance = Infinity;
+      let previousPlace = anchor;
+      let minDistIdx = 0;
+      let idx = 0;
+      randomPlaces.forEach((place) => {
+        distance = distanceBetweenCoor(place, previousPlace);
+        if (distance < minDistance) {
+          minDistance = distance;
+          minDistIdx = idx;
+        }
+        idx++;
+      })
+      // splice returns an array with the closest place
+      const closestPlace = randomPlaces.splice(minDistIdx, 1);
+      if (closestPlace.length !== 0) {
+        orderedPlaces.push(closestPlace[0]);
+        previousPlace = closestPlace[0];
+      }
+    }
+  }
+}
+
+function distanceBetweenCoor(place1, place2) {
+  const lat1 = place1.lat;
+  const lon1 = place1.lon;
+
+  const lat2 = place2.lat;
+  const lon2 = place2.lon;
+
+  // haversine formula to find distance
+  const pi = 0.017453292519943295;    // Math.PI / 180
+  const cosine = Math.cos;
+  const val = 0.5 - (cosine((lat2 - lat1) * pi) / 2)
+    + cosine(lat1 * pi) * cosine(lat2 * pi) * ((1 - cosine((lon2 - lon1) * pi)) / 2);
+
+  return 12742 * Math.asin(Math.sqrt(val)); // 2 * R; R = 6371 km
+}
+
 export class ResultsMapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +106,7 @@ export class ResultsMapContainer extends React.Component {
     };
     const randomCount = decideRandomCount(this.props.radius);
     randomizePlaces(this.props.places, randomCount);
+    orderPlacesForIdealPath();
     this.getPolyline();
   }
 
@@ -84,7 +129,7 @@ export class ResultsMapContainer extends React.Component {
     }
 
     getPolyline = () => {
-      randomPlaces.map((place) => {
+      orderedPlaces.map((place) => {
         polylineCoords.push({
           lat: place.lat,
           lng: place.lng,
@@ -101,7 +146,7 @@ export class ResultsMapContainer extends React.Component {
           initialCenter={this.props.initialCenter}
           onClick={this.closeActiveMaker}
         >
-          {randomPlaces.map(place => <Marker position={{ lat: place.lat, lng: place.lng }} onClick={this.setActiveMarker} name={place.name} />)}
+          {orderedPlaces.map(place => <Marker position={{ lat: place.lat, lng: place.lng }} onClick={this.setActiveMarker} name={place.name} />)}
           <Polyline
             path={polylineCoords}
             strokeColor="#FF5D47"
