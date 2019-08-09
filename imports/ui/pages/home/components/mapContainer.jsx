@@ -12,13 +12,10 @@ const mapStyles = {
 };
 
 export class MapContainer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      activeMarker: {
-        lat: 49.263749,
-        lng: -123.247480,
-      },
+      activeMarker: this.props.initialCenter,
     };
   }
 

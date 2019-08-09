@@ -25,7 +25,6 @@ class PreviousTravelContainer extends React.Component {
 
 const mapStateToProps = state => ({
   previousTravels: state.user.previousTravels,
-  blacklist: state.user.blacklist,
 });
 
 export default connect(mapStateToProps)(PreviousTravelContainer);
