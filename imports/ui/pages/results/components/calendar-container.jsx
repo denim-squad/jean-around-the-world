@@ -101,34 +101,41 @@ class CalendarContainer extends React.Component {
     super(props);
     this.state = {
       minDate: format(new Date(), 'Y-MM-dd h:mm a'),
-      startDate: format(new Date(), 'Y-MM-dd h:mm a'),
-      endDate: format(new Date(), 'Y-MM-dd h:mm a'),
     };
   }
 
-  onChangeStart = (date) => {
+  onChangeStart = (date, place) => {
     this.setState({
-      startDate: format(date, 'Y-MM-dd h:mm a'),
+      [place.address]: format(date, 'Y-MM-dd h:mm a'),
     });
-    console.log('startdate is:', this.state.startDate);
-    event.startTime = moment(date).format();
   }
 
-  onChangeEnd = (date) => {
+  onChangeEnd = (date, place) => {
     this.setState({
-      endDate: format(date, 'Y-MM-dd h:mm a'),
+      [place.place_id]: format(date, 'Y-MM-dd h:mm a'),
     });
-    event.endTime = moment(date).format();
   }
 
-  createCurrEvent = (location, address) => {
+  createCurrEvent = (id, address, name) => {
     const currEvent = {
-      title: 'Jean Around the World Trip',
-      location: `${location}, ${address}`,
-      startTime: this.state.startDate,
-      endTime: this.state.endDate,
+      title: `${name}`,
+      location: `${name}, ${address}`,
+      startTime: this.state[address],
+      endTime: this.state[id],
     };
     return currEvent;
+  }
+
+  createNewStateVar = async (place) => {
+    if (this.state[place.address] !== undefined ||
+      this.state[place.place_id] !== undefined) {
+        //prevents infinite rendering loop
+      return;
+    }
+    await this.setState({
+      [place.address]: format(new Date(), 'Y-MM-dd h:mm a'),
+      [place.place_id]: format(new Date(), 'Y-MM-dd h:mm a'),
+    });
   }
 
   render() {
@@ -158,27 +165,26 @@ class CalendarContainer extends React.Component {
                   }
                 },
                 randomPlaces.map((place) => {
-                  let currEvent = this.createCurrEvent(place.name, place.address);
+                  let currEvent = this.createCurrEvent(place.place_id, place.address, place.name);
+                  this.createNewStateVar(place);
                   return <div>
                   <DialogContentText className="place-name">{place.name}</DialogContentText>
                   <Grid container className={classes.grid} justify="space-around">
                     <DateTimePicker
-                      onChange={this.onChangeStart}
+                      onChange={(date) => {this.onChangeStart(date, place)}}
                       label="Start"
                       minDate={this.state.minDate}
-                      value={this.state.startDate}
+                      value={this.state[place.address]}
                     />
                     <DateTimePicker
-                      onChange={this.onChangeEnd}
+                      onChange={(date) => {this.onChangeEnd(date, place)}}
                       label="End"
-                      minDate={this.state.startDate}
-                      value={this.state.endDate}
+                      minDate={this.state[place.address]}
+                      value={this.state[place.place_id]}
                     />
                     <AddToCalendar
                       className="addToCalendar-button"
-                      event={/* TODO: match up to list of events returned */
-                           currEvent
-                         }
+                      event={currEvent}
                       buttonTemplate={icon}
                       listItems={items}
                     />
