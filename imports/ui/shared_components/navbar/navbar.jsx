@@ -5,8 +5,9 @@ import { createBrowserHistory } from 'history';
 import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
+import LoginToSeeProfileContainer from '../../pages/profile/components/login-to-see-profile'
 import {
-  showModal, logoutUser, LOGIN, SIGNUP, SAVE_PREVIOUS_TRAVEL,
+  showModal, logoutUser, LOGIN, SIGNUP,
 } from '../../../redux/actions';
 
 import LoadingSpinner from '../loading/loadingSpinner';

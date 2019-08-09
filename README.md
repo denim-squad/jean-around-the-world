@@ -1,5 +1,9 @@
 Jean Around the World
 ===
+#### TL;DR
+*Jean Around the World* is a web app that allows users to plan an adventure anywhere in the world. Select a location on the map, and we will provide an itinerary for you based on your preferences!
+
+***
 
 #### Project Description
 *Jean Around the World* will be a full-stack web application using React frontend and MongoDB/MeteorJS backend. We will create a website with the purpose of trip-planning, allowing users to select a destination somewhere in the world and returning suggestions for accommodation, food, etc. Aimed at users who are planning to go on vacation, looking for a good deal, or are interested in personalizing their trip, *Jean Around the World* will expedite their trip-planning experience by generating locales from which the user can develop their itinerary.

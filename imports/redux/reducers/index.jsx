@@ -159,7 +159,7 @@ function userReducer(state = initialUserState, action) {
         // TODO: create better error handling
         console.error('Error Updating Favourites for User');
       }
-      const updatedInfo = Meteor.users.find({ userId: state.userId }).fetch();
+      const updatedInfo = Meteor.users.find({ _id: state.userId }).fetch();
       const info = updatedInfo[0];
       return { ...state, favourites: info.profile.preferences.favourites };
     }
