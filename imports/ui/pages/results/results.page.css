@@ -52,3 +52,12 @@ button.MuiButtonBase-root.MuiButton-root.WithStyles\(ForwardRef\(Button\)\)-root
 .reroll-button:hover, .MuiButton-containedPrimary:hover .WithStyles\(ForwardRef\(Button\)\)-root-16 {
     background-color: #DEA103 !important;
 }
+
+p.MuiTypography-root.MuiDialogContentText-root.place-name {
+  margin-bottom: 0px;
+}
+
+div.react-add-to-calendar {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}

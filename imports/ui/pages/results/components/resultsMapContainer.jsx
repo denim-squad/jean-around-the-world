@@ -11,7 +11,7 @@ const mapStyles = {
   height: '100%',
 };
 
-const randomPlaces = [];
+export const randomPlaces = [];
 const polylineCoords = [];
 
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000

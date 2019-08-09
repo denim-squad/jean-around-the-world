@@ -20,6 +20,7 @@ import { format } from 'date-fns';
 import moment from 'moment';
 import { hideModal } from '../../../../redux/actions';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
+import { randomPlaces } from './resultsMapContainer';
 
 const styles = theme => ({
   root: {
@@ -66,7 +67,7 @@ const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
     padding: theme.spacing(4),
-    paddingBottom: theme.spacing(10),
+    paddingBottom: theme.spacing(4),
     justifyContent: 'center',
   },
 }))(MuiDialogActions);
@@ -140,32 +141,43 @@ class CalendarContainer extends React.Component {
               Select the preferred dates and times for your trip event(s).
           </DialogContentText>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container className={classes.grid} justify="space-around">
-              <DateTimePicker
-                onChange={this.onChangeStart}
-                label="Start"
-                minDate={this.state.minDate}
-                value={this.state.startDate}
-              />
-              <DateTimePicker
-                onChange={this.onChangeEnd}
-                label="End"
-                minDate={this.state.startDate}
-                value={this.state.endDate}
-              />
-            </Grid>
-            {/* TODO: add date picker per event returned by API */}
+              {
+                (randomPlaces) => {
+                  if (randomPlaces === undefined || randomPlaces.length < 1) {
+                    return <DialogContentText>No Event(s) Found</DialogContentText>;
+                  }
+                },
+                randomPlaces.map((place) => {
+                  return <div>
+                  <DialogContentText className="place-name">{place.name}</DialogContentText>
+                  <Grid container className={classes.grid} justify="space-around">
+                    <DateTimePicker
+                      onChange={this.onChangeStart}
+                      label="Start"
+                      minDate={this.state.minDate}
+                      value={this.state.startDate}
+                    />
+                    <DateTimePicker
+                      onChange={this.onChangeEnd}
+                      label="End"
+                      minDate={this.state.startDate}
+                      value={this.state.endDate}
+                    />
+                    <AddToCalendar
+                      className="addToCalendar-button"
+                      event={/* TODO: match up to list of events returned */
+                           event
+                         }
+                      buttonTemplate={icon}
+                      listItems={items}
+                    />
+                  </Grid>
+                 </div>
+                })
+              }
           </MuiPickersUtilsProvider>
         </DialogContent>
         <DialogActions>
-          <AddToCalendar
-            event={/* TODO: match up to list of events returned */
-                 event
-               }
-            buttonTemplate={icon}
-            listItems={items}
-          />
-          <div />
         </DialogActions>
       </Dialog>
     );
