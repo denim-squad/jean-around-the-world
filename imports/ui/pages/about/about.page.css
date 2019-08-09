@@ -1,4 +1,4 @@
-.about-page-text-container {
+* {
     font-family: 'Rubik', sans-serif;
 }
 
@@ -12,7 +12,59 @@
 .about-page-list-item {
     max-width: 88%;
     margin-top: 2%;
-    margin-right: 5%;
-    margin-left: 4%;
+    margin-left: 10%;
 }
 
+.about-project-title {
+    font-size: calc(18px + 6 * ((100vw - 1000px) / 680));
+    font-weight: 500;
+    margin-bottom: calc(10px + 6 * ((100vw - 1000px) / 680));
+}
+
+.about-project-description {
+    font-size: calc(16px + 6 * ((100vw - 1000px) / 680));
+}
+
+.about-us {
+    font-size: calc(18px + 6 * ((100vw - 1000px) / 680));
+    font-weight: 500;
+    margin-top: calc(20px + 6 * ((100vw - 1000px) / 680));
+}
+
+.MuiListItem-container {
+    display: grid;
+    grid-template-columns: 85% 15%;
+}
+
+div.MuiListItem-root.about-page-list-item.MuiListItem-gutters.MuiListItem-secondaryAction {
+    padding-right: 0%;
+    padding-left: 0%;
+    margin-left: 0%;
+}
+
+div.MuiListItemAvatar-root {
+    padding-right: calc(20px + 6 * ((100vw - 1000px) / 680));
+}
+
+button.MuiButtonBase-root.MuiIconButton-root {
+    padding: calc(10px + 6 * ((100vw - 1000px) / 680));
+}
+
+svg.MuiSvgIcon-root {
+    height: calc(25px + 6 * ((100vw - 1000px) / 680));
+    width: calc(25px + 6 * ((100vw - 1000px) / 680));
+}
+
+span.MuiTypography-body1{
+    font-size: calc(16px + 6 * ((100vw - 1000px) / 680));
+    font-weight: 500;
+}
+
+span.MuiTypography-colorTextPrimary {
+    font-family: 'Rubik', sans-serif;
+    font-size: calc(14px + 6 * ((100vw - 1000px) / 680));
+}
+
+span.MuiTypography-body2 {
+    letter-spacing: 0.00571em;
+}

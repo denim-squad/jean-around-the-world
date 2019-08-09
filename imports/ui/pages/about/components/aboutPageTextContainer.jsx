@@ -45,14 +45,14 @@ class AboutPageTextContainer extends React.Component {
     return (
       <Container className="about-page-text-container">
         <div className="about-page-project-description">
-          <h2>ABOUT THIS PROJECT</h2>
-          <p>
+          <div className="about-project-title">ABOUT THIS PROJECT</div>
+          <div className="about-project-description">
             Jean Around the World is a web application which takes the effort out of trip planning.
             You can select a destination somewhere in the world, choose how you'd like your trip to be, and instantly receive a suggested itinerary.
             If you're planning to go on vacation, looking for a good deal, or are interested in quickly getting personalized trip ideas, Jean Around the World is for you!
-          </p>
+          </div>
           <br />
-          <h2>ABOUT US</h2>
+          <div className="about-us">ABOUT US</div>
         </div>
         <List>
           <AboutPageListItem info={hailinInfo} />
