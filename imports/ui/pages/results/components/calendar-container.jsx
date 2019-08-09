@@ -109,7 +109,6 @@ class CalendarContainer extends React.Component {
     this.setState({
       startDate: format(date, 'Y-MM-dd h:mm a'),
     });
-    console.log('startdate is:', this.state.startDate);
     event.startTime = moment(date).format();
   }
 

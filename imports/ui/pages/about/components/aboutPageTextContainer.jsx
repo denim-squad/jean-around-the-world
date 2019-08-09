@@ -10,7 +10,7 @@ const hailinInfo = {
   linkedIn: 'https://www.linkedin.com/in/hai-lin-zhang/',
   email: 'mailto:hzhan339@hotmail.com',
   picturePath: '/hailin-profile.svg',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae vehicula metus. Vestibulum ornare ante at urna egestas bibendum. Maecenas rhoncus eros non nisi suscipit dapibus. Suspendisse tincidunt ex metus, vel mollis eros dapibus sed. Cras ipsum neque, mattis sed nibh eu, lobortis rhoncus lorem. Donec non nunc nec tellus finibus ornare. Vivamus laoreet, nulla vel ullamcorper pretium, est nisl tincidunt quam, pellentesque sollicitudin purus elit dictum arcu. Quisque velit est, lobortis ut quam vitae, ultricies mollis eros. Ut mattis id nisl vel bibendum. Donec elementum, nulla a malesuada placerat, felis enim interdum nulla, sit amet tincidunt justo leo quis diam. Proin ut dolor ut quam tempor blandit id at sapien.',
+  description: 'Hai Lin is a 3rd year CS student at the University of British Columbia. He currently works at Fatigue Science as a part-time Junior Software Engineer, where he did his first co-op work term for 8 months. He enjoys front-end web development and created the UI for the home and preferences pages, the navbar, the loading spinner, as well as the Google Maps integrations for this website.',
 };
 
 const jessicaInfo = {
