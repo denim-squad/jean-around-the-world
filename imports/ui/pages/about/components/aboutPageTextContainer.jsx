@@ -19,7 +19,7 @@ const jessicaInfo = {
   linkedIn: 'https://www.linkedin.com/in/jvssicawu/',
   email: 'mailto:jessicawu.98@hotmail.ca',
   picturePath: '/jessica-profile.svg',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae vehicula metus. Vestibulum ornare ante at urna egestas bibendum. Maecenas rhoncus eros non nisi suscipit dapibus. Suspendisse tincidunt ex metus, vel mollis eros dapibus sed. Cras ipsum neque, mattis sed nibh eu, lobortis rhoncus lorem. Donec non nunc nec tellus finibus ornare. Vivamus laoreet, nulla vel ullamcorper pretium, est nisl tincidunt quam, pellentesque sollicitudin purus elit dictum arcu. Quisque velit est, lobortis ut quam vitae, ultricies mollis eros. Ut mattis id nisl vel bibendum. Donec elementum, nulla a malesuada placerat, felis enim interdum nulla, sit amet tincidunt justo leo quis diam. Proin ut dolor ut quam tempor blandit id at sapien.',
+  description: 'Jessica is a computer science major who just finished up her 3rd year at UBC. She has a huge passion for design and development, and is always looking for opportunities to dabble in both areas as the current design director behind hackathon club nwPlus and as an incoming software developer co-op @ Hootsuite. She led the UI and UX design behind this web application, and implemented some of the core functionality such as the login, signup, and calendar export.',
 };
 
 const johnInfo = {
