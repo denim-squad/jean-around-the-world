@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Navbar from '../../shared_components/navbar/navbar';
 import './preferences.page.css';
 import StepText from './components/stepText';
@@ -25,8 +26,8 @@ const images = [
 ];
 
 class PreferencesPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       imgPath: `url(${images[~~(Math.random() * 10)]})`,
       currentStep: CUSTOMIZE_STEP,
@@ -45,6 +46,11 @@ class PreferencesPage extends React.Component {
   }
 
   nextStep() {
+    if (this.state.currentStep === CUSTOMIZE_STEP && this.props.typesAndQuantities.length < 1) {
+      // eslint-disable-next-line no-alert
+      alert('Please select at least one type to continue.');
+      return;
+    }
     if (this.state.currentStep < COMPLETE_STEP) {
       this.setState({
         imgPath: this.state.imgPath,
@@ -78,4 +84,8 @@ class PreferencesPage extends React.Component {
   }
 }
 
-export default PreferencesPage;
+const mapStateToProps = state => ({
+  typesAndQuantities: state.placeSearch.typesAndQuantities,
+});
+
+export default connect(mapStateToProps)(PreferencesPage);

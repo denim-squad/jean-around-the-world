@@ -6,7 +6,7 @@ import MapQuery from './mapQuery';
 import Login from '../login/login';
 import Signup from '../signup/signup';
 import {
-  showModal, logoutUser, LOGIN, SIGNUP,
+  showModal, logoutUser, LOGIN, SIGNUP, SAVE_PREVIOUS_TRAVEL,
 } from '../../../redux/actions';
 
 import LoadingSpinner from '../loading/loadingSpinner';
@@ -45,6 +45,15 @@ class Navbar extends React.Component {
 
     openModal = kind => () => {
       this.props.showModal(kind);
+    }
+
+    showSpecificModal = (kind) => {
+      switch (kind) {
+        case LOGIN:
+          return <Login />;
+        case SIGNUP:
+          return <Signup />;
+      }
     }
 
     logout = () => {
@@ -166,7 +175,7 @@ class Navbar extends React.Component {
               && <MapQuery />
           }
           {
-              (this.props.modal.modalKind === LOGIN) ? <Login/> : (this.props.modal.modalKind === SIGNUP) && <Signup/>
+              this.showSpecificModal(this.props.modal.modalKind)
           }
         </div>
       );

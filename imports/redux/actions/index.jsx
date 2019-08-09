@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { FETCH_PLACES_NAME } from '../../api/places/methods';
+import filterResults from '../../api/places/filterResults';
 
 export const SHOW_MODAL = 0;
 export const HIDE_MODAL = 1;
@@ -24,7 +25,11 @@ export const UPDATE_BUDGET = 19;
 export const SAVE_PREVIOUS_TRAVEL = 20;
 export const DELETE_PREVIOUS_TRAVEL = 21;
 export const SIGNUP_USER_ERROR = 22;
-export const CALENDAR = 23;
+export const SAVE_PREVIOUS_TRAVEL_FAILURE = 23;
+export const DELETE_PREVIOUS_TRAVEL_FAILURE = 24;
+export const GET_PREVIOUS_TRAVEL = 25;
+export const CALENDAR = 26;
+export const LOGIN_TO_SAVE = 27;
 
 export function showModal(kind) {
   return {
@@ -79,8 +84,8 @@ function signupUserSuccess(userId, firstName, lastName, email) {
 function signupUserFailure(error) {
   return {
     type: SIGNUP_USER_ERROR,
-    error
-  }
+    error,
+  };
 }
 
 export function signupUser(firstname, lastname, email, password) {
@@ -91,8 +96,8 @@ export function signupUser(firstname, lastname, email, password) {
       dispatch(signupUserFailure('An account with this email already exists. Proceed to login to continue.'));
     } else {
       Accounts.createUser({
-        email: email,
-        password: password,
+        email,
+        password,
         profile: {
           firstName: firstname,
           lastName: lastname,
@@ -109,7 +114,7 @@ export function signupUser(firstname, lastname, email, password) {
         }
       });
     }
-  }
+  };
 }
 
 export function addBlacklist(blacklist) {
@@ -140,17 +145,66 @@ export function removeFavourites(favouriteToRemove) {
   };
 }
 
-export function savePrevTravel(prevTravel) {
+function savePrevTravelSuccess() {
   return {
     type: SAVE_PREVIOUS_TRAVEL,
-    prevTravel,
   };
 }
 
-export function deletePrevTravel(toDeleteTravel) {
+function savePrevTravelFailure(errMessage) {
+  return {
+    type: SAVE_PREVIOUS_TRAVEL_FAILURE,
+    errMessage,
+  };
+}
+
+export function savePrevTravel(prevTravel, userId) {
+  return (dispatch) => {
+    Meteor.users.update({ _id: userId },
+      { $push: { 'profile.previousTravels': prevTravel } },
+      (err, matchedUsers) => {
+        if (err || matchedUsers === 0) {
+          dispatch(savePrevTravelFailure(err));
+        } else {
+          dispatch(savePrevTravelSuccess());
+        }
+      });
+  };
+}
+
+function deletePrevTravelSuccess(toDeleteTravelName) {
   return {
     type: DELETE_PREVIOUS_TRAVEL,
-    toDeleteTravel,
+    toDeleteTravelName,
+  };
+}
+
+function deletePrevTravelFailure(errMessage) {
+  return {
+    type: DELETE_PREVIOUS_TRAVEL_FAILURE,
+    errMessage,
+  };
+}
+
+export function deletePrevTravel(toDeleteTravelName, userId) {
+  return (dispatch) => {
+    Meteor.users.update({ _id: userId },
+      { $pull: { 'profile.previousTravels': { name: toDeleteTravelName } } },
+      (err, matchedUsers) => {
+        if (err || matchedUsers === 0) {
+          dispatch(deletePrevTravelFailure(err));
+        } else {
+          dispatch(deletePrevTravelSuccess());
+        }
+      });
+  };
+}
+
+export function getPrevTravel(travelName, userId) {
+  return {
+    type: GET_PREVIOUS_TRAVEL,
+    travelName,
+    userId,
   };
 }
 
@@ -188,10 +242,10 @@ export function getPlaces() {
   return (dispatch, getState) => {
     dispatch(requestPlacesStart());
     const state = getState();
-    const { budgetRange, typesAndQuantities, blacklist } = state.placeSearch;
+    const { budgetRange, typesAndQuantities, minimumAcceptableRating } = state.placeSearch;
     const { radius, initialCenter } = state.map;
+    const { blacklist } = state.user;
     const typesAndResults = [];
-
     let callCounter = typesAndQuantities.length;
     typesAndQuantities.forEach((singleTypeAndQuantity) => {
       const { type } = singleTypeAndQuantity;
@@ -204,9 +258,13 @@ export function getPlaces() {
             dispatch(receivePlacesFailure(error));
             return;
           }
+          const results = filterResults(result.data.results,
+            budgetRange,
+            minimumAcceptableRating,
+            blacklist);
           typesAndResults.push({
             type,
-            results: result.data.results,
+            results,
           });
           callCounter -= 1;
           if (callCounter < 1) {
