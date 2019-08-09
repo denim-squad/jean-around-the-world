@@ -90,7 +90,7 @@ const icon = { 'calendar-plus-o': 'left' };
 
 const event = {
   title: 'Jean Around the World Trip',
-  location: 'Portland, OR', // TODO: replace placeholder w/ location from results
+  location: 'Portland, OR',
 };
 
 event.startTime = moment(new Date()).format();
@@ -121,6 +121,16 @@ class CalendarContainer extends React.Component {
     event.endTime = moment(date).format();
   }
 
+  createCurrEvent = (location, address) => {
+    const currEvent = {
+      title: 'Jean Around the World Trip',
+      location: `${location}, ${address}`,
+      startTime: this.state.startDate,
+      endTime: this.state.endDate,
+    };
+    return currEvent;
+  }
+
   render() {
     return (
       <Dialog
@@ -148,6 +158,7 @@ class CalendarContainer extends React.Component {
                   }
                 },
                 randomPlaces.map((place) => {
+                  let currEvent = this.createCurrEvent(place.name, place.address);
                   return <div>
                   <DialogContentText className="place-name">{place.name}</DialogContentText>
                   <Grid container className={classes.grid} justify="space-around">
@@ -166,7 +177,7 @@ class CalendarContainer extends React.Component {
                     <AddToCalendar
                       className="addToCalendar-button"
                       event={/* TODO: match up to list of events returned */
-                           event
+                           currEvent
                          }
                       buttonTemplate={icon}
                       listItems={items}
