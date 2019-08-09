@@ -27,7 +27,7 @@ export class MapContainer extends React.Component {
         lng: latLng.lng(),
       },
     });
-    this.props.setMapCenter({lat: latLng.lat(), lng: latLng.lng()});
+    this.props.setMapCenter({ lat: latLng.lat(), lng: latLng.lng() });
   }
 
   render() {

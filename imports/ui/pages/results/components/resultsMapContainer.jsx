@@ -20,7 +20,7 @@ const polylineCoords = [];
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000
 // Rounds up
 function decideRandomCount(radius) {
-  return Math.ceil(1/350000000*(radius**2)-1/350000*(radius)+5);
+  return Math.ceil(1 / 350000000 * (radius ** 2) - 1 / 350000 * (radius) + 5);
 }
 
 function randomizePlaces(placesArray, count) {
@@ -39,7 +39,7 @@ function randomizePlaces(placesArray, count) {
           place_id: result.place_id,
         });
         count--;
-      };
+      }
     });
     priority = 0.5;
   });
@@ -47,7 +47,7 @@ function randomizePlaces(placesArray, count) {
 
 // TODO - make a more intensive algorithm if needed
 function decideShouldBeIncluded(count, priority) {
-  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258*count**2 + 0.651969445777*count + 91.9579182846) * priority);
+  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 91.9579182846) * priority);
 }
 
 export class ResultsMapContainer extends React.Component {
@@ -92,7 +92,7 @@ export class ResultsMapContainer extends React.Component {
         this.setState({
           showingInfoWindow: false,
           currentMarkerName: '',
-          activeMarker: null
+          activeMarker: null,
         });
       }
     }
@@ -161,6 +161,7 @@ export class ResultsMapContainer extends React.Component {
             </div>
           </InfoWindow>
         </Map>
+      );
     }
 }
 

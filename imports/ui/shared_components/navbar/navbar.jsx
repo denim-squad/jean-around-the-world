@@ -50,9 +50,9 @@ class Navbar extends React.Component {
     showSpecificModal = (kind) => {
       switch (kind) {
         case LOGIN:
-          return <Login />
+          return <Login />;
         case SIGNUP:
-          return <Signup />
+          return <Signup />;
       }
     }
 
