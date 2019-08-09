@@ -88,11 +88,10 @@ function distanceBetweenCoor(place1, place2) {
   const lon2 = place2.lon;
 
   // haversine formula to find distance
-  const pi = 0.017453292519943295;    // Math.PI / 180
+  const pi = 0.017453292519943295; //pi / 180
   const cosine = Math.cos;
   const val = 0.5 - (cosine((lat2 - lat1) * pi) / 2)
     + cosine(lat1 * pi) * cosine(lat2 * pi) * ((1 - cosine((lon2 - lon1) * pi)) / 2);
-
   return 12742 * Math.asin(Math.sqrt(val)); // 2 * R; R = 6371 km
 }
 
