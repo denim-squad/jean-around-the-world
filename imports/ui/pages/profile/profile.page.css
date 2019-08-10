@@ -6,7 +6,7 @@
       top: 0;
       left: 0;
       display: grid;
-      grid-template-rows: 32.8% 67.2%;
+      grid-template-rows: 25% 75%;
   }
 
   .profile-container {
@@ -21,6 +21,7 @@
     width: 57%;
     height: 85%;
     margin-left: 5%;
+    margin-top: 2%;
     margin-bottom: 4%;
     background: #EBEBEB;
     background-color: rgba(235, 235, 235, 0.8);
@@ -32,6 +33,7 @@
     width: 30%;
     height: 85%;
     margin-left: 3%;
+    margin-top: 2%;
     background: #EEEEEE;
     background-color: rgba(235, 235, 235, 0.8);
   }
@@ -49,7 +51,7 @@
     height: 85%;
     margin-left: 6%;
     margin-top: 3%;
-    background: #C4C4C4;
+    background: #FFFFFF;
   }
 
   .profile-pic{
@@ -68,7 +70,7 @@
     height: 25%;
     margin-left: 3%;
     margin-top: 2%;
-    background: #C4C4C4;
+    background: #FFFFFF;
   }
 
   .profile-text{
@@ -94,7 +96,7 @@
     margin-top: 1%;
     margin-left: 2%;
     float: left;
-    background: #C4C4C4;
+    background: #FFFFFF;
   }
 
   .favourites-text{
@@ -111,7 +113,7 @@
     float: left;
     width: 96%;
     height: 25%;
-    background: #C4C4C4;
+    background: #FFFFFF;
     margin-left: 2%;
     margin-top: 1%;
   }
@@ -125,7 +127,7 @@
       top: 0;
       left: 0;
       display: grid;
-      grid-template-rows: 32.8% 67.2%;
+      grid-template-rows: 25% 75%;
   }
 
   .profile-container {
