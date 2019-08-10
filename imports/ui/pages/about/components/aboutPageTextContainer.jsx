@@ -37,7 +37,7 @@ const wesleyInfo = {
   linkedIn: 'https://www.linkedin.com/in/wesley-ferguson-6a682214a/',
   email: 'mailto:pwesferguson@gmail.com',
   picturePath: '/wesley-profile.svg',
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae vehicula metus. Vestibulum ornare ante at urna egestas bibendum. Maecenas rhoncus eros non nisi suscipit dapibus. Suspendisse tincidunt ex metus, vel mollis eros dapibus sed. Cras ipsum neque, mattis sed nibh eu, lobortis rhoncus lorem. Donec non nunc nec tellus finibus ornare. Vivamus laoreet, nulla vel ullamcorper pretium, est nisl tincidunt quam, pellentesque sollicitudin purus elit dictum arcu. Quisque velit est, lobortis ut quam vitae, ultricies mollis eros. Ut mattis id nisl vel bibendum. Donec elementum, nulla a malesuada placerat, felis enim interdum nulla, sit amet tincidunt justo leo quis diam. Proin ut dolor ut quam tempor blandit id at sapien.',
+  description: 'Wesley Ferguson is a 4th year CS student studying at the University of British Columbia. He loves learning (online lectures make for good sleeping material), reading trashy fiction (fanfiction included), and playing games. For this project, he focused on implementing the necessary API calls, deploying (troubleshooting) the app, and creating this page.',
 };
 
 class AboutPageTextContainer extends React.Component {
