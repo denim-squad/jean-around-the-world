@@ -14,7 +14,8 @@ const mapStyles = {
   height: '100%',
 };
 
-export const randomPlaces = [];
+const randomPlaces = [];
+export const orderedPlaces = [];
 const polylineCoords = [];
 
 // Quadratic that returns a number between 5 for radius 1000 and 12 for radius 50000
@@ -28,17 +29,22 @@ function randomizePlaces(placesArray, count) {
   placesArray.forEach((googleAPIPlace) => {
     googleAPIPlace.results.forEach((result) => {
       if (count > 0 && decideShouldBeIncluded(count, priority)) {
-        priority = 1;
-        randomPlaces.push({
-          lat: result.geometry.location.lat,
-          lng: result.geometry.location.lng,
-          name: result.name,
-          price: result.price_level,
-          rating: result.rating,
-          address: result.vicinity,
-          place_id: result.place_id,
+        const alreadyExists = randomPlaces.find((places) => {
+          places.name === result.name;
         });
-        count--;
+        if (!alreadyExists) {
+          priority = 1;
+          randomPlaces.push({
+            lat: result.geometry.location.lat,
+            lng: result.geometry.location.lng,
+            name: result.name,
+            price: result.price_level,
+            rating: result.rating,
+            address: result.vicinity,
+            place_id: result.place_id,
+          });
+          count--;
+        }
       }
     });
     priority = 0.5;
@@ -47,24 +53,66 @@ function randomizePlaces(placesArray, count) {
 
 // TODO - make a more intensive algorithm if needed
 function decideShouldBeIncluded(count, priority) {
-  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 91.9579182846) * priority);
+  return Math.round(Math.random() * 100) >= Math.floor((-0.0645790481258 * count ** 2 + 0.651969445777 * count + 81.9579182846) * priority);
+}
+
+function orderPlacesForIdealPath() {
+  if (randomPlaces.length > 0) {
+    const anchor = randomPlaces.pop();
+    orderedPlaces.push(anchor);
+    while (randomPlaces.length > 0) {
+      let minDistance = Infinity;
+      let previousPlace = anchor;
+      let minDistIdx = 0;
+      let idx = 0;
+      randomPlaces.forEach((place) => {
+        distance = distanceBetweenCoor(place, previousPlace);
+        if (distance < minDistance) {
+          minDistance = distance;
+          minDistIdx = idx;
+        }
+        idx++;
+      })
+      // splice returns an array with the closest place
+      const closestPlace = randomPlaces.splice(minDistIdx, 1);
+      if (closestPlace.length !== 0) {
+        orderedPlaces.push(closestPlace[0]);
+        previousPlace = closestPlace[0];
+      }
+    }
+  }
+}
+
+function distanceBetweenCoor(place1, place2) {
+  const lat1 = place1.lat;
+  const lon1 = place1.lng;
+
+  const lat2 = place2.lat;
+  const lon2 = place2.lng;
+
+  // haversine formula to find distance
+  const pi = 0.017453292519943295; //pi / 180
+  const cosine = Math.cos;
+  const val = 0.5 - (cosine((lat2 - lat1) * pi) / 2)
+    + cosine(lat1 * pi) * cosine(lat2 * pi) * ((1 - cosine((lon2 - lon1) * pi)) / 2);
+  return 12742 * Math.asin(Math.sqrt(val)); // 2 * R; R = 6371 km
 }
 
 export class ResultsMapContainer extends React.Component {
-
-    constructor(props) {
-      super(props);
-      const randomCount = decideRandomCount(this.props.radius);
-      this.state = {
-        showingInfoWindow: false,
-        activeMarker: {},
-        currentMarkerName: '',
-        place_id: undefined,
-        randomCount,
-      };
-      randomizePlaces(this.props.places, randomCount);
-      this.getPolyline();
-    }
+  constructor(props) {
+    super(props);
+    const randomCount = decideRandomCount(this.props.radius);
+    this.state = {
+      showingInfoWindow: false,
+      activeMarker: {},
+      currentMarkerName: '',
+      place_id: undefined,
+      randomCount,
+    };
+    randomizePlaces(this.props.places, randomCount);
+    orderPlacesForIdealPath();
+    this.getPolyline();
+  }
 
     setActiveMarker = (props, marker, e) => {
       if (this.props.isSignedIn && this.state.showingInfoWindow && this.state.place_id === marker.place_id) {
@@ -98,7 +146,7 @@ export class ResultsMapContainer extends React.Component {
     }
 
     getPolyline = () => {
-      randomPlaces.map((place) => {
+      orderedPlaces.map((place) => {
         polylineCoords.push({
           lat: place.lat,
           lng: place.lng,
@@ -120,15 +168,21 @@ export class ResultsMapContainer extends React.Component {
     }
 
     render() {
-      return <Map
-          google = {this.props.google}
-          zoom = {this.handleZoom()}
-          style = {mapStyles}
-          initialCenter = {this.props.initialCenter}
-          onClick={this.closeActiveMaker}>
-          {randomPlaces.map((place) => {
-            return <Marker position={{lat: place.lat, lng: place.lng}} onClick={this.setActiveMarker} name={place.name} place_id={place.place_id}/>
-          })}
+      return (
+        <Map
+          google={this.props.google}
+          zoom={this.handleZoom()}
+          style={mapStyles}
+          initialCenter={polylineCoords[0] ? polylineCoords[0] : this.props.initialCenter}
+          onClick={this.closeActiveMaker}
+        >
+          {orderedPlaces.map(place =>
+            <Marker
+              position={{ lat: place.lat, lng: place.lng }}
+              onClick={this.setActiveMarker}
+              name={place.name}
+              key={place.place_id}
+              place_id={place.place_id} />)}
           <Polyline
             path={polylineCoords}
             strokeColor="#FF5D47"
@@ -161,6 +215,7 @@ export class ResultsMapContainer extends React.Component {
             </div>
           </InfoWindow>
         </Map>
+      )
     }
 }
 

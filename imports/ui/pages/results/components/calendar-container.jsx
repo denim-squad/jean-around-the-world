@@ -20,7 +20,7 @@ import { format } from 'date-fns';
 import moment from 'moment';
 import { hideModal } from '../../../../redux/actions';
 import { BootstrapButton } from '../../../shared_components/MUI/button/bootstrapButton';
-import { randomPlaces } from './resultsMapContainer';
+import { orderedPlaces } from './resultsMapContainer';
 
 const styles = theme => ({
   root: {
@@ -150,13 +150,13 @@ class CalendarContainer extends React.Component {
               Select the preferred dates and times for your trip event(s).
           </DialogContentText>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              {
-                (randomPlaces) => {
-                  if (randomPlaces === undefined || randomPlaces.length < 1) {
+            {
+                (orderedPlaces) => {
+                  if (orderedPlaces === undefined || orderedPlaces.length < 1) {
                     return <DialogContentText>No Event(s) Found</DialogContentText>;
                   }
                 },
-                randomPlaces.map((place) => {
+                orderedPlaces.map((place) => {
                   let currEvent = this.createCurrEvent(place.place_id, place.address, place.name);
                   this.createNewStateVar(place);
                   return <div>
