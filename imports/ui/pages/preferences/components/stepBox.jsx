@@ -45,7 +45,7 @@ class StepBox extends React.Component {
                 <CustomizeTripButton label="Bars" />
                 <CustomizeTripButton label="Parks" />
                 <CustomizeTripButton label="Hotels" />
-                <CustomizeTripButton label="Nightclubs" />
+                {/* <CustomizeTripButton label="Nightclubs" /> */}
                 {/* todo, this isn't a directly searchable type but may be a returned type
                             (point_of_interest), so would need some additional work */}
                 {/* <FormControlLabel
