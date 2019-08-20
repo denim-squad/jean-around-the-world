@@ -6,6 +6,12 @@ Jean Around the World
 
 ***
 
+#### Basic Technology Requirements:
+* HTML/CSS:
+   * An example: the [Preference Page](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences)'s [HTML](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.jsx) and [CSS](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.css)
+   
+***
+
 #### Basic Contribution Requirements:
 * Hai Lin:
     * Created the UI for the home and preferences pages, the navbar, the loading spinner, as well as the Google Maps integrations
