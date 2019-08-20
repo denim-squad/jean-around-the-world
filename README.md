@@ -41,7 +41,7 @@ The main functionality of our app is described [here](#project-description), in 
 
 In summary, our project's aim was to simplify the trip-planning process. Our app has done this to a great extent, by offering a streamlined path for a user based on their preferences for any location and radius. We are proud to say that a user can go from the home page to having relevant events in their calendar within minutes.
 
-We have done so by using a custom Google Maps component on our home page as well as a Material UI slider to grab a selected location and a set radius. These are passed as parameters to our Google Places API call, which will generate a JSON object of locations, based on what is enabled by the user in the `select what you want` section of the preferences page. Then, the last 2 parts of the preferences page filter our API results, and they are displayed in the results page. From the results page, we have made a greedy nearest-neighbour algorithm to essentially sort an array of latitudes and longitudes to be placed as markers on the map. When the markers are clicked, they call the Google Maps Place Details API to fetch a small icon based on its type (bar, restaurant, etc.), as well as its address, website link, etc. In addition, we also used Redux and MongoDB to handle our login-logout functionalities. Login is handled using builtin Meteor methods.
+We have done so by using a custom Google Maps component on our home page as well as a Material UI slider to grab a selected location and a set radius. These are passed as parameters to our Google Places API call, which will generate a JSON object of locations, based on what is enabled by the user in the `select what you want` section of the preferences page. Then, the last 2 parts of the preferences page filter our API results, and they are displayed in the results page. From the results page, we have made a greedy nearest-neighbour algorithm to essentially sort an array of latitudes and longitudes to be placed as markers on the map so as to avoid unnecessary paths between locations. When the markers are clicked, they call the Google Maps Place Details API to fetch a small icon based on its type (bar, restaurant, etc.), as well as its address, website link, etc. In addition, we also used Redux and MongoDB to handle our login-logout functionalities. Login is handled using builtin Meteor methods. Along with login-logout functionalities, we also use Redux and MongoDB for storing, accessing, and editing a users preferences.
 
 
 ***
@@ -51,12 +51,12 @@ A major challenge that we faced was CSS styling. Opting for CSS grid, we discove
 
 Another challenge we faced was that the plugin we used for our Google Maps component was very badly documented and lacked a lot of functionalities we needed. For example, the version on npm we used did not support the `Circle` we needed for our radius. We worked around this by forking the repository and rolling back to an older version instead, where the component was stable. Additionally, the `InfoWindow` on the markers in the results page did not allow us to hook onto any events; so, we were unable to use any `onClick`s or `onMouseOver`s. We needed a way for users to add a location to their favourites, so to work around this, we added the double-click functionality to markers to add them to favourites. We had to think outside the box.
 
-Finally, a significant challenge was the combination of Meteor changing over time, decreased adoption, and heavy boilerplate leading to difficulty finding online discussions involving issues that we had. For example, although the documentation for Meteor Methods is clear enough once you're already comfortable with them, due to learning Express through class activities and being told to self-learn Meteor, it took some time to fully grasp what the documentation said. Additionally, the reliance on perfect out-of-language syntax and "magic strings" to use Methods caused some difficulty since unlike a programming langugage in an IDE, it's more difficult to debug what exactly is incorrect with the Method implementation.
-
+Finally, a third significant challenge was the combination of Meteor changing over time, decreased adoption, and heavy boilerplate leading to difficulty finding online discussions involving issues that we had. For example, although the documentation for Meteor Methods is clear enough once you're already comfortable with them, due to learning Express through class activities and being told to self-learn Meteor, it took some time to fully grasp what the documentation said. Additionally, the reliance on perfect out-of-language syntax and "magic strings" to use Methods caused some difficulty since unlike a programming language in an IDE, it's more difficult to debug what exactly is incorrect with the Method implementation.
 
 There are a number of things that we can improve on or have left undone. Outside of the [incomplete project requirements](#project-requirements), which are only extra optional features we can add, there are a number of things we can improve on:
 * the Google places API seems to return mostly restaurants/food options. We should add additional APIs to cater to a broader range of suggestions
 * we have not made our website fully responsive; we have a mock for a mobile design, but have not had the resources to implement it
+* our UI indicates that a user is able to choose how many of each location they would like, but our implementation does not fully support that. It would be good to have quick/random be the default but leave the granular option open for users to select
 
 ***
 
@@ -71,10 +71,11 @@ There are a number of things that we can improve on or have left undone. Outside
     * Login/logout functionality
 * John:
     * Handled most of the Redux
-    * Lower level logic such as implementing the nearest-neighbour algorithm to organize our results
+    * Lower level logic such as implementing the nearest-neighbour algorithm to organize our results and research for known algorithms to solve filtering locations
 * Wesley:
     * Set up the entire build pipeline, hosting
     * Handled all of the API calls
+    * Created GitHub issues for both project requirements and quality of life issues and implemented many small fixes
 
 ***
 
@@ -138,3 +139,6 @@ Based on time restraints, we are unlikely to implement functionalities which rec
 
 
 ![alt text](https://github.com/denim-squad/jean-around-the-world/blob/master/images/PrototypeSketches.JPG?raw=true)
+
+
+
