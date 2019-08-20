@@ -42,7 +42,7 @@ There are a number of things that we can improve on or have left undone. Outside
     * Coordinated deadlines
     * Handled the brunt of the frontend work, UI styling
 * Jessica:
-    * Designed entire app on Figma
+    * Designed entire app on [Figma](https://figma.com/file/QquUdjFQLHEftdTfah2Yh8MQ/436I-Prototypes?node-id=0%3A1)
     * Did most of the responsiveness work
     * Login/logout functionality
 * John:
