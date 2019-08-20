@@ -6,7 +6,7 @@
 
 ***
 
-Our [Figma](figma.com/file/QquUdjFQLHEftdTfah2Yh8MQ/436I-Prototypes?node-id=0%3A1)
+Our [Figma](https://figma.com/file/QquUdjFQLHEftdTfah2Yh8MQ/436I-Prototypes?node-id=0%3A1)
 
 #### Basic Technology Requirements:
 * HTML/CSS:
