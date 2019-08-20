@@ -1,5 +1,6 @@
 Jean Around the World
 ===
+
 #### TL;DR
 *Jean Around the World* is a web app that allows users to plan an adventure anywhere in the world. Select a location on the map, and we will provide an itinerary for you based on your preferences!
 
@@ -27,7 +28,11 @@ In summary, our project's aim was to simplify the trip-planning process. Our app
 ***
 
 #### Challenges, learning, and future directions:
-However, there are a number of things that we can improve on or have left undone. Outside of the incomplete project requirements, which are only extra optional features we can add, 
+A major challenge that we faced was CSS styling. Opting for CSS grid, we discovered that having nested CSS grids caused unexpected behavior. Also, it was tough to make some Material UI components responsive. The documentation did not seem to match what we worked with in some cases. From working through these challenges, we have learned how to develop a responsive user experience by making sure components behave responsively and are styled with a dynamic range of viewport sizes in mind.
+
+There are a number of things that we can improve on or have left undone. Outside of the [incomplete project requirements](#project-requirements), which are only extra optional features we can add, there are a number of things we can improve on:
+* the Google places API seems to return mostly restaurants/food options. We should add additional APIs to cater to a broader range of suggestions
+* we have not made our website fully responsive; we have a mock for a mobile design, but have not had the resources to implement it
 
 ***
 
