@@ -8,10 +8,16 @@ Jean Around the World
 
 #### Basic Technology Requirements:
 * HTML/CSS:
-   * An example: the [Preference Page](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences)'s [HTML](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.jsx) and [CSS](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.css) employs many modern frontend tools for responsiveness, such as using CSS grid, responsive styling using `%`s, as well as general web development practices.
+   * An example: the [Preference Page](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences)'s [HTML](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.jsx) and [CSS](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.css) employs many modern frontend tools for responsiveness, such as using CSS grid, responsive styling using `%`s, media queries, as well as general industry-standard web development practices.
 * Redux:
   * [The Folder](https://github.com/denim-squad/jean-around-the-world/tree/master/imports/redux). Note that we exported many constants inside our `actions` and imported them into our `reducers`. This ensures that we have a single source of truth, and that any changes to these constants will cascade to any component that uses them. 
-   
+* APIs:
+  * [The Folder](https://github.com/denim-squad/jean-around-the-world/tree/master/imports/api/places). Our main API is in [fetchPlaces](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/api/places/server/fetchPlaces.js); we use this via Meteor methods to generate a list of locations.
+* MongoDB:
+  * [Setup](https://github.com/denim-squad/jean-around-the-world/blob/master/lib/userInfoCollection.js). [Use](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/redux/reducers/index.jsx). Note that these were handled using Meteor methods.
+* Release engineering:
+  * [CI/CD](https://github.com/denim-squad/jean-around-the-world/deployments). [Hosted site](http://jeanaroundtheworld.herokuapp.com). We set up CI/CD using Heroku deployment to automatically deploy our PRs. The `Development` branch deployed to our `dev` environment, `Master` deployed to our `staging` environment, and we manually deployed our final hosted site.
+
 ***
 
 #### Basic Contribution Requirements:
