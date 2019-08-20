@@ -36,6 +36,24 @@ There are a number of things that we can improve on or have left undone. Outside
 
 ***
 
+#### Initiative and additional contributions:
+* Hai Lin:
+    * Took charge of code reviews and the initial design of the app
+    * Coordinated deadlines
+    * Handled the brunt of the frontend work, UI styling
+* Jessica:
+    * Designed entire app on Figma
+    * Did most of the responsiveness work
+    * Login/logout functionality
+* John:
+    * Handled most of the Redux
+    * Lower level logic such as implementing the nearest-neighbour algorithm to organize our results
+* Wesley:
+    * Set up the entire build pipeline, hosting
+    * Handled all of the API calls
+
+***
+
 #### Project Description
 *Jean Around the World* will be a full-stack web application using React frontend and MongoDB/MeteorJS backend. We will create a website with the purpose of trip-planning, allowing users to select a destination somewhere in the world and returning suggestions for accommodation, food, etc. Aimed at users who are planning to go on vacation, looking for a good deal, or are interested in personalizing their trip, *Jean Around the World* will expedite their trip-planning experience by generating locales from which the user can develop their itinerary.
 
