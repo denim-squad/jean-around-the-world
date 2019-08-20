@@ -35,26 +35,26 @@ Based on time restraints, we are unlikely to implement functionalities which rec
 
 #### Project Requirements
 * ##### Minimal requirement (3-5) - will complete
-    * Input a location, returns recommendations for accommodations, food, etc. - Complete, on Home Page
-    * Store past trips, reviews, blacklist, favourites, etc. - Complete, on Preferences page and Profile page
-    * Change the search radius - Complete, on Home Page
-    * Plan a trip depending on what you want  - Complete, on Results Page
+    * Input a location, returns recommendations for accommodations, food, etc. - *Complete, on Home Page*
+    * Store past trips, reviews, blacklist, favourites, etc. - *Complete, on Preferences page and Profile page*
+    * Change the search radius - *Complete, on Home Page*
+    * Plan a trip depending on what you want  - *Complete, on Results Page*
         * I.e. single meal, meal + dessert, snack, transportation type, budget
     * Link to the place
 * ##### Standard (2-7) - will probably complete
-    * Homepage is google maps type thing, click on a location - Complete, on Home Page
-    * Randomizer for what is recommended - Complete, on Results Page
-    * Change given selected restaurants, accommodations, etc. - Complete, on Results Page
+    * Homepage is google maps type thing, click on a location - *Complete, on Home Page*
+    * Randomizer for what is recommended - *Complete, on Results Page*
+    * Change given selected restaurants, accommodations, etc. - *Complete, on Results Page*
         * In case hotel is fully booked, etc.
-    * Sharing trip with friends on social media - Incomplete, for future consideration
-    * Export to calendar - Complete, on Results Page 
-    * (depending on API) emailing the company to make a reservation - Incomplete, for future consideration
+    * Sharing trip with friends on social media - *Incomplete, for future consideration*
+    * Export to calendar - *Complete, on Results Page*
+    * (depending on API) emailing the company to make a reservation - *Incomplete, for future consideration*
         * Based on template
 * ##### Stretch (2-3) - hope to complete
-    * Email you recommendations based on where you’ve been/liked, once a month - Incomplete, for future consideration
-    * Family mode (age ranges?)- Incomplete, for future consideration
-    * Google maps integration - Complete, on Home and Results pages 
-    * Input area you want to explore and how long trip distance should cover - Complete, on Home Page
+    * Email you recommendations based on where you’ve been/liked, once a month - *Incomplete, for future consideration*
+    * Family mode (age ranges?)- *Incomplete, for future consideration*
+    * Google maps integration - *Complete, on Home and Results pages*
+    * Input area you want to explore and how long trip distance should cover - *Complete, on Home Page*
         * Trip will recommend a “trip” for you including like a restaurant/cafe/activity to go to or do depending on your inputs
             * E.g. “Would you like to eat something” → trip path will include a food place
 
