@@ -8,7 +8,9 @@ Jean Around the World
 
 #### Basic Technology Requirements:
 * HTML/CSS:
-   * An example: the [Preference Page](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences)'s [HTML](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.jsx) and [CSS](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.css)
+   * An example: the [Preference Page](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences)'s [HTML](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.jsx) and [CSS](https://github.com/denim-squad/jean-around-the-world/blob/master/imports/ui/pages/preferences/preferences.page.css) employs many modern frontend tools for responsiveness, such as using CSS grid, responsive styling using `%`s, as well as general web development practices.
+* Redux:
+  * [The Folder](https://github.com/denim-squad/jean-around-the-world/tree/master/imports/redux). Note that we exported many constants inside our `actions` and imported them into our `reducers`. This ensures that we have a single source of truth, and that any changes to these constants will cascade to any component that uses them. 
    
 ***
 
