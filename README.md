@@ -21,7 +21,14 @@ Jean Around the World
 
 #### Basic Functionality Requirements:
 The main functionality of our app is described [here](#project-description), in the project description. Our requirements are described [here](#project-requirements).
-   
+
+In summary, our project's aim was to simplify the trip-planning process. Our app has done this to a great extent, by offering a streamlined path for a user based on their preferences for any location and radius. We have done so by using a custom google maps component on our home page as well as a material UI slider to grab a selected location and a set radius. These are passed as parameters to our Google Places API call, which will generate a JSON object of locations, based on what is enabled by the user in the `select what you want` section of the preferences page. Then, the last 2 parts of the preferences page filter our API results, and they are displayed in the results page. From the results page, we have made a greedy nearest-neighbour algorithm to essentially sort an array of latitudes and longitudes to be placed as markers on the map. When the markers are clicked, they call the Google Maps Place Details API to fetch a small icon based on its type (bar, restaurant, etc.), as well as its address, website link, etc. In addition, we also used redux and MongoDB to handle our login-logout functionalities. Login is handled using builtin Meteor methods.
+
+***
+
+#### Challenges, learning, and future directions:
+However, there are a number of things that we can improve on or have left undone. Outside of the incomplete project requirements, which are only extra optional features we can add, 
+
 ***
 
 #### Project Description
@@ -40,7 +47,7 @@ Based on time restraints, we are unlikely to implement functionalities which rec
     * Change the search radius - *Complete, on Home Page*
     * Plan a trip depending on what you want  - *Complete, on Results Page*
         * I.e. single meal, meal + dessert, snack, transportation type, budget
-    * Link to the place
+    * Link to the place - *Complete, on Results Page*
 * ##### Standard (2-7) - will probably complete
     * Homepage is google maps type thing, click on a location - *Complete, on Home Page*
     * Randomizer for what is recommended - *Complete, on Results Page*
