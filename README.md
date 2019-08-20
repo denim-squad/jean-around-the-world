@@ -138,5 +138,3 @@ Based on time restraints, we are unlikely to implement functionalities which rec
 
 
 ![alt text](https://github.com/denim-squad/jean-around-the-world/blob/master/images/PrototypeSketches.JPG?raw=true)
-
-
